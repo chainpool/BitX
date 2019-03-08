@@ -20,16 +20,6 @@
     "redux-thunk": "^2.2.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.1.2",
-    "@babel/core": "^7.1.2",
-    "@babel/node": "^7.0.0",
-    "@babel/plugin-proposal-class-properties": "^7.1.0",
-    "@babel/plugin-proposal-decorators": "^7.1.2",
-    "@babel/preset-env": "^7.1.0",
-    "@babel/preset-react": "^7.0.0",
-    "babel-eslint": "^10.0.1",
-    "browser-sync": "^2.23.6",
-    "chai": "^4.1.0",
     "electron": "^3.0.0",
     "electron-builder": "^20.0.7",
     "electron-devtools-installer": "^2.2.4",
@@ -38,9 +28,7 @@
     "eslint-config-prettier": "^3.1.0",
     "eslint-plugin-react": "^7.1.0",
     "npm-run-all": "^4.0.1",
-    "prettier": "^1.13.7",
-    "redux-mock-store": "^1.2.2",
-    "rimraf": "^2.5.4"
+    "prettier": "^1.13.7"
   },
   "scripts": {
     "postinstall": "electron-builder install-app-deps",
@@ -57,10 +45,9 @@
     "private:build:mac": "electron-builder --mac",
     "private:build:win": "electron-builder --win",
     "private:build:linux": "electron-builder --linux",
-    "private:watch": "npm run private:compile -- --source-maps true --watch --skip-initial-build",
+    "private:watch": "cd app && yarn start",
     "private:serve": "babel-node scripts/serve.js",
-    "private:compile": "babel app/ --copy-files --out-dir build",
-    "private:clean": "rimraf build",
+    "private:compile": "cd app && yarn build",
     "private:format": "prettier \"babel.config.js\" \"scripts/*.js\" \"app/**/*.js\" \"test/**/*.js\""
   }
 }
