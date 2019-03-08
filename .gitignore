@@ -3,3 +3,5 @@ dist
 build
 .DS_Store
 *.log
+/app/.env
+/.idea
