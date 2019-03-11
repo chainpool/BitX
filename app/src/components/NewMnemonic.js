@@ -15,7 +15,6 @@ class NewMnemonic extends Component {
   }
 
   render() {
-    console.log(this.props);
     return (
       <div className="new-mnemonic">
         <div>
