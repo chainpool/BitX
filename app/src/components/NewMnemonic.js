@@ -15,6 +15,8 @@ class NewMnemonic extends Component {
   }
 
   render() {
+    const { history } = this.props;
+
     return (
       <div className="new-mnemonic">
         <div>
@@ -32,7 +34,11 @@ class NewMnemonic extends Component {
         <p>{this.props.mnemonic.join(' ')}</p>
 
         <div className="operation">
-          <Button variant="contained" color="primary" className="button">
+          <Button
+            variant="contained"
+            color="primary"
+            className="button"
+            onClick={() => history.push('/password')}>
             我已备份
           </Button>
         </div>

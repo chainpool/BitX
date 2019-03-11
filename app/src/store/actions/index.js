@@ -1,6 +1,6 @@
-export const setAccounts = (accounts) => ({
-  type: 'SET_ACCOUNTS',
-  accounts,
+export const addAccount = (account) => ({
+  type: 'ADD_ACCOUNT',
+  account,
 });
 
 export const generateMnemonic = () => ({ type: 'GENERATE_MNEMONIC' });
