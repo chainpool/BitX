@@ -4,3 +4,5 @@ export const addAccount = (account) => ({
 });
 
 export const generateMnemonic = () => ({ type: 'GENERATE_MNEMONIC' });
+
+export const removeMnemonic = () => ({ type: 'REMOVE_MNEMONIC' });

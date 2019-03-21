@@ -7,9 +7,10 @@ import ArrowBack from '@material-ui/icons/ArrowBack';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import { addAccount } from '@store/actions';
+import { addAccount, removeMnemonic } from '@store/actions';
 import bip32 from 'bip32';
 import bip39 from 'bip39';
+import bip38 from 'bip38';
 import bitcoin from 'bitcoinjs-lib';
 
 class PasswordSetting extends Component {
@@ -101,13 +102,28 @@ const mapDispatchToProps = (dispatch) => {
 
       const seed = bip39.mnemonicToSeed(mnemonic.join(' '));
       const root = bip32.fromSeed(seed);
-      debugger;
       const child1 = root.derivePath(path);
-      console.log(child1);
-      const result = bitcoin.payments.p2pkh({ pubkey: child1.publicKey });
-      console.log(result);
+      const p2pkh = bitcoin.payments.p2pkh({
+        pubkey: child1.publicKey,
+        network: bitcoin.networks.testnet,
+      });
 
-      dispatch(addAccount({ name, address: '' }));
+      const params = {
+        N: 128, // specified by BIP38
+        r: 8,
+        p: 8,
+      };
+
+      const encryptedKey = bip38.encrypt(
+        child1.privateKey,
+        true,
+        password,
+        (status) => console.log(status.percent),
+        params,
+      );
+
+      dispatch(addAccount({ name, address: p2pkh.address, encryptedKey }));
+      dispatch(removeMnemonic());
     },
   };
 };
