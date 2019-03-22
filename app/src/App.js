@@ -5,6 +5,7 @@ import AccountList from './components/AccountList';
 import Guide from './components/Guide';
 import NewMnemonic from './components/NewMnemonic';
 import PasswordSetting from './components/PasswordSetting';
+import Detail from './components/Detail';
 import './App.css';
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
           <Route path="/about" component={AccountList} />
           <Route path="/new" component={NewMnemonic} />
           <Route path="/password" component={PasswordSetting} />
+          <Route path="/account/:address" component={Detail} />
         </Switch>
       </div>
     </Router>
