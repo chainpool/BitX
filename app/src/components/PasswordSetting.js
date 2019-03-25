@@ -20,11 +20,9 @@ class PasswordSetting extends Component {
     repeatPassword: '',
   };
 
-  componentDidMount() {
-    console.log(this.props.mnemonic);
-  }
-
   render() {
+    const { history } = this.props;
+
     return (
       <div className="new-mnemonic">
         <div>
@@ -79,8 +77,12 @@ class PasswordSetting extends Component {
           color="primary"
           className="button"
           onClick={() => {
-            console.log('fuck world');
-            this.props.addAccount(this.state.name, this.props.mnemonic, this.state.password);
+            const address = this.props.addAccount(
+              this.state.name,
+              this.props.mnemonic,
+              this.state.password,
+            );
+            history.push(`/account/${address}`);
           }}>
           确定
         </Button>
@@ -92,6 +94,7 @@ class PasswordSetting extends Component {
 const mapStateToProps = (state) => {
   return {
     mnemonic: state.newMnemonic,
+    accounts: state.accounts,
   };
 };
 
@@ -114,16 +117,12 @@ const mapDispatchToProps = (dispatch) => {
         p: 8,
       };
 
-      const encryptedKey = bip38.encrypt(
-        child1.privateKey,
-        true,
-        password,
-        (status) => console.log(status.percent),
-        params,
-      );
+      const encryptedKey = bip38.encrypt(child1.privateKey, true, password, null, params);
 
       dispatch(addAccount({ name, address: p2pkh.address, encryptedKey }));
       dispatch(removeMnemonic());
+
+      return p2pkh.address;
     },
   };
 };

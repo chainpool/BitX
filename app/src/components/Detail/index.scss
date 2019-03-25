@@ -1,0 +1,15 @@
+.detail {
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  .grow {
+    flex-grow: 1;
+  }
+  .menu {
+    margin-left: -12px;
+  }
+
+  .operation {
+    text-align: center;
+  }
+}
