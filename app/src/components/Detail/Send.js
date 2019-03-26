@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
@@ -98,4 +99,10 @@ class Send extends Component {
   }
 }
 
-export default Send;
+const mapStateToProps = (state, ownProps) => {
+  return {
+    utxos: state.utxos.filter((utxo) => utxo.address === ownProps.address),
+  };
+};
+
+export default connect(mapStateToProps)(Send);

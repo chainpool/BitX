@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import { connect } from 'react-redux';
-import { setBalance } from '@store/actions';
+import { setBalance, setUtxos } from '@store/actions';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -18,8 +18,9 @@ class Detail extends Component {
   state = { value: 0 };
 
   componentDidMount() {
-    const { getBalance } = this.props;
+    const { getBalance, getUtxos } = this.props;
     getBalance();
+    getUtxos();
   }
 
   render() {
@@ -80,6 +81,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
   return {
     getBalance: () => dispatch(setBalance(address)),
+    getUtxos: () => dispatch(setUtxos(address)),
   };
 };
 

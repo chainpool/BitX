@@ -7,3 +7,10 @@ export async function getBalance(addr) {
     return response.json();
   });
 }
+
+export async function getUtxos(addr) {
+  return window
+    .fetch(endpoint + `/addrs/${addr}?unspentOnly=true&confirmations=6`)
+    .then((res) => res.json())
+    .then((res) => res.txrefs || []);
+}
