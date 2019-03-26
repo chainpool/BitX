@@ -1,0 +1,11 @@
+.right {
+  flex-direction: row-reverse !important;
+}
+
+.operation {
+  margin-top: 16px;
+  button {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+}

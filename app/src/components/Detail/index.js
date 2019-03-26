@@ -12,9 +12,10 @@ import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Receive from './Receive';
+import Send from './Send';
 
 class Detail extends Component {
-  state = { value: 1 };
+  state = { value: 0 };
 
   componentDidMount() {
     const { getBalance } = this.props;
@@ -59,6 +60,7 @@ class Detail extends Component {
             <Tab label="接收" />
           </Tabs>
 
+          {value === 0 && <Send address={address} />}
           {value === 1 && <Receive address={address} />}
         </Paper>
       </div>
