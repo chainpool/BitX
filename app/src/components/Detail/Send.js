@@ -12,10 +12,28 @@ class Send extends Component {
     amount: '',
     addOpReturn: false,
     hex: '',
+    ascii: '',
   };
 
   render() {
-    const { address, amount, hex, addOpReturn } = this.state;
+    const { address, amount, hex, addOpReturn, ascii } = this.state;
+
+    function hexToAscii(str) {
+      if (!/^(0x)?[\da-fA-F]+$/.test(str)) {
+        return '';
+      }
+
+      const hexString = str.startsWith('0x') ? str.substring(2) : str;
+      if (hexString.length % 2 === 1) {
+        return '';
+      }
+
+      let strOut = '';
+      for (let x = 0; x < hexString.length; x += 2) {
+        strOut += String.fromCharCode(parseInt(hexString.substr(x, 2), 16));
+      }
+      return strOut;
+    }
 
     return (
       <div>
@@ -60,11 +78,13 @@ class Send extends Component {
               rowsMax="2"
               value={hex}
               fullWidth
-              onChange={(event) => this.setState({ hex: event.target.value })}
+              onChange={(event) =>
+                this.setState({ hex: event.target.value, ascii: hexToAscii(event.target.value) })
+              }
               margin="none"
             />
 
-            <TextField disabled fullWidth label="文本ASCII" value={hex} margin="normal" />
+            <TextField disabled fullWidth label="文本ASCII" value={ascii} margin="normal" />
           </section>
         )}
 
