@@ -6,6 +6,7 @@ import Switch from '@material-ui/core/Switch';
 import FormGroup from '@material-ui/core/FormGroup';
 import './send.scss';
 import Button from '@material-ui/core/Button';
+import compose, { enough } from './bitcoin';
 
 class Send extends Component {
   state = {
@@ -15,6 +16,21 @@ class Send extends Component {
     hex: '',
     ascii: '',
   };
+
+  constructTx() {
+    const { address, amount, hex } = this.state;
+    const { utxos } = this.props;
+    const result = compose(
+      utxos[0].utxos,
+      address,
+      address,
+      parseInt(amount),
+      1000,
+      hex,
+    );
+
+    console.log(result);
+  }
 
   render() {
     const { address, amount, hex, addOpReturn, ascii } = this.state;
@@ -90,7 +106,7 @@ class Send extends Component {
         )}
 
         <section className="operation">
-          <Button variant="contained" color="primary">
+          <Button variant="contained" color="primary" onClick={this.constructTx.bind(this)}>
             确定
           </Button>
         </section>
