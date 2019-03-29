@@ -20,6 +20,12 @@ class Send extends Component {
   constructTx() {
     const { address, amount, hex } = this.state;
     const { utxos } = this.props;
+
+    if (!enough(utxos[0].utxos, parseInt(amount), 1000)) {
+      // TODO: 用户余额不够，需要提醒用户
+      return;
+    }
+
     const result = compose(
       utxos[0].utxos,
       address,
