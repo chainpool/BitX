@@ -28,7 +28,11 @@ function ButtonAppBar(props) {
         创建账户
       </Button>
 
-      <Button variant="contained" color="primary" className={classes.button}>
+      <Button
+        variant="contained"
+        color="primary"
+        className={classes.button}
+        onClick={() => history.push('/import')}>
         导入账户
       </Button>
     </div>
