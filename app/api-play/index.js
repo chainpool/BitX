@@ -22,4 +22,7 @@ test();
  *
  * Address api
  * https://www.blockcypher.com/dev/bitcoin/?shell#address-api
+ *
+ * 广播交易（propagate the raw transaction）
+ * https://www.blockcypher.com/dev/bitcoin/#push-raw-transaction-endpoint
  */
