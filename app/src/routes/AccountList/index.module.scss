@@ -1,0 +1,14 @@
+@import '~@styles/index.scss';
+.AccountList{
+  $distance:20px;
+  .listtitle{
+    color:$yellow;
+    font-size: 16px;
+    height:65px;
+    background: $gray;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding:0 $distance;
+  }
+}

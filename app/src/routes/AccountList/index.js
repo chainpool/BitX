@@ -1,12 +1,18 @@
 import React ,{Component} from 'react';
-import * as styles from './index.module.css';
+import * as styles from './index.module.scss';
 import { connect } from 'react-redux';
 
 class AccountList extends Component{
   render(){
     console.log(this.props)
     return <div className={styles.AccountList}>
-      AccountList
+      <div className={styles.listtitle}>
+        <div>账户列表</div>
+        <div>+</div>
+      </div>
+      <ul>
+        <li></li>
+      </ul>
     </div>
   }
 }
