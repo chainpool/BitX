@@ -1,0 +1,35 @@
+@import '~@styles/index.scss';
+.SelectModeGetAccount{
+  position:absolute;
+  top:0;
+  width:100%;
+  height:100%;
+  background: #575757;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;
+  >div{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .bitx{
+    margin-bottom: 170px;
+    width:100%;
+    color:white;
+  }
+  button+button{
+    margin-top: 20px;
+  }
+  button{
+    font-size: 20px;
+    color:$yellow;
+    background: #F6C94A;
+    border-radius: 4px;
+    width:240px;
+    height:56px;
+  }
+}
