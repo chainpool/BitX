@@ -14,8 +14,12 @@ class SelectModeGetAccount extends Component {
           <img src={BitX} height={55} />
         </div>
         <div className={styles.routerbutton}>
-          <button>创建账户</button>
-          <button>导入账户</button>
+          <div>
+            <button>创建账户</button>
+          </div>
+          <div>
+            <button>导入账户</button>
+          </div>
         </div>
       </div>
     );
