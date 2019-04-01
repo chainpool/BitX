@@ -10,6 +10,13 @@
   flex-wrap: wrap;
   align-content: center;
   justify-content: center;
+  .close{
+    color:white;
+    position: fixed;
+    top:20px;
+    left:20px;
+    font-size: 16px;
+  }
   >div{
     display: flex;
     justify-content: center;

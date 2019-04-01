@@ -1,36 +1,49 @@
-import React ,{Component} from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import SelectModeGetAccount from './SelectModeGetAccount'
+import SelectModeGetAccount from './SelectModeGetAccount';
 import * as styles from './index.module.scss';
 
+class AccountList extends Component {
+  constructor(props) {
+    super(props);
+    const { accounts = [] } = props;
+    this.state = {
+      close: !!accounts.length,
+    };
+  }
 
-class AccountList extends Component{
-  render(){
-    const {accounts=[]}=this.props
+  changeClose = () => {
+    this.setState((prevState) => ({
+      close: !prevState.close,
+    }));
+  };
 
-    return <div className={styles.AccountList}>
-      {
-        accounts.length?(
-          <>
-            <div className={styles.listtitle}>
-              <div>账户列表</div>
-              <div>+</div>
+  render() {
+    const { changeClose } = this;
+    const { close } = this.state;
+
+    return (
+      <div className={styles.AccountList}>
+        <div className={styles.listtitle}>
+          <div>账户列表</div>
+          <div onClick={changeClose}>
+            <i className="iconfont iconadd" />
+          </div>
+        </div>
+        <ul>
+          <li>
+            <div className={styles.desc}>
+              <div className={styles.name}>Alice</div>
+              <div className={styles.amount}>
+                1.34567828<span>BTC</span>
+              </div>
             </div>
-            <ul>
-              <li>
-                <div className={styles.desc}>
-                  <div className={styles.name}>Alice</div>
-                  <div className={styles.amount}>1.34567828<span>BTC</span></div>
-                </div>
-                <div className={styles.address}>1ANng9ANZnT7KUfxgtMNyiuhzFHY4j2gdG</div>
-              </li>
-            </ul>
-          </>
-        ):<SelectModeGetAccount {...this.props} />
-      }
-
-
-    </div>
+            <div className={styles.address}>1ANng9ANZnT7KUfxgtMNyiuhzFHY4j2gdG</div>
+          </li>
+        </ul>
+        {close ? null : <SelectModeGetAccount {...this.props} changeClose={changeClose} />}
+      </div>
+    );
   }
 }
 
@@ -41,13 +54,10 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {
-
-  };
+  return {};
 };
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
 )(AccountList);
-
