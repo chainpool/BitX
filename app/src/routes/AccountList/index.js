@@ -11,7 +11,13 @@ class AccountList extends Component{
         <div>+</div>
       </div>
       <ul>
-        <li></li>
+        <li>
+          <div className={styles.desc}>
+            <div className={styles.name}>Alice</div>
+            <div className={styles.amount}>1.34567828<span>BTC</span></div>
+          </div>
+          <div className={styles.address}>1ANng9ANZnT7KUfxgtMNyiuhzFHY4j2gdG</div>
+        </li>
       </ul>
     </div>
   }

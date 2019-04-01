@@ -11,4 +11,36 @@
     justify-content: space-between;
     padding:0 $distance;
   }
+
+  ul{
+    background: white;
+    li{
+      display: flex;
+      flex-wrap: wrap;
+      align-content: center;
+      height:80px;
+      padding:0 $distance;
+      .desc{
+        margin-bottom: 10px;
+        width:100%;
+        display: flex;
+        justify-content: space-between;
+        .name,.amount{
+          font-weight:bold;
+          color:$yellow;
+          font-size: 16px;
+        }
+        .amount{
+          span{
+            font-weight:400;
+          }
+        }
+        .address{
+          font-size: 14px;
+          color: #959595;
+        }
+      }
+
+    }
+  }
 }
