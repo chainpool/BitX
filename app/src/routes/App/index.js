@@ -1,7 +1,8 @@
 import React,{Component} from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Route, Switch } from 'react-router';
-import AccountList from '../AccountList'
+import CommonLayOut from './CommonLayOut'
+
 import './index.module.css';
 
 class App extends Component{
@@ -9,7 +10,7 @@ class App extends Component{
     return (
       <Router>
         <Switch>
-          <Route path="/" component={AccountList} />} />
+          <Route path="/" render={props=><CommonLayOut {...props} {...this.props} /> } />
         </Switch>
       </Router>
     );
