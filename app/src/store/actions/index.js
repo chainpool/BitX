@@ -35,3 +35,8 @@ export const setUtxos = (addr) => {
     });
   };
 };
+
+export const setPageTitle = (pageTitle) => ({
+  type: 'SET_PAGE_TITLE',
+  pageTitle,
+});

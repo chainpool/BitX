@@ -1,9 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
+import { Mixin } from '../../components';
 import SelectModeGetAccount from './SelectModeGetAccount';
 import * as styles from './index.module.scss';
 
-class AccountList extends Component {
+class AccountList extends Mixin {
+  pageTitle = 'Bitx';
   constructor(props) {
     super(props);
     const { accounts = [] } = props;
@@ -11,6 +13,8 @@ class AccountList extends Component {
       close: !!accounts.length,
     };
   }
+
+  startInit = () => {};
 
   changeClose = () => {
     this.setState((prevState) => ({
@@ -53,11 +57,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {};
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(AccountList);
+export default connect(mapStateToProps)(AccountList);
