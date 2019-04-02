@@ -3,11 +3,12 @@ import { connect } from 'react-redux';
 import { Mixin } from '../../components';
 import KnowAbout from './KnowAbout';
 import SaveMnemonic from './SaveMnemonic';
+import CheckMnemonic from './CheckMnemonic';
 import * as styles from './index.module.scss';
 
 class CreateAccount extends Mixin {
   state = {
-    step: 1,
+    step: 4,
     mnemonic: new Array(12).fill().map((item, index) => `alice${index}`),
   };
 
@@ -28,6 +29,7 @@ class CreateAccount extends Mixin {
       <div className={styles.CreateAccount}>
         {step === 1 && <KnowAbout {...props} />}
         {step === 2 && <SaveMnemonic {...props} />}
+        {step === 3 && <CheckMnemonic {...props} />}
       </div>
     );
   }

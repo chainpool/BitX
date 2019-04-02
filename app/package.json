@@ -23,6 +23,7 @@
     "bitcoinjs-lib": "^4.0.3",
     "blockchain.info": "^2.12.1",
     "case-sensitive-paths-webpack-plugin": "2.2.0",
+    "classnames": "^2.2.6",
     "css-loader": "1.0.0",
     "dotenv": "6.0.0",
     "dotenv-expand": "4.2.0",
