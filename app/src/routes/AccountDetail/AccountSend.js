@@ -9,6 +9,9 @@ export default class AccountSend extends Mixin {
     addressErrMsg: '',
     amount: '',
     amountErrMsg: '',
+    addOpReturn: false,
+    hex: '',
+    hexErrMsg: '',
   };
 
   checkAll = {
@@ -37,7 +40,15 @@ export default class AccountSend extends Mixin {
 
   render() {
     const { checkAll } = this;
-    const { address, addressErrMsg, amount, amountErrMsg } = this.state;
+    const {
+      address,
+      addressErrMsg,
+      amount,
+      amountErrMsg,
+      addOpReturn,
+      hex,
+      hexErrMsg,
+    } = this.state;
     return (
       <div className={styles.AccountSend}>
         <div className={styles.userInput}>
@@ -64,6 +75,55 @@ export default class AccountSend extends Mixin {
               });
             }}
           />
+        </div>
+        <div className={styles.addreturn}>
+          添加OP_RETURN
+          {addOpReturn ? (
+            <i
+              onClick={() => {
+                this.setState({
+                  addOpReturn: !addOpReturn,
+                });
+              }}
+              className="iconfont iconopen"
+              style={{ color: '#F6C94A' }}
+            />
+          ) : (
+            <i
+              onClick={() => {
+                this.setState({
+                  addOpReturn: !addOpReturn,
+                });
+              }}
+              className="iconfont iconclose"
+              style={{ color: 'rgba(34,31,31,0.26)' }}
+            />
+          )}
+        </div>
+        {addOpReturn && (
+          <div className={styles.returncontent}>
+            <div className={styles.input}>
+              <Input
+                errMsg={hexErrMsg}
+                label="16进制 Hex"
+                value={hex}
+                onBlur={checkAll.checkAddress}
+                onChange={(value) => {
+                  this.setState({
+                    hex: value,
+                  });
+                }}
+              />
+            </div>
+            <div className={styles.ASCII}>
+              <div className={styles.label}>文本 ASCII</div>
+              <div>1ANng9ANZnT7KUfxgtMNyiuhzFHY4j2gdG</div>
+            </div>
+          </div>
+        )}
+
+        <div className={styles.button}>
+          <button>确定</button>
         </div>
       </div>
     );

@@ -16,7 +16,7 @@ class AccountDetail extends Mixin {
     return (
       <div className={styles.AccountDetail}>
         <AccountInfo {...this.props} />
-        <div className={styles.content}>
+        <div className={styles.content} style={{ background: activeIndex === 1 ? 'white' : '' }}>
           <ul className={styles.selectmode}>
             {['接收', '发送'].map((item, index) => (
               <li

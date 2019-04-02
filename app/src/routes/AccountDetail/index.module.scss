@@ -6,7 +6,7 @@
   .content{
     height:100%;
     margin-top: 10px;
-    background: white;
+    // background: white;
     border-top:1px solid #E3E3E3;
     .selectmode{
       display: flex;
@@ -14,6 +14,7 @@
       flex-shrink: 1;
 
       li{
+        background: white;
         &.active{
           background: #FCF0D0;
         }
