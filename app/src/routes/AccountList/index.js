@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Mixin } from '../../components';
+import { Mixin, RouterGo } from '../../components';
 import SelectModeGetAccount from './SelectModeGetAccount';
 import * as styles from './index.module.scss';
+import { PATH } from '../../constants';
 
 class AccountList extends Mixin {
   pageTitle = 'Bitx';
@@ -25,6 +26,7 @@ class AccountList extends Mixin {
   render() {
     const { changeClose } = this;
     const { close } = this.state;
+    const { accounts = [] } = this.props;
 
     return (
       <div className={styles.AccountList}>
@@ -35,15 +37,17 @@ class AccountList extends Mixin {
           </div>
         </div>
         <ul>
-          <li>
-            <div className={styles.desc}>
-              <div className={styles.name}>Alice</div>
-              <div className={styles.amount}>
-                1.34567828<span>BTC</span>
+          {accounts.map((item, index) => (
+            <RouterGo key={index} Ele="li" go={{ pathname: PATH.accountdetail }}>
+              <div className={styles.desc}>
+                <div className={styles.name}>{item.name}</div>
+                <div className={styles.amount}>
+                  1.34567828<span>BTC</span>
+                </div>
               </div>
-            </div>
-            <div className={styles.address}>1ANng9ANZnT7KUfxgtMNyiuhzFHY4j2gdG</div>
-          </li>
+              <div className={styles.address}>{item.address}</div>
+            </RouterGo>
+          ))}
         </ul>
         {close ? null : <SelectModeGetAccount {...this.props} changeClose={changeClose} />}
       </div>

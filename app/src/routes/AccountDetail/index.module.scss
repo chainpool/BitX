@@ -1,0 +1,30 @@
+@import '~@styles/index.scss';
+.AccountDetail{
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  .content{
+    height:100%;
+    margin-top: 10px;
+    background: white;
+    border-top:1px solid #E3E3E3;
+    .selectmode{
+      display: flex;
+      flex-grow: 1;
+      flex-shrink: 1;
+
+      li{
+        &.active{
+          background: #FCF0D0;
+        }
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height:40px;
+        width:100%;
+      }
+    }
+  }
+
+
+}

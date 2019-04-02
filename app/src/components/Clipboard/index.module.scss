@@ -1,0 +1,17 @@
+.clipboard {
+  word-break: break-all;
+  word-wrap:break-word;
+  .children {
+    &.ellipse {
+      vertical-align: bottom;
+      display: inline-block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    word-break: break-word;
+  }
+  i {
+    color: #bfc0c1;
+  }
+}

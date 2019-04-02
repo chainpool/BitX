@@ -1,0 +1,14 @@
+@import '~@styles/index.scss';
+.AccountAccept{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 60px;
+  .desc{
+    display: flex;
+    justify-content: center;
+    width:100%;
+    margin-top: 30px;
+  }
+
+}
