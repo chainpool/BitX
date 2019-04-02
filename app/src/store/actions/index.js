@@ -40,3 +40,8 @@ export const setPageTitle = (pageTitle) => ({
   type: 'SET_PAGE_TITLE',
   pageTitle,
 });
+
+export const setModal = ({ name, show, data }) => ({
+  type: 'SET_Modal',
+  modal: { name, show, data },
+});

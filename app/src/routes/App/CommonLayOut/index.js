@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import routers from '../routers';
 import Header from './Header';
 import * as styles from './index.module.scss';
-import { setPageTitle } from '../../../store/actions';
+import { setPageTitle, setModal } from '../../../store/actions';
 class CommonLayOut extends Component {
   render() {
     const { pageTitle } = this.props;
@@ -33,12 +33,14 @@ class CommonLayOut extends Component {
 const mapStateToProps = (state) => {
   return {
     pageTitle: state.pageTitle,
+    modal: state.modal,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     setPageTitle: (title) => dispatch(setPageTitle(title)),
+    setModal: ({ name, show, data }) => dispatch(setModal({ name, show, data })),
   };
 };
 

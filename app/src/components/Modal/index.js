@@ -1,19 +1,45 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import * as styles from './index.module.scss';
+import { setModal } from '../../store/actions';
 
-export default class Modal extends Component {
+class Modal extends Component {
   render() {
-    const { title } = this.props;
+    const { title, setModal, modal: { show } = {} } = this.props;
     return (
-      <div className={styles.Modalcontainer}>
-        <div className={styles.content}>
-          <div className={styles.header}>
-            <div className={styles.title}>{title}</div>
-            <i className="iconfont iconClose" />
+      show && (
+        <div className={styles.Modalcontainer}>
+          <div className={styles.content}>
+            <div
+              className={styles.header}
+              onClick={() => {
+                console.log('hhhh');
+                setModal(false);
+              }}>
+              <div className={styles.title}>{title}</div>
+              <i className="iconfont iconClose" />
+            </div>
           </div>
         </div>
-      </div>
+      )
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    modal: state.modal,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setModal: (status) => dispatch(setModal({ show: status })),
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Modal);

@@ -5,7 +5,6 @@ import * as styles from './AccountReceive.module.scss';
 
 export default class AccountAccept extends Mixin {
   startInit = () => {
-    console.log('hhhh');
     new QRious({
       size: 190,
       element: document.getElementById('qr'),

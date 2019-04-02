@@ -49,6 +49,7 @@ export default class AccountSend extends Mixin {
       hex,
       hexErrMsg,
     } = this.state;
+    const { modal: { name } = {} } = this.props;
     return (
       <div className={styles.AccountSend}>
         <div className={styles.userInput}>
@@ -123,9 +124,17 @@ export default class AccountSend extends Mixin {
         )}
 
         <div className={styles.button}>
-          <button>确定</button>
+          <button
+            onClick={() => {
+              this.openModal({
+                name: 'transfer',
+              });
+            }}>
+            确定
+          </button>
         </div>
-        <Modal />
+
+        {name === 'transfer' && <Modal />}
       </div>
     );
   }

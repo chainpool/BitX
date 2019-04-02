@@ -7,6 +7,7 @@
   pointer-events:none;
   background: rgba(0,0,0,0.7);
   .content{
+    pointer-events:auto;
     padding:20px;
     width:100%;
     position:fixed;

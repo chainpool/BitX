@@ -15,6 +15,30 @@ export default class Mixin extends Component {
     isFunction(this.startInit) && this.startInit();
   }
 
+  openModal = ({ name, data }) => {
+    if (this.props.setModal) {
+      this.props.setModal({
+        name,
+        data,
+        show: true,
+      });
+    } else {
+      console.log('this.props.setModal不存在，请把容器组件的setModal传递给当前组件');
+    }
+  };
+
+  closeModal = () => {
+    if (this.props.setModal) {
+      this.props.setModal({
+        name: '',
+        data: '',
+        show: false,
+      });
+    } else {
+      console.log('this.props.setModal不存在，请把容器组件的setModal传递给当前组件');
+    }
+  };
+
   componentWillUnmount() {
     this._isMounted = false;
   }
