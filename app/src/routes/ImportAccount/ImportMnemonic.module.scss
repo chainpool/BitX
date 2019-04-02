@@ -1,11 +1,9 @@
 @import '~@styles/index.scss';
-.CheckMnemonic{
-  height:100%;
+.ImportMnemonic{
   display: flex;
   flex-direction: column;
   align-content: center;
   align-items: center;
-  justify-content: center;
   .desc{
     font-size: 16px;
     color:$yellow;
@@ -14,7 +12,6 @@
   }
   .generatewords{
     text-align: center;
-    padding:0 50px;
     line-height: 26px;
     font-size: 16px;
     color:$yellow;
@@ -30,32 +27,20 @@
     height:116px;
     border-top:1px solid #E3E3E3;
     border-bottom:1px solid #E3E3E3;
-  }
-  .writedesc{
-    margin:30px 0 20px;
-    font-size: 16px;
-    color:$yellow;
-    &.warn{
-      color:$red;
+    textarea{
+      overflow: hidden;
+      line-height: 36px;
+      display: flex;
+      align-items: center;
+      align-content: center;
+      padding:25px 50px;
+      width:100%;
+      height:100%;
     }
   }
-  .allwords{
-    padding:0 35px;
-    display: flex;
-    flex-wrap: wrap;
-    align-content: center;
-    justify-content: center;
-    li{
-      &.active{
-        background: #F9DE92;
-        color: #AE9E70;
-      }
-      cursor: pointer;
-      padding:9px 16px;
-      background: #F6C94A;
-      border-radius: 4px;
-      margin: 0 5px 10px;
-    }
+  .errwarn{
+    color:$red;
+    margin-top: 10px;
   }
   button{
     margin-top: 60px;

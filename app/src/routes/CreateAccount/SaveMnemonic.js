@@ -12,7 +12,7 @@ export default class SaveMnemonic extends Mixin {
           <br />
           我们会在之后进行验证
         </div>
-        <ul className={styles.generatewords}>{mnemonic.join(' ')}</ul>
+        <div className={styles.generatewords}>{mnemonic.join(' ')}</div>
         <button onClick={() => changeStep(3)}>我已备份</button>
       </div>
     );

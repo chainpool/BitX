@@ -22,7 +22,9 @@ class SelectModeGetAccount extends Component {
             </RouterGo>
           </div>
           <div>
-            <button>导入账户</button>
+            <RouterGo go={{ pathname: PATH.importaccount }}>
+              <button>导入账户</button>
+            </RouterGo>
           </div>
         </div>
       </div>

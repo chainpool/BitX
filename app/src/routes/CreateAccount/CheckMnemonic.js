@@ -37,9 +37,9 @@ export default class CheckMnemonic extends Mixin {
     return (
       <div className={styles.CheckMnemonic}>
         <div className={styles.desc}>验证您记下的助记词</div>
-        <ul className={styles.generatewords}>
+        <div className={styles.generatewords}>
           {userInput.map((item = {}) => item.value).join(' ')}
-        </ul>
+        </div>
         <div className={classNames(styles.writedesc, userInputErrMsg && styles.warn)}>
           请按正确的顺序点击单词
         </div>

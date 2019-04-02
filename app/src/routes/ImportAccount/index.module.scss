@@ -1,0 +1,27 @@
+@import '~@styles/index.scss';
+.ImportAccount{
+  height:100%;
+  .selectmode{
+    height:40px;
+    margin-top: 20px;
+    margin-bottom: 40px;
+    background: white;
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    border-top:1px solid #E3E3E3;
+    border-bottom:1px solid #E3E3E3;
+    li{
+      display: flex;
+      align-items: center;
+      height:100%;
+      &.active{
+        background: #FCF0D0;
+      }
+      color:$yellow;
+      width:100%;
+      justify-content: center;
+
+    }
+  }
+}
