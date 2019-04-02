@@ -4,7 +4,7 @@ import * as styles from './ImportMnemonicOrSecret.module.scss';
 import { Patterns } from '../../utils';
 import { SetPassword } from '../Components';
 
-export default class ImportMnemonic extends Mixin {
+export default class ImportSecretKey extends Mixin {
   state = {
     userInput: '',
     userInputErrMsg: '',
@@ -32,16 +32,12 @@ export default class ImportMnemonic extends Mixin {
       <div className={styles.ImportMnemonic}>
         {step === 1 && (
           <>
-            <div className={styles.desc}>
-              请按正确顺序输入您的助记词
-              <br />
-              以空格键区分
-            </div>
+            <div className={styles.desc}>请输入您的钱包私钥</div>
             <div className={styles.generatewords}>
               <textarea
                 value={userInput}
                 onChange={(e) => {
-                  const value = e.target.value.replace(/\s+/g, ' ');
+                  const value = e.target.value;
                   this.setState({
                     userInputErrMsg: '',
                     userInput: value,

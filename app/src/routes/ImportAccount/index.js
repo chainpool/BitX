@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Mixin } from '../../components';
 import ImportMnemonic from './ImportMnemonic';
+import ImportSecretKey from './ImportSecretKey';
 import * as styles from './index.module.scss';
 
 class ImportAccount extends Mixin {
@@ -45,6 +46,7 @@ class ImportAccount extends Mixin {
         )}
 
         {activeIndex === 0 && <ImportMnemonic {...props} />}
+        {activeIndex === 1 && <ImportSecretKey {...props} />}
       </div>
     );
   }
