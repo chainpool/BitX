@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import * as styles from './Input.module.scss';
+import * as styles from './index.module.scss';
 
 export class Input extends Component {
   render() {

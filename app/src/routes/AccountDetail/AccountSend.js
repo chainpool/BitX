@@ -1,5 +1,5 @@
 import React from 'react';
-import { Mixin, Input } from '../../components';
+import { Mixin, Input, Modal } from '../../components';
 import * as styles from './AccountSend.module.scss';
 import { Patterns } from '../../utils';
 
@@ -125,6 +125,7 @@ export default class AccountSend extends Mixin {
         <div className={styles.button}>
           <button>确定</button>
         </div>
+        <Modal />
       </div>
     );
   }
