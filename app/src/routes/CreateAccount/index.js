@@ -4,11 +4,12 @@ import { Mixin } from '../../components';
 import KnowAbout from './KnowAbout';
 import SaveMnemonic from './SaveMnemonic';
 import CheckMnemonic from './CheckMnemonic';
+import { SetPassword } from '../Components';
 import * as styles from './index.module.scss';
 
 class CreateAccount extends Mixin {
   state = {
-    step: 4,
+    step: 1,
     mnemonic: new Array(12).fill().map((item, index) => `alice${index}`),
   };
 
@@ -18,18 +19,18 @@ class CreateAccount extends Mixin {
     });
   };
   render() {
-    const { changeStep } = this;
     const { step, mnemonic } = this.state;
     const props = {
       ...this.props,
       mnemonic,
-      changeStep,
+      changeStep: this.changeStep,
     };
     return (
       <div className={styles.CreateAccount}>
         {step === 1 && <KnowAbout {...props} />}
         {step === 2 && <SaveMnemonic {...props} />}
         {step === 3 && <CheckMnemonic {...props} />}
+        {step === 4 && <SetPassword {...props} />}
       </div>
     );
   }
@@ -41,7 +42,7 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = () => {
   return {};
 };
 

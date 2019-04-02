@@ -1,0 +1,30 @@
+@import '~@styles/index.scss';
+.container+.container{
+  margin-top: 20px;
+}
+.container{
+  // background: red;
+  .label{
+    font-size: 15px;
+    color:$yellow;
+    margin-bottom: 18px;
+  }
+  .content{
+    display: flex;
+    flex-grow: 1;
+    flex-shrink: 1;
+    input{
+      padding:0 5px;
+      font-size: 15px;
+      background: unset;
+      width:100%;
+      padding-bottom: 14px;
+      border-bottom: 1px solid #E3E3E3;
+    }
+  }
+  .errMsg{
+    color:$red;
+    margin-top: 5px;
+  }
+
+}

@@ -2,6 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import { Mixin } from '../../components';
 import * as styles from './CheckMnemonic.module.scss';
+import { Patterns } from '../../utils';
 
 export default class CheckMnemonic extends Mixin {
   state = {
@@ -11,14 +12,16 @@ export default class CheckMnemonic extends Mixin {
 
   checkAll = {
     checkUserInput: () => {
-      const { userInput = [], userInputErrMsg } = this.state;
+      const { userInput = [] } = this.state;
       const { mnemonic } = this.props;
-      if (userInput.map((item = {}) => item.value).join() !== mnemonic.join()) {
-        this.setState({
-          userInputErrMsg: '请按正确的顺序输入',
-        });
-      }
-      return userInputErrMsg;
+      const err = Patterns.check('strictEqual')(
+        userInput.map((item = {}) => item.value).join(),
+        mnemonic.join(),
+      );
+      this.setState({
+        userInputErrMsg: err,
+      });
+      return err;
     },
     confirm: () => {
       return ['checkUserInput'].every((item) => !this.checkAll[item]());
