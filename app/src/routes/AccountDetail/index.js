@@ -2,13 +2,14 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Mixin } from '../../components';
 import AccountInfo from './AccountInfo';
-import AccountAccept from './AccountAccept';
+import AccountReceive from './AccountReceive';
+import AccountSend from './AccountSend';
 import * as styles from './index.module.scss';
 
 class AccountDetail extends Mixin {
   pageTitle = 'Alice';
   state = {
-    activeIndex: 1,
+    activeIndex: 0,
   };
   render() {
     const { activeIndex } = this.state;
@@ -30,7 +31,8 @@ class AccountDetail extends Mixin {
               </li>
             ))}
           </ul>
-          {activeIndex === 1 && <AccountAccept {...this.props} />}
+          {activeIndex === 0 && <AccountSend {...this.props} />}
+          {activeIndex === 1 && <AccountReceive {...this.props} />}
         </div>
       </div>
     );
