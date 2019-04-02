@@ -14,7 +14,6 @@ class Modal extends Component {
             <div
               className={styles.header}
               onClick={() => {
-                console.log('hhhh');
                 setModal(false);
               }}>
               <div className={styles.title}>{title}</div>
