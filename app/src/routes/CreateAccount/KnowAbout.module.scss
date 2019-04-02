@@ -1,0 +1,29 @@
+@import '~@styles/index.scss';
+.KnowAbout{
+  // background: red;
+  height:100%;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  i{
+    color:#F6C94A;
+    font-size: 70px;
+    margin-bottom: 40px;
+  }
+  .content{
+    line-height: 28px;
+    font-size: 20px;
+    color:$yellow;
+  }
+  button{
+    border-radius: 4px;
+    width:240px;
+    height:52px;
+    background: #F6C94A;
+    color:$yellow;
+    font-size: 18px;
+    margin-top: 60px;
+  }
+}

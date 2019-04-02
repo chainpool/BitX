@@ -1,0 +1,42 @@
+@import '~@styles/index.scss';
+.SaveMnemonic{
+  height:100%;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  .desc{
+    font-size: 16px;
+    color:$yellow;
+    text-align: center;
+    line-height: 21px;
+  }
+  .generatewords{
+    text-align: center;
+    padding:0 50px;
+    line-height: 26px;
+    font-size: 16px;
+    color:$yellow;
+    font-weight: bold;
+
+    background: white;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    width:100%;
+    margin-top: 20px;
+    height:116px;
+    border-top:1px solid #E3E3E3;
+    border-bottom:1px solid #E3E3E3;
+  }
+  button{
+    margin-top: 60px;
+    border-radius: 4px;
+    width:240px;
+    height:52px;
+    background: #F6C94A;
+  }
+
+}
