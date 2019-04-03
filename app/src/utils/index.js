@@ -2,7 +2,7 @@ import bip39 from 'bip39';
 import bip32 from 'bip32';
 import bitcoin from 'bitcoinjs-lib';
 import bip38 from 'bip38';
-import wif from 'wif';
+
 export const isNumber = (value) => typeof value === 'number';
 
 export const isFunction = (fun) => typeof fun === 'function';
@@ -48,7 +48,7 @@ export const Patterns = {
 
 export const bitJS = {
   generateMnemonic: () => bip39.generateMnemonic(),
-  generateAccoumt: ({ name, mnemonic, password, privateKey }) => {
+  generateAccount: ({ name, mnemonic, password, wif }) => {
     let account;
     const path = "m/0'/0/0";
     const params = {
@@ -67,9 +67,9 @@ export const bitJS = {
       const encryptedKey = bip38.encrypt(child1.privateKey, true, password, null, params);
       account = { name, address: p2pkh.address, encryptedKey };
     } else {
-      const keyPair = bitcoin.ECPair.fromWIF(privateKey);
+      const keyPair = bitcoin.ECPair.fromWIF(wif, bitcoin.networks.testnet);
       const { address } = bitcoin.payments.p2pkh({ pubkey: keyPair.publicKey });
-      const encryptedKey = bip38.encrypt(privateKey, true, password, null, params);
+      const encryptedKey = bip38.encrypt(keyPair.privateKey, true, password, null, params);
       account = { name, address, encryptedKey };
     }
     return account;
@@ -77,9 +77,6 @@ export const bitJS = {
 };
 
 const words = bip39.generateMnemonic().split(' ');
-
-console.log(
-  bitJS.generateAccoumt({ name: 'wei', mnemonic: words, password: '123456' }),
-  '----账户',
-);
+const wif = 'cSXvChvzizEv4CkC1rQ94VEjjHWhRsUJaPxTZsUUMV97sncmTvQa';
+console.log(bitJS.generateAccount({ name: 'wei', password: '123456', wif }), '----账户');
 //console.log(wif());
