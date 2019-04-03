@@ -2,10 +2,26 @@ import bip39 from 'bip39';
 import bip32 from 'bip32';
 import bitcoin from 'bitcoinjs-lib';
 import bip38 from 'bip38';
+import store from 'store';
 
 export const isNumber = (value) => typeof value === 'number';
 
 export const isFunction = (fun) => typeof fun === 'function';
+
+export const localSave = {
+  get: (key) => {
+    return store.get(key);
+  },
+  set: (key, value) => {
+    store.set(key, value);
+  },
+  remove: (key) => {
+    store.remove(key);
+  },
+  clearAll: () => {
+    store.clearAll();
+  },
+};
 
 export const Patterns = {
   required: (value, errMsg = '必填') => {

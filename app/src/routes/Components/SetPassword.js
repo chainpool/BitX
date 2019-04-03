@@ -1,9 +1,12 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Mixin, Input } from '../../components';
+import { PATH } from '../../constants';
 import { bitJS, Patterns } from '../../utils';
 import * as styles from './SetPassword.module.scss';
+import { addAccount } from '../../store/actions';
 
-export default class SetPassword extends Mixin {
+class SetPassword extends Mixin {
   pageTitle = '设置密码';
   state = {
     name: '',
@@ -69,6 +72,7 @@ export default class SetPassword extends Mixin {
       confirmPassword,
       confirmPasswordErrMsg,
     } = this.state;
+    const { mnemonic, addAccount, history } = this.props;
     return (
       <div className={styles.SetPassword}>
         <div className={styles.inputcontent}>
@@ -117,8 +121,15 @@ export default class SetPassword extends Mixin {
           <button
             onClick={() => {
               if (checkAll.confirm()) {
-                // bitJS.generateAccoumt({ name: 'wei', mnemonic: words, password: '123456' }),
-                // console.log(this.props.mnemonic, name, password);
+                const account = bitJS.generateAccount({
+                  name: name,
+                  mnemonic,
+                  password: password,
+                });
+                addAccount(account);
+                history.push({
+                  pathname: PATH.home,
+                });
               }
             }}>
             确定
@@ -128,3 +139,16 @@ export default class SetPassword extends Mixin {
     );
   }
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addAccount: (account) => {
+      dispatch(addAccount(account));
+    },
+  };
+};
+
+export default connect(
+  undefined,
+  mapDispatchToProps,
+)(SetPassword);

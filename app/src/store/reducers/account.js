@@ -1,8 +1,12 @@
+import { localSave } from '../../utils';
 const accounts = (state = [], action) => {
   if (action.type === 'ADD_ACCOUNT') {
-    return [...state, action.account];
+    const result = [...state, action.account];
+    localSave.set('accounts', result);
+    return result;
   }
-  return [{ name: 'Alice', address: '1ANng9ANZnT7KUfxgtMNyiuhzFHY4j2gdG' }];
+  const local = localSave.get('accounts');
+  return local || state;
 };
 
 export default accounts;
