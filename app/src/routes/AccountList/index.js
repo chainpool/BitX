@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Mixin, RouterGo } from '../../components';
+import { setBlankSpace } from '../../utils';
 import SelectModeGetAccount from './SelectModeGetAccount';
 import * as styles from './index.module.scss';
 import { PATH } from '../../constants';
-import { getAccountBalance } from '../../store/actions';
 
 class AccountList extends Mixin {
   pageTitle = 'Bitx';
@@ -43,10 +43,7 @@ class AccountList extends Mixin {
             <RouterGo key={index} Ele="li" go={{ pathname: PATH.accountdetail }}>
               <div className={styles.desc}>
                 <div className={styles.name}>{item.name}</div>
-                <div className={styles.amount}>
-                  {item.balance}
-                  <span>BTC</span>
-                </div>
+                <div className={styles.amount}>{setBlankSpace(item.balanceShow, 'BTC')}</div>
               </div>
               <div className={styles.address}>{item.address}</div>
             </RouterGo>

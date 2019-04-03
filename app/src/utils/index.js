@@ -3,7 +3,11 @@ import bip32 from 'bip32';
 import bitcoin from 'bitcoinjs-lib';
 import bip38 from 'bip38';
 import store from 'store';
+import { BigNumber } from 'bignumber.js';
 
+export const isEmpty = (value) => {
+  return isNaN(value) || value === undefined || value === '';
+};
 export const isNumber = (value) => typeof value === 'number';
 
 export const isFunction = (fun) => typeof fun === 'function';
@@ -71,6 +75,22 @@ export const Patterns = {
       return Patterns[value](...params);
     };
   },
+};
+
+export const formatNumber = {
+  toPrecision: (value, precision = 0) => {
+    precision = Number(precision);
+    if (isEmpty(value)) return '';
+    return new BigNumber(value).dividedBy(Math.pow(10, precision)).toFixed(precision);
+  },
+  toBtcPrecision: (value) => {
+    return formatNumber.toPrecision(value, 8);
+  },
+};
+
+export const setBlankSpace = (value, unit) => {
+  if (isEmpty(value)) return unit;
+  return `${value} ${unit}`;
 };
 
 export const bitJS = {

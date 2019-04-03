@@ -1,4 +1,5 @@
 import { getBalance, getUtxos } from '../../service';
+import { formatNumber } from '../../utils';
 
 export const addAccount = (account) => ({
   type: 'ADD_ACCOUNT',
@@ -66,6 +67,7 @@ export const getAllAccountBalance = (accounts) => {
         return {
           ...item,
           ...(findOne ? findOne : {}),
+          balanceShow: formatNumber.toBtcPrecision(findOne.balance),
         };
       });
       dispatch(updateAccountBalance(accountsWithBalance));
