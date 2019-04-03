@@ -9,7 +9,7 @@ const accounts = (state = [], action) => {
   }
 
   const localAccounts = localSave.get('accounts');
-  return localAccounts || state;
+  return state.length ? state : localAccounts || [];
 };
 
 export default accounts;
