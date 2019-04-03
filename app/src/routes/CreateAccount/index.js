@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Mixin } from '../../components';
+import { bitJS } from '../../utils';
 import KnowAbout from './KnowAbout';
 import SaveMnemonic from './SaveMnemonic';
 import CheckMnemonic from './CheckMnemonic';
@@ -10,7 +11,7 @@ import * as styles from './index.module.scss';
 class CreateAccount extends Mixin {
   state = {
     step: 1,
-    mnemonic: new Array(12).fill().map((item, index) => `alice${index}`),
+    mnemonic: bitJS.generateMnemonic().split(' '),
   };
 
   changeStep = (step) => {
