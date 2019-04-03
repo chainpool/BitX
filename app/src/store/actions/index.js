@@ -5,6 +5,11 @@ export const addAccount = (account) => ({
   account,
 });
 
+export const updateAccountBalance = (accounts) => ({
+  type: 'UPDATE_ACCOUNT_BALANCE',
+  accounts,
+});
+
 const addBalance = (balance) => ({
   type: 'ADD_BALANCE',
   balance,
@@ -49,5 +54,21 @@ export const setModal = ({ name, show, data }) => ({
 export const getAccountBalance = (addr) => {
   return () => {
     return getBalance(addr);
+  };
+};
+
+export const getAllAccountBalance = (accounts) => {
+  return function(dispatch) {
+    const promises = accounts.map((item) => getBalance(item.address));
+    Promise.all(promises).then((res = []) => {
+      const accountsWithBalance = accounts.map((item = {}, index) => {
+        const findOne = res[index];
+        return {
+          ...item,
+          ...(findOne ? findOne : {}),
+        };
+      });
+      dispatch(updateAccountBalance(accountsWithBalance));
+    });
   };
 };

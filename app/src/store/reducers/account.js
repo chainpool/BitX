@@ -4,7 +4,10 @@ const accounts = (state = [], action) => {
     const result = [...state, action.account];
     localSave.set('accounts', result);
     return result;
+  } else if (action.type === 'UPDATE_ACCOUNT_BALANCE') {
+    return action.accounts;
   }
+
   const localAccounts = localSave.get('accounts');
   return localAccounts || state;
 };

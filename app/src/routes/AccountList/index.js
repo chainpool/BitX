@@ -16,12 +16,7 @@ class AccountList extends Mixin {
     };
   }
 
-  startInit = () => {
-    const { getAccountBalance } = this.props;
-    getAccountBalance('n3Xy4TCJoHpmma3sSpMY8xGcRX3u6NkMae').then((res) => {
-      console.log(res, '----');
-    });
-  };
+  startInit = () => {};
 
   changeClose = () => {
     this.setState((prevState) => ({
@@ -49,7 +44,8 @@ class AccountList extends Mixin {
               <div className={styles.desc}>
                 <div className={styles.name}>{item.name}</div>
                 <div className={styles.amount}>
-                  1.34567828<span>BTC</span>
+                  {item.balance}
+                  <span>BTC</span>
                 </div>
               </div>
               <div className={styles.address}>{item.address}</div>
@@ -62,19 +58,7 @@ class AccountList extends Mixin {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    accounts: state.accounts,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    getAccountBalance: (addr) => dispatch(getAccountBalance(addr)),
-  };
-};
-
 export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
+  undefined,
+  undefined,
 )(AccountList);
