@@ -6,7 +6,7 @@ import { setModal } from '../../store/actions';
 
 class Modal extends Component {
   render() {
-    const { title, setModal, modal: { show } = {} } = this.props;
+    const { title, setModal, modal: { show } = {}, children } = this.props;
     return (
       show && (
         <div className={styles.Modalcontainer}>
@@ -19,6 +19,7 @@ class Modal extends Component {
               <div className={styles.title}>{title}</div>
               <i className="iconfont iconClose" />
             </div>
+            {children}
           </div>
         </div>
       )
