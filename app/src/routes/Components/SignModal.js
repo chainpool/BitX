@@ -1,6 +1,6 @@
 import React from 'react';
 import { Mixin, Input, Modal } from '../../components';
-import { Patterns } from '../../utils';
+import { isFunction, Patterns } from '../../utils';
 import * as styles from './SignModal.module.scss';
 
 export default class SignModal extends Mixin {
@@ -12,7 +12,11 @@ export default class SignModal extends Mixin {
   checkAll = {
     checkPassword: () => {
       const { password } = this.state;
-      let err = Patterns.check('required')(password);
+      const { currentAccount: { encryptedKey } = {} } = this.props;
+
+      let err =
+        Patterns.check('required')(password) ||
+        Patterns.check('isValidPassword')(encryptedKey, password);
       this.setState({
         passwordErrMsg: err,
       });
@@ -25,6 +29,7 @@ export default class SignModal extends Mixin {
   render() {
     const { checkAll } = this;
     const { password, passwordErrMsg } = this.state;
+    const { modal: { data: { callback } = {} } = {} } = this.props;
     return (
       <Modal title="输入账户密码">
         <div className={styles.userInput}>
@@ -33,6 +38,7 @@ export default class SignModal extends Mixin {
             errMsg={passwordErrMsg}
             onChange={(value) => {
               this.setState({
+                passwordErrMsg: '',
                 password: value,
               });
             }}
@@ -40,7 +46,16 @@ export default class SignModal extends Mixin {
           />
         </div>
         <div className={styles.button}>
-          <button>确定</button>
+          <button
+            onClick={() => {
+              if (checkAll.confirm()) {
+                if (isFunction(callback)) {
+                  callback();
+                }
+              }
+            }}>
+            确定
+          </button>
         </div>
       </Modal>
     );

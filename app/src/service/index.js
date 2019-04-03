@@ -10,7 +10,7 @@ export async function getBalance(addr) {
 
 export async function getUtxos(addr) {
   return window
-    .fetch(endpoint + `/addrs/${addr}?unspentOnly=true&confirmations=6`)
+    .fetch(endpoint + `/addrs/${addr}?unspentOnly=true&confirmations=1`)
     .then((res) => res.json())
     .then((res) => res.txrefs || []);
 }

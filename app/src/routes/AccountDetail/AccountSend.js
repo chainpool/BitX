@@ -1,12 +1,17 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Mixin, Input } from '../../components';
 import { SignModal } from '../Components';
 import * as styles from './AccountSend.module.scss';
-import { Patterns } from '../../utils';
+import { Patterns, bitJS } from '../../utils';
+import { getAccountUtxos } from '../../store/actions';
+import { enough } from '../../components/Detail/bitcoin';
+import compose from '../../components/Detail/bitcoin';
 
-export default class AccountSend extends Mixin {
+class AccountSend extends Mixin {
   state = {
-    address: '1ANng9ANZnT7KUfxgtMNyiuhzFHY4j2gdG',
+    utxos: [],
+    address: '',
     addressErrMsg: '',
     amount: '',
     amountErrMsg: '',
@@ -26,7 +31,11 @@ export default class AccountSend extends Mixin {
     },
     checkAmount: () => {
       const { amount } = this.state;
-      const err = Patterns.check('required')(amount);
+      const {
+        currentAccount: { balanceShow },
+      } = this.props;
+      const err =
+        Patterns.check('required')(amount) || Patterns.check('smaller')(amount, balanceShow);
       this.setState({
         amountErrMsg: err,
       });
@@ -37,7 +46,35 @@ export default class AccountSend extends Mixin {
     },
   };
 
-  startInit = () => {};
+  startInit = () => {
+    const { getAccountUtxos, currentAccount } = this.props;
+    getAccountUtxos(currentAccount.address).then((res) =>
+      this.setState({
+        utxos: res,
+      }),
+    );
+  };
+
+  constructTx() {
+    const { address, amount, hex, utxos } = this.state;
+    const { currentAccount } = this.props;
+
+    if (!enough(utxos, parseInt(amount), 1000)) {
+      // TODO: 用户余额不够，需要提醒用户
+      return;
+    }
+
+    const result = compose(
+      utxos,
+      currentAccount.address,
+      address,
+      parseInt(amount),
+      1000,
+      hex,
+    );
+    console.log(result);
+    return result;
+  }
 
   render() {
     const { checkAll } = this;
@@ -50,6 +87,7 @@ export default class AccountSend extends Mixin {
       hex,
       hexErrMsg,
     } = this.state;
+    const ASCII = bitJS.hexToAscii(hex);
     const { modal: { name } = {} } = this.props;
     return (
       <div className={styles.AccountSend}>
@@ -119,7 +157,7 @@ export default class AccountSend extends Mixin {
             </div>
             <div className={styles.ASCII}>
               <div className={styles.label}>文本 ASCII</div>
-              <div>1ANng9ANZnT7KUfxgtMNyiuhzFHY4j2gdG</div>
+              <div>{ASCII}</div>
             </div>
           </div>
         )}
@@ -127,16 +165,39 @@ export default class AccountSend extends Mixin {
         <div className={styles.button}>
           <button
             onClick={() => {
-              this.openModal({
-                name: 'transfer',
-              });
+              if (checkAll.confirm()) {
+                try {
+                  const tx = this.constructTx();
+                  this.openModal({
+                    name: 'transfer',
+                    data: {
+                      callback: () => {
+                        console.log(tx);
+                      },
+                    },
+                  });
+                } catch (err) {
+                  console.log(err);
+                }
+              }
             }}>
             确定
           </button>
         </div>
 
-        {name === 'transfer' && <SignModal />}
+        {name === 'transfer' && <SignModal {...this.props} />}
       </div>
     );
   }
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getAccountUtxos: (address) => dispatch(getAccountUtxos(address)),
+  };
+};
+
+export default connect(
+  undefined,
+  mapDispatchToProps,
+)(AccountSend);

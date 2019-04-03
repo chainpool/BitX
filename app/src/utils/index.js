@@ -68,6 +68,17 @@ export const Patterns = {
       return errMsg;
     }
   },
+  isValidPassword: (encryptedKey, password, errMsg = '密码错误') => {
+    try {
+      bip38.decrypt(encryptedKey, password, () => {}, {
+        N: 128, // specified by BIP38
+        r: 8,
+        p: 8,
+      });
+    } catch {
+      return errMsg;
+    }
+  },
   check: (value) => {
     return (...params) => {
       if (!Patterns[value]) {
@@ -100,6 +111,21 @@ export const parseQueryString = (payload) => {
 
 export const bitJS = {
   generateMnemonic: () => bip39.generateMnemonic(),
+  hexToAscii: (str) => {
+    if (!/^(0x)?[\da-fA-F]+$/.test(str)) {
+      return '';
+    }
+    const hexString = str.startsWith('0x') ? str.substring(2) : str;
+    if (hexString.length % 2 === 1) {
+      return '';
+    }
+
+    let strOut = '';
+    for (let x = 0; x < hexString.length; x += 2) {
+      strOut += String.fromCharCode(parseInt(hexString.substr(x, 2), 16));
+    }
+    return strOut;
+  },
   generateAccount: ({ name, mnemonic, password, wif }) => {
     let account;
     const path = "m/0'/0/0";
