@@ -15,8 +15,8 @@ export default class CheckMnemonic extends Mixin {
       const { userInput = [] } = this.state;
       const { mnemonic } = this.props;
       const err = Patterns.check('strictEqual')(
-        userInput.map((item = {}) => item.value).join(),
-        mnemonic.join(),
+        userInput.map((item = {}) => item.value).join(' '),
+        mnemonic,
       );
       this.setState({
         userInputErrMsg: err,
@@ -31,7 +31,7 @@ export default class CheckMnemonic extends Mixin {
   render() {
     const { checkAll } = this;
     const { userInput, userInputErrMsg } = this.state;
-    const { mnemonic = [], changeStep } = this.props;
+    const { mnemonic, changeStep } = this.props;
 
     const getPostion = (index) => userInput.findIndex((item) => item.index === index);
     return (
@@ -44,7 +44,7 @@ export default class CheckMnemonic extends Mixin {
           请按正确的顺序点击单词
         </div>
         <ul className={styles.allwords}>
-          {mnemonic.map((item, index) => (
+          {mnemonic.split(' ').map((item, index) => (
             <li
               className={getPostion(index) !== -1 ? styles.active : null}
               key={index}

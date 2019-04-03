@@ -11,7 +11,7 @@ import * as styles from './index.module.scss';
 class CreateAccount extends Mixin {
   state = {
     step: 1,
-    mnemonic: bitJS.generateMnemonic().split(' '),
+    mnemonic: bitJS.generateMnemonic(),
   };
 
   changeStep = (step) => {

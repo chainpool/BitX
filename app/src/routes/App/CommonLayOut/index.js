@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { Route, Switch } from 'react-router';
+import { Route, Switch, Redirect } from 'react-router';
 import { connect } from 'react-redux';
 import routers from '../routers';
 import Header from './Header';
 import * as styles from './index.module.scss';
 import { setPageTitle, setModal } from '../../../store/actions';
+import { PATH } from '../../../constants';
 class CommonLayOut extends Component {
   render() {
     const { pageTitle } = this.props;
@@ -23,6 +24,7 @@ class CommonLayOut extends Component {
                 render={(props) => <item.component {...props} {...this.props} />}
               />
             ))}
+            <Redirect to={PATH.home} />
           </Switch>
         </div>
       </div>

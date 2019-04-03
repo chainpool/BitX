@@ -52,6 +52,9 @@ export const Patterns = {
     result = inputValue.length > maxLength ? `最多${maxLength}个字符` : result;
     return result;
   },
+  isValidMnemonic: (value, errMsg = '助记词格式错误') => {
+    return bip39.validateMnemonic(value) ? '' : errMsg;
+  },
   check: (value) => {
     return (...params) => {
       if (!Patterns[value]) {
@@ -73,7 +76,7 @@ export const bitJS = {
       p: 8,
     };
     if (name && mnemonic && password) {
-      const seed = bip39.mnemonicToSeed(mnemonic.join(' '));
+      const seed = bip39.mnemonicToSeed(mnemonic);
       const root = bip32.fromSeed(seed);
       const child1 = root.derivePath(path);
       const p2pkh = bitcoin.payments.p2pkh({
@@ -92,7 +95,8 @@ export const bitJS = {
   },
 };
 
-const words = bip39.generateMnemonic().split(' ');
-const wif = 'cSXvChvzizEv4CkC1rQ94VEjjHWhRsUJaPxTZsUUMV97sncmTvQa';
-console.log(bitJS.generateAccount({ name: 'wei', password: '123456', wif }), '----账户');
+const words = bip39.generateMnemonic();
+console.log(words);
+//const wif = 'cSXvChvzizEv4CkC1rQ94VEjjHWhRsUJaPxTZsUUMV97sncmTvQa';
+//console.log(bitJS.generateAccount({ name: 'wei', password: '123456', wif }), '----账户');
 //console.log(wif());

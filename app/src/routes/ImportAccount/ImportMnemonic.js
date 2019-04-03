@@ -12,8 +12,10 @@ export default class ImportMnemonic extends Mixin {
 
   checkAll = {
     checkUserInput: () => {
-      const { userInput = [] } = this.state;
-      const err = Patterns.check('required')(userInput);
+      const { userInput } = this.state;
+      const err =
+        Patterns.check('required')(userInput) ||
+        Patterns.check('isValidMnemonic')(userInput.trim());
       this.setState({
         userInputErrMsg: err,
       });
@@ -54,7 +56,7 @@ export default class ImportMnemonic extends Mixin {
             <button
               onClick={() => {
                 if (checkAll.confirm()) {
-                  console.log(userInput.trim().split(' '));
+                  console.log(userInput.trim());
                   changeStep(2);
                 }
               }}>
@@ -62,7 +64,7 @@ export default class ImportMnemonic extends Mixin {
             </button>
           </>
         )}
-        {step === 2 && <SetPassword {...this.props} />}
+        {step === 2 && <SetPassword {...this.props} mnemonic={userInput.trim()} />}
       </div>
     );
   }

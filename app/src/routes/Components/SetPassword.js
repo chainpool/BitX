@@ -9,11 +9,11 @@ import { addAccount } from '../../store/actions';
 class SetPassword extends Mixin {
   pageTitle = '设置密码';
   state = {
-    name: '',
+    name: 'wei123',
     nameErrMsg: '',
-    password: '',
+    password: '12345678',
     passwordErrMsg: '',
-    confirmPassword: '',
+    confirmPassword: '12345678',
     confirmPasswordErrMsg: '',
   };
 
