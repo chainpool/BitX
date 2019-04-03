@@ -72,7 +72,7 @@ class SetPassword extends Mixin {
       confirmPassword,
       confirmPasswordErrMsg,
     } = this.state;
-    const { mnemonic, addAccount, history } = this.props;
+    const { mnemonic, privateKey, addAccount, history } = this.props;
     return (
       <div className={styles.SetPassword}>
         <div className={styles.inputcontent}>
@@ -121,11 +121,18 @@ class SetPassword extends Mixin {
           <button
             onClick={() => {
               if (checkAll.confirm()) {
-                const account = bitJS.generateAccount({
-                  name: name,
-                  mnemonic,
-                  password: password,
-                });
+                let account;
+                if (mnemonic) {
+                  account = bitJS.generateAccount({
+                    name: name,
+                    mnemonic,
+                    password: password,
+                  });
+                } else if (privateKey) {
+                  account = bitJS.generateAccount({
+                    wif: privateKey,
+                  });
+                }
                 addAccount(account);
                 history.push({
                   pathname: PATH.home,

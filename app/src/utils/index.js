@@ -55,6 +55,14 @@ export const Patterns = {
   isValidMnemonic: (value, errMsg = '助记词格式错误') => {
     return bip39.validateMnemonic(value) ? '' : errMsg;
   },
+  isValidPrivateKey: (value, errMsg = '私钥格式错误') => {
+    try {
+      bitcoin.ECPair.fromWIF(value, bitcoin.networks.testnet);
+      return '';
+    } catch {
+      return errMsg;
+    }
+  },
   check: (value) => {
     return (...params) => {
       if (!Patterns[value]) {
@@ -85,18 +93,24 @@ export const bitJS = {
       });
       const encryptedKey = bip38.encrypt(child1.privateKey, true, password, null, params);
       account = { name, address: p2pkh.address, encryptedKey };
-    } else {
+    } else if (wif) {
       const keyPair = bitcoin.ECPair.fromWIF(wif, bitcoin.networks.testnet);
       const { address } = bitcoin.payments.p2pkh({ pubkey: keyPair.publicKey });
-      const encryptedKey = bip38.encrypt(keyPair.privateKey, true, password, null, params);
+      const encryptedKey = bip38.encrypt(keyPair.privateKey.buffer, true, password, null, params);
       account = { name, address, encryptedKey };
     }
     return account;
   },
 };
 
-const words = bip39.generateMnemonic();
-console.log(words);
+// const words = bip39.generateMnemonic();
+// console.log(words);
+// console.log(
+//   bitJS.generateAccount({
+//     wif: 'cSXvChvzizEv4CkC1rQ94VEjjHWhRsUJaPxTZsUUMV97sncmTvQa',
+//     passowrd: '123',
+//   }),
+// );
 //const wif = 'cSXvChvzizEv4CkC1rQ94VEjjHWhRsUJaPxTZsUUMV97sncmTvQa';
 //console.log(bitJS.generateAccount({ name: 'wei', password: '123456', wif }), '----账户');
 //console.log(wif());

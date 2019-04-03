@@ -13,7 +13,8 @@ export default class ImportSecretKey extends Mixin {
   checkAll = {
     checkUserInput: () => {
       const { userInput = [] } = this.state;
-      const err = Patterns.check('required')(userInput);
+      const err =
+        Patterns.check('required')(userInput) || Patterns.check('isValidPrivateKey')(userInput);
       this.setState({
         userInputErrMsg: err,
       });
@@ -50,7 +51,6 @@ export default class ImportSecretKey extends Mixin {
             <button
               onClick={() => {
                 if (checkAll.confirm()) {
-                  console.log(userInput.trim().split(' '));
                   changeStep(2);
                 }
               }}>
@@ -58,7 +58,7 @@ export default class ImportSecretKey extends Mixin {
             </button>
           </>
         )}
-        {step === 2 && <SetPassword {...this.props} />}
+        {step === 2 && <SetPassword {...this.props} privateKey={userInput.trim()} />}
       </div>
     );
   }
