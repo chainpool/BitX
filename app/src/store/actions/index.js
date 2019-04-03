@@ -45,3 +45,9 @@ export const setModal = ({ name, show, data }) => ({
   type: 'SET_Modal',
   modal: { name, show, data },
 });
+
+export const getAccountBalance = (addr) => {
+  return () => {
+    return getBalance(addr);
+  };
+};

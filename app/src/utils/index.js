@@ -2,6 +2,7 @@ import bip39 from 'bip39';
 import bip32 from 'bip32';
 import bitcoin from 'bitcoinjs-lib';
 import bip38 from 'bip38';
+import { default as WIF } from 'wif';
 import store from 'store';
 
 export const isNumber = (value) => typeof value === 'number';
@@ -96,8 +97,9 @@ export const bitJS = {
     } else if (wif) {
       const keyPair = bitcoin.ECPair.fromWIF(wif, bitcoin.networks.testnet);
       const { address } = bitcoin.payments.p2pkh({ pubkey: keyPair.publicKey });
-      const encryptedKey = bip38.encrypt(keyPair.privateKey.buffer, true, password, null, params);
-      account = { name, address, encryptedKey };
+      // console.log(WIF.encode(keyPair.publicKey), '---wif');
+      //const encryptedKey = bip38.encrypt(keyPair.privateKey, true, password, null, params);
+      //account = { name, address, encryptedKey };
     }
     return account;
   },

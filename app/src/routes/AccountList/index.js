@@ -4,6 +4,7 @@ import { Mixin, RouterGo } from '../../components';
 import SelectModeGetAccount from './SelectModeGetAccount';
 import * as styles from './index.module.scss';
 import { PATH } from '../../constants';
+import { getAccountBalance } from '../../store/actions';
 
 class AccountList extends Mixin {
   pageTitle = 'Bitx';
@@ -15,7 +16,12 @@ class AccountList extends Mixin {
     };
   }
 
-  startInit = () => {};
+  startInit = () => {
+    const { getAccountBalance } = this.props;
+    getAccountBalance('n3Xy4TCJoHpmma3sSpMY8xGcRX3u6NkMae').then((res) => {
+      console.log(res, '----');
+    });
+  };
 
   changeClose = () => {
     this.setState((prevState) => ({
@@ -62,4 +68,13 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(AccountList);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getAccountBalance: (addr) => dispatch(getAccountBalance(addr)),
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(AccountList);

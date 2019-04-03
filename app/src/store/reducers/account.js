@@ -5,8 +5,8 @@ const accounts = (state = [], action) => {
     localSave.set('accounts', result);
     return result;
   }
-  const local = localSave.get('accounts');
-  return local || state;
+  const localAccounts = localSave.get('accounts');
+  return localAccounts || state;
 };
 
 export default accounts;
