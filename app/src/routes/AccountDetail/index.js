@@ -7,10 +7,14 @@ import AccountSend from './AccountSend';
 import * as styles from './index.module.scss';
 
 class AccountDetail extends Mixin {
-  pageTitle = 'Alice';
-  state = {
-    activeIndex: 0,
-  };
+  constructor(props) {
+    super(props);
+    const { currentAccount } = props;
+    this.pageTitle = currentAccount.name;
+    this.state = {
+      activeIndex: 0,
+    };
+  }
   render() {
     const { activeIndex } = this.state;
     return (

@@ -40,7 +40,10 @@ class AccountList extends Mixin {
         </div>
         <ul>
           {accounts.map((item, index) => (
-            <RouterGo key={index} Ele="li" go={{ pathname: PATH.accountdetail }}>
+            <RouterGo
+              key={index}
+              Ele="li"
+              go={{ pathname: PATH.accountdetail, search: `?address=${item.address}` }}>
               <div className={styles.desc}>
                 <div className={styles.name}>{item.name}</div>
                 <div className={styles.amount}>{setBlankSpace(item.balanceShow, 'BTC')}</div>

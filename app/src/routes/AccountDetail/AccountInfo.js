@@ -4,13 +4,15 @@ import * as styles from './AccountInfo.module.scss';
 
 export default class AccountInfo extends Mixin {
   render() {
+    const { currentAccount = {} } = this.props;
     return (
       <div className={styles.AccountInfo}>
         <div className={styles.amount}>
-          1.34567828<span>BTC</span>
+          {currentAccount.balanceShow}
+          <span>BTC</span>
         </div>
         <div className={styles.address}>
-          <Clipboard>1ANng9ANZnT7KUfxgtMNyiuhzFHY4j2gdG</Clipboard>
+          <Clipboard>{currentAccount.address}</Clipboard>
         </div>
         <div className={styles.watchother}>在浏览器中查看</div>
       </div>

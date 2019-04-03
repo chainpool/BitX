@@ -4,6 +4,7 @@ import bitcoin from 'bitcoinjs-lib';
 import bip38 from 'bip38';
 import store from 'store';
 import { BigNumber } from 'bignumber.js';
+import { default as queryString } from 'query-string';
 
 export const isEmpty = (value) => {
   return isNaN(value) || value === undefined || value === '';
@@ -91,6 +92,10 @@ export const formatNumber = {
 export const setBlankSpace = (value, unit) => {
   if (isEmpty(value)) return unit;
   return `${value} ${unit}`;
+};
+
+export const parseQueryString = (payload) => {
+  return queryString.parse(payload);
 };
 
 export const bitJS = {

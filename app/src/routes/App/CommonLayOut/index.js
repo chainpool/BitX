@@ -6,13 +6,32 @@ import Header from './Header';
 import * as styles from './index.module.scss';
 import { setPageTitle, setModal, getAllAccountBalance } from '../../../store/actions';
 import { PATH } from '../../../constants';
+import { parseQueryString } from '../../../utils';
 class CommonLayOut extends Component {
   componentDidMount() {
-    const { accounts, getAllAccountBalance } = this.props;
+    const { accounts = [], getAllAccountBalance } = this.props;
     getAllAccountBalance(accounts);
   }
+
+  componentDidUpdate(prevProps) {
+    const { accounts: prevAccounts = [] } = prevProps;
+    const { accounts = [], getAllAccountBalance } = this.props;
+    if (prevAccounts.length !== accounts.length) {
+      getAllAccountBalance(accounts);
+    }
+  }
+
   render() {
-    const { pageTitle } = this.props;
+    const {
+      accounts = [],
+      pageTitle,
+      history: { location: { search } = {} },
+    } = this.props;
+    let currentAccount = {};
+    const address = parseQueryString(search).address;
+    if (address) {
+      currentAccount = accounts.filter((item = {}) => item.address === address)[0] || {};
+    }
     return (
       <div className={styles.CommonLayOut}>
         <div className={styles.header}>
@@ -25,7 +44,9 @@ class CommonLayOut extends Component {
                 exact
                 key={index}
                 path={item.path}
-                render={(props) => <item.component {...props} {...this.props} />}
+                render={(props) => (
+                  <item.component {...props} {...this.props} currentAccount={currentAccount} />
+                )}
               />
             ))}
             <Redirect to={PATH.home} />

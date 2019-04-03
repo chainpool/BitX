@@ -5,10 +5,11 @@ import * as styles from './AccountReceive.module.scss';
 
 export default class AccountAccept extends Mixin {
   startInit = () => {
+    const { currentAccount } = this.props;
     new QRious({
       size: 190,
       element: document.getElementById('qr'),
-      value: 'https://github.com/neocotic/qrious',
+      value: currentAccount.address,
     });
   };
   render() {
