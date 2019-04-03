@@ -67,9 +67,16 @@ export const bitJS = {
       const encryptedKey = bip38.encrypt(child1.privateKey, true, password, null, params);
       account = { name, address: p2pkh.address, encryptedKey };
     } else {
+      // TODO: 需要根据环境变量来切换network
       const keyPair = bitcoin.ECPair.fromWIF(wif, bitcoin.networks.testnet);
       const { address } = bitcoin.payments.p2pkh({ pubkey: keyPair.publicKey });
-      const encryptedKey = bip38.encrypt(keyPair.privateKey, true, password, null, params);
+      const encryptedKey = bip38.encrypt(
+        keyPair.privateKey,
+        keyPair.compressed,
+        password,
+        console.log,
+        params,
+      );
       account = { name, address, encryptedKey };
     }
     return account;
@@ -77,6 +84,12 @@ export const bitJS = {
 };
 
 const words = bip39.generateMnemonic().split(' ');
-const wif = 'cSXvChvzizEv4CkC1rQ94VEjjHWhRsUJaPxTZsUUMV97sncmTvQa';
-console.log(bitJS.generateAccount({ name: 'wei', password: '123456', wif }), '----账户');
+console.log(
+  bitJS.generateAccount({
+    name: 'wei',
+    password: '123456',
+    wif: 'cMahea7zqjxrtgAbB7LSGbcQUr1uX1ojuat9jZodMN87JcbXMTcA',
+  }),
+  '----账户',
+);
 //console.log(wif());
