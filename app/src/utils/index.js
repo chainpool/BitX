@@ -2,7 +2,6 @@ import bip39 from 'bip39';
 import bip32 from 'bip32';
 import bitcoin from 'bitcoinjs-lib';
 import bip38 from 'bip38';
-import { default as WIF } from 'wif';
 import store from 'store';
 
 export const isNumber = (value) => typeof value === 'number';
@@ -94,7 +93,7 @@ export const bitJS = {
       });
       const encryptedKey = bip38.encrypt(child1.privateKey, true, password, null, params);
       account = { name, address: p2pkh.address, encryptedKey };
-    } else {
+    } else if (name && wif && password) {
       // TODO: 需要根据环境变量来切换network
       const keyPair = bitcoin.ECPair.fromWIF(wif, bitcoin.networks.testnet);
       const { address } = bitcoin.payments.p2pkh({ pubkey: keyPair.publicKey });
@@ -110,14 +109,3 @@ export const bitJS = {
     return account;
   },
 };
-
-const words = bip39.generateMnemonic().split(' ');
-console.log(
-  bitJS.generateAccount({
-    name: 'wei',
-    password: '123456',
-    wif: 'cMahea7zqjxrtgAbB7LSGbcQUr1uX1ojuat9jZodMN87JcbXMTcA',
-  }),
-  '----账户',
-);
-//console.log(wif());

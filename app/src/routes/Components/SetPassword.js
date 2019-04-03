@@ -9,11 +9,11 @@ import { addAccount } from '../../store/actions';
 class SetPassword extends Mixin {
   pageTitle = '设置密码';
   state = {
-    name: 'wei123',
+    name: '',
     nameErrMsg: '',
-    password: '12345678',
+    password: '',
     passwordErrMsg: '',
-    confirmPassword: '12345678',
+    confirmPassword: '',
     confirmPasswordErrMsg: '',
   };
 
@@ -130,7 +130,9 @@ class SetPassword extends Mixin {
                   });
                 } else if (privateKey) {
                   account = bitJS.generateAccount({
+                    name: name,
                     wif: privateKey,
+                    password: password,
                   });
                 }
                 addAccount(account);
