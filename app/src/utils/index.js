@@ -2,7 +2,6 @@ import bip39 from 'bip39';
 import bip32 from 'bip32';
 import bitcoin from 'bitcoinjs-lib';
 import bip38 from 'bip38';
-import wif from 'wif';
 export const isNumber = (value) => typeof value === 'number';
 
 export const isFunction = (fun) => typeof fun === 'function';

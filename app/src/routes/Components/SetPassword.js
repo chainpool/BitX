@@ -1,6 +1,6 @@
 import React from 'react';
 import { Mixin, Input } from '../../components';
-import { Patterns } from '../../utils';
+import { bitJS, Patterns } from '../../utils';
 import * as styles from './SetPassword.module.scss';
 
 export default class SetPassword extends Mixin {
@@ -114,7 +114,15 @@ export default class SetPassword extends Mixin {
           />
         </div>
         <div className={styles.button}>
-          <button>确定</button>
+          <button
+            onClick={() => {
+              if (checkAll.confirm()) {
+                // bitJS.generateAccoumt({ name: 'wei', mnemonic: words, password: '123456' }),
+                // console.log(this.props.mnemonic, name, password);
+              }
+            }}>
+            确定
+          </button>
         </div>
       </div>
     );
