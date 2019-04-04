@@ -6,6 +6,7 @@ import * as styles from './AccountSend.module.scss';
 import { bitJS, formatNumber, Patterns } from '../../utils';
 import { getAccountUtxos } from '../../store/actions';
 import compose, { enough } from '../../components/Detail/bitcoin';
+import { broadcastTx } from '../../service';
 
 const BTCFEE = 1000;
 
@@ -187,10 +188,12 @@ class AccountSend extends Mixin {
                   this.openModal({
                     name: 'transfer',
                     data: {
-                      callback: (ecpair) => {
+                      callback: async (ecpair) => {
                         const tx = this.constructTx(ecpair);
                         console.log(tx);
-                        // TODO: 广播该交易
+                        const response = await broadcastTx(tx);
+                        debugger;
+                        console.log(response);
                       },
                     },
                   });
