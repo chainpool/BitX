@@ -7,6 +7,7 @@ export default class SignModal extends Mixin {
   state = {
     password: '',
     passwordErrMsg: '',
+    status: false,
   };
 
   checkAll = {
@@ -28,36 +29,47 @@ export default class SignModal extends Mixin {
   };
   render() {
     const { checkAll } = this;
-    const { password, passwordErrMsg } = this.state;
+    const { password, passwordErrMsg, status } = this.state;
     const { modal: { data: { callback } = {} } = {} } = this.props;
     return (
-      <Modal title="输入账户密码">
-        <div className={styles.userInput}>
-          <Input
-            isPassword
-            value={password}
-            errMsg={passwordErrMsg}
-            onChange={(value) => {
-              this.setState({
-                passwordErrMsg: '',
-                password: value,
-              });
-            }}
-            onBlur={checkAll.checkPassword}
-          />
-        </div>
-        <div className={styles.button}>
-          <button
-            onClick={() => {
-              if (checkAll.confirm()) {
-                if (isFunction(callback)) {
-                  callback();
-                }
-              }
-            }}>
-            确定
-          </button>
-        </div>
+      <Modal title={status ? '交易已广播' : '输入账户密码'}>
+        {status ? (
+          <div className={styles.success}>
+            <i className="iconfont iconsuccess" />
+            <div className={styles.button}>
+              <button onClick={() => {}}>查看交易</button>
+            </div>
+          </div>
+        ) : (
+          <>
+            <div className={styles.userInput}>
+              <Input
+                isPassword
+                value={password}
+                errMsg={passwordErrMsg}
+                onChange={(value) => {
+                  this.setState({
+                    passwordErrMsg: '',
+                    password: value,
+                  });
+                }}
+                onBlur={checkAll.checkPassword}
+              />
+            </div>
+            <div className={styles.button}>
+              <button
+                onClick={() => {
+                  if (checkAll.confirm()) {
+                    if (isFunction(callback)) {
+                      callback();
+                    }
+                  }
+                }}>
+                确定
+              </button>
+            </div>
+          </>
+        )}
       </Modal>
     );
   }
