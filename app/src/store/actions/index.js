@@ -64,8 +64,9 @@ export const getAccountUtxos = (addr) => {
   };
 };
 
-export const getAllAccountBalance = (accounts) => {
-  return function(dispatch) {
+export const getAllAccountBalance = () => {
+  return function(dispatch, getState) {
+    const { accounts } = getState();
     const promises = accounts.map((item) => getBalance(item.address));
     Promise.all(promises).then((res = []) => {
       const accountsWithBalance = accounts.map((item = {}, index) => {

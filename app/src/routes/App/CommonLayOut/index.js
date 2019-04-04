@@ -9,15 +9,15 @@ import { PATH } from '../../../constants';
 import { parseQueryString } from '../../../utils';
 class CommonLayOut extends Component {
   componentDidMount() {
-    const { accounts = [], getAllAccountBalance } = this.props;
-    getAllAccountBalance(accounts);
+    const { getAllAccountBalance } = this.props;
+    getAllAccountBalance();
   }
 
   componentDidUpdate(prevProps) {
     const { accounts: prevAccounts = [] } = prevProps;
     const { accounts = [], getAllAccountBalance } = this.props;
     if (prevAccounts.length !== accounts.length) {
-      getAllAccountBalance(accounts);
+      getAllAccountBalance();
     }
   }
 
@@ -69,7 +69,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     setPageTitle: (title) => dispatch(setPageTitle(title)),
     setModal: ({ name, show, data }) => dispatch(setModal({ name, show, data })),
-    getAllAccountBalance: (accounts) => dispatch(getAllAccountBalance(accounts)),
+    getAllAccountBalance: () => dispatch(getAllAccountBalance()),
   };
 };
 
