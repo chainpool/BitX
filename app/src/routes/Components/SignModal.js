@@ -34,6 +34,7 @@ export default class SignModal extends Mixin {
       <Modal title="输入账户密码">
         <div className={styles.userInput}>
           <Input
+            isPassword
             value={password}
             errMsg={passwordErrMsg}
             onChange={(value) => {

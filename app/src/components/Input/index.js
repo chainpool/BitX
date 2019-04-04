@@ -4,7 +4,17 @@ import * as styles from './index.module.scss';
 
 export class Input extends Component {
   render() {
-    const { label, errMsg, value, onChange, onBlur, prefix, suffix, placeholder } = this.props;
+    const {
+      label,
+      errMsg,
+      value,
+      onChange,
+      onBlur,
+      prefix,
+      suffix,
+      placeholder,
+      isPassword,
+    } = this.props;
     return (
       <div className={styles.container}>
         {label && <div className={styles.label}>{label}</div>}
@@ -12,6 +22,7 @@ export class Input extends Component {
           {prefix && <div className={styles.prefix}>{prefix}</div>}
 
           <input
+            type={isPassword ? 'password' : 'text'}
             placeholder={placeholder}
             value={value}
             onChange={(e) => {

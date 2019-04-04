@@ -91,6 +91,7 @@ class SetPassword extends Mixin {
             }
           />
           <Input
+            isPassword
             label="密码"
             value={password}
             errMsg={passwordErrMsg}
@@ -104,6 +105,7 @@ class SetPassword extends Mixin {
             }
           />
           <Input
+            isPassword
             label="确认密码"
             value={confirmPassword}
             errMsg={confirmPasswordErrMsg}

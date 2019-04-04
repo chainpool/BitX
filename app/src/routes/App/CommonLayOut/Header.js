@@ -1,16 +1,26 @@
 import React, { Component } from 'react';
 import * as styles from './Header.module.scss';
+import { PATH } from '../../../constants';
 export default class Header extends Component {
   render() {
-    const { history } = this.props;
+    const {
+      history,
+      history: {
+        location: { pathname },
+      },
+    } = this.props;
+    const isShowBack = () => pathname !== PATH.home;
     return (
       <div className={styles.Header}>
-        <i
-          className="iconfont iconback1"
-          onClick={() => {
-            history.goBack();
-          }}
-        />
+        {isShowBack() && (
+          <i
+            className="iconfont iconback1"
+            onClick={() => {
+              history.goBack();
+            }}
+          />
+        )}
+
         {this.props.children}
       </div>
     );
