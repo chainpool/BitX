@@ -3,11 +3,12 @@ import { connect } from 'react-redux';
 import { Mixin, Input } from '../../components';
 import { SignModal } from '../Components';
 import * as styles from './AccountSend.module.scss';
-import { Patterns, bitJS } from '../../utils';
+import { Patterns, bitJS, formatNumber } from '../../utils';
 import { getAccountUtxos } from '../../store/actions';
 import { enough } from '../../components/Detail/bitcoin';
 import compose from '../../components/Detail/bitcoin';
 
+const BTCFEE = 1000;
 class AccountSend extends Mixin {
   state = {
     utxos: [],
@@ -23,7 +24,7 @@ class AccountSend extends Mixin {
   checkAll = {
     checkAddress: () => {
       const { address } = this.state;
-      const err = Patterns.check('required')(address);
+      const err = Patterns.check('required')(address) || Patterns.check('isBTCAddress')(address);
       this.setState({
         addressErrMsg: err,
       });
@@ -35,7 +36,11 @@ class AccountSend extends Mixin {
         currentAccount: { balanceShow },
       } = this.props;
       const err =
-        Patterns.check('required')(amount) || Patterns.check('smaller')(amount, balanceShow);
+        Patterns.check('required')(amount) ||
+        Patterns.check('smaller')(
+          Number(amount) + Number(formatNumber.toBtcPrecision(BTCFEE)),
+          balanceShow,
+        );
       this.setState({
         amountErrMsg: err,
       });
@@ -58,9 +63,12 @@ class AccountSend extends Mixin {
   constructTx() {
     const { address, amount, hex, utxos } = this.state;
     const { currentAccount } = this.props;
+    const BTCAmount = formatNumber.toBtcPrecision(amount, 8, true);
 
-    if (!enough(utxos, parseInt(amount), 1000)) {
-      // TODO: 用户余额不够，需要提醒用户
+    if (!enough(utxos, BTCAmount, BTCFEE)) {
+      this.setState({
+        amountErrMsg: '余额不足',
+      });
       return;
     }
 
@@ -68,8 +76,8 @@ class AccountSend extends Mixin {
       utxos,
       currentAccount.address,
       address,
-      parseInt(amount),
-      1000,
+      BTCAmount,
+      BTCFEE,
       hex,
     );
     console.log(result);

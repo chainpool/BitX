@@ -5,6 +5,7 @@ import bip38 from 'bip38';
 import store from 'store';
 import { BigNumber } from 'bignumber.js';
 import { default as queryString } from 'query-string';
+import WAValidator from 'wallet-address-validator';
 
 export const isEmpty = (value) => {
   return isNaN(value) || value === undefined || value === '';
@@ -52,10 +53,12 @@ export const Patterns = {
     }
   },
   characterLength: (inputValue = '', minLength, maxLength) => {
-    let result = '';
-    result = inputValue.length >= minLength ? '' : `最少${minLength}个字符`;
+    let result = inputValue.length >= minLength ? '' : `最少${minLength}个字符`;
     result = inputValue.length > maxLength ? `最多${maxLength}个字符` : result;
     return result;
+  },
+  isBTCAddress: (value, errMsg = '地址格式错误') => {
+    return WAValidator.validate(value, 'BTC', 'test') ? '' : errMsg;
   },
   isValidMnemonic: (value, errMsg = '助记词格式错误') => {
     return bip39.validateMnemonic(value) ? '' : errMsg;
@@ -90,13 +93,15 @@ export const Patterns = {
 };
 
 export const formatNumber = {
-  toPrecision: (value, precision = 0) => {
+  toPrecision: (value, precision = 0, multiplication = false) => {
     precision = Number(precision);
-    if (isEmpty(value)) return '';
+    if (isEmpty(value) || isEmpty(precision) || isNaN(value)) return '';
+    if (multiplication)
+      return new BigNumber(value).multipliedBy(Math.pow(10, precision)).toFixed(0);
     return new BigNumber(value).dividedBy(Math.pow(10, precision)).toFixed(precision);
   },
-  toBtcPrecision: (value) => {
-    return formatNumber.toPrecision(value, 8);
+  toBtcPrecision: (value, multiplication = false) => {
+    return formatNumber.toPrecision(value, 8, multiplication);
   },
 };
 
