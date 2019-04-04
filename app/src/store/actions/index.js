@@ -70,19 +70,67 @@ export const setGoBack = (goBack) => ({
 });
 
 export const getAllAccountBalance = () => {
+  const makePart = (accounts) => {
+    const list = accounts;
+    const a = Math.floor(list.length / 3);
+    const b = list.length % 3;
+    let arrays = [];
+    for (let i = 0; i < a; i++) {
+      const start = i * 3;
+      const end = start + 3;
+      arrays.push(list.slice(start, end));
+    }
+    if (b) {
+      arrays.push(list.slice(-b));
+    }
+    return arrays;
+  };
+  const requestResults = [];
   return function(dispatch, getState) {
     const { accounts } = getState();
-    const addressAll = accounts.map((item) => item.address).join(';');
-    getBalance(addressAll).then((res = []) => {
-      const accountsWithBalance = accounts.map((item = {}, index) => {
-        const findOne = res[index];
-        return {
-          ...item,
-          ...(findOne ? findOne : {}),
-          balanceShow: formatNumber.toBtcPrecision(findOne.balance),
-        };
-      });
-      dispatch(updateAccountBalance(accountsWithBalance));
-    });
+    for (let i = 0; i < accounts.length; i++) {
+      setTimeout(() => {
+        getBalance(accounts[i].address).then((res = []) => {
+          if (res.length) {
+            requestResults.push(...res);
+          } else {
+            requestResults.push(res);
+          }
+          const accountsWithBalance = accounts.map((item = {}, index) => {
+            const findOne = requestResults[index] || {};
+            return {
+              ...item,
+              ...(findOne ? findOne : {}),
+              balanceShow: formatNumber.toBtcPrecision(findOne.balance),
+            };
+          });
+          dispatch(updateAccountBalance(accountsWithBalance));
+        });
+      }, 1100 * i);
+    }
+
+    //  const parts = makePart(accounts);
+    // for (let i = 0; i < parts.length; i++) {
+    //   setTimeout(() => {
+    //     const addressAll = parts[i].map((item) => item.address).join(';');
+    //     getBalance(addressAll).then((res = []) => {
+    //       if (res.length) {
+    //         requestResults.push(...res);
+    //       } else {
+    //         requestResults.push(res);
+    //       }
+    //       console.log(requestResults, '---requestResults');
+    //       const accountsWithBalance = accounts.map((item = {}, index) => {
+    //         const findOne = requestResults[index] || {};
+    //         return {
+    //           ...item,
+    //           ...(findOne ? findOne : {}),
+    //           balanceShow: formatNumber.toBtcPrecision(findOne.balance),
+    //         };
+    //       });
+    //       dispatch(updateAccountBalance(accountsWithBalance));
+    //     });
+    //   }, 1100 * i);
+    // }
   };
 };

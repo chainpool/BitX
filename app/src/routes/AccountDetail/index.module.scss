@@ -14,10 +14,11 @@
       flex-shrink: 1;
 
       li{
-        background: white;
+        background: #F5F5F5;
+        color: #959595;
         &.active{
-          background: #F5F5F5;
-          color: #959595;
+          color:$yellow;
+          background: white;
         }
         display: flex;
         justify-content: center;
