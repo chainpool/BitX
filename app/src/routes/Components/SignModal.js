@@ -1,5 +1,5 @@
 import React from 'react';
-import { Mixin, Input, Modal } from '../../components';
+import { Mixin, Input, Modal, RouterGo } from '../../components';
 import { isFunction, Patterns, bitJS } from '../../utils';
 import * as styles from './SignModal.module.scss';
 import bitcoin from 'bitcoinjs-lib';
@@ -32,7 +32,7 @@ export default class SignModal extends Mixin {
 
   render() {
     const { checkAll } = this;
-    const { password, passwordErrMsg, status } = this.state;
+    const { password, passwordErrMsg, status, hash } = this.state;
     const {
       modal: { data: { callback } = {} } = {},
       currentAccount: { encryptedKey } = {},
@@ -44,6 +44,10 @@ export default class SignModal extends Mixin {
           <div className={styles.success}>
             <i className="iconfont iconsuccess" />
             <div className={styles.button}>
+              <RouterGo
+                isOutSide
+                go={{ pathname: `https://live.blockcypher.com/btc-testnet/tx/${hash}/` }}
+              />
               <button onClick={() => {}}>查看交易</button>
             </div>
           </div>
