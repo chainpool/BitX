@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import routers from '../routers';
 import Header from './Header';
 import * as styles from './index.module.scss';
-import { setPageTitle, setModal, getAllAccountBalance } from '../../../store/actions';
+import { setPageTitle, setModal, getAllAccountBalance, setGoBack } from '../../../store/actions';
 import { PATH } from '../../../constants';
 import { parseQueryString } from '../../../utils';
 class CommonLayOut extends Component {
@@ -59,6 +59,7 @@ class CommonLayOut extends Component {
 
 const mapStateToProps = (state) => {
   return {
+    goBack: state.goBack,
     accounts: state.accounts,
     pageTitle: state.pageTitle,
     modal: state.modal,
@@ -70,6 +71,7 @@ const mapDispatchToProps = (dispatch) => {
     setPageTitle: (title) => dispatch(setPageTitle(title)),
     setModal: ({ name, show, data }) => dispatch(setModal({ name, show, data })),
     getAllAccountBalance: () => dispatch(getAllAccountBalance()),
+    setGoBack: (goBack) => dispatch(setGoBack(goBack)),
   };
 };
 

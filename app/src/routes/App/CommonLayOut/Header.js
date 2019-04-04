@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import * as styles from './Header.module.scss';
 import { PATH } from '../../../constants';
+import { isFunction } from '../../../utils';
+
 export default class Header extends Component {
   render() {
     const {
@@ -8,6 +10,7 @@ export default class Header extends Component {
       history: {
         location: { pathname },
       },
+      goBack,
     } = this.props;
     const isShowBack = () => pathname !== PATH.home;
     return (
@@ -16,7 +19,12 @@ export default class Header extends Component {
           <i
             className="iconfont iconback1"
             onClick={() => {
-              history.goBack();
+              if (isFunction(goBack)) {
+                goBack();
+              } else {
+                history.goBack();
+              }
+              isFunction(goBack) && goBack();
             }}
           />
         )}

@@ -12,6 +12,18 @@ export default class Mixin extends Component {
     if (this.pageTitle && isFunction(this.props.setPageTitle)) {
       this.props.setPageTitle(this.pageTitle);
     }
+    // if (this.state && this.state.step && isFunction(this.props.setGoBack)) {
+    //   this.props.setGoBack(() => {
+    //     if (this.state.step > 1) {
+    //       console.log(this.state.step);
+    //       this.setState((prevState) => ({
+    //         step: prevState.step - 1,
+    //       }));
+    //     } else if (this.props.history) {
+    //       this.props.history.goBack();
+    //     }
+    //   });
+    // }
     isFunction(this.startInit) && this.startInit();
   }
 

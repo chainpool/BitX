@@ -64,6 +64,11 @@ export const getAccountUtxos = (addr) => {
   };
 };
 
+export const setGoBack = (goBack) => ({
+  type: 'SET_GO_BACK',
+  goBack,
+});
+
 export const getAllAccountBalance = () => {
   return function(dispatch, getState) {
     const { accounts } = getState();
