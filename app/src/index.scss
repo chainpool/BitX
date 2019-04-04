@@ -1,6 +1,8 @@
 @import './Aliicon.scss';
 :global{
   #root{
+    position: absolute;
+    overflow-y: auto;
     -moz-box-shadow:1px 2px 1px #E6E6E6; -webkit-box-shadow:1px 2px 1px #E6E6E6; box-shadow:1px 2px 1px #E6E6E6;
 
     width:100%;
@@ -13,6 +15,7 @@
   }
 
   body {
+    position:relative;
     display: flex;
     justify-content: center;
     align-items: center;
