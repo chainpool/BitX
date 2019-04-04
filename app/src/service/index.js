@@ -17,13 +17,28 @@ export async function getUtxos(addr) {
 
 export async function broadcastTx(tx) {
   const body = JSON.stringify({ tx });
-  return window.fetch(endpoint + `/txs/push`, {
-    method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      'Content-Length': `${body.length}`,
-      'Content-Type': 'application/json',
-    },
-    body,
-  });
+  return window
+    .fetch(endpoint + `/txs/push`, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Length': `${body.length}`,
+        'Content-Type': 'application/json',
+      },
+      body,
+    })
+    .then(async (res) => {
+      if (res.status >= 200 && res.status < 300) {
+        return res.json();
+      } else {
+        const result = await res.json();
+        return Promise.reject({
+          status: res.status,
+          message: result,
+        });
+      }
+    })
+    .catch((err) => {
+      return Promise.reject(err);
+    });
 }

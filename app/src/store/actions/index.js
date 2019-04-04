@@ -72,8 +72,8 @@ export const setGoBack = (goBack) => ({
 export const getAllAccountBalance = () => {
   return function(dispatch, getState) {
     const { accounts } = getState();
-    const promises = accounts.map((item) => getBalance(item.address));
-    Promise.all(promises).then((res = []) => {
+    const addressAll = accounts.map((item) => item.address).join(';');
+    getBalance(addressAll).then((res = []) => {
       const accountsWithBalance = accounts.map((item = {}, index) => {
         const findOne = res[index];
         return {

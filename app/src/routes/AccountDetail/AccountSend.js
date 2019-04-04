@@ -38,6 +38,7 @@ class AccountSend extends Mixin {
       } = this.props;
       const err =
         Patterns.check('required')(amount) ||
+        Patterns.check('smaller')(0, amount, '数量必须大于0') ||
         Patterns.check('smaller')(
           Number(amount) + Number(formatNumber.toBtcPrecision(BTCFEE)),
           balanceShow,
@@ -76,7 +77,7 @@ class AccountSend extends Mixin {
 
     if (!enough(utxos, BTCAmount, BTCFEE)) {
       this.setState({
-        amountErrMsg: '余额不足',
+        amountErrMsg: 'utxo不足',
       });
       return;
     }
@@ -190,10 +191,10 @@ class AccountSend extends Mixin {
                     data: {
                       callback: async (ecpair) => {
                         const tx = this.constructTx(ecpair);
-                        console.log(tx);
-                        const response = await broadcastTx(tx);
-                        debugger;
-                        console.log(response);
+                        const res = await broadcastTx(tx);
+                        if (res && res.tx && res.tx.hash) {
+                          return res.tx.hash;
+                        }
                       },
                     },
                   });

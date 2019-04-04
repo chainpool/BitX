@@ -9,6 +9,7 @@ export default class SignModal extends Mixin {
     password: '',
     passwordErrMsg: '',
     status: false,
+    hash: '',
   };
 
   checkAll = {
@@ -64,19 +65,30 @@ export default class SignModal extends Mixin {
             </div>
             <div className={styles.button}>
               <button
-                onClick={() => {
+                onClick={async () => {
                   if (checkAll.confirm()) {
                     const result = bitJS.decrypt(encryptedKey, password);
-                    console.log(result);
-                    debugger;
                     const pair = bitcoin.ECPair.fromPrivateKey(result.privateKey, {
                       compressed: result.compressed,
                       network: bitcoin.networks.testnet,
                     });
 
-                    debugger;
                     if (isFunction(callback)) {
-                      callback(pair);
+                      try {
+                        const res = await callback(pair);
+                        console.log(res);
+                        if (res) {
+                          this.setState({
+                            status: true,
+                            hash: res,
+                          });
+                        }
+                      } catch (err) {
+                        console.log(err, '-----signmodal,err');
+                        this.setState({
+                          passwordErrMsg: err.message.error ? err.message.error : err.message,
+                        });
+                      }
                     }
                   }
                 }}>

@@ -23,7 +23,7 @@ class AccountDetail extends Mixin {
         <AccountInfo {...this.props} />
         <div className={styles.content} style={{ background: activeIndex === 1 ? 'white' : '' }}>
           <ul className={styles.selectmode}>
-            {['接收', '发送'].map((item, index) => (
+            {['发送', '接收'].map((item, index) => (
               <li
                 key={index}
                 className={activeIndex === index ? styles.active : null}

@@ -43,9 +43,10 @@ export const Patterns = {
     return value1 === value2 ? '' : errMsg;
   },
   smaller: (inputValue, baseValue, errMsg = '余额不足') => {
-    if (!isNaN(inputValue) && !isNaN(baseValue)) {
+    if (!isNaN(baseValue)) {
       return Number(inputValue) >= Number(baseValue) ? errMsg : '';
     }
+    return errMsg;
   },
   smallerOrEqual: (inputValue, baseValue, errMsg = '余额不足') => {
     if (!isNaN(inputValue) && !isNaN(baseValue)) {
