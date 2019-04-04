@@ -15,6 +15,7 @@ class AccountDetail extends Mixin {
       activeIndex: 0,
     };
   }
+
   render() {
     const { activeIndex } = this.state;
     return (

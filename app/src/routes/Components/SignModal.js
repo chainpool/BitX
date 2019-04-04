@@ -1,7 +1,8 @@
 import React from 'react';
 import { Mixin, Input, Modal } from '../../components';
-import { isFunction, Patterns } from '../../utils';
+import { isFunction, Patterns, bitJS } from '../../utils';
 import * as styles from './SignModal.module.scss';
+import bitcoin from 'bitcoinjs-lib';
 
 export default class SignModal extends Mixin {
   state = {
@@ -27,10 +28,15 @@ export default class SignModal extends Mixin {
       return ['checkPassword'].every((item) => !this.checkAll[item]());
     },
   };
+
   render() {
     const { checkAll } = this;
     const { password, passwordErrMsg, status } = this.state;
-    const { modal: { data: { callback } = {} } = {} } = this.props;
+    const {
+      modal: { data: { callback } = {} } = {},
+      currentAccount: { encryptedKey } = {},
+    } = this.props;
+
     return (
       <Modal title={status ? '交易已广播' : '输入账户密码'}>
         {status ? (
@@ -60,8 +66,17 @@ export default class SignModal extends Mixin {
               <button
                 onClick={() => {
                   if (checkAll.confirm()) {
+                    const result = bitJS.decrypt(encryptedKey, password);
+                    console.log(result);
+                    debugger;
+                    const pair = bitcoin.ECPair.fromPrivateKey(result.privateKey, {
+                      compressed: result.compressed,
+                      network: bitcoin.networks.testnet,
+                    });
+
+                    debugger;
                     if (isFunction(callback)) {
-                      callback();
+                      callback(pair);
                     }
                   }
                 }}>

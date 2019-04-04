@@ -78,7 +78,8 @@ export const Patterns = {
         r: 8,
         p: 8,
       });
-    } catch {
+    } catch (e) {
+      console.log(e);
       return errMsg;
     }
   },
@@ -163,5 +164,16 @@ export const bitJS = {
       account = { name, address, encryptedKey };
     }
     return account;
+  },
+
+  decrypt: (encryptedKey, password) => {
+    const result = bip38.decrypt(encryptedKey, password, () => {}, {
+      N: 128, // specified by BIP38
+      r: 8,
+      p: 8,
+    });
+
+    console.log(result);
+    return result;
   },
 };

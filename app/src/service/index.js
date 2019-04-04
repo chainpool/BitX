@@ -14,3 +14,16 @@ export async function getUtxos(addr) {
     .then((res) => res.json())
     .then((res) => res.txrefs || []);
 }
+
+export async function broadcastTx(tx) {
+  const body = JSON.stringify({ tx });
+  return window.fetch(endpoint + `/txs/push`, {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Length': `${body.length}`,
+      'Content-Type': 'application/json',
+    },
+    body,
+  });
+}
