@@ -46,8 +46,16 @@ class AccountSend extends Mixin {
       });
       return err;
     },
+    checkHex: () => {
+      const { hex, addOpReturn } = this.state;
+      const err = addOpReturn ? Patterns.check('required')(hex) : '';
+      this.setState({
+        hexErrMsg: err,
+      });
+      return err;
+    },
     confirm: () => {
-      return ['checkAddress', 'checkAmount'].every((item) => !this.checkAll[item]());
+      return ['checkAddress', 'checkAmount', 'checkHex'].every((item) => !this.checkAll[item]());
     },
   };
 
@@ -63,7 +71,7 @@ class AccountSend extends Mixin {
   constructTx() {
     const { address, amount, hex, utxos } = this.state;
     const { currentAccount } = this.props;
-    const BTCAmount = formatNumber.toBtcPrecision(amount, 8, true);
+    const BTCAmount = Number(formatNumber.toBtcPrecision(amount, 8, true));
 
     if (!enough(utxos, BTCAmount, BTCFEE)) {
       this.setState({
@@ -155,7 +163,7 @@ class AccountSend extends Mixin {
                 errMsg={hexErrMsg}
                 label="16进制 Hex"
                 value={hex}
-                onBlur={checkAll.checkAddress}
+                onBlur={checkAll.checkHex}
                 onChange={(value) => {
                   this.setState({
                     hex: value,
