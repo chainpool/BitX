@@ -1,5 +1,5 @@
 import React from 'react';
-import { Mixin, Clipboard } from '../../components';
+import { Mixin, Clipboard, RouterGo } from '../../components';
 import * as styles from './AccountInfo.module.scss';
 
 export default class AccountInfo extends Mixin {
@@ -14,7 +14,17 @@ export default class AccountInfo extends Mixin {
         <div className={styles.address}>
           <Clipboard>{currentAccount.address}</Clipboard>
         </div>
-        <div className={styles.watchother}>在浏览器中查看</div>
+        <div className={styles.watchother}>
+          <RouterGo
+            isOutSide
+            go={{
+              pathname: `https://live.blockcypher.com/btc-testnet/address/${
+                currentAccount.address
+              }/`,
+            }}>
+            在浏览器中查看
+          </RouterGo>
+        </div>
       </div>
     );
   }

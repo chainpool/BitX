@@ -3,7 +3,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { Route, Switch } from 'react-router';
 import CommonLayOut from './CommonLayOut';
 
-import './index.module.css';
+import './index.module.scss';
 
 class App extends Component {
   render() {

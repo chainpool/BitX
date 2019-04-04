@@ -46,9 +46,9 @@ export default class SignModal extends Mixin {
             <div className={styles.button}>
               <RouterGo
                 isOutSide
-                go={{ pathname: `https://live.blockcypher.com/btc-testnet/tx/${hash}/` }}
-              />
-              <button onClick={() => {}}>查看交易</button>
+                go={{ pathname: `https://live.blockcypher.com/btc-testnet/tx/${hash}/` }}>
+                <button onClick={() => {}}>查看交易</button>
+              </RouterGo>
             </div>
           </div>
         ) : (

@@ -1,7 +1,11 @@
 @import './Aliicon.scss';
 :global{
   #root{
-    height:100%;
+    -moz-box-shadow:1px 2px 1px #E6E6E6; -webkit-box-shadow:1px 2px 1px #E6E6E6; box-shadow:1px 2px 1px #E6E6E6;
+
+    width:100%;
+    max-width: 400px;
+    height:650px;
   }
 
   * {
@@ -9,6 +13,9 @@
   }
 
   body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background: #F5F6F7;
     line-height: 1;
     font-size: 15px;
@@ -33,11 +40,17 @@
     margin:0;
     list-style: none;
     outline:none;
+    text-underline: none;
   }
 
   button{
     font-size: 18px;
     cursor: pointer;
+  }
+
+  a{
+    text-underline: none;
+    text-decoration:none
   }
 
 }

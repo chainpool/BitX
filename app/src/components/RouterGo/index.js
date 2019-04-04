@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { withRouter } from 'react-router';
 import { isNumber, isFunction } from '../../utils';
-import * as styles from './index.less';
+import * as styles from './index.module.scss';
 
 @withRouter
 class RouterGo extends PureComponent {
