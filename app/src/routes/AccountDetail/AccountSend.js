@@ -91,7 +91,6 @@ class AccountSend extends Mixin {
       hex,
       ecpair,
     );
-    console.log(result);
     return result;
   }
 

@@ -49,7 +49,8 @@ function compose(utxos, changeAddress, targetAddress, amount, fee, opReturnHex, 
     txb.sign(index, ecpair);
   });
 
-  return txb.buildIncomplete().toHex();
+  const tx = txb.build();
+  return tx.toHex();
 }
 
 export default compose;
