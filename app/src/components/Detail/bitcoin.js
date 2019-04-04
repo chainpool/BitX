@@ -23,7 +23,7 @@ function filterUnspentsByAmount(unspents, amount, fee) {
   return sum >= amount + fee ? result : [];
 }
 
-function compose(utxos, changeAddress, targetAddress, amount, fee, opReturnHex) {
+function compose(utxos, changeAddress, targetAddress, amount, fee, opReturnHex, ecpair) {
   const filteredUtxos = filterUnspentsByAmount(utxos, amount, fee);
 
   const network =
@@ -45,7 +45,9 @@ function compose(utxos, changeAddress, targetAddress, amount, fee, opReturnHex) 
     txb.addOutput(embed.output, 0);
   }
 
-  // TODO: sign
+  filteredUtxos.forEach((utxo, index) => {
+    txb.sign(index, ecpair);
+  });
 
   return txb.buildIncomplete().toHex();
 }
