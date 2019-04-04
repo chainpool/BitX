@@ -44,6 +44,7 @@ class AccountList extends Mixin {
               key={index}
               Ele="li"
               go={{ pathname: PATH.accountdetail, search: `?address=${item.address}` }}>
+              <div className={styles.seperate} />
               <div className={styles.desc}>
                 <div className={styles.name}>{item.name}</div>
                 <div className={styles.amount}>{setBlankSpace(item.balanceShow, 'BTC')}</div>

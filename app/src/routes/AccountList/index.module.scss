@@ -19,7 +19,17 @@
       flex-wrap: wrap;
       align-content: center;
       height:80px;
+      flex-grow: 1;
       padding:0 $distance;
+      &:not(:first-child){
+        .seperate{
+          left:20px;
+          right:0;
+          border-top:1px solid #E3E3E3;
+          position:absolute;
+        }
+      }
+
       .desc{
         margin-bottom: 10px;
         width:100%;
