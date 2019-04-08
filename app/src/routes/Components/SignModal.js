@@ -90,7 +90,9 @@ export default class SignModal extends Mixin {
                       } catch (err) {
                         console.log(err, '-----signmodal,err');
                         this.setState({
-                          passwordErrMsg: err.message.error ? err.message.error : err.message,
+                          passwordErrMsg: err.message.error
+                            ? err.message.error
+                            : err.message.toString(),
                         });
                       }
                     }
