@@ -3255,6 +3255,11 @@ csstype@^2.0.0, csstype@^2.2.0, csstype@^2.5.2:
   resolved "https://registry.yarnpkg.com/csstype/-/csstype-2.6.3.tgz#b701e5968245bf9b08d54ac83d00b624e622a9fa"
   integrity sha512-rINUZXOkcBmoHWEyu7JdHu5JMzkGRoMX4ov9830WNgxf5UYxcBUO0QTKAqeJ5EZfSdlrcJYkC8WwfVW7JYi4yg==
 
+current-device@^0.8.0:
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/current-device/-/current-device-0.8.0.tgz#14da609169f938a7d40e3e7ec62d2a3d4106a583"
+  integrity sha512-HW+FDnyILtM22os6RGzrWBXn2rNrCAeHqo1YzEPMRFp/o1UhklB3L6cBl6+mJMXEaGWbkHaZbmhJ6MNj4mO7ng==
+
 currently-unhandled@^0.4.1:
   version "0.4.1"
   resolved "https://registry.yarnpkg.com/currently-unhandled/-/currently-unhandled-0.4.1.tgz#988df33feab191ef799a61369dd76c17adf957ea"
