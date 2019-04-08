@@ -6,12 +6,15 @@ import * as styles from './SelectModeGetAccount.module.scss';
 
 class SelectModeGetAccount extends Component {
   render() {
-    const { changeClose } = this.props;
+    const { changeClose, accounts = [] } = this.props;
     return (
       <div className={styles.SelectModeGetAccount}>
-        <div className={styles.close} onClick={changeClose}>
-          <i className="iconfont iconClose" />
-        </div>
+        {accounts.length ? (
+          <div className={styles.close} onClick={changeClose}>
+            <i className="iconfont iconClose" />
+          </div>
+        ) : null}
+
         <div className={styles.bitx}>
           <img src={BitX} height={55} />
         </div>
