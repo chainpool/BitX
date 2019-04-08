@@ -137,7 +137,7 @@ export const bitJS = {
   },
   generateAccount: ({ name, mnemonic, password, wif }) => {
     let account;
-    const path = "m/0'/0/0";
+    const path = "m/44'/1'/0'/0/0";
     const params = {
       N: 128, // specified by BIP38
       r: 8,

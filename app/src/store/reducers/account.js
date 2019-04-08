@@ -13,7 +13,16 @@ const accounts = (state = [], action) => {
     return action.accounts;
   }
 
-  const localAccounts = localSave.get('accounts');
+  const accountVersion = localSave.get('accountVersion');
+  let localAccounts = [];
+  if (!accountVersion) {
+    localAccounts = [];
+    localSave.remove('accounts');
+    localSave.set('accountVersion', 1);
+  } else {
+    localAccounts = localSave.get('accounts');
+  }
+
   return state.length ? state : localAccounts || [];
 };
 
