@@ -162,6 +162,7 @@ class AccountSend extends Mixin {
           <div className={styles.returncontent}>
             <div className={styles.input}>
               <Input
+                isTextArea
                 errMsg={hexErrMsg}
                 label="16进制 Hex"
                 value={hex}

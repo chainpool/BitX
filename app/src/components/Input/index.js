@@ -14,14 +14,18 @@ export class Input extends Component {
       suffix,
       placeholder,
       isPassword,
+      isTextArea,
     } = this.props;
+    const Ele = isTextArea ? 'textarea' : 'input';
     return (
       <div className={styles.container}>
         {label && <div className={styles.label}>{label}</div>}
         <div className={styles.content}>
           {prefix && <div className={styles.prefix}>{prefix}</div>}
 
-          <input
+          <Ele
+            className={styles.input}
+            rows={2}
             type={isPassword ? 'password' : 'text'}
             placeholder={placeholder}
             value={value}
