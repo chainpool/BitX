@@ -15,6 +15,7 @@ export class Input extends Component {
       placeholder,
       isPassword,
       isTextArea,
+      ...rest
     } = this.props;
     const Ele = isTextArea ? 'textarea' : 'input';
     return (
@@ -25,7 +26,6 @@ export class Input extends Component {
 
           <Ele
             className={styles.input}
-            rows={2}
             type={isPassword ? 'password' : 'text'}
             placeholder={placeholder}
             value={value}
@@ -33,6 +33,7 @@ export class Input extends Component {
               onChange(e.target.value.trim());
             }}
             onBlur={onBlur}
+            {...rest}
           />
           {suffix && <div className={styles.suffix}>{suffix}</div>}
         </div>
