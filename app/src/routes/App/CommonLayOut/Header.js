@@ -24,7 +24,6 @@ export default class Header extends Component {
               } else {
                 history.goBack();
               }
-              isFunction(goBack) && goBack();
             }}
           />
         )}
