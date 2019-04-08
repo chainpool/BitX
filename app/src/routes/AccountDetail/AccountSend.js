@@ -38,7 +38,7 @@ class AccountSend extends Mixin {
       } = this.props;
       const err =
         Patterns.check('required')(amount) ||
-        Patterns.check('smaller')(0, amount, '数量必须大于0') ||
+        Patterns.check('smallerOrEqual')(0, amount, '数量必须大于或等于0') ||
         Patterns.check('smaller')(
           Number(amount) + Number(formatNumber.toBtcPrecision(BTCFEE)),
           balanceShow,
