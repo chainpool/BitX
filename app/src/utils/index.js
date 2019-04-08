@@ -193,6 +193,7 @@ export const fetchFromHttp = ({
   params = [],
   body,
   timeOut = 10000,
+  ...rest
 }) => {
   const id = uniqid();
   const message = body
@@ -202,11 +203,11 @@ export const fetchFromHttp = ({
     fetch(url, {
       method: method,
       headers: {
-        method,
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
       ...(method.toUpperCase() === 'GET' ? {} : { body: message }),
+      ...rest,
     })
       .then(async (res) => {
         if (res.status >= 200 && res.status < 300) {

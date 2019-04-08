@@ -1,4 +1,4 @@
-import { getBalance, getUtxos } from '../../service';
+import { getBalance, getUtxos, getFee } from '../../service';
 import { formatNumber } from '../../utils';
 
 export const addAccount = (account) => ({
@@ -68,6 +68,12 @@ export const setGoBack = (goBack) => ({
   type: 'SET_GO_BACK',
   goBack,
 });
+
+export const getFeeRate = () => {
+  return () => {
+    return getFee();
+  };
+};
 
 export const getAllAccountBalance = () => {
   const requestResults = [];
