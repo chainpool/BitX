@@ -6,6 +6,7 @@ import store from 'store';
 import { BigNumber } from 'bignumber.js';
 import { default as queryString } from 'query-string';
 import WAValidator from 'wallet-address-validator';
+import device from 'current-device';
 
 export const isEmpty = (value) => {
   return isNaN(value) || value === undefined || value === '';
@@ -177,4 +178,9 @@ export const bitJS = {
     console.log(result);
     return result;
   },
+};
+
+export const Device = {
+  isMobile: () => device.mobile(),
+  isDesktop: () => device.desktop(),
 };
