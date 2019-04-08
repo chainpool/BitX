@@ -4,18 +4,25 @@
     position: absolute;
     overflow-y: auto;
     -moz-box-shadow:1px 2px 1px #E6E6E6; -webkit-box-shadow:1px 2px 1px #E6E6E6; box-shadow:1px 2px 1px #E6E6E6;
-
     width:100%;
-    max-width: 400px;
-    height:650px;
+    height:100%;
     background: #F5F6F7;
+    &.root-desktop{
+      max-width: 400px;
+      height:650px;
+    }
   }
 
   * {
     box-sizing: border-box;
   }
 
+  html{
+    height:100%;
+  }
+
   body {
+    height:100%;
     position:relative;
     display: flex;
     justify-content: center;
