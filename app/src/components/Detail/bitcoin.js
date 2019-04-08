@@ -1,52 +1,82 @@
-import BigNumber from 'bignumber.js';
 import bitcoin from 'bitcoinjs-lib';
+import coinSelect from 'coinselect';
 
-export function enough(utxos, amount, fee) {
-  const total = utxos.reduce((result, utxo) => result + utxo.value, 0);
-
-  return total > amount + fee;
-}
-
-function filterUnspentsByAmount(unspents, amount, fee) {
-  const nonZeroUnspents = unspents.filter((utxo) => new BigNumber(utxo.value) > 0);
-
-  const result = [];
-  let sum = 0;
-  for (let utxo of nonZeroUnspents) {
-    result.push(utxo);
-    sum += utxo.value;
-    if (sum >= amount + fee) {
-      break;
-    }
-  }
-
-  return sum >= amount + fee ? result : [];
-}
-
-function compose(utxos, changeAddress, targetAddress, amount, fee, opReturnHex, ecpair) {
-  const filteredUtxos = filterUnspentsByAmount(utxos, amount, fee);
-
-  // const network =
-  //   process.env.NODE_ENV === 'production' ? bitcoin.networks.bitcoin : bitcoin.networks.testnet;
-  const network = bitcoin.networks.testnet;
-  const txb = new bitcoin.TransactionBuilder(network);
-
-  let sum = 0;
-  for (let utxo of filteredUtxos) {
-    txb.addInput(utxo.tx_hash, utxo.tx_output_n);
-    sum += utxo.value;
-  }
-
-  txb.addOutput(targetAddress, amount);
-  const change = sum - amount - fee;
-  txb.addOutput(changeAddress, change);
+export function enough(utxos, changeAddress, targetAddress, amount, feeRate, opReturnHex) {
+  const normalizeUtxos = normalizeUtxoForSelect(utxos);
+  const targets = [
+    {
+      address: targetAddress,
+      value: amount,
+    },
+  ];
 
   if (opReturnHex) {
     const embed = bitcoin.payments.embed({ data: [Buffer.from(opReturnHex, 'hex')] });
-    txb.addOutput(embed.output, 0);
+
+    targets.push({
+      script: embed.output,
+      value: 0,
+    });
   }
 
-  filteredUtxos.forEach((utxo, index) => {
+  let { inputs } = coinSelect(normalizeUtxos, targets, feeRate);
+
+  return !!inputs;
+}
+
+function normalizeUtxoForSelect(utxos) {
+  return utxos.map((utxo) => {
+    return {
+      txId: utxo.tx_hash,
+      vout: utxo.tx_output_n,
+      ...utxo,
+    };
+  });
+}
+
+export function compose(utxos, changeAddress, targetAddress, amount, feeRate, opReturnHex, ecpair) {
+  const normalizeUtxos = normalizeUtxoForSelect(utxos);
+  const targets = [
+    {
+      address: targetAddress,
+      value: amount,
+    },
+  ];
+
+  if (opReturnHex) {
+    const embed = bitcoin.payments.embed({ data: [Buffer.from(opReturnHex, 'hex')] });
+
+    targets.push({
+      script: embed.output,
+      value: 0,
+    });
+  }
+
+  let { inputs, outputs, fee } = coinSelect(normalizeUtxos, targets, feeRate);
+
+  // the accumulated fee is always returned for analysis
+  console.log(fee);
+
+  // .inputs and .outputs will be undefined if no solution was found
+  if (!inputs || !outputs) return;
+
+  const network = bitcoin.networks.testnet;
+  const txb = new bitcoin.TransactionBuilder(network);
+
+  inputs.forEach((input) => txb.addInput(input.txId, input.vout));
+  outputs.forEach((output) => {
+    if (!output.address && !output.script) {
+      output.address = changeAddress;
+    }
+
+    if (output.address) {
+      txb.addOutput(output.address, output.value);
+    } else if (output.script) {
+      txb.addOutput(output.script, 0);
+    }
+  });
+
+  inputs.forEach((input, index) => {
     txb.sign(index, ecpair);
   });
 
