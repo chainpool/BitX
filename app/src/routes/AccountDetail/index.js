@@ -1,10 +1,10 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { Mixin } from '../../components';
-import AccountInfo from './AccountInfo';
-import AccountReceive from './AccountReceive';
-import AccountSend from './AccountSend';
-import * as styles from './index.module.scss';
+import React from "react";
+import { connect } from "react-redux";
+import { Mixin } from "../../components";
+import AccountInfo from "./AccountInfo";
+import AccountReceive from "./AccountReceive";
+import AccountSend from "./AccountSend";
+import * as styles from "./index.module.scss";
 
 class AccountDetail extends Mixin {
   constructor(props) {
@@ -12,7 +12,7 @@ class AccountDetail extends Mixin {
     const { currentAccount } = props;
     this.pageTitle = currentAccount.name;
     this.state = {
-      activeIndex: 0,
+      activeIndex: 0
     };
   }
 
@@ -21,17 +21,21 @@ class AccountDetail extends Mixin {
     return (
       <div className={styles.AccountDetail}>
         <AccountInfo {...this.props} />
-        <div className={styles.content} style={{ background: activeIndex === 1 ? 'white' : '' }}>
+        <div
+          className={styles.content}
+          style={{ background: activeIndex === 1 ? "white" : "" }}
+        >
           <ul className={styles.selectmode}>
-            {['发送', '接收'].map((item, index) => (
+            {["发送", "接收"].map((item, index) => (
               <li
                 key={index}
                 className={activeIndex === index ? styles.active : null}
                 onClick={() => {
                   this.setState({
-                    activeIndex: index,
+                    activeIndex: index
                   });
-                }}>
+                }}
+              >
                 {item}
               </li>
             ))}
@@ -44,9 +48,9 @@ class AccountDetail extends Mixin {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
-    accounts: state.accounts,
+    accounts: state.accounts
   };
 };
 
