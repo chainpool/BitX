@@ -20,7 +20,8 @@
     "new-cap": "off",
     "no-param-reassign": "warn",
     "func-names": "off",
-    "no-unused-expressions" : "error",
+    "no-unused-expressions" : "off",
+    "no-unused-vars": "off",
     "block-scoped-var": "error",
     "react/prop-types": "off"
   },
