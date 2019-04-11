@@ -26,13 +26,7 @@
     },
     "mac": {
       "category": "finance"
-    },
-    "publish": [
-      {
-        "provider": "generic",
-        "url": "http://localhost:7000/electron_update/"
-      }
-    ]
+    }
   },
   "dependencies": {
     "electron-squirrel-startup": "^1.0.0",

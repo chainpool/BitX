@@ -5,3 +5,5 @@ build
 *.log
 /app/.env
 /.idea
+/container/*.gitignore
+/container/userAccounts.json

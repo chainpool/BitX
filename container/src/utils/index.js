@@ -1,9 +1,11 @@
-const fs = require('fs');
-const util = require('util');
-const child_process = require('child_process');
+const fs = require("fs");
+const util = require("util");
+const child_process = require("child_process");
 
 exports.accessPromise = util.promisify(fs.access);
 exports.mkdirPromise = util.promisify(fs.mkdir);
+exports.writeFilePromise = util.promisify(fs.writeFile);
+exports.readFilePromise = util.promisify(fs.readFile);
 
 exports.execPromise = (command, options = {}) => {
   return new Promise(function(resolve, reject) {
@@ -18,7 +20,7 @@ exports.execPromise = (command, options = {}) => {
   });
 };
 
-exports.streamPromise = (input,output) => {
+exports.streamPromise = (input, output) => {
   let ended = false;
   function end() {
     if (!ended) {
@@ -29,7 +31,7 @@ exports.streamPromise = (input,output) => {
     }
   }
 
-  return new Promise((resolve, reject)=>{
+  return new Promise((resolve, reject) => {
     function niceEnding() {
       if (end()) resolve();
     }
@@ -39,10 +41,10 @@ exports.streamPromise = (input,output) => {
     }
 
     input.pipe(output);
-    input.on('error', errorEnding);
+    input.on("error", errorEnding);
 
-    output.on('finish', niceEnding);
-    output.on('end', niceEnding);
-    output.on('error', errorEnding);
+    output.on("finish", niceEnding);
+    output.on("end", niceEnding);
+    output.on("error", errorEnding);
   });
 };
