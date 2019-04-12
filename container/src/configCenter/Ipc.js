@@ -19,6 +19,7 @@ ipcMain.on("GET_ACCOUNT", async event => {
     event.returnValue = res.toString();
   } catch (err) {
     console.log(err);
+    event.returnValue = JSON.stringify([]);
   }
 });
 
