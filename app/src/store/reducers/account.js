@@ -12,9 +12,10 @@ const accounts = (state = [], action) => {
       address: item.address,
       encryptedKey: item.encryptedKey
     }));
-    localSave.set("accounts", saveParts);
     if (ipcRenderer) {
       ipcRenderer.send("SAVE_ACCOUNT", JSON.stringify(saveParts));
+    } else {
+      localSave.set("accounts", saveParts);
     }
     return result;
   } else if (action.type === "UPDATE_ACCOUNT_BALANCE") {
@@ -29,8 +30,7 @@ const accounts = (state = [], action) => {
     localSave.set("accountVersion", 1);
   } else {
     if (ipcRenderer) {
-      const accounts = ipcRenderer.sendSync("GET_ACCOUNT");
-      localAccounts = accounts ? JSON.parse(accounts) : [];
+      localAccounts = JSON.parse(ipcRenderer.sendSync("GET_ACCOUNT"));
     } else {
       localAccounts = localSave.get("accounts");
     }
