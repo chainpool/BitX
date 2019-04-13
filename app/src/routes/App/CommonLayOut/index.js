@@ -1,12 +1,17 @@
-import React, { Component } from 'react';
-import { Route, Switch, Redirect } from 'react-router';
-import { connect } from 'react-redux';
-import routers from '../routers';
-import Header from './Header';
-import * as styles from './index.module.scss';
-import { setPageTitle, setModal, getAllAccountBalance, setGoBack } from '../../../store/actions';
-import { PATH } from '../../../constants';
-import { parseQueryString } from '../../../utils';
+import React, { Component } from "react";
+import { Route, Switch, Redirect } from "react-router";
+import { connect } from "react-redux";
+import routers from "../routers";
+import Header from "./Header";
+import * as styles from "./index.module.scss";
+import {
+  setPageTitle,
+  setModal,
+  getAllAccountBalance,
+  setGoBack
+} from "../../../store/actions";
+import { PATH } from "../../../constants";
+import { parseQueryString } from "../../../utils";
 class CommonLayOut extends Component {
   componentDidMount() {
     const { getAllAccountBalance } = this.props;
@@ -25,12 +30,13 @@ class CommonLayOut extends Component {
     const {
       accounts = [],
       pageTitle,
-      history: { location: { search } = {} },
+      history: { location: { search } = {} }
     } = this.props;
     let currentAccount = {};
     const address = parseQueryString(search).address;
     if (address) {
-      currentAccount = accounts.filter((item = {}) => item.address === address)[0] || {};
+      currentAccount =
+        accounts.filter((item = {}) => item.address === address)[0] || {};
     }
     return (
       <div className={styles.CommonLayOut}>
@@ -44,8 +50,12 @@ class CommonLayOut extends Component {
                 exact
                 key={index}
                 path={item.path}
-                render={(props) => (
-                  <item.component {...props} {...this.props} currentAccount={currentAccount} />
+                render={props => (
+                  <item.component
+                    {...props}
+                    {...this.props}
+                    currentAccount={currentAccount}
+                  />
                 )}
               />
             ))}
@@ -57,25 +67,26 @@ class CommonLayOut extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     goBack: state.goBack,
     accounts: state.accounts,
     pageTitle: state.pageTitle,
-    modal: state.modal,
+    modal: state.modal
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
-    setPageTitle: (title) => dispatch(setPageTitle(title)),
-    setModal: ({ name, show, data }) => dispatch(setModal({ name, show, data })),
+    setPageTitle: title => dispatch(setPageTitle(title)),
+    setModal: ({ name, show, data }) =>
+      dispatch(setModal({ name, show, data })),
     getAllAccountBalance: () => dispatch(getAllAccountBalance()),
-    setGoBack: (goBack) => dispatch(setGoBack(goBack)),
+    setGoBack: goBack => dispatch(setGoBack(goBack))
   };
 };
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
+  mapDispatchToProps
 )(CommonLayOut);

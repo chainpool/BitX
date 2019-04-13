@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import { RouterGo } from '../../components';
-import { PATH } from '../../constants';
-import BitX from '../../resources/Bitx.png';
-import * as styles from './SelectModeGetAccount.module.scss';
+import React, { Component } from "react";
+import { RouterGo } from "../../components";
+import { PATH } from "../../constants";
+import BitX from "../../resources/Bitx.png";
+import * as styles from "./SelectModeGetAccount.module.scss";
 
 class SelectModeGetAccount extends Component {
   render() {

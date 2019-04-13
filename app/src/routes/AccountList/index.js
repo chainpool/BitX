@@ -1,26 +1,26 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { Mixin, RouterGo } from '../../components';
-import { setBlankSpace } from '../../utils';
-import SelectModeGetAccount from './SelectModeGetAccount';
-import * as styles from './index.module.scss';
-import { PATH } from '../../constants';
+import React from "react";
+import { connect } from "react-redux";
+import { Mixin, RouterGo } from "../../components";
+import { setBlankSpace } from "../../utils";
+import SelectModeGetAccount from "./SelectModeGetAccount";
+import * as styles from "./index.module.scss";
+import { PATH } from "../../constants";
 
 class AccountList extends Mixin {
-  pageTitle = 'Bitx';
+  pageTitle = "Bitx";
   constructor(props) {
     super(props);
     const { accounts = [] } = props;
     this.state = {
-      close: !!accounts.length,
+      close: !!accounts.length
     };
   }
 
   startInit = () => {};
 
   changeClose = () => {
-    this.setState((prevState) => ({
-      close: !prevState.close,
+    this.setState(prevState => ({
+      close: !prevState.close
     }));
   };
 
@@ -28,7 +28,7 @@ class AccountList extends Mixin {
     const { changeClose } = this;
     const { close } = this.state;
     const { accounts = [] } = this.props;
-    console.log(accounts, '-----accounts');
+    console.log(accounts, "-----accounts");
 
     return (
       <div className={styles.AccountList}>
@@ -43,17 +43,25 @@ class AccountList extends Mixin {
             <RouterGo
               key={index}
               Ele="li"
-              go={{ pathname: PATH.accountdetail, search: `?address=${item.address}` }}>
+              go={{
+                pathname: PATH.accountdetail,
+                search: `?address=${item.address}`
+              }}
+            >
               <div className={styles.seperate} />
               <div className={styles.desc}>
                 <div className={styles.name}>{item.name}</div>
-                <div className={styles.amount}>{setBlankSpace(item.balanceShow, 'BTC')}</div>
+                <div className={styles.amount}>
+                  {setBlankSpace(item.balanceShow, "BTC")}
+                </div>
               </div>
               <div className={styles.address}>{item.address}</div>
             </RouterGo>
           ))}
         </ul>
-        {close ? null : <SelectModeGetAccount {...this.props} changeClose={changeClose} />}
+        {close ? null : (
+          <SelectModeGetAccount {...this.props} changeClose={changeClose} />
+        )}
       </div>
     );
   }
@@ -61,5 +69,5 @@ class AccountList extends Mixin {
 
 export default connect(
   undefined,
-  undefined,
+  undefined
 )(AccountList);

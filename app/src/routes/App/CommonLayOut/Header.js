@@ -1,16 +1,16 @@
-import React, { Component } from 'react';
-import * as styles from './Header.module.scss';
-import { PATH } from '../../../constants';
-import { isFunction } from '../../../utils';
+import React, { Component } from "react";
+import * as styles from "./Header.module.scss";
+import { PATH } from "../../../constants";
+import { isFunction } from "../../../utils";
 
 export default class Header extends Component {
   render() {
     const {
       history,
       history: {
-        location: { pathname },
+        location: { pathname }
       },
-      goBack,
+      goBack
     } = this.props;
     const isShowBack = () => pathname !== PATH.home;
     return (
