@@ -49,7 +49,9 @@ export function compose(
 
   txb.addOutput(targetAddress, amount);
   const change = sum - amount - fee;
-  txb.addOutput(changeAddress, change);
+  if (change > 1000) {
+    txb.addOutput(changeAddress, change);
+  }
 
   if (opReturnHex) {
     const embed = bitcoin.payments.embed({
