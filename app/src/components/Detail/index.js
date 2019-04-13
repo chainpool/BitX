@@ -1,18 +1,18 @@
-import { Component } from 'react';
-import { connect } from 'react-redux';
-import { setBalance, setUtxos } from '@store/actions';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import ArrowBack from '@material-ui/icons/ArrowBack';
-import Typography from '@material-ui/core/Typography';
-import React from 'react';
-import './index.scss';
-import Paper from '@material-ui/core/Paper';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import Receive from './Receive';
-import Send from './Send';
+import { Component } from "react";
+import { connect } from "react-redux";
+import { setBalance, setUtxos } from "@store/actions";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import IconButton from "@material-ui/core/IconButton";
+import ArrowBack from "@material-ui/icons/ArrowBack";
+import Typography from "@material-ui/core/Typography";
+import React from "react";
+import "./index.scss";
+import Paper from "@material-ui/core/Paper";
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
+import Receive from "./Receive";
+import Send from "./Send";
 
 class Detail extends Component {
   state = { value: 0 };
@@ -26,8 +26,9 @@ class Detail extends Component {
   render() {
     const { params: { address } = {} } = this.props.match;
     const { accounts, balances } = this.props;
-    const balance = balances.find((balance) => balance.address === address) || {};
-    const account = (accounts || []).find((account) => account.address === address) || {};
+    const balance = balances.find(balance => balance.address === address) || {};
+    const account =
+      (accounts || []).find(account => account.address === address) || {};
     const { value } = this.state;
 
     return (
@@ -38,7 +39,12 @@ class Detail extends Component {
               <IconButton className="menu" color="inherit" aria-label="Menu">
                 <ArrowBack />
               </IconButton>
-              <Typography variant="h6" color="inherit" align="center" className="grow">
+              <Typography
+                variant="h6"
+                color="inherit"
+                align="center"
+                className="grow"
+              >
                 {account.name}
               </Typography>
             </Toolbar>
@@ -56,7 +62,8 @@ class Detail extends Component {
             variant="fullWidth"
             indicatorColor="primary"
             textColor="primary"
-            onChange={(event, newValue) => this.setState({ value: newValue })}>
+            onChange={(event, newValue) => this.setState({ value: newValue })}
+          >
             <Tab label="发送" />
             <Tab label="接收" />
           </Tabs>
@@ -69,10 +76,10 @@ class Detail extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     accounts: state.accounts,
-    balances: state.balances,
+    balances: state.balances
   };
 };
 
@@ -81,11 +88,11 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
   return {
     getBalance: () => dispatch(setBalance(address)),
-    getUtxos: () => dispatch(setUtxos(address)),
+    getUtxos: () => dispatch(setUtxos(address))
   };
 };
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
+  mapDispatchToProps
 )(Detail);

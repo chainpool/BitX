@@ -1,20 +1,20 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Switch from '@material-ui/core/Switch';
-import FormGroup from '@material-ui/core/FormGroup';
-import './send.scss';
-import Button from '@material-ui/core/Button';
-import compose, { enough } from './bitcoin';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import TextField from "@material-ui/core/TextField";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Switch from "@material-ui/core/Switch";
+import FormGroup from "@material-ui/core/FormGroup";
+import "./send.scss";
+import Button from "@material-ui/core/Button";
+import compose, { enough } from "./bitcoin";
 
 class Send extends Component {
   state = {
-    address: '',
-    amount: '',
+    address: "",
+    amount: "",
     addOpReturn: false,
-    hex: '',
-    ascii: '',
+    hex: "",
+    ascii: ""
   };
 
   constructTx() {
@@ -32,7 +32,7 @@ class Send extends Component {
       address,
       parseInt(amount),
       1000,
-      hex,
+      hex
     );
 
     console.log(result);
@@ -43,15 +43,15 @@ class Send extends Component {
 
     function hexToAscii(str) {
       if (!/^(0x)?[\da-fA-F]+$/.test(str)) {
-        return '';
+        return "";
       }
 
-      const hexString = str.startsWith('0x') ? str.substring(2) : str;
+      const hexString = str.startsWith("0x") ? str.substring(2) : str;
       if (hexString.length % 2 === 1) {
-        return '';
+        return "";
       }
 
-      let strOut = '';
+      let strOut = "";
       for (let x = 0; x < hexString.length; x += 2) {
         strOut += String.fromCharCode(parseInt(hexString.substr(x, 2), 16));
       }
@@ -64,7 +64,7 @@ class Send extends Component {
           label="接收人地址"
           fullWidth
           value={address}
-          onChange={(event) => {
+          onChange={event => {
             this.setState({ address: event.target.value });
           }}
           margin="normal"
@@ -74,7 +74,7 @@ class Send extends Component {
           label="转账数量"
           fullWidth
           value={amount}
-          onChange={(event) => {
+          onChange={event => {
             this.setState({ amount: event.target.value });
           }}
           margin="normal"
@@ -85,7 +85,9 @@ class Send extends Component {
             control={
               <Switch
                 checked={this.state.addOpReturn}
-                onChange={(event, newValue) => this.setState({ addOpReturn: newValue })}
+                onChange={(event, newValue) =>
+                  this.setState({ addOpReturn: newValue })
+                }
                 color="primary"
               />
             }
@@ -101,18 +103,31 @@ class Send extends Component {
               rowsMax="2"
               value={hex}
               fullWidth
-              onChange={(event) =>
-                this.setState({ hex: event.target.value, ascii: hexToAscii(event.target.value) })
+              onChange={event =>
+                this.setState({
+                  hex: event.target.value,
+                  ascii: hexToAscii(event.target.value)
+                })
               }
               margin="none"
             />
 
-            <TextField disabled fullWidth label="文本ASCII" value={ascii} margin="normal" />
+            <TextField
+              disabled
+              fullWidth
+              label="文本ASCII"
+              value={ascii}
+              margin="normal"
+            />
           </section>
         )}
 
         <section className="operation">
-          <Button variant="contained" color="primary" onClick={this.constructTx.bind(this)}>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={this.constructTx.bind(this)}
+          >
             确定
           </Button>
         </section>
@@ -123,7 +138,7 @@ class Send extends Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    utxos: state.utxos.filter((utxo) => utxo.address === ownProps.address),
+    utxos: state.utxos.filter(utxo => utxo.address === ownProps.address)
   };
 };
 

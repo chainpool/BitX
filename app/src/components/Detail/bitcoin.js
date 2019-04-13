@@ -1,21 +1,30 @@
-import bitcoin from 'bitcoinjs-lib';
-import coinSelect from 'coinselect';
+import bitcoin from "bitcoinjs-lib";
+import coinSelect from "coinselect";
 
-export function enough(utxos, changeAddress, targetAddress, amount, feeRate, opReturnHex) {
+export function enough(
+  utxos,
+  changeAddress,
+  targetAddress,
+  amount,
+  feeRate,
+  opReturnHex
+) {
   const normalizeUtxos = normalizeUtxoForSelect(utxos);
   const targets = [
     {
       address: targetAddress,
-      value: amount,
-    },
+      value: amount
+    }
   ];
 
   if (opReturnHex) {
-    const embed = bitcoin.payments.embed({ data: [Buffer.from(opReturnHex, 'hex')] });
+    const embed = bitcoin.payments.embed({
+      data: [Buffer.from(opReturnHex, "hex")]
+    });
 
     targets.push({
       script: embed.output,
-      value: 0,
+      value: 0
     });
   }
 
@@ -25,30 +34,40 @@ export function enough(utxos, changeAddress, targetAddress, amount, feeRate, opR
 }
 
 function normalizeUtxoForSelect(utxos) {
-  return utxos.map((utxo) => {
+  return utxos.map(utxo => {
     return {
       txId: utxo.tx_hash,
       vout: utxo.tx_output_n,
-      ...utxo,
+      ...utxo
     };
   });
 }
 
-export function compose(utxos, changeAddress, targetAddress, amount, feeRate, opReturnHex, ecpair) {
+export function compose(
+  utxos,
+  changeAddress,
+  targetAddress,
+  amount,
+  feeRate,
+  opReturnHex,
+  ecpair
+) {
   const normalizeUtxos = normalizeUtxoForSelect(utxos);
   const targets = [
     {
       address: targetAddress,
-      value: amount,
-    },
+      value: amount
+    }
   ];
 
   if (opReturnHex) {
-    const embed = bitcoin.payments.embed({ data: [Buffer.from(opReturnHex, 'hex')] });
+    const embed = bitcoin.payments.embed({
+      data: [Buffer.from(opReturnHex, "hex")]
+    });
 
     targets.push({
       script: embed.output,
-      value: 0,
+      value: 0
     });
   }
 
@@ -63,8 +82,8 @@ export function compose(utxos, changeAddress, targetAddress, amount, feeRate, op
   const network = bitcoin.networks.testnet;
   const txb = new bitcoin.TransactionBuilder(network);
 
-  inputs.forEach((input) => txb.addInput(input.txId, input.vout));
-  outputs.forEach((output) => {
+  inputs.forEach(input => txb.addInput(input.txId, input.vout));
+  outputs.forEach(output => {
     if (!output.address && !output.script) {
       output.address = changeAddress;
     }
