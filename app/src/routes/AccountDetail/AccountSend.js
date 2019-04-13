@@ -8,6 +8,8 @@ import { getAccountUtxos, getFeeRate } from "../../store/actions";
 import { compose, enough } from "../../components/Detail/bitcoin";
 import { broadcastTx } from "../../service";
 
+const Fee = 1000;
+
 /**
  * TODO: 程序开始时获取当前比特币链上的平均交易fee
  * 测试网API: https://api.blockcypher.com/v1/btc/test3
@@ -90,9 +92,7 @@ class AccountSend extends Mixin {
     const { currentAccount } = this.props;
     const BTCAmount = Number(formatNumber.toBtcPrecision(amount, 8, true));
 
-    if (
-      !enough(utxos, currentAccount.address, address, BTCAmount, feeRate, hex)
-    ) {
+    if (!enough(utxos, BTCAmount, Fee)) {
       throw Error("数量不足");
     }
 
@@ -102,7 +102,7 @@ class AccountSend extends Mixin {
         currentAccount.address,
         address,
         BTCAmount,
-        feeRate,
+        Fee,
         hex,
         ecpair
       );
