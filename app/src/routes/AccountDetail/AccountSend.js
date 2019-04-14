@@ -4,7 +4,7 @@ import { Input, Mixin } from "../../components";
 import { SignModal } from "../Components";
 import * as styles from "./AccountSend.module.scss";
 import { bitJS, formatNumber, Patterns } from "../../utils";
-import { getAccountUtxos, getFeeRate } from "../../store/actions";
+import { getAccountUtxos } from "../../store/actions";
 import { compose, enough } from "../../components/Detail/bitcoin";
 import { broadcastTx } from "../../service";
 
@@ -73,22 +73,16 @@ class AccountSend extends Mixin {
   };
 
   startInit = () => {
-    const { getAccountUtxos, getFeeRate, currentAccount } = this.props;
+    const { getAccountUtxos, currentAccount } = this.props;
     getAccountUtxos(currentAccount.address).then(res =>
       this.setState({
         utxos: res
       })
     );
-
-    getFeeRate().then(res => {
-      this.setState({
-        feeRate: Math.ceil(res.medium_fee_per_kb / 1024)
-      });
-    });
   };
 
   constructTx(ecpair) {
-    const { address, amount, hex, utxos, feeRate } = this.state;
+    const { address, amount, hex, utxos } = this.state;
     const { currentAccount } = this.props;
     const BTCAmount = Number(formatNumber.toBtcPrecision(amount, 8, true));
 
@@ -233,8 +227,7 @@ class AccountSend extends Mixin {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getAccountUtxos: address => dispatch(getAccountUtxos(address)),
-    getFeeRate: () => dispatch(getFeeRate())
+    getAccountUtxos: address => dispatch(getAccountUtxos(address))
   };
 };
 
