@@ -8,8 +8,6 @@ import { getAccountUtxos } from "../../store/actions";
 import { compose, enough } from "../../components/Detail/bitcoin";
 import { broadcastTx } from "../../service";
 
-const Fee = 1000;
-
 /**
  * TODO: 程序开始时获取当前比特币链上的平均交易fee
  * 测试网API: https://api.blockcypher.com/v1/btc/test3
@@ -26,7 +24,8 @@ class AccountSend extends Mixin {
     addOpReturn: false,
     hex: "",
     hexErrMsg: "",
-    feeRate: ""
+    fee: 0.00001, // 默认值为1000 Satoshi
+    feeErrMsg: ""
   };
 
   checkAll = {
@@ -57,6 +56,15 @@ class AccountSend extends Mixin {
       });
       return err;
     },
+    checkFee: () => {
+      const { fee } = this.state;
+      let err =
+        Patterns.check("required")(fee) ||
+        Patterns.check("smallerOrEqual")(0, fee, "数量必须大于或等于0");
+      this.setState({
+        feeErrMsg: err
+      });
+    },
     checkHex: () => {
       const { hex, addOpReturn } = this.state;
       const err = addOpReturn ? Patterns.check("required")(hex) : "";
@@ -82,11 +90,12 @@ class AccountSend extends Mixin {
   };
 
   constructTx(ecpair) {
-    const { address, amount, hex, utxos } = this.state;
+    const { address, amount, hex, utxos, fee } = this.state;
     const { currentAccount } = this.props;
     const BTCAmount = Number(formatNumber.toBtcPrecision(amount, 8, true));
+    const feeInSatoshi = Number(formatNumber.toBtcPrecision(fee, 8, true));
 
-    if (!enough(utxos, BTCAmount, Fee)) {
+    if (!enough(utxos, BTCAmount, feeInSatoshi)) {
       throw Error("数量不足");
     }
 
@@ -96,7 +105,7 @@ class AccountSend extends Mixin {
         currentAccount.address,
         address,
         BTCAmount,
-        Fee,
+        feeInSatoshi,
         hex,
         ecpair
       );
@@ -113,7 +122,8 @@ class AccountSend extends Mixin {
       amountErrMsg,
       addOpReturn,
       hex,
-      hexErrMsg
+      hexErrMsg,
+      fee
     } = this.state;
     const ASCII = bitJS.hexToAscii(hex);
     const { modal: { name } = {} } = this.props;
@@ -140,6 +150,18 @@ class AccountSend extends Mixin {
             onChange={value => {
               this.setState({
                 amount: value
+              });
+            }}
+          />
+          <Input
+            errMsg={amountErrMsg}
+            label="交易手续费"
+            value={fee}
+            suffix={"BTC"}
+            onBlur={checkAll.checkFee}
+            onChange={value => {
+              this.setState({
+                fee: value
               });
             }}
           />
