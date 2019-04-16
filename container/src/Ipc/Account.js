@@ -13,8 +13,8 @@ const saveAccount = async (event, arg) => {
 
 const getAccount = async event => {
   try {
-    const res = (await readFilePromise(filePath)) || [];
-    event.returnValue = JSON.stringify(res);
+    const res = await readFilePromise(filePath);
+    event.returnValue = res.toString();
   } catch (err) {
     event.returnValue = JSON.stringify([]);
   }

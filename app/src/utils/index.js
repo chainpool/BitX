@@ -9,6 +9,13 @@ import WAValidator from "wallet-address-validator";
 import device from "current-device";
 import uniqid from "uniqid";
 
+let ipcRenderer;
+if (window.require) {
+  ({ ipcRenderer } = window.require("electron"));
+}
+
+export const ipc = ipcRenderer;
+
 export const isEmpty = value => {
   return isNaN(value) || value === undefined || value === "" || value === {};
 };

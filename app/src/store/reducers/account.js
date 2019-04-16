@@ -1,8 +1,4 @@
-import { localSave } from "../../utils";
-let ipcRenderer;
-if (window.require) {
-  ({ ipcRenderer } = window.require("electron"));
-}
+import { localSave, ipc } from "../../utils";
 
 const accounts = (state = [], action) => {
   if (action.type === "ADD_ACCOUNT") {
@@ -12,8 +8,8 @@ const accounts = (state = [], action) => {
       address: item.address,
       encryptedKey: item.encryptedKey
     }));
-    if (ipcRenderer) {
-      ipcRenderer.send("SAVE_ACCOUNT", JSON.stringify(saveParts));
+    if (ipc) {
+      ipc.send("SAVE_ACCOUNT", JSON.stringify(saveParts));
     } else {
       localSave.set("accounts", saveParts);
     }
@@ -29,8 +25,8 @@ const accounts = (state = [], action) => {
     localSave.remove("accounts");
     localSave.set("accountVersion", 1);
   } else {
-    if (ipcRenderer) {
-      localAccounts = JSON.parse(ipcRenderer.sendSync("GET_ACCOUNT"));
+    if (ipc) {
+      localAccounts = JSON.parse(ipc.sendSync("GET_ACCOUNT"));
     } else {
       localAccounts = localSave.get("accounts");
     }
