@@ -1,3 +1,3 @@
-require("./configCenter/App");
+require("./App");
 
-require("./configCenter/Ipc");
+require("./Ipc");
