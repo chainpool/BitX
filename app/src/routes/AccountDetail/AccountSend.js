@@ -45,7 +45,7 @@ class AccountSend extends Mixin {
         Patterns.check("required")(amount) ||
         Patterns.check("smallerOrEqual")(0, amount, "数量必须大于或等于0");
       if (!err) {
-        this.checkAll.checkAmountAndFee();
+        err = this.checkAll.checkAmountAndFee();
       } else {
         this.setState({
           amountErrMsg: err
@@ -59,7 +59,7 @@ class AccountSend extends Mixin {
         Patterns.check("required")(fee) ||
         Patterns.check("smallerOrEqual")(0, fee, "数量必须大于或等于0");
       if (!err) {
-        this.checkAll.checkAmountAndFee();
+        err = this.checkAll.checkAmountAndFee();
       } else {
         this.setState({
           feeErrMsg: err
@@ -76,11 +76,13 @@ class AccountSend extends Mixin {
           feeErrMsg: "",
           amountErrMsg: ""
         });
+        return "";
       } catch (error) {
         this.setState({
           ...(fee ? { feeErrMsg: error.message } : {}),
           ...(amount ? { amountErrMsg: error.message } : {})
         });
+        return error.message;
       }
     },
     checkHex: () => {

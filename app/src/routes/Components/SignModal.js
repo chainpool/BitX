@@ -1,6 +1,6 @@
 import React from "react";
 import { Mixin, Input, Modal, RouterGo } from "../../components";
-import { isFunction, Patterns, bitJS } from "../../utils";
+import { isFunction, Patterns, bitJS, isEmpty } from "../../utils";
 import * as styles from "./SignModal.module.scss";
 import bitcoin from "bitcoinjs-lib";
 
@@ -86,7 +86,6 @@ export default class SignModal extends Mixin {
                     if (isFunction(callback)) {
                       try {
                         const res = await callback(pair);
-                        console.log(res);
                         if (res) {
                           this.setState({
                             status: true,
@@ -94,10 +93,12 @@ export default class SignModal extends Mixin {
                           });
                         }
                       } catch (err) {
-                        console.log(err, "-----signmodal,err");
+                        console.log(err);
                         this.setState({
                           passwordErrMsg: err.message.error
                             ? err.message.error
+                            : isEmpty(err.message)
+                            ? "交易广播失败"
                             : err.message.toString()
                         });
                       }

@@ -10,7 +10,7 @@ import device from "current-device";
 import uniqid from "uniqid";
 
 export const isEmpty = value => {
-  return isNaN(value) || value === undefined || value === "";
+  return isNaN(value) || value === undefined || value === "" || value === {};
 };
 export const isNumber = value => typeof value === "number";
 

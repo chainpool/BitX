@@ -1,21 +1,30 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { Component } from "react";
+import { connect } from "react-redux";
 
-import * as styles from './index.module.scss';
-import { setModal } from '../../store/actions';
+import * as styles from "./index.module.scss";
+import { setModal } from "../../store/actions";
+import { Device } from "../../utils";
+import classNames from "classnames";
 
 class Modal extends Component {
   render() {
     const { title, setModal, modal: { show } = {}, children } = this.props;
     return (
       show && (
-        <div className={styles.Modalcontainer}>
+        <div
+          className={classNames(
+            styles.Modalcontainer,
+            Device.isMobile() ? styles.rootModalMobile : styles.rootModalDesktop
+          )}
+          id="rootModal"
+        >
           <div className={styles.content}>
             <div
               className={styles.header}
               onClick={() => {
                 setModal(false);
-              }}>
+              }}
+            >
               <div className={styles.title}>{title}</div>
               <i className="iconfont iconClose" />
             </div>
@@ -27,19 +36,19 @@ class Modal extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
-    modal: state.modal,
+    modal: state.modal
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
-    setModal: (status) => dispatch(setModal({ show: status })),
+    setModal: status => dispatch(setModal({ show: status }))
   };
 };
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
+  mapDispatchToProps
 )(Modal);
