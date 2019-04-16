@@ -45,15 +45,12 @@ class AccountSend extends Mixin {
         Patterns.check("required")(amount) ||
         Patterns.check("smallerOrEqual")(0, amount, "数量必须大于或等于0");
       if (!err) {
-        try {
-          this.constructTx();
-        } catch (error) {
-          err = error.message;
-        }
+        this.checkAll.checkAmountAndFee();
+      } else {
+        this.setState({
+          amountErrMsg: err
+        });
       }
-      this.setState({
-        amountErrMsg: err
-      });
       return err;
     },
     checkFee: () => {
@@ -61,9 +58,30 @@ class AccountSend extends Mixin {
       let err =
         Patterns.check("required")(fee) ||
         Patterns.check("smallerOrEqual")(0, fee, "数量必须大于或等于0");
-      this.setState({
-        feeErrMsg: err
-      });
+      if (!err) {
+        this.checkAll.checkAmountAndFee();
+      } else {
+        this.setState({
+          feeErrMsg: err
+        });
+      }
+
+      return err;
+    },
+    checkAmountAndFee: () => {
+      const { fee, amount } = this.state;
+      try {
+        this.constructTx();
+        this.setState({
+          feeErrMsg: "",
+          amountErrMsg: ""
+        });
+      } catch (error) {
+        this.setState({
+          ...(fee ? { feeErrMsg: error.message } : {}),
+          ...(amount ? { amountErrMsg: error.message } : {})
+        });
+      }
     },
     checkHex: () => {
       const { hex, addOpReturn } = this.state;
@@ -74,7 +92,7 @@ class AccountSend extends Mixin {
       return err;
     },
     confirm: () => {
-      return ["checkAddress", "checkAmount", "checkHex"].every(
+      return ["checkAddress", "checkAmount", "checkFee", "checkHex"].every(
         item => !this.checkAll[item]()
       );
     }
@@ -123,7 +141,8 @@ class AccountSend extends Mixin {
       addOpReturn,
       hex,
       hexErrMsg,
-      fee
+      fee,
+      feeErrMsg
     } = this.state;
     const ASCII = bitJS.hexToAscii(hex);
     const { modal: { name } = {} } = this.props;
@@ -154,7 +173,7 @@ class AccountSend extends Mixin {
             }}
           />
           <Input
-            errMsg={amountErrMsg}
+            errMsg={feeErrMsg}
             label="交易手续费"
             value={fee}
             suffix={"BTC"}
