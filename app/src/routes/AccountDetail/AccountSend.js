@@ -239,22 +239,18 @@ class AccountSend extends Mixin {
           <button
             onClick={() => {
               if (checkAll.confirm()) {
-                try {
-                  this.openModal({
-                    name: "transfer",
-                    data: {
-                      callback: async ecpair => {
-                        const tx = this.constructTx(ecpair);
-                        const res = await broadcastTx(tx);
-                        if (res && res.tx && res.tx.hash) {
-                          return res.tx.hash;
-                        }
+                this.openModal({
+                  name: "transfer",
+                  data: {
+                    callback: async ecpair => {
+                      const tx = this.constructTx(ecpair);
+                      const res = await broadcastTx(tx);
+                      if (res && res.tx && res.tx.hash) {
+                        return res.tx.hash;
                       }
                     }
-                  });
-                } catch (err) {
-                  console.log(err);
-                }
+                  }
+                });
               }
             }}
           >

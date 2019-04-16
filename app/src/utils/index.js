@@ -16,6 +16,8 @@ export const isNumber = value => typeof value === "number";
 
 export const isFunction = fun => typeof fun === "function";
 
+export const isString = value => typeof value === "string";
+
 export const localSave = {
   get: key => {
     return store.get(key);
