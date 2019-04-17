@@ -1,6 +1,6 @@
 import React from "react";
 import { Mixin, Input, Modal, RouterGo } from "../../components";
-import { isFunction, Patterns, bitJS, isEmpty, isString } from "../../utils";
+import { isFunction, Patterns, bitJS, isString } from "../../utils";
 import * as styles from "./SignModal.module.scss";
 import bitcoin from "bitcoinjs-lib";
 
@@ -16,10 +16,9 @@ export default class SignModal extends Mixin {
     checkPassword: () => {
       const { password } = this.state;
       const { currentAccount: { encryptedKey } = {} } = this.props;
-
       let err =
         Patterns.check("required")(password) ||
-        Patterns.check("isValidPassword")(encryptedKey, password);
+        bitJS.isValidPassword(encryptedKey, password);
       this.setState({
         passwordErrMsg: err
       });

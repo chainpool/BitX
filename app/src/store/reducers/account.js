@@ -1,4 +1,4 @@
-import { localSave, ipc } from "../../utils";
+import { localSave, bitJS } from "../../utils";
 
 const accounts = (state = [], action) => {
   if (action.type === "ADD_ACCOUNT") {
@@ -8,11 +8,7 @@ const accounts = (state = [], action) => {
       address: item.address,
       encryptedKey: item.encryptedKey
     }));
-    if (ipc) {
-      ipc.send("SAVE_ACCOUNT", JSON.stringify(saveParts));
-    } else {
-      localSave.set("accounts", saveParts);
-    }
+    bitJS.saveAccount(saveParts);
     return result;
   } else if (action.type === "UPDATE_ACCOUNT_BALANCE") {
     return action.accounts;
@@ -25,11 +21,7 @@ const accounts = (state = [], action) => {
     localSave.remove("accounts");
     localSave.set("accountVersion", 1);
   } else {
-    if (ipc) {
-      localAccounts = JSON.parse(ipc.sendSync("GET_ACCOUNT"));
-    } else {
-      localAccounts = localSave.get("accounts");
-    }
+    localAccounts = bitJS.getAccount();
   }
 
   return state.length ? state : localAccounts || [];

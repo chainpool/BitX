@@ -2,16 +2,11 @@ import store from "store";
 import { BigNumber } from "bignumber.js";
 import { default as queryString } from "query-string";
 import device from "current-device";
+
+export * from "./ipc";
 export * from "./bitJS";
 export * from "./patterns";
 export * from "./request";
-
-let ipcRenderer;
-if (window.require) {
-  ({ ipcRenderer } = window.require("electron"));
-}
-
-export const ipc = ipcRenderer;
 
 export const isEmpty = value => {
   return isNaN(value) || value === undefined || value === "" || value === {};

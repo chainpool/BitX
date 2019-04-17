@@ -4,7 +4,6 @@ const update = () => {
   autoUpdater.on("update-downloaded", function() {
     autoUpdater.quitAndInstall();
   });
-
   autoUpdater.checkForUpdatesAndNotify();
 };
 

@@ -49,13 +49,11 @@ export const Patterns = {
   isValidPassword: (encryptedKey, password, errMsg = "密码错误") => {
     try {
       bip38.decrypt(encryptedKey, password, () => {}, {
-        N: 128, // specified by BIP38
+        N: 128,
         r: 8,
         p: 8
       });
     } catch (e) {
-      console.log(e);
-      console.log(e.actual, e.expected, e.actual === e.expected);
       return errMsg;
     }
   },

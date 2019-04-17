@@ -44,7 +44,7 @@ class App {
     this.window = new Window({
       width: 400,
       height: 690,
-      url: `http://localhost:5000`,
+      url: `https://bitx.chainx.org/`,
       titleBarStyle: "hidden"
       // fullscreen: false,
       // resizable: false
