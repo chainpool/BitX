@@ -22,7 +22,7 @@ class Window {
       this.window = null;
     });
     this.loadUrl(url);
-    // this.openDevTools();
+    //this.openDevTools();
   }
 
   loadUrl(url) {
