@@ -17,13 +17,6 @@ export async function getUtxos(addr) {
     .then(res => res.txrefs || []);
 }
 
-export async function getFee() {
-  return fetchFromHttp({
-    url: "https://api.blockcypher.com/v1/btc/test3",
-    method: "GET"
-  });
-}
-
 export async function broadcastTx(tx) {
   const body = { tx };
   return fetchFromHttp({

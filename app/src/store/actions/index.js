@@ -1,4 +1,4 @@
-import { getBalance, getUtxos, getFee } from "../../service";
+import { getBalance, getUtxos } from "../../service";
 import { formatNumber } from "../../utils";
 
 export const addAccount = account => ({
@@ -11,36 +11,7 @@ export const updateAccountBalance = accounts => ({
   accounts
 });
 
-const addBalance = balance => ({
-  type: "ADD_BALANCE",
-  balance
-});
-
-const addUtxos = (utxos, address) => ({
-  type: "ADD_UTXO",
-  utxos,
-  address
-});
-
 export const generateMnemonic = () => ({ type: "GENERATE_MNEMONIC" });
-
-export const removeMnemonic = () => ({ type: "REMOVE_MNEMONIC" });
-
-export const setBalance = addr => {
-  return function(dispatch) {
-    getBalance(addr).then(balance => {
-      dispatch(addBalance(balance));
-    });
-  };
-};
-
-export const setUtxos = addr => {
-  return function(dispatch) {
-    getUtxos(addr).then(utxos => {
-      dispatch(addUtxos(utxos, addr));
-    });
-  };
-};
 
 export const setPageTitle = pageTitle => ({
   type: "SET_PAGE_TITLE",
@@ -52,12 +23,6 @@ export const setModal = ({ name, show, data }) => ({
   modal: { name, show, data }
 });
 
-export const getAccountBalance = addr => {
-  return () => {
-    return getBalance(addr);
-  };
-};
-
 export const getAccountUtxos = addr => {
   return () => {
     return getUtxos(addr);
@@ -68,12 +33,6 @@ export const setGoBack = goBack => ({
   type: "SET_GO_BACK",
   goBack
 });
-
-export const getFeeRate = () => {
-  return () => {
-    return getFee();
-  };
-};
 
 export const getAllAccountBalance = () => {
   const requestResults = [];
