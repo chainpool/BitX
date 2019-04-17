@@ -33,7 +33,10 @@ const bitX = {
     } else if (name && wif && password) {
       // TODO: 需要根据环境变量来切换network
       const keyPair = bitcoin.ECPair.fromWIF(wif, bitcoin.networks.testnet);
-      const { address } = bitcoin.payments.p2pkh({ pubkey: keyPair.publicKey });
+      const { address } = bitcoin.payments.p2pkh({
+        pubkey: keyPair.publicKey,
+        network: bitcoin.networks.testnet
+      });
       const encryptedKey = bip38.encrypt(
         keyPair.privateKey,
         keyPair.compressed,
