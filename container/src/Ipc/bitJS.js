@@ -12,12 +12,21 @@ const decrypt = (event, arg) => {
   event.returnValue = JSON.stringify(result);
 };
 
+const decryptPair = (event, arg) => {
+  const result = bitX.decryptPair(...arg);
+  event.returnValue = JSON.stringify(result);
+};
+
 const isValidPassword = (event, arg) =>
   (event.returnValue = Patterns.check("isValidPassword")(...arg));
+
+const sign = (event, arg) => (event.returnValue = bitX.sign(...arg));
 
 module.exports = {
   generateMnemonic,
   generateAccount,
   decrypt,
-  isValidPassword
+  sign,
+  isValidPassword,
+  decryptPair
 };

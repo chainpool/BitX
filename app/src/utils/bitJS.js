@@ -40,11 +40,25 @@ export const bitJS = {
       return localSave.get("accounts");
     }
   },
+  sign: (...payload) => {
+    if (ipc) {
+      return ipc.sendSync("SIGN", payload);
+    } else {
+      return bitX.sign(...payload);
+    }
+  },
   isValidPassword: (...payload) => {
     if (ipc) {
-      return ipc.sendSync("isValidPassword", payload);
+      return ipc.sendSync("IS_VALID_PASSWORD", payload);
     } else {
       return Patterns.check("isValidPassword")(...payload);
+    }
+  },
+  decryptPair: (...payload) => {
+    if (ipc) {
+      return JSON.parse(ipc.sendSync("DECRYPT_PAIR", payload));
+    } else {
+      return bitX.decryptPair(...payload);
     }
   }
 };

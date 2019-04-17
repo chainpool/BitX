@@ -5,7 +5,9 @@ const {
   generateMnemonic,
   generateAccount,
   decrypt,
-  isValidPassword
+  sign,
+  isValidPassword,
+  decryptPair
 } = require("./bitJS");
 
 ipcMain.on("SAVE_ACCOUNT", saveAccount);
@@ -20,6 +22,10 @@ ipcMain.on("GENERATE_ACCOUNT", generateAccount);
 
 ipcMain.on("DECRYPT", decrypt);
 
-ipcMain.on("isValidPassword", isValidPassword);
+ipcMain.on("SIGN", sign);
+
+ipcMain.on("IS_VALID_PASSWORD", isValidPassword);
+
+ipcMain.on("DECRYPT_PAIR", decryptPair);
 
 module.exports = ipcMain;

@@ -3,16 +3,10 @@ import { connect } from "react-redux";
 import { Input, Mixin } from "../../components";
 import { SignModal } from "../Components";
 import * as styles from "./AccountSend.module.scss";
-import { bitJS, formatNumber, Patterns } from "../../utils";
+import { formatNumber, Patterns, bitJS } from "../../utils";
 import { getAccountUtxos } from "../../store/actions";
-import { compose, enough } from "../../components/Detail/bitcoin";
+import { enough } from "../../components/Detail/bitcoin";
 import { broadcastTx } from "../../service";
-
-/**
- * TODO: 程序开始时获取当前比特币链上的平均交易fee
- * 测试网API: https://api.blockcypher.com/v1/btc/test3
- * 主网API: https://api.blockcypher.com/v1/btc/main
- */
 
 class AccountSend extends Mixin {
   state = {
@@ -120,7 +114,7 @@ class AccountSend extends Mixin {
     }
 
     if (ecpair) {
-      const result = compose(
+      return bitJS.sign(
         utxos,
         currentAccount.address,
         address,
@@ -129,7 +123,6 @@ class AccountSend extends Mixin {
         hex,
         ecpair
       );
-      return result;
     }
   }
 
@@ -261,9 +254,13 @@ class AccountSend extends Mixin {
                   data: {
                     callback: async ecpair => {
                       const tx = this.constructTx(ecpair);
-                      const res = await broadcastTx(tx);
-                      if (res && res.tx && res.tx.hash) {
-                        return res.tx.hash;
+                      if (tx && tx.message) {
+                        throw Error(tx.message);
+                      } else {
+                        const res = await broadcastTx(tx);
+                        if (res && res.tx && res.tx.hash) {
+                          return res.tx.hash;
+                        }
                       }
                     }
                   }

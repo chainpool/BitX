@@ -2,7 +2,6 @@ import React from "react";
 import { Mixin, Input, Modal, RouterGo } from "../../components";
 import { isFunction, Patterns, bitJS, isString } from "../../utils";
 import * as styles from "./SignModal.module.scss";
-import bitcoin from "bitcoinjs-lib";
 
 export default class SignModal extends Mixin {
   state = {
@@ -73,17 +72,9 @@ export default class SignModal extends Mixin {
               <button
                 onClick={async () => {
                   if (checkAll.confirm()) {
-                    const result = bitJS.decrypt(encryptedKey, password);
-                    const pair = bitcoin.ECPair.fromPrivateKey(
-                      result.privateKey,
-                      {
-                        compressed: result.compressed,
-                        network: bitcoin.networks.testnet
-                      }
-                    );
-
                     if (isFunction(callback)) {
                       try {
+                        const pair = bitJS.decryptPair(encryptedKey, password);
                         const res = await callback(pair);
                         if (res) {
                           this.setState({
@@ -92,7 +83,7 @@ export default class SignModal extends Mixin {
                           });
                         }
                       } catch (err) {
-                        err = isString(err)
+                        const errMsg = isString(err)
                           ? err
                           : err.message && isString(err.message)
                           ? err.message
@@ -102,7 +93,7 @@ export default class SignModal extends Mixin {
                           ? err.message.error
                           : "交易广播失败";
                         this.setState({
-                          passwordErrMsg: err
+                          passwordErrMsg: errMsg
                         });
                       }
                     }

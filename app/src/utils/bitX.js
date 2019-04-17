@@ -1,7 +1,9 @@
 import bip39 from "bip39";
 import bip32 from "bip32";
-import bitcoin from "bitcoinjs-lib";
 import bip38 from "bip38";
+import bitcoin from "bitcoinjs-lib";
+import { bitJS } from "./bitJS";
+import { compose } from "../components/Detail/bitcoin";
 
 export const bitX = {
   generateMnemonic: () => bip39.generateMnemonic(),
@@ -45,11 +47,20 @@ export const bitX = {
     return account;
   },
   decrypt: (encryptedKey, password) => {
-    const result = bip38.decrypt(encryptedKey, password, () => {}, {
+    return bip38.decrypt(encryptedKey, password, () => {}, {
       N: 128,
       r: 8,
       p: 8
     });
-    return result;
+  },
+  decryptPair: (encryptedKey, password) => {
+    const result = bitJS.decrypt(encryptedKey, password);
+    return bitcoin.ECPair.fromPrivateKey(result.privateKey, {
+      compressed: result.compressed,
+      network: bitcoin.networks.testnet
+    });
+  },
+  sign: (...payload) => {
+    return compose(...payload);
   }
 };
