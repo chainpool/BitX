@@ -251,8 +251,8 @@ class AccountSend extends Mixin {
                         throw Error(tx.message);
                       } else {
                         const res = await broadcastTx(tx);
-                        if (res && res.tx && res.tx.hash) {
-                          return res.tx.hash;
+                        if (res && res.tx) {
+                          return res.tx;
                         }
                       }
                     }

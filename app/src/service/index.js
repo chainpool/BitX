@@ -1,8 +1,7 @@
 import { fetchFromHttp } from "../utils";
 
-const path = process.env.NODE_ENV === "production" ? "main" : "test3";
-
 const endpoint = `https://api.blockcypher.com/v1/btc/test3`;
+const submitEndpoint = "https://api.chainx.org/bitx/txs";
 
 export async function getBalance(addr) {
   return window.fetch(endpoint + `/addrs/${addr}/balance`).then(response => {
@@ -18,9 +17,9 @@ export async function getUtxos(addr) {
 }
 
 export async function broadcastTx(tx) {
-  const body = { tx };
+  const body = { raw: tx };
   return fetchFromHttp({
-    url: endpoint + `/txs/push`,
+    url: submitEndpoint,
     method: "POST",
     body
   });
