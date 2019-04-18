@@ -35,8 +35,7 @@ export const fetchFromHttp = ({
         }
       })
       .catch(err => {
-        console.log(err);
-        return Promise.reject(err);
+        return Promise.reject(err.message || err);
       });
   if (timeOut) {
     return Promise.race([
