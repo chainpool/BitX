@@ -6,6 +6,11 @@ const defaultEndpoint = "http://47.111.89.46:18332";
 const endpoint = process.env.BTC_END_POINT || defaultEndpoint;
 
 const router = new Router();
+
+router.get("/ping", async ctx => {
+  ctx.body = "pong";
+});
+
 router.post("/txs", async ctx => {
   console.log(ctx.params);
   const { raw } = ctx.request.body;
