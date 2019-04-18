@@ -69,8 +69,11 @@ const bitX = {
     amount,
     fee,
     opReturnHex,
-    ecpair
+    encryptedKey,
+    password
   ) => {
+    const ecpair = bitX.decryptPair(encryptedKey, password);
+
     const filterUnspentsByAmount = (unspents, amount, fee) => {
       const nonZeroUnspents = unspents.filter(
         utxo => new BigNumber(utxo.value) > 0
@@ -88,13 +91,11 @@ const bitX = {
 
       return sum >= amount + fee ? result : [];
     };
+
     try {
       const filteredUtxos = filterUnspentsByAmount(utxos, amount, fee);
 
-      // const network =
-      //   process.env.NODE_ENV === 'production' ? bitcoin.networks.bitcoin : bitcoin.networks.testnet;
-      const network = bitcoin.networks.testnet;
-      const txb = new bitcoin.TransactionBuilder(network);
+      const txb = new bitcoin.TransactionBuilder(bitcoin.networks.testnet);
 
       let sum = 0;
       for (let utxo of filteredUtxos) {

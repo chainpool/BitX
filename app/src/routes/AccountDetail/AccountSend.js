@@ -63,9 +63,18 @@ class AccountSend extends Mixin {
       return err;
     },
     checkAmountAndFee: () => {
-      const { fee, amount } = this.state;
+      const { fee, amount, utxos } = this.state;
+      const BTCAmount = Number(formatNumber.toBtcPrecision(amount, 8, true));
+      const feeInSatoshi = Number(formatNumber.toBtcPrecision(fee, 8, true));
       try {
-        this.constructTx();
+        if (!enough(utxos, BTCAmount, feeInSatoshi)) {
+          this.setState({
+            feeErrMsg: "",
+            amountErrMsg: "数量不足"
+          });
+          return;
+        }
+
         this.setState({
           feeErrMsg: "",
           amountErrMsg: ""
@@ -103,27 +112,22 @@ class AccountSend extends Mixin {
     );
   };
 
-  constructTx(ecpair) {
+  constructTx(encryptedKey, password) {
     const { address, amount, hex, utxos, fee } = this.state;
     const { currentAccount } = this.props;
     const BTCAmount = Number(formatNumber.toBtcPrecision(amount, 8, true));
     const feeInSatoshi = Number(formatNumber.toBtcPrecision(fee, 8, true));
 
-    if (!enough(utxos, BTCAmount, feeInSatoshi)) {
-      throw Error("数量不足");
-    }
-
-    if (ecpair) {
-      return bitJS.sign(
-        utxos,
-        currentAccount.address,
-        address,
-        BTCAmount,
-        feeInSatoshi,
-        hex,
-        ecpair
-      );
-    }
+    return bitJS.sign(
+      utxos,
+      currentAccount.address,
+      address,
+      BTCAmount,
+      feeInSatoshi,
+      hex,
+      encryptedKey,
+      password
+    );
   }
 
   render() {
@@ -252,8 +256,8 @@ class AccountSend extends Mixin {
                 this.openModal({
                   name: "transfer",
                   data: {
-                    callback: async ecpair => {
-                      const tx = this.constructTx(ecpair);
+                    callback: async (encryptedKey, password) => {
+                      const tx = this.constructTx(encryptedKey, password);
                       if (tx && tx.message) {
                         throw Error(tx.message);
                       } else {

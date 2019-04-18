@@ -74,8 +74,7 @@ export default class SignModal extends Mixin {
                   if (checkAll.confirm()) {
                     if (isFunction(callback)) {
                       try {
-                        const pair = bitJS.decryptPair(encryptedKey, password);
-                        const res = await callback(pair);
+                        const res = await callback(encryptedKey, password);
                         if (res) {
                           this.setState({
                             status: true,

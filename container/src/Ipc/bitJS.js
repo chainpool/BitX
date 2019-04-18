@@ -20,7 +20,9 @@ const decryptPair = (event, arg) => {
 const isValidPassword = (event, arg) =>
   (event.returnValue = Patterns.check("isValidPassword")(...arg));
 
-const sign = (event, arg) => (event.returnValue = bitX.sign(...arg));
+const sign = (event, arg) => {
+  return (event.returnValue = bitX.sign(...arg));
+};
 
 module.exports = {
   generateMnemonic,

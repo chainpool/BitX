@@ -63,7 +63,25 @@ export const bitX = {
       network: bitcoin.networks.testnet
     });
   },
-  sign: (...payload) => {
-    return compose(...payload);
+  sign: (
+    utxos,
+    changeAddress,
+    targetAddress,
+    amount,
+    fee,
+    opReturnHex,
+    encryptedKey,
+    password
+  ) => {
+    const ecpair = bitX.decryptPair(encryptedKey, password);
+    return compose(
+      utxos,
+      changeAddress,
+      targetAddress,
+      amount,
+      fee,
+      opReturnHex,
+      ecpair
+    );
   }
 };
