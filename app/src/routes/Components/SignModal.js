@@ -82,6 +82,7 @@ export default class SignModal extends Mixin {
                           });
                         }
                       } catch (err) {
+                        console.log(err);
                         const errMsg = isString(err)
                           ? err
                           : err.message && isString(err.message)
