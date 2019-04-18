@@ -6,8 +6,7 @@ const {
   generateAccount,
   decrypt,
   sign,
-  isValidPassword,
-  decryptPair
+  isValidPassword
 } = require("./bitJS");
 
 ipcMain.on("SAVE_ACCOUNT", saveAccount);
@@ -25,7 +24,5 @@ ipcMain.on("DECRYPT", decrypt);
 ipcMain.on("SIGN", sign);
 
 ipcMain.on("IS_VALID_PASSWORD", isValidPassword);
-
-ipcMain.on("DECRYPT_PAIR", decryptPair);
 
 module.exports = ipcMain;

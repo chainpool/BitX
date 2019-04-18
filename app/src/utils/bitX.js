@@ -2,7 +2,6 @@ import bip39 from "bip39";
 import bip32 from "bip32";
 import bip38 from "bip38";
 import bitcoin from "bitcoinjs-lib";
-import { bitJS } from "./bitJS";
 import { compose } from "../components/Detail/bitcoin";
 
 export const bitX = {
@@ -57,7 +56,7 @@ export const bitX = {
     });
   },
   decryptPair: (encryptedKey, password) => {
-    const result = bitJS.decrypt(encryptedKey, password);
+    const result = bitX.decrypt(encryptedKey, password);
     return bitcoin.ECPair.fromPrivateKey(result.privateKey, {
       compressed: result.compressed,
       network: bitcoin.networks.testnet

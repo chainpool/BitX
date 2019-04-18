@@ -59,34 +59,23 @@ class AccountSend extends Mixin {
           feeErrMsg: err
         });
       }
-
       return err;
     },
     checkAmountAndFee: () => {
       const { fee, amount, utxos } = this.state;
       const BTCAmount = Number(formatNumber.toBtcPrecision(amount, 8, true));
       const feeInSatoshi = Number(formatNumber.toBtcPrecision(fee, 8, true));
-      try {
-        if (!enough(utxos, BTCAmount, feeInSatoshi)) {
-          this.setState({
-            feeErrMsg: "",
-            amountErrMsg: "数量不足"
-          });
-          return;
-        }
-
+      if (!enough(utxos, BTCAmount, feeInSatoshi)) {
         this.setState({
-          feeErrMsg: "",
-          amountErrMsg: ""
+          feeErrMsg: "数量不足",
+          amountErrMsg: "数量不足"
         });
-        return "";
-      } catch (error) {
-        this.setState({
-          ...(fee ? { feeErrMsg: error.message } : {}),
-          ...(amount ? { amountErrMsg: error.message } : {})
-        });
-        return error.message;
+        return;
       }
+      this.setState({
+        feeErrMsg: "",
+        amountErrMsg: ""
+      });
     },
     checkHex: () => {
       const { hex, addOpReturn } = this.state;

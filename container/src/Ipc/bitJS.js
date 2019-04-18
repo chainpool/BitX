@@ -12,11 +12,6 @@ const decrypt = (event, arg) => {
   event.returnValue = JSON.stringify(result);
 };
 
-const decryptPair = (event, arg) => {
-  const result = bitX.decryptPair(...arg);
-  event.returnValue = JSON.stringify(result);
-};
-
 const isValidPassword = (event, arg) =>
   (event.returnValue = Patterns.check("isValidPassword")(...arg));
 
@@ -29,6 +24,5 @@ module.exports = {
   generateAccount,
   decrypt,
   sign,
-  isValidPassword,
-  decryptPair
+  isValidPassword
 };

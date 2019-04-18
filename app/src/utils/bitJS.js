@@ -53,12 +53,5 @@ export const bitJS = {
     } else {
       return Patterns.check("isValidPassword")(...payload);
     }
-  },
-  decryptPair: (...payload) => {
-    if (ipc) {
-      return JSON.parse(ipc.sendSync("DECRYPT_PAIR", payload));
-    } else {
-      return bitX.decryptPair(...payload);
-    }
   }
 };
