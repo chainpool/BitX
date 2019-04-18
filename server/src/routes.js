@@ -23,7 +23,7 @@ router.post("/txs", async ctx => {
   const result = await response.json();
   if (response.ok) {
     ctx.status = 201;
-    ctx.body = result.result;
+    ctx.body = { tx: result.result };
   } else {
     ctx.status = 400;
     ctx.body = result.error;
