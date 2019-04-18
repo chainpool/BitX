@@ -1,5 +1,4 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import { Component } from "react";
 import { isFunction } from "../../utils";
 
 export default class Mixin extends Component {

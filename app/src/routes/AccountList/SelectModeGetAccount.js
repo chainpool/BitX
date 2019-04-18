@@ -16,7 +16,7 @@ class SelectModeGetAccount extends Component {
         ) : null}
 
         <div className={styles.bitx}>
-          <img src={BitX} height={55} />
+          <img alt="" src={BitX} height={55} />
         </div>
         <div className={styles.routerbutton}>
           <div>
