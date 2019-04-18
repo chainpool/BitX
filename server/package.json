@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "prod": "pm2 start ecosystem.config.js"
+  },
   "dependencies": {
     "@koa/cors": "^3.0.0",
     "dotenv": "^7.0.0",
