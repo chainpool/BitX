@@ -43,7 +43,7 @@ export function compose(
 
   let sum = 0;
   for (let utxo of filteredUtxos) {
-    txb.addInput(utxo.tx_hash, utxo.tx_output_n);
+    txb.addInput(utxo.mintTxid, utxo.minIndex);
     sum += utxo.value;
   }
 

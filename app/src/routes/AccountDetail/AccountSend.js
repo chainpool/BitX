@@ -66,11 +66,12 @@ class AccountSend extends Mixin {
       const BTCAmount = Number(formatNumber.toBtcPrecision(amount, 8, true));
       const feeInSatoshi = Number(formatNumber.toBtcPrecision(fee, 8, true));
       if (!enough(utxos, BTCAmount, feeInSatoshi)) {
+        const errMsg = "数量不足";
         this.setState({
-          feeErrMsg: "数量不足",
-          amountErrMsg: "数量不足"
+          feeErrMsg: errMsg,
+          amountErrMsg: errMsg
         });
-        return;
+        return errMsg;
       }
       this.setState({
         feeErrMsg: "",
