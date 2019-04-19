@@ -11,7 +11,12 @@ const accounts = (state = [], action) => {
     bitJS.saveAccount(saveParts);
     return result;
   } else if (action.type === "UPDATE_ACCOUNT_BALANCE") {
-    return action.accounts;
+    return state.map(item => {
+      if (item.address === action.account.address) {
+        return action.account;
+      }
+      return item;
+    });
   }
 
   const accountVersion = localSave.get("accountVersion");

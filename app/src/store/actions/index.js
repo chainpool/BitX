@@ -6,9 +6,9 @@ export const addAccount = account => ({
   account
 });
 
-export const updateAccountBalance = accounts => ({
+export const updateAccountBalance = account => ({
   type: "UPDATE_ACCOUNT_BALANCE",
-  accounts
+  account
 });
 
 export const generateMnemonic = () => ({ type: "GENERATE_MNEMONIC" });
@@ -35,28 +35,17 @@ export const setGoBack = goBack => ({
 });
 
 export const getAllAccountBalance = () => {
-  const requestResults = [];
   return function(dispatch, getState) {
     const { accounts } = getState();
     for (let i = 0; i < accounts.length; i++) {
-      setTimeout(() => {
-        getBalance(accounts[i].address).then((res = []) => {
-          if (res.length) {
-            requestResults.push(...res);
-          } else {
-            requestResults.push(res);
-          }
-          const accountsWithBalance = accounts.map((item = {}, index) => {
-            const findOne = requestResults[index] || {};
-            return {
-              ...item,
-              ...(findOne ? findOne : {}),
-              balanceShow: formatNumber.toBtcPrecision(findOne.balance)
-            };
-          });
-          dispatch(updateAccountBalance(accountsWithBalance));
-        });
-      }, 1100 * i);
+      getBalance(accounts[i].address).then((res = {}) => {
+        const findOne = {
+          ...accounts[i],
+          ...res,
+          balanceShow: formatNumber.toBtcPrecision(res.balance)
+        };
+        dispatch(updateAccountBalance(findOne));
+      });
     }
   };
 };
