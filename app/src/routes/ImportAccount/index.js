@@ -13,7 +13,7 @@ class ImportAccount extends Mixin {
   };
 
   changeStep = step => {
-    this.setState({
+    this.changeState({
       step
     });
   };

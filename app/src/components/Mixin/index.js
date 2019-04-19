@@ -53,6 +53,14 @@ export default class Mixin extends Component {
     }
   };
 
+  changeState = (payload = {}, callback) => {
+    if (this._isMounted) {
+      this.setState(payload, () => {
+        isFunction(callback) && callback(payload);
+      });
+    }
+  };
+
   componentWillUnmount() {
     this._isMounted = false;
   }

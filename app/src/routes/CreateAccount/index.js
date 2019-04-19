@@ -1,22 +1,22 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { Mixin } from '../../components';
-import { bitJS } from '../../utils';
-import KnowAbout from './KnowAbout';
-import SaveMnemonic from './SaveMnemonic';
-import CheckMnemonic from './CheckMnemonic';
-import { SetPassword } from '../Components';
-import * as styles from './index.module.scss';
+import React from "react";
+import { connect } from "react-redux";
+import { Mixin } from "../../components";
+import { bitJS } from "../../utils";
+import KnowAbout from "./KnowAbout";
+import SaveMnemonic from "./SaveMnemonic";
+import CheckMnemonic from "./CheckMnemonic";
+import { SetPassword } from "../Components";
+import * as styles from "./index.module.scss";
 
 class CreateAccount extends Mixin {
   state = {
     step: 1,
-    mnemonic: bitJS.generateMnemonic(),
+    mnemonic: bitJS.generateMnemonic()
   };
 
-  changeStep = (step) => {
-    this.setState({
-      step,
+  changeStep = step => {
+    this.changeState({
+      step
     });
   };
   render() {
@@ -24,7 +24,7 @@ class CreateAccount extends Mixin {
     const props = {
       ...this.props,
       mnemonic,
-      changeStep: this.changeStep,
+      changeStep: this.changeStep
     };
     return (
       <div className={styles.CreateAccount}>
@@ -37,9 +37,9 @@ class CreateAccount extends Mixin {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
-    state,
+    state
   };
 };
 
@@ -49,5 +49,5 @@ const mapDispatchToProps = () => {
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
+  mapDispatchToProps
 )(CreateAccount);
