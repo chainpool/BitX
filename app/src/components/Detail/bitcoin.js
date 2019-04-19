@@ -42,16 +42,19 @@ export function compose(
   const txb = new bitcoin.TransactionBuilder(network);
 
   let sum = 0;
+  console.log("1");
   for (let utxo of filteredUtxos) {
-    txb.addInput(utxo.mintTxid, utxo.minIndex);
+    txb.addInput(utxo.mintTxid, utxo.mintIndex);
     sum += utxo.value;
   }
+  console.log("2");
 
   txb.addOutput(targetAddress, amount);
   const change = sum - amount - fee;
   if (change > 1000) {
     txb.addOutput(changeAddress, change);
   }
+  console.log("3");
 
   if (opReturnHex) {
     const embed = bitcoin.payments.embed({
@@ -60,9 +63,11 @@ export function compose(
     txb.addOutput(embed.output, 0);
   }
 
+  console.log("4");
   filteredUtxos.forEach((utxo, index) => {
     txb.sign(index, ecpair);
   });
+  console.log("5");
 
   const tx = txb.build();
   return tx.toHex();

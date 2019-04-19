@@ -99,7 +99,7 @@ const bitX = {
 
       let sum = 0;
       for (let utxo of filteredUtxos) {
-        txb.addInput(utxo.mintTxid, utxo.minIndex);
+        txb.addInput(utxo.mintTxid, utxo.mintIndex);
         sum += utxo.value;
       }
 
