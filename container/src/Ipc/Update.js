@@ -1,6 +1,6 @@
-const autoUpdater = require("electron-updater");
+const { autoUpdater } = require("electron-updater");
 
-const update = () => {
+const checkUpdate = () => {
   autoUpdater.on("update-downloaded", function() {
     autoUpdater.quitAndInstall();
   });
@@ -8,5 +8,5 @@ const update = () => {
 };
 
 module.exports = {
-  update
+  checkUpdate
 };

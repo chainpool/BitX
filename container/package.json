@@ -1,14 +1,15 @@
 {
   "name": "app",
   "productName": "app",
-  "version": "1.0.2",
+  "version": "1.0.0",
   "description": "My Electron application description",
   "main": "src/main.js",
   "scripts": {
     "start": "electron . --debug",
     "start:watch": "nodemon --watch ./src/**/* --exec electron . --debug",
     "pack": "electron-builder --dir",
-    "dist": "rimraf dist&&electron-builder"
+    "dist": "set GH_TOKEN=06aa233588e256a2da2162c754c2fc42d32743b8 && rimraf dist&&electron-builder",
+    "release": "build"
   },
   "keywords": [],
   "author": "myapp",
@@ -26,7 +27,15 @@
     },
     "mac": {
       "category": "finance"
-    }
+    },
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "weixiaoyi",
+        "repo": "https://github.com/chainpool/BitX.git",
+        "private": true
+      }
+    ]
   },
   "dependencies": {
     "bignumber.js": "^8.1.1",

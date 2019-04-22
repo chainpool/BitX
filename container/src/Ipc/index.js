@@ -1,6 +1,5 @@
 const { ipcMain } = require("electron");
 const { saveAccount, getAccount } = require("./Account");
-const { update } = require("./Update");
 const {
   generateMnemonic,
   generateAccount,
@@ -12,8 +11,6 @@ const {
 ipcMain.on("SAVE_ACCOUNT", saveAccount);
 
 ipcMain.on("GET_ACCOUNT", getAccount);
-
-ipcMain.on("UPDATE", update);
 
 ipcMain.on("GENERATE_MNEMONIC", generateMnemonic);
 

@@ -1,5 +1,6 @@
 const Window = require("./Window");
 const { app, Menu, globalShortcut } = require("electron");
+const { checkUpdate } = require("../Ipc/Update");
 
 class App {
   constructor() {
@@ -21,6 +22,7 @@ class App {
       globalShortcut.register("CommandOrControl+R", () => {
         this.window.reload();
       });
+      checkUpdate();
     });
 
     this.app.on("window-all-closed", () => {
