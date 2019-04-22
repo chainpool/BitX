@@ -35,7 +35,8 @@
     "bip39": "^3.0.1",
     "bitcoinjs-lib": "^5.0.2",
     "electron-squirrel-startup": "^1.0.0",
-    "electron-updater": "^4.0.6"
+    "electron-updater": "^4.0.6",
+    "mkdirp": "^0.5.1"
   },
   "devDependencies": {
     "electron": "^3.0.13",

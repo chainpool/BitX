@@ -1,6 +1,7 @@
 const fs = require("fs");
 const util = require("util");
 const child_process = require("child_process");
+const { app } = require("electron");
 
 exports.accessPromise = util.promisify(fs.access);
 exports.mkdirPromise = util.promisify(fs.mkdir);
@@ -47,4 +48,19 @@ exports.streamPromise = (input, output) => {
     output.on("end", niceEnding);
     output.on("error", errorEnding);
   });
+};
+
+exports.bitXDataPath = () => {
+  let bitXDataPath;
+  switch (process.platform) {
+    case "win32":
+      bitXDataPath = `${app.getPath("appData")}/BitX`;
+      break;
+    case "darwin":
+      bitXDataPath = `${app.getPath("home")}/Library/Application Support/BitX`;
+      break;
+    case "linux":
+      bitXDataPath = `${app.getPath("home")}/.bitX`;
+  }
+  return bitXDataPath;
 };
