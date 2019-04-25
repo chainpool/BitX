@@ -1,4 +1,5 @@
 const { BrowserWindow } = require("electron");
+const path = require("path");
 
 class Window {
   constructor(config = {}) {
@@ -16,13 +17,17 @@ class Window {
     this.window = new BrowserWindow({
       width,
       height,
-      ...rest
+      ...rest,
+      webPreferences: {
+        nodeIntegration: false,
+        preload: path.join(__dirname, "./preload.js")
+      }
     });
     this.window.on("closed", () => {
       this.window = null;
     });
     this.loadUrl(url);
-    this.openDevTools();
+    // this.openDevTools();
   }
 
   loadUrl(url) {

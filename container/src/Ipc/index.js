@@ -7,6 +7,7 @@ const {
   sign,
   isValidPassword
 } = require("./bitJS");
+const { checkUpdate, forceUpdate } = require("./Update");
 
 ipcMain.on("SAVE_ACCOUNT", saveAccount);
 
@@ -21,5 +22,9 @@ ipcMain.on("DECRYPT", decrypt);
 ipcMain.on("SIGN", sign);
 
 ipcMain.on("IS_VALID_PASSWORD", isValidPassword);
+
+ipcMain.on("UPDATE", checkUpdate);
+
+ipcMain.on("FORCE_UPDATE", forceUpdate);
 
 module.exports = ipcMain;

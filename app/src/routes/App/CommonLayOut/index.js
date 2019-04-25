@@ -11,11 +11,13 @@ import {
   setGoBack
 } from "../../../store/actions";
 import { PATH } from "../../../constants";
-import { parseQueryString } from "../../../utils";
+import { bitJS, parseQueryString } from "../../../utils";
 class CommonLayOut extends Component {
   componentDidMount() {
     const { getAllAccountBalance } = this.props;
     getAllAccountBalance();
+
+    bitJS.update();
   }
 
   componentDidUpdate(prevProps) {

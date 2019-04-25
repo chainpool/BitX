@@ -53,5 +53,26 @@ export const bitJS = {
     } else {
       return Patterns.check("isValidPassword")(...payload);
     }
+  },
+  update: () => {
+    if (ipc) {
+      ipc.send("UPDATE");
+    }
+  },
+  forceUpdate: () => {
+    if (ipc) {
+      ipc.send("FORCE_UPDATE");
+    }
   }
 };
+if (ipc) {
+  ipc.on("isForceUpdate", () => {
+    const res = window.confirm("已下载最新版本，是否立即安装?");
+    if (res) {
+      bitJS.forceUpdate();
+    }
+  });
+  ipc.on("autoUpdater", (e, arg) => {
+    console.log(arg);
+  });
+}

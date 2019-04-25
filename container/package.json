@@ -2,13 +2,13 @@
   "name": "app",
   "productName": "app",
   "version": "1.0.0",
-  "description": "My Electron application description",
+  "description": "BitX",
   "main": "src/main.js",
   "scripts": {
     "start": "electron . --debug",
     "start:watch": "nodemon --watch ./src/**/* --exec electron . --debug",
     "pack": "electron-builder --dir",
-    "dist": "set GH_TOKEN=06aa233588e256a2da2162c754c2fc42d32743b8 && rimraf dist&&electron-builder"
+    "dist": "rimraf dist && electron-builder"
   },
   "keywords": [],
   "author": "myapp",
@@ -29,10 +29,8 @@
     },
     "publish": [
       {
-        "provider": "github",
-        "owner": "chainpool",
-        "repo": "https://github.com/chainpool/BitX.git",
-        "private": true
+        "provider": "generic",
+        "url": "http://mybitx.com/electron_update/"
       }
     ]
   },

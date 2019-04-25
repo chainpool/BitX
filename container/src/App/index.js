@@ -1,6 +1,5 @@
 const Window = require("./Window");
 const { app, Menu, globalShortcut } = require("electron");
-const { checkUpdate } = require("../Ipc/Update");
 
 class App {
   constructor() {
@@ -22,7 +21,6 @@ class App {
       globalShortcut.register("CommandOrControl+R", () => {
         this.window.reload();
       });
-      checkUpdate();
     });
 
     this.app.on("window-all-closed", () => {
@@ -44,12 +42,12 @@ class App {
 
   createWindow() {
     this.window = new Window({
-      width: 1400,
+      width: 400,
       height: 690,
-      url: `http://localhost:5000`,
-      titleBarStyle: "hidden"
-      // fullscreen: false,
-      // resizable: false
+      url: `https://bitx.chainx.org/`,
+      titleBarStyle: "hidden",
+      fullscreen: false,
+      resizable: false
     });
   }
 }
