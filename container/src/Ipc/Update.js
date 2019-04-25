@@ -11,16 +11,22 @@ const checkUpdate = event => {
     console.log("checking-for-update");
   });
   autoUpdater.on("update-available", function(info) {
-    event.sender.send("autoUpdater", "update-available" + info);
+    event.sender.send("autoUpdater", "update-available" + JSON.stringify(info));
     console.log("update--available", info);
   });
   autoUpdater.on("update-not-available", function(info) {
-    event.sender.send("autoUpdater", "update-not-available" + info);
+    event.sender.send(
+      "autoUpdater",
+      "update-not-available" + JSON.stringify(info)
+    );
     console.log("update-not-available", info);
   });
-  autoUpdater.on("download-progress", function(progress) {
-    event.sender.send("autoUpdater", "download-progress" + progress);
-    console.log(progress);
+  autoUpdater.on("download-progress", function(info) {
+    event.sender.send(
+      "autoUpdater",
+      "download-progress" + JSON.stringify(info)
+    );
+    console.log(info);
   });
   autoUpdater.on("update-downloaded", function() {
     event.sender.send("isForceUpdate");

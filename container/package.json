@@ -1,6 +1,6 @@
 {
-  "name": "app",
-  "productName": "app",
+  "name": "bitx",
+  "productName": "BitX",
   "version": "1.0.0",
   "description": "BitX",
   "main": "src/main.js",
@@ -10,11 +10,13 @@
     "pack": "electron-builder --dir",
     "dist": "rimraf dist && electron-builder"
   },
-  "keywords": [],
-  "author": "myapp",
+  "keywords": [
+    "chainX"
+  ],
+  "author": "chainpool",
   "license": "MIT",
   "build": {
-    "appId": "myapp",
+    "appId": "com.chainx.app",
     "files": [
       "**/*"
     ],
@@ -22,17 +24,32 @@
       "target": [
         "nsis",
         "zip"
+      ],
+      "publish": [
+        {
+          "provider": "generic",
+          "url": "https://bitx.chainx.org/update/win"
+        }
       ]
     },
     "mac": {
-      "category": "finance"
+      "target": [],
+      "publish": [
+        {
+          "provider": "generic",
+          "url": "https://bitx.chainx.org/update/mac"
+        }
+      ]
     },
-    "publish": [
-      {
-        "provider": "generic",
-        "url": "http://mybitx.com/electron_update/"
-      }
-    ]
+    "linux": {
+      "target": [],
+      "publish": [
+        {
+          "provider": "generic",
+          "url": "https://bitx.chainx.org/update/linux"
+        }
+      ]
+    }
   },
   "dependencies": {
     "bignumber.js": "^8.1.1",

@@ -1,5 +1,6 @@
 const Window = require("./Window");
 const { app, Menu, globalShortcut } = require("electron");
+const path = require("path");
 
 class App {
   constructor() {
@@ -43,8 +44,8 @@ class App {
   createWindow() {
     this.window = new Window({
       width: 400,
-      height: 690,
-      url: `https://bitx.chainx.org/`,
+      height: 680,
+      url: path.join(__dirname, "../static/index.html"),
       titleBarStyle: "hidden",
       fullscreen: false,
       resizable: false
