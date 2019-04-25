@@ -8,7 +8,7 @@
     "start": "electron . --debug",
     "start:watch": "nodemon --watch ./src/**/* --exec electron . --debug",
     "pack": "electron-builder --dir",
-    "dist": "rimraf dist&&electron-builder"
+    "dist": "set GH_TOKEN=06aa233588e256a2da2162c754c2fc42d32743b8 && rimraf dist&&electron-builder"
   },
   "keywords": [],
   "author": "myapp",
@@ -26,7 +26,15 @@
     },
     "mac": {
       "category": "finance"
-    }
+    },
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "weixiaoyi",
+        "repo": "https://github.com/chainpool/BitX.git",
+        "private": true
+      }
+    ]
   },
   "dependencies": {
     "bignumber.js": "^8.1.1",
@@ -39,7 +47,7 @@
     "mkdirp": "^0.5.1"
   },
   "devDependencies": {
-    "electron": "^3.0.13",
+    "electron": "^5.0.0",
     "electron-builder": "^20.38.3",
     "nodemon": "^1.18.8",
     "rimraf": "^2.6.2"
