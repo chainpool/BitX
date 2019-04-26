@@ -1,2 +1,2 @@
+window.require = require;
 window.electron = require("electron");
-// window.require = require;
