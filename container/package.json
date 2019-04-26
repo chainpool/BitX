@@ -21,6 +21,7 @@
       "**/*"
     ],
     "win": {
+      "icon": "./app.ico",
       "target": [
         "nsis",
         "zip"
@@ -33,6 +34,7 @@
       ]
     },
     "mac": {
+      "icon": "./app.ico",
       "target": [],
       "publish": [
         {
@@ -42,6 +44,7 @@
       ]
     },
     "linux": {
+      "icon": "./app.ico",
       "target": [],
       "publish": [
         {
