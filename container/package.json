@@ -28,7 +28,7 @@
       "publish": [
         {
           "provider": "generic",
-          "url": "https://bitx.chainx.org/update/win"
+          "url": "http://47.93.16.189:8089/update/win"
         }
       ]
     },
@@ -37,7 +37,7 @@
       "publish": [
         {
           "provider": "generic",
-          "url": "https://bitx.chainx.org/update/mac"
+          "url": "http://47.93.16.189:8089/update/mac"
         }
       ]
     },
@@ -46,7 +46,7 @@
       "publish": [
         {
           "provider": "generic",
-          "url": "https://bitx.chainx.org/update/linux"
+          "url": "http://47.93.16.189:8089/update/linux"
         }
       ]
     }
