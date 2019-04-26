@@ -31,7 +31,11 @@ class Window {
   }
 
   loadUrl(url) {
-    this.window.loadURL(url);
+    if (/http/.test(url)) {
+      this.window.loadURL(url);
+    } else {
+      this.window.loadFile(url);
+    }
   }
 
   openDevTools() {
