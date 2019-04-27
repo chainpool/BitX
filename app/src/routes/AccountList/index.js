@@ -7,7 +7,7 @@ import * as styles from "./index.module.scss";
 import { PATH } from "../../constants";
 
 class AccountList extends Mixin {
-  pageTitle = "Bitx";
+  pageTitle = "BitX";
   constructor(props) {
     super(props);
     const { accounts = [] } = props;
