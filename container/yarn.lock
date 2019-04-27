@@ -300,10 +300,10 @@ bip32@^2.0.0:
     typeforce "^1.11.5"
     wif "^2.0.6"
 
-bip38@^2.0.2:
+bip38-fix@^2.0.2:
   version "2.0.2"
-  resolved "https://registry.yarnpkg.com/bip38/-/bip38-2.0.2.tgz#6f7762bc90b0bdf63b489ff95349354aecf9baee"
-  integrity sha512-22KDak0RDyghFbR0Si7wyq9IgY423YzGYzWLpGeofH3DaolOQqjD3mNN08eFoubKlbyclOQKFwtONMv2SD9V3A==
+  resolved "https://registry.yarnpkg.com/bip38-fix/-/bip38-fix-2.0.2.tgz#888613391ca50bd8332d2be81af5ccc08c0dc674"
+  integrity sha512-jQODFwMGqWUVvVfEkEM+NGuzfhSTInznR5a/rvpE9qXbkRtawTRy5HtUKPoHlSDXoyTDMLDXdpFp5NiB1TZgvw==
   dependencies:
     bigi "^1.2.0"
     browserify-aes "^1.0.1"
