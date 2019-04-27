@@ -1,4 +1,4 @@
-const bip38 = require("bip38");
+const bip38 = require("bip38-fix");
 
 const Patterns = {
   isValidPassword: (encryptedKey, password, errMsg = "密码错误") => {

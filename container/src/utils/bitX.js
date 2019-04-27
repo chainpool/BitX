@@ -1,7 +1,7 @@
 const bip39 = require("bip39");
 const bip32 = require("bip32");
 const bitcoin = require("bitcoinjs-lib");
-const bip38 = require("bip38");
+const bip38 = require("bip38-fix");
 const BigNumber = require("bignumber.js");
 
 const bitX = {
@@ -128,5 +128,12 @@ const bitX = {
     }
   }
 };
+
+bitX.generateAccount({
+  name: "wei",
+  password: "12345678",
+  mnemonic:
+    "civil tilt issue music tomorrow outer journey iron post zoo control relax\n"
+});
 
 exports.bitX = bitX;
