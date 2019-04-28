@@ -31,7 +31,7 @@ class App {
     });
 
     this.app.on("activate", () => {
-      if (this.window === null) {
+      if (this.window.window === null) {
         this.createWindow();
       }
     });
