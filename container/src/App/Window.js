@@ -31,7 +31,7 @@ class Window {
   }
 
   loadUrl(url) {
-    if (/http/.test(url)) {
+    if (/^https?:\/\//.test(url)) {
       this.window.loadURL(url);
     } else {
       this.window.loadFile(url);
