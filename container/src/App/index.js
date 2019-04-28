@@ -46,9 +46,10 @@ class App {
       width: 400,
       height: 680,
       url: path.join(__dirname, "../static/index.html"),
-      titleBarStyle: "hidden",
+      // titleBarStyle: "hidden",
       fullscreen: false,
-      resizable: false
+      resizable: false,
+      maximizable: false
     });
   }
 }
