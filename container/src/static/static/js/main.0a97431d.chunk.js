@@ -546,7 +546,14 @@
                               className: ue.url,
                               rel: "noopener noreferrer",
                               href: h,
-                              target: "_blank"
+                              target: "_blank",
+                              onClick: function(e) {
+                                if (x) {
+                                  var t = window.electron.shell;
+                                  e.preventDefault(),
+                                    t.openExternal(e.target.href);
+                                }
+                              }
                             },
                             t || u
                           )
@@ -3117,4 +3124,4 @@
   },
   [[175, 1, 2]]
 ]);
-//# sourceMappingURL=main.51dab2d5.chunk.js.map
+//# sourceMappingURL=main.0a97431d.chunk.js.map
