@@ -81,13 +81,11 @@
         A = "/accountdetail",
         w = n(61),
         j = n.n(w),
-        M = n(60),
-        N = n(164),
-        S = n.n(N),
+        N = n(60),
+        M = n(164),
+        S = n.n(M),
         C = n(111);
-      window.require
-        ? (a = window.require("electron").ipcRenderer)
-        : console.log("window.require\u4e0d\u5b58\u5728");
+      window.require && (a = window.require("electron").ipcRenderer);
       var x = a,
         I = n(44),
         T = n.n(I),
@@ -244,11 +242,7 @@
           },
           check: function(e) {
             return function() {
-              return V[e]
-                ? V[e].apply(V, arguments)
-                : console.error(
-                    "check\u5bf9\u5e94\u7684\u65b9\u6cd5\u5fc5\u987b\u5b58\u5728"
-                  );
+              if (V[e]) return V[e].apply(V, arguments);
             };
           }
         },
@@ -301,9 +295,7 @@
             "\u5df2\u4e0b\u8f7d\u6700\u65b0\u7248\u672c\uff0c\u662f\u5426\u7acb\u5373\u5b89\u88c5?"
           ) && J.forceUpdate();
         }),
-        x.on("autoUpdater", function(e, t) {
-          console.log(t);
-        }));
+        x.on("autoUpdater", function(e, t) {}));
       var H,
         W = n(18),
         X = n.n(W),
@@ -439,8 +431,8 @@
               te(e) || te(t) || isNaN(e)
                 ? ""
                 : n
-                ? new M.BigNumber(e).multipliedBy(Math.pow(10, t)).toFixed(0)
-                : new M.BigNumber(e).dividedBy(Math.pow(10, t)).toFixed(t)
+                ? new N.BigNumber(e).multipliedBy(Math.pow(10, t)).toFixed(0)
+                : new N.BigNumber(e).dividedBy(Math.pow(10, t)).toFixed(t)
             );
           },
           toBtcPrecision: function(e) {
@@ -463,18 +455,12 @@
               )).openModal = function(e) {
                 var t = e.name,
                   a = e.data;
-                n.props.setModal
-                  ? n.props.setModal({ name: t, data: a, show: !0 })
-                  : console.log(
-                      "this.props.setModal\u4e0d\u5b58\u5728\uff0c\u8bf7\u628a\u5bb9\u5668\u7ec4\u4ef6\u7684setModal\u4f20\u9012\u7ed9\u5f53\u524d\u7ec4\u4ef6"
-                    );
+                n.props.setModal &&
+                  n.props.setModal({ name: t, data: a, show: !0 });
               }),
               (n.closeModal = function() {
-                n.props.setModal
-                  ? n.props.setModal({ name: "", data: "", show: !1 })
-                  : console.log(
-                      "this.props.setModal\u4e0d\u5b58\u5728\uff0c\u8bf7\u628a\u5bb9\u5668\u7ec4\u4ef6\u7684setModal\u4f20\u9012\u7ed9\u5f53\u524d\u7ec4\u4ef6"
-                    );
+                n.props.setModal &&
+                  n.props.setModal({ name: "", data: "", show: !1 });
               }),
               (n.changeState = function() {
                 var e =
@@ -872,8 +858,8 @@
           })
         )).apply(this, arguments);
       }
-      function Me() {
-        return (Me = Object(z.a)(
+      function Ne() {
+        return (Ne = Object(z.a)(
           X.a.mark(function e(t) {
             return X.a.wrap(function(e) {
               for (;;)
@@ -895,7 +881,7 @@
           })
         )).apply(this, arguments);
       }
-      function Ne(e) {
+      function Me(e) {
         return Se.apply(this, arguments);
       }
       function Se() {
@@ -930,7 +916,7 @@
         xe = function(e) {
           return function() {
             return (function(e) {
-              return Me.apply(this, arguments);
+              return Ne.apply(this, arguments);
             })(e);
           };
         },
@@ -1132,76 +1118,71 @@
                     t = this.state.close,
                     n = this.props.accounts,
                     a = void 0 === n ? [] : n;
-                  return (
-                    console.log(a, "-----accounts"),
+                  return c.a.createElement(
+                    "div",
+                    { className: qe.AccountList },
                     c.a.createElement(
                       "div",
-                      { className: qe.AccountList },
+                      { className: qe.listtitle },
                       c.a.createElement(
                         "div",
-                        { className: qe.listtitle },
-                        c.a.createElement(
-                          "div",
-                          null,
-                          "\u8d26\u6237\u5217\u8868"
-                        ),
-                        c.a.createElement(
-                          "div",
-                          { onClick: e },
-                          c.a.createElement("i", {
-                            className: "iconfont iconadd"
-                          })
-                        )
+                        null,
+                        "\u8d26\u6237\u5217\u8868"
                       ),
                       c.a.createElement(
-                        "ul",
-                        null,
-                        a.map(function(e, t) {
-                          return c.a.createElement(
-                            le,
-                            {
-                              key: t,
-                              Ele: "li",
-                              go: {
-                                pathname: A,
-                                search: "?address=".concat(e.address)
-                              }
-                            },
-                            c.a.createElement("div", {
-                              className: qe.seperate
-                            }),
+                        "div",
+                        { onClick: e },
+                        c.a.createElement("i", {
+                          className: "iconfont iconadd"
+                        })
+                      )
+                    ),
+                    c.a.createElement(
+                      "ul",
+                      null,
+                      a.map(function(e, t) {
+                        return c.a.createElement(
+                          le,
+                          {
+                            key: t,
+                            Ele: "li",
+                            go: {
+                              pathname: A,
+                              search: "?address=".concat(e.address)
+                            }
+                          },
+                          c.a.createElement("div", { className: qe.seperate }),
+                          c.a.createElement(
+                            "div",
+                            { className: qe.desc },
                             c.a.createElement(
                               "div",
-                              { className: qe.desc },
-                              c.a.createElement(
-                                "div",
-                                { className: qe.name },
-                                e.name
-                              ),
-                              c.a.createElement(
-                                "div",
-                                { className: qe.amount },
-                                ((n = e.balanceShow),
-                                (a = "BTC"),
-                                te(n) ? a : "".concat(n, " ").concat(a))
-                              )
+                              { className: qe.name },
+                              e.name
                             ),
                             c.a.createElement(
                               "div",
-                              { className: qe.address },
-                              e.address
+                              { className: qe.amount },
+                              ((n = e.balanceShow),
+                              (a = "BTC"),
+                              te(n) ? a : "".concat(n, " ").concat(a))
                             )
-                          );
-                          var n, a;
-                        })
-                      ),
-                      t
-                        ? null
-                        : c.a.createElement(
-                            Le,
-                            Object.assign({}, this.props, { changeClose: e })
+                          ),
+                          c.a.createElement(
+                            "div",
+                            { className: qe.address },
+                            e.address
                           )
-                    )
+                        );
+                        var n, a;
+                      })
+                    ),
+                    t
+                      ? null
+                      : c.a.createElement(
+                          Le,
+                          Object.assign({}, this.props, { changeClose: e })
+                        )
                   );
                 }
               }
@@ -1774,7 +1755,6 @@
                                             case 9:
                                               (n.prev = 9),
                                                 (n.t0 = n.catch(2)),
-                                                console.log(n.t0),
                                                 (c = ae(n.t0)
                                                   ? n.t0
                                                   : n.t0.message &&
@@ -1942,7 +1922,7 @@
                           "button",
                           {
                             onClick: function() {
-                              t.confirm() && (console.log(a.trim()), s(2));
+                              t.confirm() && s(2);
                             }
                           },
                           "\u5bfc\u5165"
@@ -2491,7 +2471,7 @@
                                                 }
                                                 throw Error(r.message);
                                               case 5:
-                                                return (t.next = 7), Ne(r);
+                                                return (t.next = 7), Me(r);
                                               case 7:
                                                 if (!(c = t.sent) || !c.tx) {
                                                   t.next = 10;
@@ -2814,8 +2794,8 @@
             /^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/
           )
       );
-      var Mt = n(36),
-        Nt = n(50),
+      var Nt = n(36),
+        Mt = n(50),
         St = function() {
           var e =
               arguments.length > 0 && void 0 !== arguments[0]
@@ -2823,7 +2803,7 @@
                 : [],
             t = arguments.length > 1 ? arguments[1] : void 0;
           if ("ADD_ACCOUNT" === t.type) {
-            var n = [].concat(Object(Nt.a)(e), [t.account]),
+            var n = [].concat(Object(Mt.a)(e), [t.account]),
               a = n.map(function() {
                 var e =
                   arguments.length > 0 && void 0 !== arguments[0]
@@ -2868,7 +2848,7 @@
                 : [],
             t = arguments.length > 1 ? arguments[1] : void 0;
           return "ADD_BALANCE" === t.type
-            ? [t.balance].concat(Object(Nt.a)(e))
+            ? [t.balance].concat(Object(Mt.a)(e))
             : e;
         },
         It = function() {
@@ -2878,7 +2858,7 @@
                 : [],
             t = arguments.length > 1 ? arguments[1] : void 0;
           return "ADD_UTXO" === t.type
-            ? [{ utxos: t.utxos, address: t.address }].concat(Object(Nt.a)(e))
+            ? [{ utxos: t.utxos, address: t.address }].concat(Object(Mt.a)(e))
             : e;
         },
         Tt = function() {
@@ -2908,7 +2888,7 @@
             t = arguments.length > 1 ? arguments[1] : void 0;
           return "SET_GO_BACK" === t.type ? t.goBack : e;
         },
-        Dt = Object(Mt.c)({
+        Dt = Object(Nt.c)({
           accounts: St,
           newMnemonic: Ct,
           balances: xt,
@@ -2918,8 +2898,8 @@
           goBack: Bt
         }),
         Ut = (n(378), n(174)),
-        Lt = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || Mt.d,
-        qt = Object(Mt.e)(Dt, Lt(Object(Mt.a)(Ut.a)));
+        Lt = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || Nt.d,
+        qt = Object(Nt.e)(Dt, Lt(Object(Nt.a)(Ut.a)));
       u()(),
         s.a.render(
           c.a.createElement(_.a, { store: qt }, c.a.createElement(jt, null)),
@@ -3137,4 +3117,4 @@
   },
   [[175, 1, 2]]
 ]);
-//# sourceMappingURL=main.8770c7da.chunk.js.map
+//# sourceMappingURL=main.51dab2d5.chunk.js.map

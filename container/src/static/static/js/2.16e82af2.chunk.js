@@ -10945,7 +10945,7 @@
           : e._maxListeners;
       }
       function f(e, t, r, n) {
-        var i, o, a, s;
+        var i, o, a;
         if ("function" !== typeof r)
           throw new TypeError(
             'The "listener" argument must be of type Function. Received type ' +
@@ -10970,19 +10970,18 @@
           (i = c(e)) > 0 && a.length > i && !a.warned)
         ) {
           a.warned = !0;
-          var u = new Error(
+          var s = new Error(
             "Possible EventEmitter memory leak detected. " +
               a.length +
               " " +
               String(t) +
               " listeners added. Use emitter.setMaxListeners() to increase limit"
           );
-          (u.name = "MaxListenersExceededWarning"),
-            (u.emitter = e),
-            (u.type = t),
-            (u.count = a.length),
-            (s = u),
-            console && console.warn && console.warn(s);
+          (s.name = "MaxListenersExceededWarning"),
+            (s.emitter = e),
+            (s.type = t),
+            (s.count = a.length),
+            console && console.warn;
         }
         return e;
       }
@@ -12984,9 +12983,7 @@
         )
           try {
             __REACT_DEVTOOLS_GLOBAL_HOOK__.checkDCE(e);
-          } catch (t) {
-            console.error(t);
-          }
+          } catch (t) {}
       })(),
         (e.exports = r(177));
     },
@@ -26871,13 +26868,6 @@
           null !== r && st(r.type),
           (t = t.value),
           null !== e && 1 === e.tag && st(e.type);
-        try {
-          console.error(t);
-        } catch (i) {
-          setTimeout(function() {
-            throw i;
-          });
-        }
       }
       function ha(e) {
         var t = e.ref;
@@ -29093,15 +29083,6 @@
               return !1;
             });
         } else {
-          "undefined" !== typeof console &&
-            ("function" !== typeof g &&
-              console.error(
-                "This browser doesn't support requestAnimationFrame. Make sure that you load a polyfill in older browsers. https://fb.me/react-polyfills"
-              ),
-            "function" !== typeof y &&
-              console.error(
-                "This browser doesn't support cancelAnimationFrame. Make sure that you load a polyfill in older browsers. https://fb.me/react-polyfills"
-              ));
           var P = null,
             M = !1,
             C = -1,
@@ -30685,8 +30666,7 @@
           return function() {
             if (!n) {
               if (r("throwDeprecation")) throw new Error(t);
-              r("traceDeprecation") ? console.trace(t) : console.warn(t),
-                (n = !0);
+              r("traceDeprecation"), (n = !0);
             }
             return e.apply(this, arguments);
           };
@@ -59455,8 +59435,7 @@
             return function() {
               if (!i) {
                 if (e.throwDeprecation) throw new Error(n);
-                e.traceDeprecation ? console.trace(n) : console.error(n),
-                  (i = !0);
+                e.traceDeprecation, (i = !0);
               }
               return r.apply(this, arguments);
             };
@@ -59549,8 +59528,8 @@
           var c,
             w = "",
             x = !1,
-            k = ["{", "}"];
-          (h(r) && ((x = !0), (k = ["[", "]"])), S(r)) &&
+            T = ["{", "}"];
+          (h(r) && ((x = !0), (T = ["[", "]"])), S(r)) &&
             (w = " [Function" + (r.name ? ": " + r.name : "") + "]");
           return (
             y(r) && (w = " " + RegExp.prototype.toString.call(r)),
@@ -59565,7 +59544,7 @@
                   (c = x
                     ? (function(e, t, r, n, i) {
                         for (var o = [], a = 0, s = t.length; a < s; ++a)
-                          O(t, String(a))
+                          k(t, String(a))
                             ? o.push(d(e, t, r, n, String(a), !0))
                             : o.push("");
                         return (
@@ -59598,8 +59577,8 @@
                         r[1]
                       );
                     return r[0] + t + " " + e.join(", ") + " " + r[1];
-                  })(c, w, k))
-              : k[0] + w + k[1]
+                  })(c, w, T))
+              : T[0] + w + T[1]
           );
         }
         function l(e) {
@@ -59613,7 +59592,7 @@
                   ? e.stylize("[Getter/Setter]", "special")
                   : e.stylize("[Getter]", "special"))
               : u.set && (s = e.stylize("[Setter]", "special")),
-            O(n, i) || (a = "[" + i + "]"),
+            k(n, i) || (a = "[" + i + "]"),
             s ||
               (e.seen.indexOf(u.value) < 0
                 ? (s = b(r)
@@ -59684,9 +59663,6 @@
         function x(e) {
           return Object.prototype.toString.call(e);
         }
-        function k(e) {
-          return e < 10 ? "0" + e.toString(10) : e.toString(10);
-        }
         (t.debuglog = function(r) {
           if (
             (g(o) &&
@@ -59697,10 +59673,9 @@
             !a[r])
           )
             if (new RegExp("\\b" + r + "\\b", "i").test(o)) {
-              var n = e.pid;
+              e.pid;
               a[r] = function() {
-                var e = t.format.apply(t, arguments);
-                console.error("%s %d: %s", r, n, e);
+                t.format.apply(t, arguments);
               };
             } else a[r] = function() {};
           return a[r];
@@ -59759,49 +59734,21 @@
             );
           }),
           (t.isBuffer = r(274));
-        var T = [
-          "Jan",
-          "Feb",
-          "Mar",
-          "Apr",
-          "May",
-          "Jun",
-          "Jul",
-          "Aug",
-          "Sep",
-          "Oct",
-          "Nov",
-          "Dec"
-        ];
-        function O(e, t) {
+        function k(e, t) {
           return Object.prototype.hasOwnProperty.call(e, t);
         }
-        (t.log = function() {
-          console.log(
-            "%s - %s",
-            (function() {
-              var e = new Date(),
-                t = [
-                  k(e.getHours()),
-                  k(e.getMinutes()),
-                  k(e.getSeconds())
-                ].join(":");
-              return [e.getDate(), T[e.getMonth()], t].join(" ");
-            })(),
-            t.format.apply(t, arguments)
-          );
-        }),
+        (t.log = function() {}),
           (t.inherits = r(8)),
           (t._extend = function(e, t) {
             if (!t || !w(t)) return e;
             for (var r = Object.keys(t), n = r.length; n--; ) e[r[n]] = t[r[n]];
             return e;
           });
-        var A =
+        var T =
           "undefined" !== typeof Symbol
             ? Symbol("util.promisify.custom")
             : void 0;
-        function P(e, t) {
+        function O(e, t) {
           if (!e) {
             var r = new Error("Promise was rejected with a falsy value");
             (r.reason = e), (e = r);
@@ -59813,14 +59760,14 @@
             throw new TypeError(
               'The "original" argument must be of type Function'
             );
-          if (A && e[A]) {
+          if (T && e[T]) {
             var t;
-            if ("function" !== typeof (t = e[A]))
+            if ("function" !== typeof (t = e[T]))
               throw new TypeError(
                 'The "util.promisify.custom" argument must be of type Function'
               );
             return (
-              Object.defineProperty(t, A, {
+              Object.defineProperty(t, T, {
                 value: t,
                 enumerable: !1,
                 writable: !1,
@@ -59854,8 +59801,8 @@
           }
           return (
             Object.setPrototypeOf(t, Object.getPrototypeOf(e)),
-            A &&
-              Object.defineProperty(t, A, {
+            T &&
+              Object.defineProperty(t, T, {
                 value: t,
                 enumerable: !1,
                 writable: !1,
@@ -59864,7 +59811,7 @@
             Object.defineProperties(t, n(e))
           );
         }),
-          (t.promisify.custom = A),
+          (t.promisify.custom = T),
           (t.callbackify = function(t) {
             if ("function" !== typeof t)
               throw new TypeError(
@@ -59887,7 +59834,7 @@
                   e.nextTick(a, null, t);
                 },
                 function(t) {
-                  e.nextTick(P, t, a);
+                  e.nextTick(O, t, a);
                 }
               );
             }
@@ -70444,4 +70391,4 @@
     }
   ]
 ]);
-//# sourceMappingURL=2.16dfc7f2.chunk.js.map
+//# sourceMappingURL=2.16e82af2.chunk.js.map
