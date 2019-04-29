@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Route, Switch, Redirect } from "react-router";
+import { Route, Switch, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import routers from "../routers";
 import Header from "./Header";
