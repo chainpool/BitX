@@ -43,7 +43,7 @@ export const getAllAccountBalance = () => {
           const findOne = {
             ...account,
             ...res,
-            balanceShow: formatNumber.toBtcPrecision(res.balance)
+            balanceShow: formatNumber.toBtcPrecision(res.confirmed)
           };
           dispatch(updateAccountBalance(findOne));
         }
