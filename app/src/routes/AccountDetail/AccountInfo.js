@@ -1,10 +1,12 @@
-import React from 'react';
-import { Mixin, Clipboard, RouterGo } from '../../components';
-import * as styles from './AccountInfo.module.scss';
+import React from "react";
+import { Clipboard, Mixin, RouterGo } from "../../components";
+import * as styles from "./AccountInfo.module.scss";
 
 export default class AccountInfo extends Mixin {
   render() {
     const { currentAccount = {} } = this.props;
+    const isTestnet = currentAccount.network !== "mainnet";
+
     return (
       <div className={styles.AccountInfo}>
         <div className={styles.amount}>
@@ -18,10 +20,11 @@ export default class AccountInfo extends Mixin {
           <RouterGo
             isOutSide
             go={{
-              pathname: `https://live.blockcypher.com/btc-testnet/address/${
-                currentAccount.address
-              }/`,
-            }}>
+              pathname: `https://live.blockcypher.com/btc${
+                isTestnet ? "-testnet" : ""
+              }/address/${currentAccount.address}/`
+            }}
+          >
             在浏览器中查看
           </RouterGo>
         </div>

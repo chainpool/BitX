@@ -1,6 +1,6 @@
 import React from "react";
-import { Mixin, Input, Modal, RouterGo } from "../../components";
-import { isFunction, Patterns, bitJS, isString } from "../../utils";
+import { Input, Mixin, Modal, RouterGo } from "../../components";
+import { bitJS, isFunction, isString, Patterns } from "../../utils";
 import * as styles from "./SignModal.module.scss";
 
 export default class SignModal extends Mixin {
@@ -33,8 +33,9 @@ export default class SignModal extends Mixin {
     const { password, passwordErrMsg, status, hash } = this.state;
     const {
       modal: { data: { callback } = {} } = {},
-      currentAccount: { encryptedKey } = {}
+      currentAccount: { encryptedKey, network } = {}
     } = this.props;
+    const isTestnet = network !== "mainnet";
 
     return (
       <Modal title={status ? "交易已广播" : "输入账户密码"}>
@@ -45,7 +46,9 @@ export default class SignModal extends Mixin {
               <RouterGo
                 isOutSide
                 go={{
-                  pathname: `https://live.blockcypher.com/btc-testnet/tx/${hash}/`
+                  pathname: `https://live.blockcypher.com/btc${
+                    isTestnet ? "-testnet" : ""
+                  }/tx/${hash}/`
                 }}
               >
                 <button onClick={() => {}}>查看交易</button>
