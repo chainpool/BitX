@@ -7,6 +7,7 @@ import { formatNumber, Patterns, bitJS } from "../../utils";
 import { getAccountUtxos } from "../../store/actions";
 import { enough } from "../../components/Detail/bitcoin";
 import { broadcastTx } from "../../service";
+import bitcoin from "bitcoinjs-lib";
 
 class AccountSend extends Mixin {
   state = {
@@ -116,7 +117,8 @@ class AccountSend extends Mixin {
       feeInSatoshi,
       hex,
       encryptedKey,
-      password
+      password,
+      bitcoin.networks.testnet
     );
   }
 

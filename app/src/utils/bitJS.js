@@ -2,6 +2,7 @@ import { ipc } from "./ipc";
 import { bitX } from "./bitX";
 import { localSave } from "./index";
 import { Patterns } from "./patterns";
+import bitcoin from "bitcoinjs-lib";
 
 export const bitJS = {
   generateMnemonic: () => {
@@ -11,19 +12,11 @@ export const bitJS = {
       return bitX.generateMnemonic();
     }
   },
-  generateAccount: payload => {
+  generateAccount: (payload, network = bitcoin.networks.testnet) => {
     if (ipc) {
       return JSON.parse(ipc.sendSync("GENERATE_ACCOUNT", payload));
     } else {
-      return bitX.generateAccount(payload);
-    }
-  },
-
-  decrypt: (...payload) => {
-    if (ipc) {
-      return ipc.sendSync("DECRYPT", payload);
-    } else {
-      return bitX.decrypt(...payload);
+      return bitX.generateAccount(payload, network);
     }
   },
   saveAccount: accounts => {
