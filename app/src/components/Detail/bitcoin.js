@@ -32,13 +32,11 @@ export function compose(
   amount,
   fee,
   opReturnHex,
-  ecpair
+  ecpair,
+  network = bitcoin.networks.testnet
 ) {
   const filteredUtxos = filterUnspentsByAmount(utxos, amount, fee);
 
-  // const network =
-  //   process.env.NODE_ENV === 'production' ? bitcoin.networks.bitcoin : bitcoin.networks.testnet;
-  const network = bitcoin.networks.testnet;
   const txb = new bitcoin.TransactionBuilder(network);
 
   let sum = 0;

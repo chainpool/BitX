@@ -4,9 +4,22 @@ const bitcoin = require("bitcoinjs-lib");
 const bip38 = require("bip38-fix");
 const BigNumber = require("bignumber.js");
 
+function getNetworkKey(network) {
+  if (network === bitcoin.networks.bitcoin) {
+    return "mainnet";
+  } else if (network === bitcoin.networks.testnet) {
+    return "testnet";
+  } else {
+    return "";
+  }
+}
+
 const bitX = {
   generateMnemonic: () => bip39.generateMnemonic(),
-  generateAccount: async ({ name, mnemonic, password, wif }) => {
+  generateAccount: async (
+    { name, mnemonic, password, wif },
+    network = bitcoin.networks.testnet
+  ) => {
     let account;
     const path = "m/44'/1'/0'/0/0";
     const params = {
@@ -16,11 +29,11 @@ const bitX = {
     };
     if (name && mnemonic && password) {
       const seed = await bip39.mnemonicToSeed(mnemonic);
-      const root = bip32.fromSeed(seed);
+      const root = bip32.fromSeed(seed, network);
       const child1 = root.derivePath(path);
       const p2pkh = bitcoin.payments.p2pkh({
         pubkey: child1.publicKey,
-        network: bitcoin.networks.testnet
+        network
       });
       const encryptedKey = bip38.encrypt(
         child1.privateKey,
@@ -29,22 +42,31 @@ const bitX = {
         null,
         params
       );
-      account = { name, address: p2pkh.address, encryptedKey };
+      account = {
+        name,
+        address: p2pkh.address,
+        encryptedKey,
+        network: getNetworkKey(network)
+      };
     } else if (name && wif && password) {
-      // TODO: 需要根据环境变量来切换network
-      const keyPair = bitcoin.ECPair.fromWIF(wif, bitcoin.networks.testnet);
+      const keyPair = bitcoin.ECPair.fromWIF(wif, network);
       const { address } = bitcoin.payments.p2pkh({
         pubkey: keyPair.publicKey,
-        network: bitcoin.networks.testnet
+        network
       });
       const encryptedKey = bip38.encrypt(
         keyPair.privateKey,
         keyPair.compressed,
         password,
-        console.log,
+        null,
         params
       );
-      account = { name, address, encryptedKey };
+      account = {
+        name,
+        address,
+        encryptedKey,
+        network: getNetworkKey(network)
+      };
     }
     return account;
   },
@@ -55,11 +77,11 @@ const bitX = {
       p: 8
     });
   },
-  decryptPair: (encryptedKey, password) => {
+  decryptPair: (encryptedKey, password, network = bitcoin.networks.testnet) => {
     const result = bitX.decrypt(encryptedKey, password);
     return bitcoin.ECPair.fromPrivateKey(result.privateKey, {
       compressed: result.compressed,
-      network: bitcoin.networks.testnet
+      network
     });
   },
   sign: (
@@ -70,7 +92,8 @@ const bitX = {
     fee,
     opReturnHex,
     encryptedKey,
-    password
+    password,
+    network = bitcoin.networks.testnet
   ) => {
     const ecpair = bitX.decryptPair(encryptedKey, password);
 
@@ -95,7 +118,7 @@ const bitX = {
     try {
       const filteredUtxos = filterUnspentsByAmount(utxos, amount, fee);
 
-      const txb = new bitcoin.TransactionBuilder(bitcoin.networks.testnet);
+      const txb = new bitcoin.TransactionBuilder(network);
 
       let sum = 0;
       for (let utxo of filteredUtxos) {
