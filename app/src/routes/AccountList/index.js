@@ -49,7 +49,12 @@ class AccountList extends Mixin {
             >
               <div className={styles.seperate} />
               <div className={styles.desc}>
-                <div className={styles.name}>{item.name}</div>
+                <div className={styles.title}>
+                  <span className={styles.name}>{item.name}</span>
+                  {item.network !== "mainnet" ? (
+                    <span className={styles.badge}>测试网</span>
+                  ) : null}
+                </div>
                 <div className={styles.amount}>
                   {setBlankSpace(item.balanceShow, "BTC")}
                 </div>

@@ -35,6 +35,19 @@
         width:100%;
         display: flex;
         justify-content: space-between;
+        .title {
+          display: inline-flex;
+          align-items: center;
+        }
+        .badge {
+          margin-left: 8px;
+          padding: 2px 8px;
+          background: #EA754B;
+          border-radius: 2px;
+          font-size: 12px;
+          font-weight: 600;
+          color: #FFFFFF;
+        }
         .name,.amount{
           font-weight:bold;
           color:$yellow;
