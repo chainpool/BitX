@@ -23,9 +23,9 @@ export const setModal = ({ name, show, data }) => ({
   modal: { name, show, data }
 });
 
-export const getAccountUtxos = addr => {
+export const getAccountUtxos = (addr, network = "testnet") => {
   return () => {
-    return getUtxos(addr);
+    return getUtxos(addr, network);
   };
 };
 
@@ -37,15 +37,17 @@ export const setGoBack = goBack => ({
 export const getAllAccountBalance = () => {
   return function(dispatch, getState) {
     const { accounts } = getState();
-    for (let i = 0; i < accounts.length; i++) {
-      getBalance(accounts[i].address).then((res = {}) => {
-        const findOne = {
-          ...accounts[i],
-          ...res,
-          balanceShow: formatNumber.toBtcPrecision(res.balance)
-        };
-        dispatch(updateAccountBalance(findOne));
-      });
+    for (let account of accounts) {
+      getBalance(account.address, account.network || "testnet").then(
+        (res = {}) => {
+          const findOne = {
+            ...account,
+            ...res,
+            balanceShow: formatNumber.toBtcPrecision(res.balance)
+          };
+          dispatch(updateAccountBalance(findOne));
+        }
+      );
     }
   };
 };

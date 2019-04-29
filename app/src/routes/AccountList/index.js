@@ -28,7 +28,6 @@ class AccountList extends Mixin {
     const { changeClose } = this;
     const { close } = this.state;
     const { accounts = [] } = this.props;
-    console.log(accounts, "-----accounts");
 
     return (
       <div className={styles.AccountList}>

@@ -1,22 +1,23 @@
 import { fetchFromHttp } from "../utils";
 
-const endpoint = "https://api.chainx.org/bitx/testnet";
-//`https://api.blockcypher.com/v1/btc/test3`;
+const testnetEndpoint = "https://api.chainx.org/bitx/testnet";
+const mainnetEndpoint = "https://api.chainx.org/bitx/mainnet";
 const submitEndpoint = "https://api.chainx.org/bitx/txs";
 
-export async function getBalance(addr) {
+export async function getBalance(addr, network = "testnet") {
+  const endpoint = network === "mainnet" ? mainnetEndpoint : testnetEndpoint;
   return window.fetch(endpoint + `/${addr}/balance`).then(response => {
     return response.json();
   });
 }
 
-export async function getUtxos(addr) {
+export async function getUtxos(addr, network = "testnet") {
+  const endpoint = network === "mainnet" ? mainnetEndpoint : testnetEndpoint;
   return window.fetch(endpoint + `/${addr}/utxos`).then(res => res.json());
-  //.then(res => res.txrefs || []);
 }
 
-export async function broadcastTx(tx) {
-  const body = { raw: tx };
+export async function broadcastTx(tx, network = "testnet") {
+  const body = { raw: tx, network };
   return fetchFromHttp({
     url: submitEndpoint,
     method: "POST",
