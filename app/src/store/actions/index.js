@@ -51,3 +51,8 @@ export const getAllAccountBalance = () => {
     }
   };
 };
+
+export const setNetwork = network => ({
+  type: "SET_NETWORK",
+  network
+});

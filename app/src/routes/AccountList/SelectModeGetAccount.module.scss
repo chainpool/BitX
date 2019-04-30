@@ -1,50 +1,123 @@
 @import '~@styles/index.scss';
-.SelectModeGetAccount{
-  position:absolute;
-  top:0;
-  width:100%;
-  height:100%;
+
+.SelectModeGetAccount {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
   background: #575757;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   align-content: center;
   justify-content: center;
-  .close{
-    color:white;
+
+  .close {
+    color: white;
     position: absolute;
-    top:20px;
-    left:20px;
+    top: 20px;
+    left: 20px;
     font-size: 16px;
   }
-  >div{
+
+  > div {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
   }
 
-  .bitx{
+  .bitx {
     margin-bottom: 170px;
-    width:100%;
-    color:white;
+    width: 100%;
+    color: white;
   }
-  .routerbutton{
-    width:100%;
-    div+div{
+
+  .routerbutton {
+    width: 100%;
+
+    div + div {
       margin-top: 20px;
     }
-    div{
+
+    div {
       display: flex;
       justify-content: center;
-      width:100%;
+      width: 100%;
     }
   }
-  button{
+
+  button {
     font-size: 20px;
-    color:$yellow;
+    color: $yellow;
     background: #F6C94A;
     border-radius: 4px;
-    width:240px;
-    height:56px;
+    width: 240px;
+    height: 56px;
+  }
+
+  .networkSelection {
+    display: flex;
+    align-items: flex-end;
+
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    background: rgba(0, 0, 0, 0);
+
+    main {
+      display: flex;
+      flex-direction: column;
+
+      width: 100%;
+      height: 173px;
+      padding: 20px 20px 10px 20px;
+      background: #FFFFFF;
+
+      header {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+
+        h3 {
+          font-size: 20px;
+          font-weight: normal;
+          color: #615227;
+        }
+      }
+
+      & > div {
+        display: flex;
+        flex-direction: column;
+        margin-top: 10px;
+        flex: 1;
+
+        .separator {
+          display: inline-block;
+          border-top: 1px solid #E3E3E3;;
+          width: calc(100% + 40px);
+          margin-left: -20px;
+        }
+
+        span {
+          height: 56px;
+          display: flex;
+          align-items: center;
+
+          font-size: 16px;
+          color: #393016;
+
+          &:hover {
+            color: #D8A924;
+          }
+          &:active {
+            font-weight: bold;
+          }
+        }
+      }
+    }
+
   }
 }
