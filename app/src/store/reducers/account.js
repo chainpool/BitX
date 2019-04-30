@@ -1,6 +1,16 @@
 import { localSave, bitJS } from "../../utils";
 
-const accounts = (state = [], action) => {
+let initialAccounts = bitJS.getAccount();
+if (!initialAccounts || !Array.isArray(initialAccounts)) {
+  initialAccounts = [];
+}
+
+const accountVersion = localSave.get("accountVersion");
+if (typeof accountVersion === "undefined") {
+  localSave.set("accountVersion", 1);
+}
+
+const accounts = (state = initialAccounts, action) => {
   if (action.type === "ADD_ACCOUNT") {
     const result = [...state, action.account];
     const saveParts = result.map((item = {}) => ({
@@ -20,17 +30,7 @@ const accounts = (state = [], action) => {
     });
   }
 
-  const accountVersion = localSave.get("accountVersion");
-  let localAccounts = [];
-  if (!accountVersion) {
-    localAccounts = [];
-    localSave.remove("accounts");
-    localSave.set("accountVersion", 1);
-  } else {
-    localAccounts = bitJS.getAccount();
-  }
-
-  return state.length ? state : localAccounts || [];
+  return state;
 };
 
 export default accounts;
