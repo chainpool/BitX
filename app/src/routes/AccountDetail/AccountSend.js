@@ -96,7 +96,8 @@ class AccountSend extends Mixin {
 
   startInit = () => {
     const { getAccountUtxos, currentAccount } = this.props;
-    getAccountUtxos(currentAccount.address).then(res =>
+    console.log(currentAccount);
+    getAccountUtxos(currentAccount.address, currentAccount.network).then(res =>
       this.setState({
         utxos: res
       })
@@ -276,7 +277,8 @@ class AccountSend extends Mixin {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getAccountUtxos: address => dispatch(getAccountUtxos(address))
+    getAccountUtxos: (address, network) =>
+      dispatch(getAccountUtxos(address, network))
   };
 };
 
