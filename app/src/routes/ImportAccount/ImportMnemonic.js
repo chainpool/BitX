@@ -58,7 +58,6 @@ export default class ImportMnemonic extends Mixin {
             <button
               onClick={() => {
                 if (checkAll.confirm()) {
-                  console.log(userInput.trim());
                   changeStep(2);
                 }
               }}

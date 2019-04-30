@@ -1,66 +1,69 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { Mixin, Input } from '../../components';
-import { PATH } from '../../constants';
-import { bitJS, Patterns } from '../../utils';
-import * as styles from './SetPassword.module.scss';
-import { addAccount } from '../../store/actions';
+import React from "react";
+import { connect } from "react-redux";
+import { Mixin, Input } from "../../components";
+import { PATH } from "../../constants";
+import { bitJS, Patterns } from "../../utils";
+import * as styles from "./SetPassword.module.scss";
+import { addAccount } from "../../store/actions";
+import bitcoin from "bitcoinjs-lib";
 
 class SetPassword extends Mixin {
-  pageTitle = '设置密码';
+  pageTitle = "设置密码";
   state = {
-    name: '',
-    nameErrMsg: '',
-    password: '',
-    passwordErrMsg: '',
-    confirmPassword: '',
-    confirmPasswordErrMsg: '',
+    name: "",
+    nameErrMsg: "",
+    password: "",
+    passwordErrMsg: "",
+    confirmPassword: "",
+    confirmPasswordErrMsg: ""
   };
 
   checkAll = {
     checkName: () => {
       const { name } = this.state;
-      const err = Patterns.check('required')(name);
+      const err = Patterns.check("required")(name);
       this.setState({
-        nameErrMsg: err,
+        nameErrMsg: err
       });
       return err;
     },
     checkPassword: () => {
       const { password } = this.state;
       let err =
-        Patterns.check('required')(password) ||
-        Patterns.check('characterLength')(password, 8) ||
+        Patterns.check("required")(password) ||
+        Patterns.check("characterLength")(password, 8) ||
         this.checkAll.checkEqual();
       this.setState({
-        passwordErrMsg: err,
+        passwordErrMsg: err
       });
       return err;
     },
     checkConfirmPassword: () => {
       const { confirmPassword } = this.state;
-      let err = Patterns.check('required')(confirmPassword) || this.checkAll.checkEqual();
+      let err =
+        Patterns.check("required")(confirmPassword) ||
+        this.checkAll.checkEqual();
       this.setState({
-        confirmPasswordErrMsg: err,
+        confirmPasswordErrMsg: err
       });
       return err;
     },
     checkEqual: () => {
       const { password, confirmPassword } = this.state;
       if (password && confirmPassword) {
-        const err = Patterns.check('equal')(password, confirmPassword);
+        const err = Patterns.check("equal")(password, confirmPassword);
         this.setState({
           passwordErrMsg: err,
-          confirmPasswordErrMsg: err,
+          confirmPasswordErrMsg: err
         });
         return err;
       }
     },
     confirm: () => {
-      return ['checkName', 'checkPassword', 'checkConfirmPassword'].every(
-        (item) => !this.checkAll[item](),
+      return ["checkName", "checkPassword", "checkConfirmPassword"].every(
+        item => !this.checkAll[item]()
       );
-    },
+    }
   };
   render() {
     const { checkAll } = this;
@@ -70,9 +73,20 @@ class SetPassword extends Mixin {
       password,
       passwordErrMsg,
       confirmPassword,
-      confirmPasswordErrMsg,
+      confirmPasswordErrMsg
     } = this.state;
-    const { mnemonic, privateKey, addAccount, history } = this.props;
+    const {
+      mnemonic,
+      privateKey,
+      addAccount,
+      history,
+      network: networkType
+    } = this.props;
+    const network =
+      networkType === "mainnet"
+        ? bitcoin.networks.bitcoin
+        : bitcoin.networks.testnet;
+
     return (
       <div className={styles.SetPassword}>
         <div className={styles.inputcontent}>
@@ -83,10 +97,10 @@ class SetPassword extends Mixin {
             errMsg={nameErrMsg}
             placeholder="12字符以内"
             onBlur={checkAll.checkName}
-            onChange={(value) =>
+            onChange={value =>
               this.setState({
-                nameErrMsg: '',
-                name: value.slice(0, 12),
+                nameErrMsg: "",
+                name: value.slice(0, 12)
               })
             }
           />
@@ -97,10 +111,10 @@ class SetPassword extends Mixin {
             errMsg={passwordErrMsg}
             placeholder="密码至少包含8个字符"
             onBlur={checkAll.checkPassword}
-            onChange={(value) =>
+            onChange={value =>
               this.setState({
-                passwordErrMsg: '',
-                password: value,
+                passwordErrMsg: "",
+                password: value
               })
             }
           />
@@ -111,10 +125,10 @@ class SetPassword extends Mixin {
             errMsg={confirmPasswordErrMsg}
             placeholder="重复输入密码"
             onBlur={checkAll.checkConfirmPassword}
-            onChange={(value) =>
+            onChange={value =>
               this.setState({
-                confirmPasswordErrMsg: '',
-                confirmPassword: value,
+                confirmPasswordErrMsg: "",
+                confirmPassword: value
               })
             }
           />
@@ -123,26 +137,22 @@ class SetPassword extends Mixin {
           <button
             onClick={() => {
               if (checkAll.confirm()) {
-                let account;
-                if (mnemonic) {
-                  account = bitJS.generateAccount({
+                const account = bitJS.generateAccount(
+                  {
                     name: name,
                     mnemonic,
-                    password: password,
-                  });
-                } else if (privateKey) {
-                  account = bitJS.generateAccount({
-                    name: name,
                     wif: privateKey,
-                    password: password,
-                  });
-                }
+                    password: password
+                  },
+                  network
+                );
                 addAccount(account);
                 history.push({
-                  pathname: PATH.home,
+                  pathname: PATH.home
                 });
               }
-            }}>
+            }}
+          >
             确定
           </button>
         </div>
@@ -151,15 +161,21 @@ class SetPassword extends Mixin {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapStateToProps = state => {
   return {
-    addAccount: (account) => {
+    network: state.network
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    addAccount: account => {
       dispatch(addAccount(account));
-    },
+    }
   };
 };
 
 export default connect(
-  undefined,
-  mapDispatchToProps,
+  mapStateToProps,
+  mapDispatchToProps
 )(SetPassword);

@@ -21,6 +21,7 @@ class CreateAccount extends Mixin {
   };
   render() {
     const { step, mnemonic } = this.state;
+
     const props = {
       ...this.props,
       mnemonic,
