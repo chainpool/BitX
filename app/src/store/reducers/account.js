@@ -6,7 +6,8 @@ const accounts = (state = [], action) => {
     const saveParts = result.map((item = {}) => ({
       name: item.name,
       address: item.address,
-      encryptedKey: item.encryptedKey
+      encryptedKey: item.encryptedKey,
+      network: item.network
     }));
     bitJS.saveAccount(saveParts);
     return result;
