@@ -38,9 +38,20 @@ export const Patterns = {
   isValidMnemonic: (value, errMsg = "助记词格式错误") => {
     return bip39.validateMnemonic(value) ? "" : errMsg;
   },
-  isValidPrivateKey: (value, errMsg = "私钥格式错误") => {
+  isValidPrivateKey: (
+    value,
+    network = bitcoin.networks.testnet,
+    errMsg = "私钥格式错误"
+  ) => {
+    // 私钥
+    debugger;
+    if (/^[\da-zA-Z]{64}$/.test(value)) {
+      return "";
+    }
+
+    // 检查WIF格式
     try {
-      bitcoin.ECPair.fromWIF(value, bitcoin.networks.testnet);
+      bitcoin.ECPair.fromWIF(value, network);
       return "";
     } catch {
       return errMsg;

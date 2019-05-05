@@ -27,6 +27,7 @@ class CreateAccount extends Mixin {
       mnemonic,
       changeStep: this.changeStep
     };
+
     return (
       <div className={styles.CreateAccount}>
         {step === 1 && <KnowAbout {...props} />}
