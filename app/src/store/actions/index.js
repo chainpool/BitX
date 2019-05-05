@@ -35,22 +35,30 @@ export const setGoBack = goBack => ({
 });
 
 export const getAllAccountBalance = () => {
-  return function(dispatch, getState) {
+  return async function(dispatch, getState) {
     const { accounts } = getState();
     for (let account of accounts) {
-      getBalance(account.address, account.network || "testnet").then(
-        (res = {}) => {
-          const findOne = {
-            ...account,
-            ...res,
-            balanceShow: formatNumber.toBtcPrecision(res.confirmed)
-          };
-          dispatch(updateAccountBalance(findOne));
-        }
-      );
+      await updateBalance(account, dispatch);
     }
   };
 };
+
+async function updateBalance(account, dispatch) {
+  return new Promise(resolve => {
+    getBalance(account.address, account.network || "testnet").then(
+      (res = {}) => {
+        const findOne = {
+          ...account,
+          ...res,
+          balanceShow: formatNumber.toBtcPrecision(res.confirmed)
+        };
+        dispatch(updateAccountBalance(findOne));
+
+        setTimeout(resolve, 500);
+      }
+    );
+  });
+}
 
 export const setNetwork = network => ({
   type: "SET_NETWORK",
