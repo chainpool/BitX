@@ -57,7 +57,6 @@ export const bitX = {
       } else {
         keyPair = bitcoin.ECPair.fromWIF(wif, network);
       }
-      console.log(keyPair);
       const { address } = bitcoin.payments.p2pkh({
         pubkey: keyPair.publicKey,
         network

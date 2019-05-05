@@ -44,7 +44,6 @@ export const Patterns = {
     errMsg = "私钥格式错误"
   ) => {
     // 私钥
-    debugger;
     if (/^[\da-zA-Z]{64}$/.test(value)) {
       return "";
     }
