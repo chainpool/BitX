@@ -13,7 +13,7 @@ export default class Mixin extends Component {
     }
     if (this.state && this.state.step && isFunction(this.props.setGoBack)) {
       this.props.setGoBack(() => {
-        if (this.state.step > 1) {
+        if (this.state.step > 1 && this._isMounted) {
           this.setState({
             step: this.state.step - 1
           });
