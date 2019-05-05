@@ -1,5 +1,4 @@
 import React from "react";
-import { connect } from "react-redux";
 import { Mixin, RouterGo } from "../../components";
 import { setBlankSpace } from "../../utils";
 import SelectModeGetAccount from "./SelectModeGetAccount";
@@ -71,7 +70,4 @@ class AccountList extends Mixin {
   }
 }
 
-export default connect(
-  undefined,
-  undefined
-)(AccountList);
+export default AccountList;
