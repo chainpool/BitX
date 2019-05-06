@@ -8,7 +8,8 @@ import {
   setPageTitle,
   setModal,
   getAllAccountBalance,
-  setGoBack
+  setGoBack,
+  setMenu
 } from "../../../store/actions";
 import { PATH } from "../../../constants";
 import { bitJS, parseQueryString } from "../../../utils";
@@ -74,7 +75,8 @@ const mapStateToProps = state => {
     goBack: state.goBack,
     accounts: state.accounts,
     pageTitle: state.pageTitle,
-    modal: state.modal
+    modal: state.modal,
+    menu: state.menu
   };
 };
 
@@ -84,7 +86,8 @@ const mapDispatchToProps = dispatch => {
     setModal: ({ name, show, data }) =>
       dispatch(setModal({ name, show, data })),
     getAllAccountBalance: () => dispatch(getAllAccountBalance()),
-    setGoBack: goBack => dispatch(setGoBack(goBack))
+    setGoBack: goBack => dispatch(setGoBack(goBack)),
+    setMenu: menu => dispatch(setMenu(menu))
   };
 };
 

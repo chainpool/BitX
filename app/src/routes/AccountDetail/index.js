@@ -4,6 +4,7 @@ import { Mixin } from "../../components";
 import AccountInfo from "./AccountInfo";
 import AccountReceive from "./AccountReceive";
 import AccountSend from "./AccountSend";
+import { setMenu } from "../../store/actions";
 import * as styles from "./index.module.scss";
 
 class AccountDetail extends Mixin {
@@ -15,6 +16,16 @@ class AccountDetail extends Mixin {
       activeIndex: 0
     };
   }
+  componentDidMount() {
+    this.props.setMenu({
+      show: true,
+      cb: () => {
+        this.handleMenu();
+      }
+    });
+  }
+
+  handleMenu() {}
 
   render() {
     const { activeIndex } = this.state;
@@ -46,12 +57,27 @@ class AccountDetail extends Mixin {
       </div>
     );
   }
+  componentWillUnmount() {
+    this.props.setMenu({
+      show: false,
+      cb: null
+    });
+  }
 }
 
 const mapStateToProps = state => {
   return {
-    accounts: state.accounts
+    accounts: state.accounts,
+    menu: state.menu
+  };
+};
+const mapDispatchToProps = dispatch => {
+  return {
+    setMenu: menu => dispatch(setMenu(menu))
   };
 };
 
-export default connect(mapStateToProps)(AccountDetail);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AccountDetail);

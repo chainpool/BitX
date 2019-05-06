@@ -34,6 +34,11 @@ export const setGoBack = goBack => ({
   goBack
 });
 
+export const setMenu = menu => ({
+  type: "SET_MENU",
+  menu
+});
+
 export const getAllAccountBalance = () => {
   return async function(dispatch, getState) {
     const { accounts } = getState();

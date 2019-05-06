@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import * as styles from "./Header.module.scss";
 import { PATH } from "../../../constants";
 import { isFunction } from "../../../utils";
+import classnames from "classnames";
 
 export default class Header extends Component {
   render() {
@@ -10,14 +11,16 @@ export default class Header extends Component {
       history: {
         location: { pathname }
       },
-      goBack
+      goBack,
+      menu: { show, cb }
     } = this.props;
     const isShowBack = () => pathname !== PATH.home;
+    console.log(this.props);
     return (
       <div className={styles.Header}>
         {isShowBack() && (
           <i
-            className="iconfont iconback1"
+            className={classnames("iconfont iconback1", styles.back)}
             onClick={() => {
               if (isFunction(goBack)) {
                 goBack();
@@ -29,6 +32,12 @@ export default class Header extends Component {
         )}
 
         {this.props.children}
+        {show && (
+          <i
+            className={classnames("iconfont iconback1", styles.menu)}
+            onClick={() => cb()}
+          />
+        )}
       </div>
     );
   }
