@@ -9,7 +9,7 @@ import InputPassword from "./InputPassword";
 import ViewPrivateKey from "./ViewPrivateKey";
 import { setMenu } from "../../store/actions";
 import * as styles from "./index.module.scss";
-import classnames from "classnames";
+// import classnames from "classnames";
 
 class AccountDetail extends Mixin {
   constructor(props) {
@@ -66,15 +66,17 @@ class AccountDetail extends Mixin {
         {menuSwitch && (
           <div className={styles.modal}>
             {status === "toExportKey" && (
-              <ExportKey
-                className={classnames(styles.export_key, styles.menu)}
-                handleStepChange={status => {
-                  this.handleStepChange(status);
-                }}
-              />
+              <div className={styles.menu}>
+                <ExportKey
+                  className={styles.export_key}
+                  handleStepChange={status => {
+                    this.handleStepChange(status);
+                  }}
+                />
+              </div>
             )}
             {status === "inputPassword" && (
-              <div className={classnames(styles.menu)}>
+              <div className={styles.menu}>
                 <InputPassword
                   {...this.props}
                   onClose={() => {
@@ -87,7 +89,7 @@ class AccountDetail extends Mixin {
               </div>
             )}
             {status === "showPrivateKey" && (
-              <div className={classnames(styles.menu)}>
+              <div className={styles.menu}>
                 <ViewPrivateKey
                   styles={styles}
                   privateKey={privateKey}
