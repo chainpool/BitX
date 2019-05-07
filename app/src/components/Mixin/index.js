@@ -9,6 +9,7 @@ export default class Mixin extends Component {
 
   componentDidMount() {
     if (this.pageTitle && isFunction(this.props.setPageTitle)) {
+      console.log("this.pageTitle", this.pageTitle);
       this.props.setPageTitle(this.pageTitle);
     }
     if (this.state && this.state.step && isFunction(this.props.setGoBack)) {
@@ -39,7 +40,7 @@ export default class Mixin extends Component {
     }
   };
 
-  closeModal = () => {
+  closeModal = cb => {
     if (this.props.setModal) {
       this.props.setModal({
         name: "",

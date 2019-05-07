@@ -15,7 +15,7 @@ export default class Header extends Component {
       menu: { show, cb }
     } = this.props;
     const isShowBack = () => pathname !== PATH.home;
-    console.log(this.props);
+    // console.log(this.props);
     return (
       <div className={styles.Header}>
         {isShowBack() && (
@@ -34,7 +34,7 @@ export default class Header extends Component {
         {this.props.children}
         {show && (
           <i
-            className={classnames("iconfont iconback1", styles.menu)}
+            className={classnames("iconfont iconmenu", styles.menu)}
             onClick={() => cb()}
           />
         )}

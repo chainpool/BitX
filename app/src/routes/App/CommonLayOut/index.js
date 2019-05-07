@@ -8,8 +8,7 @@ import {
   setPageTitle,
   setModal,
   getAllAccountBalance,
-  setGoBack,
-  setMenu
+  setGoBack
 } from "../../../store/actions";
 import { PATH } from "../../../constants";
 import { bitJS, parseQueryString } from "../../../utils";
@@ -41,6 +40,7 @@ class CommonLayOut extends Component {
       currentAccount =
         accounts.filter((item = {}) => item.address === address)[0] || {};
     }
+    console.log({ ...this.props });
     return (
       <div className={styles.CommonLayOut}>
         <div className={styles.header}>
@@ -86,8 +86,7 @@ const mapDispatchToProps = dispatch => {
     setModal: ({ name, show, data }) =>
       dispatch(setModal({ name, show, data })),
     getAllAccountBalance: () => dispatch(getAllAccountBalance()),
-    setGoBack: goBack => dispatch(setGoBack(goBack)),
-    setMenu: menu => dispatch(setMenu(menu))
+    setGoBack: goBack => dispatch(setGoBack(goBack))
   };
 };
 
