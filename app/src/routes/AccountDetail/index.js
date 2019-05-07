@@ -19,7 +19,7 @@ class AccountDetail extends Mixin {
       activeIndex: 0,
       shadowActive: true, //false,
       step: 1,
-      privateKey: "1231213123834747287474934934739273c9842743846845858374974598"
+      privateKey: ""
     };
   }
   componentWillMount() {

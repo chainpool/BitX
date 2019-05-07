@@ -3,8 +3,7 @@ import * as styles from "./InputPassword.module.scss";
 import classnames from "classnames";
 import { bitJS, Patterns } from "../../utils";
 import { Input } from "../../components";
-
-import bip38 from "bip38";
+import { bitX } from "../../utils/bitX";
 
 export default class InputPassword extends Component {
   constructor(props) {
@@ -28,11 +27,7 @@ export default class InputPassword extends Component {
   exportPrivateKey() {
     const { password } = this.state;
     const { currentAccount: { encryptedKey } = {} } = this.props;
-    const { privateKey } = bip38.decrypt(encryptedKey, password, () => {}, {
-      N: 128,
-      r: 8,
-      p: 8
-    });
+    const { privateKey } = bitX.decrypt(encryptedKey, password);
     this.props.setPrivateKey(privateKey);
   }
   render() {
