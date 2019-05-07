@@ -22,7 +22,7 @@ class AccountDetail extends Mixin {
       privateKey: "1231213123834747287474934934739273c9842743846845858374974598"
     };
   }
-  componentDidMount() {
+  componentWillMount() {
     this.props.setMenu({
       show: true,
       cb: () => {

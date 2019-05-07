@@ -40,7 +40,6 @@ class CommonLayOut extends Component {
       currentAccount =
         accounts.filter((item = {}) => item.address === address)[0] || {};
     }
-    console.log({ ...this.props });
     return (
       <div className={styles.CommonLayOut}>
         <div className={styles.header}>

@@ -9,7 +9,6 @@ export default class Mixin extends Component {
 
   componentDidMount() {
     if (this.pageTitle && isFunction(this.props.setPageTitle)) {
-      console.log("this.pageTitle", this.pageTitle);
       this.props.setPageTitle(this.pageTitle);
     }
     if (this.state && this.state.step && isFunction(this.props.setGoBack)) {
