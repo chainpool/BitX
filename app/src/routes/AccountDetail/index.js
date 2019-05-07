@@ -16,6 +16,7 @@ class AccountDetail extends Mixin {
     super(props);
     const { currentAccount } = props;
     this.pageTitle = currentAccount.name;
+    this.didMount = Mixin.prototype.componentDidMount;
     this.state = {
       activeIndex: 0,
       menuSwitch: false,
@@ -23,7 +24,10 @@ class AccountDetail extends Mixin {
       privateKey: ""
     };
   }
-  componentWillMount() {
+  componentDidMount() {
+    if (this.didMount) {
+      this.didMount.apply(this);
+    }
     this.props.setMenu({
       show: true,
       cb: () => {
