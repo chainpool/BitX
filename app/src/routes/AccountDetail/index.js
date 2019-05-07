@@ -36,6 +36,7 @@ class AccountDetail extends Mixin {
   }
 
   render() {
+    console.log(this.props.menu);
     const { activeIndex, step, shadowActive, privateKey } = this.state;
     return (
       <div className={styles.AccountDetail}>
@@ -77,7 +78,7 @@ class AccountDetail extends Mixin {
             {step === 2 && (
               <Modal
                 title="输入账户密码"
-                closeCb={() => this.setState({ step: 0 })}
+                closeCb={() => this.setState({ step: 1 })}
               >
                 <InputPassword
                   {...this.props}
@@ -89,7 +90,7 @@ class AccountDetail extends Mixin {
               </Modal>
             )}
             {step === 3 && (
-              <Modal title="私钥" closeCb={() => this.setState({ step: 0 })}>
+              <Modal title="私钥" closeCb={() => this.setState({ step: 1 })}>
                 <div>
                   <span className={styles.private_key}>{privateKey}</span>
                   <span className={styles.warning}>
