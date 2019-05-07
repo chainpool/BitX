@@ -28,7 +28,7 @@ export default class InputPassword extends Component {
     const { password } = this.state;
     const { currentAccount: { encryptedKey } = {} } = this.props;
     const { privateKey } = bitX.decryptPair(encryptedKey, password);
-    this.props.setPrivateKey(privateKey);
+    this.props.setPrivateKey(privateKey.toString("hex"));
   }
   render() {
     const { password, passwordErrMsg } = this.state;
