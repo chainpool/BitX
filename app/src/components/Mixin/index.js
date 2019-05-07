@@ -39,7 +39,7 @@ export default class Mixin extends Component {
     }
   };
 
-  closeModal = () => {
+  closeModal = cb => {
     if (this.props.setModal) {
       this.props.setModal({
         name: "",

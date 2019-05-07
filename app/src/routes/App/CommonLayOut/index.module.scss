@@ -5,11 +5,12 @@
   flex-grow: 1;
   flex-shrink: 1;
   .content{
-    height:100%;
+    height:calc(100% - 56px);
     display: flex;
     flex-direction: column;
     flex-grow: 1;
     flex-shrink: 1;
+    overflow-y: auto;
   }
 }
 

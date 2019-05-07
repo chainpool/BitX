@@ -4,7 +4,12 @@ import { Mixin } from "../../components";
 import AccountInfo from "./AccountInfo";
 import AccountReceive from "./AccountReceive";
 import AccountSend from "./AccountSend";
+import ExportKey from "./ExportKey";
+import InputPassword from "./InputPassword";
+import ViewPrivateKey from "./ViewPrivateKey";
+import { setMenu } from "../../store/actions";
 import * as styles from "./index.module.scss";
+// import classnames from "classnames";
 
 class AccountDetail extends Mixin {
   constructor(props) {
@@ -12,12 +17,27 @@ class AccountDetail extends Mixin {
     const { currentAccount } = props;
     this.pageTitle = currentAccount.name;
     this.state = {
-      activeIndex: 0
+      activeIndex: 0,
+      menuSwitch: false,
+      status: "toExportKey", //"toExportKey": 导出私钥; "inputPassword": 输入密码; "showPrivateKey":展示私钥
+      privateKey: ""
     };
+  }
+  componentWillMount() {
+    this.props.setMenu({
+      show: true,
+      cb: () => {
+        this.setState({ menuSwitch: true });
+      }
+    });
+  }
+
+  handleStepChange(status) {
+    this.setState({ status });
   }
 
   render() {
-    const { activeIndex } = this.state;
+    const { activeIndex, status, menuSwitch, privateKey } = this.state;
     return (
       <div className={styles.AccountDetail}>
         <AccountInfo {...this.props} />
@@ -43,8 +63,52 @@ class AccountDetail extends Mixin {
           {activeIndex === 0 && <AccountSend {...this.props} />}
           {activeIndex === 1 && <AccountReceive {...this.props} />}
         </div>
+        {menuSwitch && (
+          <div className={styles.modal}>
+            {status === "toExportKey" && (
+              <div className={styles.menu}>
+                <ExportKey
+                  className={styles.export_key}
+                  handleStepChange={status => {
+                    this.handleStepChange(status);
+                  }}
+                />
+              </div>
+            )}
+            {status === "inputPassword" && (
+              <div className={styles.menu}>
+                <InputPassword
+                  {...this.props}
+                  onClose={() => {
+                    this.setState({ menuSwitch: false, status: "toExportKey" });
+                  }}
+                  setPrivateKey={privateKey =>
+                    this.setState({ privateKey, status: "showPrivateKey" })
+                  }
+                />
+              </div>
+            )}
+            {status === "showPrivateKey" && (
+              <div className={styles.menu}>
+                <ViewPrivateKey
+                  styles={styles}
+                  privateKey={privateKey}
+                  onClose={() => {
+                    this.setState({ menuSwitch: false, status: "toExportKey" });
+                  }}
+                />
+              </div>
+            )}
+          </div>
+        )}
       </div>
     );
+  }
+  componentWillUnmount() {
+    this.props.setMenu({
+      show: false,
+      cb: null
+    });
   }
 }
 
@@ -53,5 +117,13 @@ const mapStateToProps = state => {
     accounts: state.accounts
   };
 };
+const mapDispatchToProps = dispatch => {
+  return {
+    setMenu: menu => dispatch(setMenu(menu))
+  };
+};
 
-export default connect(mapStateToProps)(AccountDetail);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AccountDetail);

@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import * as styles from './index.module.scss';
+import * as styles from "./index.module.scss";
+import classnames from "classnames";
 
 export class Input extends Component {
   render() {
@@ -15,9 +16,10 @@ export class Input extends Component {
       placeholder,
       isPassword,
       isTextArea,
+      className,
       ...rest
     } = this.props;
-    const Ele = isTextArea ? 'textarea' : 'input';
+    const Ele = isTextArea ? "textarea" : "input";
     return (
       <div className={styles.container}>
         {label && <div className={styles.label}>{label}</div>}
@@ -25,11 +27,11 @@ export class Input extends Component {
           {prefix && <div className={styles.prefix}>{prefix}</div>}
 
           <Ele
-            className={styles.input}
-            type={isPassword ? 'password' : 'text'}
+            className={classnames(styles.input, className)}
+            type={isPassword ? "password" : "text"}
             placeholder={placeholder}
             value={value}
-            onChange={(e) => {
+            onChange={e => {
               onChange(e.target.value.trim());
             }}
             onBlur={onBlur}
@@ -37,7 +39,7 @@ export class Input extends Component {
           />
           {suffix && <div className={styles.suffix}>{suffix}</div>}
         </div>
-        {errMsg && <div className={styles.errMsg}>{errMsg}</div>}
+        <div className={styles.errMsg}>{errMsg}</div>
       </div>
     );
   }

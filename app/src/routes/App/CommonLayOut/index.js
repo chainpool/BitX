@@ -74,7 +74,8 @@ const mapStateToProps = state => {
     goBack: state.goBack,
     accounts: state.accounts,
     pageTitle: state.pageTitle,
-    modal: state.modal
+    modal: state.modal,
+    menu: state.menu
   };
 };
 

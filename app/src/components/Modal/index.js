@@ -8,7 +8,14 @@ import classNames from "classnames";
 
 class Modal extends Component {
   render() {
-    const { title, setModal, modal: { show } = {}, children } = this.props;
+    const {
+      title,
+      setModal,
+      modal: { show } = {},
+      children,
+      className,
+      closeCb
+    } = this.props;
     return (
       show && (
         <div
@@ -18,16 +25,19 @@ class Modal extends Component {
           )}
           id="rootModal"
         >
-          <div className={styles.content}>
-            <div
-              className={styles.header}
-              onClick={() => {
-                setModal(false);
-              }}
-            >
-              <div className={styles.title}>{title}</div>
-              <i className="iconfont iconClose" />
-            </div>
+          <div className={classNames(styles.content, className)}>
+            {title && (
+              <div
+                className={styles.header}
+                onClick={() => {
+                  closeCb && closeCb();
+                  setModal(false);
+                }}
+              >
+                <div className={styles.title}>{title}</div>
+                <i className="iconfont iconClose" />
+              </div>
+            )}
             {children}
           </div>
         </div>
