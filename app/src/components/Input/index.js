@@ -39,7 +39,7 @@ export class Input extends Component {
           />
           {suffix && <div className={styles.suffix}>{suffix}</div>}
         </div>
-        {errMsg && <div className={styles.errMsg}>{errMsg}</div>}
+        <div className={styles.errMsg}>{errMsg}</div>
       </div>
     );
   }

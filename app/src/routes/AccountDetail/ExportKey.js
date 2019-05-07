@@ -5,7 +5,7 @@ export default function ExportKey(props) {
     <div
       className={props.className}
       onClick={e => {
-        props.handleStepChange(2);
+        props.handleStepChange("inputPassword");
       }}
     >
       <i className="iconfont iconexport" />

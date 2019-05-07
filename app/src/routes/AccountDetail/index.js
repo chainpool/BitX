@@ -1,14 +1,15 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Mixin, Modal } from "../../components";
+import { Mixin } from "../../components";
 import AccountInfo from "./AccountInfo";
 import AccountReceive from "./AccountReceive";
 import AccountSend from "./AccountSend";
 import ExportKey from "./ExportKey";
 import InputPassword from "./InputPassword";
+import ViewPrivateKey from "./ViewPrivateKey";
 import { setMenu } from "../../store/actions";
 import * as styles from "./index.module.scss";
-// import classnames from "classnames";
+import classnames from "classnames";
 
 class AccountDetail extends Mixin {
   constructor(props) {
@@ -17,8 +18,8 @@ class AccountDetail extends Mixin {
     this.pageTitle = currentAccount.name;
     this.state = {
       activeIndex: 0,
-      shadowActive: true, //false,
-      step: 1,
+      menuSwitch: false,
+      status: "toExportKey", //"toExportKey": 导出私钥; "inputPassword": 输入密码; "showPrivateKey":展示私钥
       privateKey: ""
     };
   }
@@ -26,18 +27,17 @@ class AccountDetail extends Mixin {
     this.props.setMenu({
       show: true,
       cb: () => {
-        this.openModal({});
+        this.setState({ menuSwitch: true });
       }
     });
   }
 
-  handleStepChange(step) {
-    this.setState({ step });
+  handleStepChange(status) {
+    this.setState({ status });
   }
 
   render() {
-    console.log(this.props.menu);
-    const { activeIndex, step, shadowActive, privateKey } = this.state;
+    const { activeIndex, status, menuSwitch, privateKey } = this.state;
     return (
       <div className={styles.AccountDetail}>
         <AccountInfo {...this.props} />
@@ -63,43 +63,41 @@ class AccountDetail extends Mixin {
           {activeIndex === 0 && <AccountSend {...this.props} />}
           {activeIndex === 1 && <AccountReceive {...this.props} />}
         </div>
-        {shadowActive && (
-          <>
-            {step === 1 && (
-              <Modal className={styles.modal}>
-                <ExportKey
-                  className={styles.export_key}
-                  handleStepChange={step => {
-                    this.handleStepChange(step);
-                  }}
-                />
-              </Modal>
+        {menuSwitch && (
+          <div className={styles.modal}>
+            {status === "toExportKey" && (
+              <ExportKey
+                className={classnames(styles.export_key, styles.menu)}
+                handleStepChange={status => {
+                  this.handleStepChange(status);
+                }}
+              />
             )}
-            {step === 2 && (
-              <Modal
-                title="输入账户密码"
-                closeCb={() => this.setState({ step: 1 })}
-              >
+            {status === "inputPassword" && (
+              <div className={classnames(styles.menu)}>
                 <InputPassword
                   {...this.props}
-                  setPrivateKey={privateKey => this.setState({ privateKey })}
-                  handleStepChange={step => {
-                    this.handleStepChange(step);
+                  onClose={() => {
+                    this.setState({ menuSwitch: false, status: "toExportKey" });
+                  }}
+                  setPrivateKey={privateKey =>
+                    this.setState({ privateKey, status: "showPrivateKey" })
+                  }
+                />
+              </div>
+            )}
+            {status === "showPrivateKey" && (
+              <div className={classnames(styles.menu)}>
+                <ViewPrivateKey
+                  styles={styles}
+                  privateKey={privateKey}
+                  onClose={() => {
+                    this.setState({ menuSwitch: false, status: "toExportKey" });
                   }}
                 />
-              </Modal>
+              </div>
             )}
-            {step === 3 && (
-              <Modal title="私钥" closeCb={() => this.setState({ step: 1 })}>
-                <div>
-                  <span className={styles.private_key}>{privateKey}</span>
-                  <span className={styles.warning}>
-                    不要将您的私钥存储在您的电脑上，或者网上某处。任何能够访问您备份私钥的人就能取用您的资金
-                  </span>
-                </div>
-              </Modal>
-            )}
-          </>
+          </div>
         )}
       </div>
     );

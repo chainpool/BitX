@@ -28,36 +28,41 @@ export default class InputPassword extends Component {
     const { password } = this.state;
     const { currentAccount: { encryptedKey } = {} } = this.props;
     const { privateKey } = bitX.decryptPair(encryptedKey, password);
-    // console.log(privateKey)
     this.props.setPrivateKey(privateKey);
   }
   render() {
     const { password, passwordErrMsg } = this.state;
     return (
       <div className={classnames(this.props.className, styles.input_password)}>
-        <div>
-          <Input
-            className={styles.input}
-            isPassword
-            value={password}
-            errMsg={passwordErrMsg}
-            onChange={value => {
-              this.setState({
-                passwordErrMsg: "",
-                password: value
-              });
-            }}
-            onBlur={() => {
-              this.checkPassword();
+        <div className={styles.top}>
+          <span className={styles.title}>输入账户密码</span>
+          <i
+            className={classnames("iconfont iconClose", styles.close)}
+            onClick={() => {
+              this.props.onClose();
             }}
           />
         </div>
+        <Input
+          className={styles.input}
+          isPassword
+          value={password}
+          errMsg={passwordErrMsg}
+          onChange={value => {
+            this.setState({
+              passwordErrMsg: "",
+              password: value
+            });
+          }}
+          onBlur={() => {
+            this.checkPassword();
+          }}
+        />
         <button
           className={styles.confirm}
           onClick={() => {
             if (!this.checkPassword()) {
               this.exportPrivateKey();
-              this.props.handleStepChange(3);
             }
           }}
         >
