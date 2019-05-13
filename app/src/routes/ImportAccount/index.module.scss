@@ -17,6 +17,7 @@
       height:100%;
       background: #F5F5F5;
       color: #959595;
+      cursor: pointer;
       &.active{
         background: white;
         color:$yellow;

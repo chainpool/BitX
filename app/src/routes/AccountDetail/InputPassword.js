@@ -33,7 +33,10 @@ export default class InputPassword extends Component {
   render() {
     const { password, passwordErrMsg } = this.state;
     return (
-      <div className={classnames(this.props.className, styles.input_password)}>
+      <div
+        className={classnames(this.props.className, styles.input_password)}
+        onClick={e => e.stopPropagation()}
+      >
         <div className={styles.top}>
           <span className={styles.title}>输入账户密码</span>
           <i
@@ -60,7 +63,8 @@ export default class InputPassword extends Component {
         />
         <button
           className={styles.confirm}
-          onClick={() => {
+          onClick={e => {
+            e.stopPropagation();
             if (!this.checkPassword()) {
               this.exportPrivateKey();
             }

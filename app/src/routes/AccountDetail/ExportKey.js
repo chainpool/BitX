@@ -5,6 +5,7 @@ export default function ExportKey(props) {
     <div
       className={props.className}
       onClick={e => {
+        e.stopPropagation()
         props.handleStepChange("inputPassword");
       }}
     >
