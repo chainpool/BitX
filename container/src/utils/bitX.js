@@ -21,7 +21,10 @@ const bitX = {
     network = bitcoin.networks.testnet
   ) => {
     let account;
-    const path = "m/44'/1'/0'/0/0";
+    let path = "m/44'/1'/0'/0/0";
+    if (network === bitcoin.networks.bitcoin) {
+      path = "m/44'/0'/0'/0/0";
+    }
     const params = {
       N: 128, // specified by BIP38
       r: 8,
