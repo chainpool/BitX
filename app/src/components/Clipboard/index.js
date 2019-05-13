@@ -30,7 +30,7 @@ export default class Clipboard extends PureComponent {
           <i
             className="clipboard iconfont iconfuzhi"
             data-clipboard-target={`#${uid}`}
-            style={{ marginLeft: children ? 8 : null }}
+            style={{ marginLeft: children ? 8 : null, cursor: "pointer" }}
           />
           {outInner ? (
             <span className="outerInner" data-clipboard-target={`#${uid}`}>

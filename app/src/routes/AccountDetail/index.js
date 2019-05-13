@@ -68,7 +68,9 @@ class AccountDetail extends Mixin {
           {activeIndex === 1 && <AccountReceive {...this.props} />}
         </div>
         {menuSwitch && (
-          <div className={styles.modal}>
+          <div className={styles.modal} onClick={() => {
+            this.setState({ menuSwitch: false, status: "toExportKey" });
+          }}>
             {status === "toExportKey" && (
               <div className={styles.menu}>
                 <ExportKey
