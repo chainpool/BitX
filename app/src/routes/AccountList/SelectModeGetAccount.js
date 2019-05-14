@@ -21,7 +21,7 @@ class SelectModeGetAccount extends Component {
       <div className={styles.SelectModeGetAccount}>
         {accounts.length ? (
           <div className={styles.close} onClick={changeClose}>
-            <i className="iconfont iconClose"  style={{cursor: "pointer"}}/>
+            <i className="iconfont iconClose" style={{ cursor: "pointer" }} />
           </div>
         ) : null}
 
@@ -60,7 +60,10 @@ class SelectModeGetAccount extends Component {
                 <span
                   onClick={() => this.setState({ openNetworkSelection: false })}
                 >
-                  <i className="iconfont iconClose"  style={{cursor: "pointer"}}/>
+                  <i
+                    className="iconfont iconClose"
+                    style={{ cursor: "pointer" }}
+                  />
                 </span>
               </header>
               <div>

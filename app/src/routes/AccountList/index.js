@@ -33,7 +33,7 @@ class AccountList extends Mixin {
         <div className={styles.listtitle}>
           <div>账户列表</div>
           <div onClick={changeClose}>
-            <i className="iconfont iconadd" style={{cursor: "pointer"}}/>
+            <i className="iconfont iconadd" style={{ cursor: "pointer" }} />
           </div>
         </div>
         <ul>
