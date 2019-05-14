@@ -119,8 +119,8 @@ class AccountSend extends Mixin {
       encryptedKey,
       password,
       currentAccount.network === "mainnet"
-        ? bitcoin.networks.testnet
-        : bitcoin.networks.bitcoin
+        ? bitcoin.networks.bitcoin
+        : bitcoin.networks.testnet
     );
   }
 
