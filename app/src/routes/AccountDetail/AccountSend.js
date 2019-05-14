@@ -118,7 +118,9 @@ class AccountSend extends Mixin {
       hex,
       encryptedKey,
       password,
-      bitcoin.networks.testnet
+      currentAccount.network === "mainnet"
+        ? bitcoin.networks.testnet
+        : bitcoin.networks.bitcoin
     );
   }
 
@@ -135,6 +137,8 @@ class AccountSend extends Mixin {
       fee,
       feeErrMsg
     } = this.state;
+
+    const { currentAccount } = this.props;
 
     const hexToAscii = str => {
       if (!/^(0x)?[\da-fA-F]+$/.test(str)) {
@@ -253,7 +257,10 @@ class AccountSend extends Mixin {
                       if (tx && tx.message) {
                         throw Error(tx.message);
                       } else {
-                        const res = await broadcastTx(tx);
+                        const res = await broadcastTx(
+                          tx,
+                          currentAccount.network
+                        );
                         if (res && res.tx) {
                           return res.tx;
                         }
