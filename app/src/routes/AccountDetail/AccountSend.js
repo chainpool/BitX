@@ -19,7 +19,7 @@ class AccountSend extends Mixin {
     addOpReturn: false,
     hex: "",
     hexErrMsg: "",
-    fee: 0.00001, // 默认值为1000 Satoshi
+    fee: 0.00008, // 默认值为8000 Satoshi
     feeErrMsg: ""
   };
 
