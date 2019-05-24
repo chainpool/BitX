@@ -10,6 +10,8 @@ const btcMainnetEndpoint =
   process.env.BTC_MAINNET_END_POINT || "http://47.111.89.46:8332";
 const bitcoreEndpoint = process.env.BITCORE_END_POINT || defaultBitcoreEndpoint;
 
+const authorization = process.env.Authorization;
+
 const router = new Router();
 
 router.get("/ping", async ctx => {
@@ -100,6 +102,7 @@ async function submit(raw, network) {
     body,
     headers: {
       Accept: "application/json",
+      Authorization: `${authorization}`,
       "Content-Length": `${body.length}`,
       "Content-Type": "application/json"
     },
