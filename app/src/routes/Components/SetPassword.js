@@ -142,7 +142,8 @@ class SetPassword extends Mixin {
                     name: name,
                     mnemonic,
                     wif: privateKey,
-                    password: password
+                    password: password,
+                    network: networkType
                   },
                   network
                 );

@@ -103,7 +103,7 @@ export const bitX = {
     opReturnHex,
     encryptedKey,
     password,
-    network = bitcoin.networks.testnet
+    network = "mainnet"
   ) => {
     const ecpair = bitX.decryptPair(encryptedKey, password, network);
     return compose(
@@ -114,7 +114,9 @@ export const bitX = {
       fee,
       opReturnHex,
       ecpair,
-      network
+      network === "mainnet"
+        ? bitcoin.networks.bitcoin
+        : bitcoin.networks.testnet
     );
   }
 };

@@ -16,10 +16,18 @@ function getNetworkKey(network) {
 
 const bitX = {
   generateMnemonic: () => bip39.generateMnemonic(),
-  generateAccount: async (
-    { name, mnemonic, password, wif },
-    network = bitcoin.networks.testnet
-  ) => {
+  generateAccount: async ({
+    name,
+    mnemonic,
+    password,
+    wif,
+    network: networkType
+  }) => {
+    const network =
+      networkType === "mainnet"
+        ? bitcoin.networks.bitcoin
+        : bitcoin.networks.testnet;
+
     let account;
     let path = "m/44'/1'/0'/0/0";
     if (network === bitcoin.networks.bitcoin) {
@@ -96,9 +104,13 @@ const bitX = {
     opReturnHex,
     encryptedKey,
     password,
-    network = bitcoin.networks.testnet
+    network
   ) => {
-    const ecpair = bitX.decryptPair(encryptedKey, password);
+    network =
+      network === "mainnet"
+        ? bitcoin.networks.bitcoin
+        : bitcoin.networks.testnet;
+    const ecpair = bitX.decryptPair(encryptedKey, password, network);
 
     const filterUnspentsByAmount = (unspents, amount, fee) => {
       const nonZeroUnspents = unspents.filter(
