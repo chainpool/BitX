@@ -60,7 +60,14 @@ const bitX = {
         network: getNetworkKey(network)
       };
     } else if (name && wif && password) {
-      const keyPair = bitcoin.ECPair.fromWIF(wif, network);
+      let keyPair;
+      if (/^(0x)?[\da-zA-Z]{64}$/.test(wif)) {
+        keyPair = bitcoin.ECPair.fromPrivateKey(Buffer.from(wif, "hex"), {
+          network
+        });
+      } else {
+        keyPair = bitcoin.ECPair.fromWIF(wif, network);
+      }
       const { address } = bitcoin.payments.p2pkh({
         pubkey: keyPair.publicKey,
         network
