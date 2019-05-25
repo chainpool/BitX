@@ -33,7 +33,7 @@ class RouterGo extends PureComponent {
           if (ipc) {
             const shell = window.electron.shell;
             event.preventDefault();
-            shell.openExternal(event.target.href);
+            shell.openExternal(url);
           }
         }}
       >
