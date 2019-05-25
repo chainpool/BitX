@@ -524,8 +524,7 @@
                               onClick: function(e) {
                                 if (P) {
                                   var t = window.electron.shell;
-                                  e.preventDefault(),
-                                    t.openExternal(e.target.href);
+                                  e.preventDefault(), t.openExternal(h);
                                 }
                               }
                             },
@@ -3741,4 +3740,4 @@
   },
   [[179, 1, 2]]
 ]);
-//# sourceMappingURL=main.aea2d76f.chunk.js.map
+//# sourceMappingURL=main.79761585.chunk.js.map

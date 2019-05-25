@@ -1,11 +1,11 @@
 self.__precacheManifest = [
   {
-    revision: "3a13b385a4a556f85ab9",
+    revision: "74aae863d3d360ffb66b",
     url: "./static/css/main.0454364b.chunk.css"
   },
   {
-    revision: "3a13b385a4a556f85ab9",
-    url: "./static/js/main.aea2d76f.chunk.js"
+    revision: "74aae863d3d360ffb66b",
+    url: "./static/js/main.79761585.chunk.js"
   },
   {
     revision: "92fca31db188b5f3fc9a",
@@ -24,7 +24,7 @@ self.__precacheManifest = [
     url: "./static/media/Bitx.41fc5ea2.png"
   },
   {
-    revision: "4dfce49a8a1242e4f6365f71cf1f19db",
+    revision: "8a0acf5815080d3387be0265981fef5c",
     url: "./index.html"
   }
 ];
