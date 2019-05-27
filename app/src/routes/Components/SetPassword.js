@@ -6,6 +6,7 @@ import { bitJS, Patterns } from "../../utils";
 import * as styles from "./SetPassword.module.scss";
 import { addAccount } from "../../store/actions";
 import bitcoin from "bitcoinjs-lib";
+import passwordValidator from "password-validator";
 
 class SetPassword extends Mixin {
   pageTitle = "设置密码";
@@ -36,7 +37,43 @@ class SetPassword extends Mixin {
       this.setState({
         passwordErrMsg: err
       });
-      return err;
+
+      if (err) {
+        return true;
+      }
+
+      const schema = new passwordValidator()
+        .has()
+        .uppercase()
+        .has()
+        .lowercase()
+        .has()
+        .digits();
+      const errList = schema.validate(password, { list: true });
+      if (errList.length > 0) {
+        let msg;
+        switch (errList[0]) {
+          case "uppercase":
+            msg = "密码需包含大写字母";
+            break;
+          case "lowercase":
+            msg = "密码需包含小写字母";
+            break;
+          case "digits":
+            msg = "密码需包含数字";
+            break;
+          default:
+        }
+
+        if (msg) {
+          this.setState({
+            passwordErrMsg: msg
+          });
+          return true;
+        }
+      }
+
+      return false;
     },
     checkConfirmPassword: () => {
       const { confirmPassword } = this.state;
@@ -65,6 +102,7 @@ class SetPassword extends Mixin {
       );
     }
   };
+
   render() {
     const { checkAll } = this;
     const {
@@ -109,7 +147,7 @@ class SetPassword extends Mixin {
             label="密码"
             value={password}
             errMsg={passwordErrMsg}
-            placeholder="密码至少包含8个字符"
+            placeholder="密码不少于8位，且包含大写字母、小写字母和数字"
             onBlur={checkAll.checkPassword}
             onChange={value =>
               this.setState({
