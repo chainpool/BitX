@@ -7,6 +7,7 @@ import modal from "./reducers/modal";
 import goBack from "./reducers/goBack";
 import network from "./reducers/network";
 import menu from "./reducers/menu";
+import app from "./reducers/app";
 
 export default combineReducers({
   accounts,
@@ -16,5 +17,6 @@ export default combineReducers({
   pageTitle,
   modal,
   goBack,
-  menu
+  menu,
+  app
 });

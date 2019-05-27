@@ -2,16 +2,19 @@ import React, { Component } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import routers from "../routers";
+import Warning from "./Warning";
 import Header from "./Header";
 import * as styles from "./index.module.scss";
 import {
   setPageTitle,
   setModal,
   getAllAccountBalance,
-  setGoBack
+  setGoBack,
+  setSeenWarning
 } from "../../../store/actions";
 import { PATH } from "../../../constants";
 import { bitJS, parseQueryString } from "../../../utils";
+
 class CommonLayOut extends Component {
   componentDidMount() {
     const { getAllAccountBalance } = this.props;
@@ -32,14 +35,18 @@ class CommonLayOut extends Component {
     const {
       accounts = [],
       pageTitle,
-      history: { location: { search } = {} }
+      history: { location: { search } = {} },
+      app,
+      setSeenWarning
     } = this.props;
+
     let currentAccount = {};
     const address = parseQueryString(search).address;
     if (address) {
       currentAccount =
         accounts.filter((item = {}) => item.address === address)[0] || {};
     }
+
     return (
       <div className={styles.CommonLayOut}>
         <div className={styles.header}>
@@ -64,6 +71,7 @@ class CommonLayOut extends Component {
             <Redirect to={PATH.home} />
           </Switch>
         </div>
+        {!app.seenWarning && <Warning setSeen={setSeenWarning} />}
       </div>
     );
   }
@@ -75,7 +83,8 @@ const mapStateToProps = state => {
     accounts: state.accounts,
     pageTitle: state.pageTitle,
     modal: state.modal,
-    menu: state.menu
+    menu: state.menu,
+    app: state.app
   };
 };
 
@@ -85,7 +94,8 @@ const mapDispatchToProps = dispatch => {
     setModal: ({ name, show, data }) =>
       dispatch(setModal({ name, show, data })),
     getAllAccountBalance: () => dispatch(getAllAccountBalance()),
-    setGoBack: goBack => dispatch(setGoBack(goBack))
+    setGoBack: goBack => dispatch(setGoBack(goBack)),
+    setSeenWarning: () => dispatch(setSeenWarning())
   };
 };
 

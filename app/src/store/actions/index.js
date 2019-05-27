@@ -69,3 +69,8 @@ export const setNetwork = network => ({
   type: "SET_NETWORK",
   network
 });
+
+export const setSeenWarning = () => ({
+  type: "SET_SEEN_WARNING",
+  seenWarning: true
+});

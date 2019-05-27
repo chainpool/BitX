@@ -1,0 +1,42 @@
+.wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+
+  main {
+    position: absolute;
+    top: 30%;
+    width: 80%;
+    left: 10%;
+    background: #FFFFFF;
+    border-radius: 4px;
+    padding: 30px;
+
+    h3 {
+      font-size: 20px;
+      color: #3F3F3F;
+      text-align: center;
+      line-height: 16px;
+    }
+
+    p {
+      margin-top: 20px;
+      font-size: 16px;
+      color: #3F3F3F;
+      line-height: 24px;
+    }
+
+    button {
+      margin-top: 30px;
+      background: #F6C94A;
+      border-radius: 4px;
+      font-size: 18px;
+      color: #615227;
+      text-align: center;
+      padding: 15px 80px;
+    }
+  }
+}
