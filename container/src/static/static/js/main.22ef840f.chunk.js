@@ -13,24 +13,27 @@
         desc: "AccountReceive_desc__3K_de"
       };
     },
-    169: function(e, t, n) {
+    170: function(e, t, n) {
       e.exports = { url: "RouterGo_url__18SS2" };
     },
-    172: function(e, t, n) {
+    173: function(e, t, n) {
       e.exports = n.p + "static/media/Bitx.41fc5ea2.png";
     },
-    173: function(e, t, n) {
+    175: function(e, t, n) {
       e.exports = { CreateAccount: "CreateAccount_CreateAccount__Lrx00" };
     },
-    179: function(e, t, n) {
-      e.exports = n(383);
+    177: function(e, t, n) {
+      e.exports = { wrapper: "warning_wrapper__1YjSX" };
     },
-    185: function(e, t, n) {},
-    213: function(e, t) {},
-    215: function(e, t) {},
-    243: function(e, t) {},
+    182: function(e, t, n) {
+      e.exports = n(387);
+    },
+    188: function(e, t, n) {},
+    216: function(e, t) {},
+    218: function(e, t) {},
     246: function(e, t) {},
-    27: function(e, t, n) {
+    249: function(e, t) {},
+    26: function(e, t, n) {
       e.exports = {
         AccountDetail: "AccountDetail_AccountDetail__zADpZ",
         content: "AccountDetail_content__2gECl",
@@ -66,6 +69,105 @@
       };
     },
     34: function(e, t, n) {
+      "use strict";
+      (function(e) {
+        n.d(t, "a", function() {
+          return m;
+        });
+        var a = n(46),
+          r = n.n(a),
+          c = n(112),
+          o = n.n(c),
+          s = n(54),
+          i = n.n(s),
+          u = n(10),
+          l = n.n(u),
+          d = n(77);
+        function p(e) {
+          return e === l.a.networks.bitcoin
+            ? "mainnet"
+            : e === l.a.networks.testnet
+            ? "testnet"
+            : "";
+        }
+        var m = {
+          generateMnemonic: function() {
+            return r.a.generateMnemonic();
+          },
+          generateAccount: function(t) {
+            var n,
+              a = t.name,
+              c = t.mnemonic,
+              s = t.password,
+              u = t.wif,
+              d =
+                arguments.length > 1 && void 0 !== arguments[1]
+                  ? arguments[1]
+                  : l.a.networks.testnet,
+              m = "m/44'/1'/0'/0/0";
+            d === l.a.networks.bitcoin && (m = "m/44'/0'/0'/0/0");
+            var f = { N: 128, r: 8, p: 8 };
+            if (a && c && s) {
+              var h = r.a.mnemonicToSeed(c),
+                v = o.a.fromSeed(h, d).derivePath(m),
+                E = l.a.payments.p2pkh({ pubkey: v.publicKey, network: d }),
+                _ = i.a.encrypt(v.privateKey, !0, s, null, f);
+              n = {
+                name: a,
+                address: E.address,
+                encryptedKey: _,
+                network: p(d)
+              };
+            } else if (a && u && s) {
+              var b;
+              (b = /^(0x)?[\da-zA-Z]{64}$/.test(u)
+                ? l.a.ECPair.fromPrivateKey(e.from(u, "hex"), { network: d })
+                : l.a.ECPair.fromWIF(u, d)),
+                (n = {
+                  name: a,
+                  address: l.a.payments.p2pkh({
+                    pubkey: b.publicKey,
+                    network: d
+                  }).address,
+                  encryptedKey: i.a.encrypt(
+                    b.privateKey,
+                    b.compressed,
+                    s,
+                    null,
+                    f
+                  ),
+                  network: p(d)
+                });
+            }
+            return n;
+          },
+          decrypt: function(e, t) {
+            return i.a.decrypt(e, t, function() {}, { N: 128, r: 8, p: 8 });
+          },
+          decryptPair: function(e, t) {
+            var n =
+                arguments.length > 2 && void 0 !== arguments[2]
+                  ? arguments[2]
+                  : l.a.networks.testnet,
+              a = m.decrypt(e, t);
+            return l.a.ECPair.fromPrivateKey(a.privateKey, {
+              compressed: a.compressed,
+              network: n
+            });
+          },
+          sign: function(e, t, n, a, r, c, o, s) {
+            var i =
+              arguments.length > 8 && void 0 !== arguments[8]
+                ? arguments[8]
+                : "mainnet";
+            i = "mainnet" === i ? l.a.networks.bitcoin : l.a.networks.testnet;
+            var u = m.decryptPair(o, s, i);
+            return Object(d.a)(e, t, n, a, r, c, u, i);
+          }
+        };
+      }.call(this, n(9).Buffer));
+    },
+    35: function(e, t, n) {
       e.exports = {
         AccountSend: "AccountSend_AccountSend__S9Kg2",
         userInput: "AccountSend_userInput__20k1k",
@@ -77,8 +179,8 @@
         button: "AccountSend_button__29T7s"
       };
     },
-    381: function(e, t, n) {},
-    383: function(e, t, n) {
+    385: function(e, t, n) {},
+    387: function(e, t, n) {
       "use strict";
       n.r(t);
       var a,
@@ -86,41 +188,41 @@
         c = n.n(r),
         o = n(110),
         s = n.n(o),
-        i = n(165),
+        i = n(166),
         u = n.n(i),
-        l = (n(184), n(185), n(3)),
+        l = (n(187), n(188), n(3)),
         d = n(4),
-        m = n(6),
-        p = n(5),
-        h = n(7),
-        f = n(387),
-        v = n(388),
-        _ = n(175),
-        E = n(78),
-        b = n(385),
-        g = n(386),
-        k = n(389),
+        p = n(6),
+        m = n(5),
+        f = n(7),
+        h = n(391),
+        v = n(392),
+        E = n(178),
+        _ = n(78),
+        b = n(389),
+        g = n(390),
+        k = n(393),
         w = n(15),
         y = "/",
         O = "/createaccount",
         A = "/importAccount",
         N = "/accountdetail",
-        j = n(64),
-        S = n.n(j),
+        S = n(64),
+        j = n.n(S),
         M = n(63),
-        C = n(167),
+        C = n(168),
         x = n.n(C),
         I = n(115);
       window.require && (a = window.require("electron").ipcRenderer);
       var P = a,
-        T = n(46),
-        B = n(45),
+        T = n(34),
+        B = n(46),
         K = n.n(B),
-        U = n(10),
-        D = n.n(U),
+        D = n(10),
+        U = n.n(D),
         L = n(54),
         q = n.n(L),
-        G = n(168),
+        G = n(169),
         R = n.n(G),
         F = {
           required: function(e) {
@@ -192,14 +294,14 @@
             var t =
                 arguments.length > 1 && void 0 !== arguments[1]
                   ? arguments[1]
-                  : D.a.networks.testnet,
+                  : U.a.networks.testnet,
               n =
                 arguments.length > 2 && void 0 !== arguments[2]
                   ? arguments[2]
                   : "\u79c1\u94a5\u683c\u5f0f\u9519\u8bef";
             if (/^[\da-zA-Z]{64}$/.test(e)) return "";
             try {
-              return D.a.ECPair.fromWIF(e, t), "";
+              return U.a.ECPair.fromWIF(e, t), "";
             } catch (a) {
               return n;
             }
@@ -229,7 +331,7 @@
             var t =
               arguments.length > 1 && void 0 !== arguments[1]
                 ? arguments[1]
-                : D.a.networks.testnet;
+                : U.a.networks.testnet;
             return P
               ? JSON.parse(P.sendSync("GENERATE_ACCOUNT", e))
               : T.a.generateAccount(e, t);
@@ -270,14 +372,14 @@
           ) && V.forceUpdate();
         }),
         P.on("autoUpdater", function(e, t) {}));
-      var H,
-        J = n(14),
-        W = n.n(J),
-        X = n(23),
-        z = n(31),
-        Q = n(83),
-        Y = n(53),
-        Z = n.n(Y),
+      var W,
+        H = n(14),
+        X = n.n(H),
+        J = n(23),
+        z = n(25),
+        Y = n(83),
+        Q = n(53),
+        Z = n.n(Q),
         $ = function(e) {
           var t = e.url,
             n = e.method,
@@ -288,7 +390,7 @@
             s = e.body,
             i = e.timeOut,
             u = void 0 === i ? 1e4 : i,
-            l = Object(Q.a)(e, [
+            l = Object(Y.a)(e, [
               "url",
               "method",
               "methodAlias",
@@ -297,10 +399,10 @@
               "timeOut"
             ]),
             d = Z()(),
-            m = s
+            p = s
               ? JSON.stringify(s)
               : JSON.stringify({ id: d, jsonrpc: "2.0", method: r, params: o }),
-            p = function() {
+            m = function() {
               return fetch(
                 t,
                 Object(z.a)(
@@ -311,16 +413,16 @@
                       "Content-Type": "application/json"
                     }
                   },
-                  "GET" === a.toUpperCase() ? {} : { body: m },
+                  "GET" === a.toUpperCase() ? {} : { body: p },
                   l
                 )
               )
                 .then(
                   (function() {
-                    var e = Object(X.a)(
-                      W.a.mark(function e(t) {
+                    var e = Object(J.a)(
+                      X.a.mark(function e(t) {
                         var n;
-                        return W.a.wrap(function(e) {
+                        return X.a.wrap(function(e) {
                           for (;;)
                             switch ((e.prev = e.next)) {
                               case 0:
@@ -360,14 +462,14 @@
             };
           return u
             ? Promise.race([
-                p(),
+                m(),
                 new Promise(function(e, t) {
                   setTimeout(function() {
                     t("\u8bf7\u6c42\u8d85\u65f6");
                   }, u);
                 })
               ])
-            : p();
+            : m();
         },
         ee = function(e) {
           return isNaN(e) || void 0 === e || "" === e || e === {};
@@ -380,16 +482,16 @@
         },
         ae = {
           get: function(e) {
-            return S.a.get(e);
+            return j.a.get(e);
           },
           set: function(e, t) {
-            S.a.set(e, t);
+            j.a.set(e, t);
           },
           remove: function(e) {
-            S.a.remove(e);
+            j.a.remove(e);
           },
           clearAll: function() {
-            S.a.clearAll();
+            j.a.clearAll();
           }
         },
         re = {
@@ -423,9 +525,9 @@
             var n;
             return (
               Object(l.a)(this, t),
-              ((n = Object(m.a)(
+              ((n = Object(p.a)(
                 this,
-                Object(p.a)(t).call(this, e)
+                Object(m.a)(t).call(this, e)
               )).openModal = function(e) {
                 var t = e.name,
                   a = e.data;
@@ -452,7 +554,7 @@
             );
           }
           return (
-            Object(h.a)(t, e),
+            Object(f.a)(t, e),
             Object(d.a)(t, [
               {
                 key: "componentDidMount",
@@ -482,19 +584,19 @@
             t
           );
         })(r.Component),
-        se = n(384),
-        ie = n(169),
+        se = n(388),
+        ie = n(170),
         ue =
           Object(se.a)(
-            (H = (function(e) {
+            (W = (function(e) {
               function t() {
                 return (
                   Object(l.a)(this, t),
-                  Object(m.a)(this, Object(p.a)(t).apply(this, arguments))
+                  Object(p.a)(this, Object(m.a)(t).apply(this, arguments))
                 );
               }
               return (
-                Object(h.a)(t, e),
+                Object(f.a)(t, e),
                 Object(d.a)(t, [
                   {
                     key: "render",
@@ -510,21 +612,21 @@
                         u = (i = void 0 === i ? {} : i).pathname,
                         l = e.className,
                         d = e.isOutSide,
-                        m = void 0 !== d && d,
-                        p = e.onClick,
-                        h = /http/.test(u) ? u : "http://".concat(u);
-                      return m
+                        p = void 0 !== d && d,
+                        m = e.onClick,
+                        f = /http/.test(u) ? u : "http://".concat(u);
+                      return p
                         ? c.a.createElement(
                             "a",
                             {
                               className: ie.url,
                               rel: "noopener noreferrer",
-                              href: h,
+                              href: f,
                               target: "_blank",
                               onClick: function(e) {
                                 if (P) {
                                   var t = window.electron.shell;
-                                  e.preventDefault(), t.openExternal(h);
+                                  e.preventDefault(), t.openExternal(f);
                                 }
                               }
                             },
@@ -540,7 +642,7 @@
                                   if ("number" === typeof e) return n.go(e);
                                   e && n.push(e);
                                 })(s),
-                                  te(p) && p();
+                                  te(m) && m();
                               }
                             },
                             t
@@ -551,19 +653,19 @@
                 t
               );
             })(r.PureComponent))
-          ) || H,
-        le = n(40),
+          ) || W,
+        le = n(41),
         de = n(16),
-        me = n.n(de),
-        pe = (function(e) {
+        pe = n.n(de),
+        me = (function(e) {
           function t() {
             return (
               Object(l.a)(this, t),
-              Object(m.a)(this, Object(p.a)(t).apply(this, arguments))
+              Object(p.a)(this, Object(m.a)(t).apply(this, arguments))
             );
           }
           return (
-            Object(h.a)(t, e),
+            Object(f.a)(t, e),
             Object(d.a)(t, [
               {
                 key: "render",
@@ -579,8 +681,8 @@
                     u = e.placeholder,
                     l = e.isPassword,
                     d = e.isTextArea,
-                    m = e.className,
-                    p = Object(Q.a)(e, [
+                    p = e.className,
+                    m = Object(Y.a)(e, [
                       "label",
                       "errMsg",
                       "value",
@@ -593,7 +695,7 @@
                       "isTextArea",
                       "className"
                     ]),
-                    h = d ? "textarea" : "input";
+                    f = d ? "textarea" : "input";
                   return c.a.createElement(
                     "div",
                     { className: le.container },
@@ -604,10 +706,10 @@
                       s &&
                         c.a.createElement("div", { className: le.prefix }, s),
                       c.a.createElement(
-                        h,
+                        f,
                         Object.assign(
                           {
-                            className: me()(le.input, m),
+                            className: pe()(le.input, p),
                             type: l ? "password" : "text",
                             placeholder: u,
                             value: a,
@@ -616,7 +718,7 @@
                             },
                             onBlur: o
                           },
-                          p
+                          m
                         )
                       ),
                       i && c.a.createElement("div", { className: le.suffix }, i)
@@ -629,32 +731,32 @@
             t
           );
         })(r.Component),
-        he = n(171),
-        fe = n.n(he),
+        fe = n(172),
+        he = n.n(fe),
         ve = n(84),
-        _e = (function(e) {
+        Ee = (function(e) {
           function t() {
             var e, n;
             Object(l.a)(this, t);
             for (var a = arguments.length, r = new Array(a), c = 0; c < a; c++)
               r[c] = arguments[c];
             return (
-              ((n = Object(m.a)(
+              ((n = Object(p.a)(
                 this,
-                (e = Object(p.a)(t)).call.apply(e, [this].concat(r))
+                (e = Object(m.a)(t)).call.apply(e, [this].concat(r))
               )).state = { uid: n.props.id || Z()("clipboard_") }),
               n
             );
           }
           return (
-            Object(h.a)(t, e),
+            Object(f.a)(t, e),
             Object(d.a)(t, [
               {
                 key: "componentDidMount",
                 value: function() {
                   var e = this.props.outInner,
                     t = void 0 === e ? "" : e;
-                  new fe.a(t ? ".outerInner" : ".clipboard");
+                  new he.a(t ? ".outerInner" : ".clipboard");
                 }
               },
               {
@@ -669,12 +771,12 @@
                     s = void 0 === o ? "" : o;
                   return c.a.createElement(
                     "span",
-                    { className: me()(ve.clipboard, a) },
+                    { className: pe()(ve.clipboard, a) },
                     c.a.createElement(
                       "span",
                       {
                         id: e,
-                        className: me()(ve.children, r ? ve.ellipse : null),
+                        className: pe()(ve.children, r ? ve.ellipse : null),
                         style: { width: r }
                       },
                       n
@@ -705,8 +807,8 @@
             t
           );
         })(r.PureComponent),
-        Ee = n(55),
-        be = n.n(Ee),
+        _e = n(55),
+        be = n.n(_e),
         ge = n(56),
         ke = (function(e) {
           function t() {
@@ -715,15 +817,15 @@
             for (var a = arguments.length, r = new Array(a), c = 0; c < a; c++)
               r[c] = arguments[c];
             return (
-              ((n = Object(m.a)(
+              ((n = Object(p.a)(
                 this,
-                (e = Object(p.a)(t)).call.apply(e, [this].concat(r))
+                (e = Object(m.a)(t)).call.apply(e, [this].concat(r))
               )).state = { uid: Z()("tooltip_") }),
               n
             );
           }
           return (
-            Object(h.a)(t, e),
+            Object(f.a)(t, e),
             Object(d.a)(t, [
               {
                 key: "render",
@@ -739,10 +841,10 @@
                     u = void 0 === i ? "middle" : i,
                     l = n.offset,
                     d = void 0 === l ? {} : l,
-                    m = n.place,
-                    p = void 0 === m ? "bottom" : m,
-                    h = n.tip,
-                    f = void 0 === h ? "tooltip\u63d0\u793a" : h;
+                    p = n.place,
+                    m = void 0 === p ? "bottom" : p,
+                    f = n.tip,
+                    h = void 0 === f ? "tooltip\u63d0\u793a" : f;
                   return c.a.createElement(
                     c.a.Fragment,
                     null,
@@ -752,7 +854,7 @@
                           null,
                           c.a.createElement(
                             "span",
-                            { "data-for": t, "data-tip": f, className: ge.tip },
+                            { "data-for": t, "data-tip": h, className: ge.tip },
                             a
                           ),
                           c.a.createElement(
@@ -762,10 +864,10 @@
                               offset: d,
                               multiline: !0,
                               id: t,
-                              place: p,
-                              className: me()(ge.tool, ge[u])
+                              place: m,
+                              className: pe()(ge.tool, ge[u])
                             },
-                            f
+                            h
                           )
                         )
                       : c.a.createElement(
@@ -773,7 +875,7 @@
                           null,
                           c.a.createElement(
                             "span",
-                            { id: t, "data-tip": f, className: ge.tip },
+                            { id: t, "data-tip": h, className: ge.tip },
                             c.a.createElement(
                               "span",
                               {
@@ -820,11 +922,11 @@
         return Ae.apply(this, arguments);
       }
       function Ae() {
-        return (Ae = Object(X.a)(
-          W.a.mark(function e(t) {
+        return (Ae = Object(J.a)(
+          X.a.mark(function e(t) {
             var n,
               a = arguments;
-            return W.a.wrap(function(e) {
+            return X.a.wrap(function(e) {
               for (;;)
                 switch ((e.prev = e.next)) {
                   case 0:
@@ -862,11 +964,11 @@
         )).apply(this, arguments);
       }
       function Ne() {
-        return (Ne = Object(X.a)(
-          W.a.mark(function e(t) {
+        return (Ne = Object(J.a)(
+          X.a.mark(function e(t) {
             var n,
               a = arguments;
-            return W.a.wrap(function(e) {
+            return X.a.wrap(function(e) {
               for (;;)
                 switch ((e.prev = e.next)) {
                   case 0:
@@ -905,16 +1007,16 @@
           })
         )).apply(this, arguments);
       }
-      function je(e) {
-        return Se.apply(this, arguments);
+      function Se(e) {
+        return je.apply(this, arguments);
       }
-      function Se() {
-        return (Se = Object(X.a)(
-          W.a.mark(function e(t) {
+      function je() {
+        return (je = Object(J.a)(
+          X.a.mark(function e(t) {
             var n,
               a,
               r = arguments;
-            return W.a.wrap(function(e) {
+            return X.a.wrap(function(e) {
               for (;;)
                 switch ((e.prev = e.next)) {
                   case 0:
@@ -958,9 +1060,9 @@
         return Pe.apply(this, arguments);
       }
       function Pe() {
-        return (Pe = Object(X.a)(
-          W.a.mark(function e(t, n) {
-            return W.a.wrap(function(e) {
+        return (Pe = Object(J.a)(
+          X.a.mark(function e(t, n) {
+            return X.a.wrap(function(e) {
               for (;;)
                 switch ((e.prev = e.next)) {
                   case 0:
@@ -991,11 +1093,11 @@
           function t() {
             return (
               Object(l.a)(this, t),
-              Object(m.a)(this, Object(p.a)(t).apply(this, arguments))
+              Object(p.a)(this, Object(m.a)(t).apply(this, arguments))
             );
           }
           return (
-            Object(h.a)(t, e),
+            Object(f.a)(t, e),
             Object(d.a)(t, [
               {
                 key: "render",
@@ -1013,7 +1115,7 @@
                     c.a.createElement(
                       "div",
                       {
-                        className: me()(
+                        className: pe()(
                           we.Modalcontainer,
                           ce() ? we.rootModalMobile : we.rootModalDesktop
                         ),
@@ -1021,7 +1123,7 @@
                       },
                       c.a.createElement(
                         "div",
-                        { className: me()(we.content, s) },
+                        { className: pe()(we.content, s) },
                         t &&
                           c.a.createElement(
                             "div",
@@ -1062,9 +1164,9 @@
             };
           }
         )(Te),
-        Ke = n(172),
-        Ue = n.n(Ke),
-        De = n(48),
+        Ke = n(173),
+        De = n.n(Ke),
+        Ue = n(48),
         Le = (function(e) {
           function t() {
             var e, n;
@@ -1072,15 +1174,15 @@
             for (var a = arguments.length, r = new Array(a), c = 0; c < a; c++)
               r[c] = arguments[c];
             return (
-              ((n = Object(m.a)(
+              ((n = Object(p.a)(
                 this,
-                (e = Object(p.a)(t)).call.apply(e, [this].concat(r))
+                (e = Object(m.a)(t)).call.apply(e, [this].concat(r))
               )).state = { isCreate: !0, openNetworkSelection: !1 }),
               n
             );
           }
           return (
-            Object(h.a)(t, e),
+            Object(f.a)(t, e),
             Object(d.a)(t, [
               {
                 key: "render",
@@ -1096,11 +1198,11 @@
                     u = s.openNetworkSelection;
                   return c.a.createElement(
                     "div",
-                    { className: De.SelectModeGetAccount },
+                    { className: Ue.SelectModeGetAccount },
                     r.length
                       ? c.a.createElement(
                           "div",
-                          { className: De.close, onClick: n },
+                          { className: Ue.close, onClick: n },
                           c.a.createElement("i", {
                             className: "iconfont iconClose",
                             style: { cursor: "pointer" }
@@ -1109,16 +1211,16 @@
                       : null,
                     c.a.createElement(
                       "div",
-                      { className: De.bitx },
+                      { className: Ue.bitx },
                       c.a.createElement("img", {
                         alt: "",
-                        src: Ue.a,
+                        src: De.a,
                         height: 55
                       })
                     ),
                     c.a.createElement(
                       "div",
-                      { className: De.routerbutton },
+                      { className: Ue.routerbutton },
                       c.a.createElement(
                         "div",
                         null,
@@ -1156,7 +1258,7 @@
                       ? c.a.createElement(
                           "section",
                           {
-                            className: De.networkSelection,
+                            className: Ue.networkSelection,
                             onClick: function() {
                               return e.setState({ openNetworkSelection: !1 });
                             }
@@ -1205,7 +1307,7 @@
                                 "\u4e3b\u7f51"
                               ),
                               c.a.createElement("div", {
-                                className: De.separator
+                                className: Ue.separator
                               }),
                               c.a.createElement(
                                 ue,
@@ -1244,7 +1346,7 @@
           function t(e) {
             var n;
             Object(l.a)(this, t),
-              ((n = Object(m.a)(this, Object(p.a)(t).call(this, e))).pageTitle =
+              ((n = Object(p.a)(this, Object(m.a)(t).call(this, e))).pageTitle =
                 "BitX"),
               (n.startInit = function() {}),
               (n.changeClose = function() {
@@ -1257,7 +1359,7 @@
             return (n.state = { close: !!r.length }), n;
           }
           return (
-            Object(h.a)(t, e),
+            Object(f.a)(t, e),
             Object(d.a)(t, [
               {
                 key: "render",
@@ -1358,15 +1460,15 @@
             for (var a = arguments.length, r = new Array(a), c = 0; c < a; c++)
               r[c] = arguments[c];
             return (
-              ((n = Object(m.a)(
+              ((n = Object(p.a)(
                 this,
-                (e = Object(p.a)(t)).call.apply(e, [this].concat(r))
+                (e = Object(m.a)(t)).call.apply(e, [this].concat(r))
               )).pageTitle = "\u5907\u4efd\u52a9\u8bb0\u8bcd"),
               n
             );
           }
           return (
-            Object(h.a)(t, e),
+            Object(f.a)(t, e),
             Object(d.a)(t, [
               {
                 key: "render",
@@ -1399,16 +1501,16 @@
             t
           );
         })(oe),
-        He = n(85),
-        Je = (function(e) {
+        We = n(85),
+        He = (function(e) {
           function t() {
             return (
               Object(l.a)(this, t),
-              Object(m.a)(this, Object(p.a)(t).apply(this, arguments))
+              Object(p.a)(this, Object(m.a)(t).apply(this, arguments))
             );
           }
           return (
-            Object(h.a)(t, e),
+            Object(f.a)(t, e),
             Object(d.a)(t, [
               {
                 key: "render",
@@ -1418,17 +1520,17 @@
                     n = e.changeStep;
                   return c.a.createElement(
                     "div",
-                    { className: He.SaveMnemonic },
+                    { className: We.SaveMnemonic },
                     c.a.createElement(
                       "div",
-                      { className: He.desc },
+                      { className: We.desc },
                       "\u8bf7\u5c06\u4ee5\u4e0b12\u4e2a\u5355\u8bcd\u8bb0\u5728\u7eb8\u4e0a",
                       c.a.createElement("br", null),
                       "\u6211\u4eec\u4f1a\u5728\u4e4b\u540e\u8fdb\u884c\u9a8c\u8bc1"
                     ),
                     c.a.createElement(
                       "div",
-                      { className: He.generatewords },
+                      { className: We.generatewords },
                       t
                     ),
                     c.a.createElement(
@@ -1447,14 +1549,14 @@
             t
           );
         })(oe),
-        We = n(41),
-        Xe = (function(e) {
+        Xe = n(42),
+        Je = (function(e) {
           function t(e) {
             var n;
             Object(l.a)(this, t),
-              ((n = Object(m.a)(
+              ((n = Object(p.a)(
                 this,
-                Object(p.a)(t).call(this, e)
+                Object(m.a)(t).call(this, e)
               )).checkAll = {
                 checkUserInput: function() {
                   var e = n.state.userInput,
@@ -1492,7 +1594,7 @@
             );
           }
           return (
-            Object(h.a)(t, e),
+            Object(f.a)(t, e),
             Object(d.a)(t, [
               {
                 key: "render",
@@ -1511,15 +1613,15 @@
                     };
                   return c.a.createElement(
                     "div",
-                    { className: We.CheckMnemonic },
+                    { className: Xe.CheckMnemonic },
                     c.a.createElement(
                       "div",
-                      { className: We.desc },
+                      { className: Xe.desc },
                       "\u9a8c\u8bc1\u60a8\u8bb0\u4e0b\u7684\u52a9\u8bb0\u8bcd"
                     ),
                     c.a.createElement(
                       "div",
-                      { className: We.generatewords },
+                      { className: Xe.generatewords },
                       a
                         .map(function() {
                           return (arguments.length > 0 &&
@@ -1532,17 +1634,17 @@
                     ),
                     c.a.createElement(
                       "div",
-                      { className: me()(We.writedesc, r && We.warn) },
+                      { className: pe()(Xe.writedesc, r && Xe.warn) },
                       "\u8bf7\u6309\u6b63\u786e\u7684\u987a\u5e8f\u70b9\u51fb\u5355\u8bcd"
                     ),
                     c.a.createElement(
                       "ul",
-                      { className: We.allwords },
+                      { className: Xe.allwords },
                       o.map(function(t, n) {
                         return c.a.createElement(
                           "li",
                           {
-                            className: -1 !== i(n) ? We.active : null,
+                            className: -1 !== i(n) ? Xe.active : null,
                             key: n,
                             onClick: function() {
                               e.setState({ userInputErrMsg: "" }),
@@ -1585,16 +1687,18 @@
           );
         })(oe),
         ze = n(65),
-        Qe = (function(e) {
+        Ye = n(174),
+        Qe = n.n(Ye),
+        Ze = (function(e) {
           function t() {
             var e, n;
             Object(l.a)(this, t);
             for (var a = arguments.length, r = new Array(a), c = 0; c < a; c++)
               r[c] = arguments[c];
             return (
-              ((n = Object(m.a)(
+              ((n = Object(p.a)(
                 this,
-                (e = Object(p.a)(t)).call.apply(e, [this].concat(r))
+                (e = Object(m.a)(t)).call.apply(e, [this].concat(r))
               )).pageTitle = "\u8bbe\u7f6e\u5bc6\u7801"),
               (n.state = {
                 name: "",
@@ -1616,7 +1720,32 @@
                       F.check("required")(e) ||
                       F.check("characterLength")(e, 8) ||
                       n.checkAll.checkEqual();
-                  return n.setState({ passwordErrMsg: t }), t;
+                  if ((n.setState({ passwordErrMsg: t }), t)) return !0;
+                  var a = new Qe.a()
+                    .has()
+                    .uppercase()
+                    .has()
+                    .lowercase()
+                    .has()
+                    .digits()
+                    .validate(e, { list: !0 });
+                  if (a.length > 0) {
+                    var r;
+                    switch (a[0]) {
+                      case "uppercase":
+                        r =
+                          "\u5bc6\u7801\u9700\u5305\u542b\u5927\u5199\u5b57\u6bcd";
+                        break;
+                      case "lowercase":
+                        r =
+                          "\u5bc6\u7801\u9700\u5305\u542b\u5c0f\u5199\u5b57\u6bcd";
+                        break;
+                      case "digits":
+                        r = "\u5bc6\u7801\u9700\u5305\u542b\u6570\u5b57";
+                    }
+                    if (r) return n.setState({ passwordErrMsg: r }), !0;
+                  }
+                  return !1;
                 },
                 checkConfirmPassword: function() {
                   var e = n.state.confirmPassword,
@@ -1652,7 +1781,7 @@
             );
           }
           return (
-            Object(h.a)(t, e),
+            Object(f.a)(t, e),
             Object(d.a)(t, [
               {
                 key: "render",
@@ -1668,14 +1797,14 @@
                     u = n.confirmPasswordErrMsg,
                     l = this.props,
                     d = l.mnemonic,
-                    m = l.privateKey,
-                    p = l.addAccount,
-                    h = l.history,
-                    f = l.network,
+                    p = l.privateKey,
+                    m = l.addAccount,
+                    f = l.history,
+                    h = l.network,
                     v =
-                      "mainnet" === f
-                        ? D.a.networks.bitcoin
-                        : D.a.networks.testnet;
+                      "mainnet" === h
+                        ? U.a.networks.bitcoin
+                        : U.a.networks.testnet;
                   return c.a.createElement(
                     "div",
                     { className: ze.SetPassword },
@@ -1687,7 +1816,7 @@
                         { className: ze.desc },
                         "\u4e3a\u4f60\u7684\u94b1\u5305\u8d26\u6237\u8bbe\u7f6e\u5bc6\u7801"
                       ),
-                      c.a.createElement(pe, {
+                      c.a.createElement(me, {
                         label: "\u6635\u79f0",
                         value: a,
                         errMsg: r,
@@ -1700,13 +1829,13 @@
                           });
                         }
                       }),
-                      c.a.createElement(pe, {
+                      c.a.createElement(me, {
                         isPassword: !0,
                         label: "\u5bc6\u7801",
                         value: o,
                         errMsg: s,
                         placeholder:
-                          "\u5bc6\u7801\u81f3\u5c11\u5305\u542b8\u4e2a\u5b57\u7b26",
+                          "\u5bc6\u7801\u4e0d\u5c11\u4e8e8\u4f4d\uff0c\u4e14\u5305\u542b\u5927\u5199\u5b57\u6bcd\u3001\u5c0f\u5199\u5b57\u6bcd\u548c\u6570\u5b57",
                         onBlur: t.checkPassword,
                         onChange: function(t) {
                           return e.setState({
@@ -1715,7 +1844,7 @@
                           });
                         }
                       }),
-                      c.a.createElement(pe, {
+                      c.a.createElement(me, {
                         isPassword: !0,
                         label: "\u786e\u8ba4\u5bc6\u7801",
                         value: i,
@@ -1742,13 +1871,13 @@
                                 {
                                   name: a,
                                   mnemonic: d,
-                                  wif: m,
+                                  wif: p,
                                   password: o,
-                                  network: f
+                                  network: h
                                 },
                                 v
                               );
-                              p(e), h.push({ pathname: y });
+                              m(e), f.push({ pathname: y });
                             }
                           }
                         },
@@ -1762,7 +1891,7 @@
             t
           );
         })(oe),
-        Ye = Object(w.b)(
+        $e = Object(w.b)(
           function(e) {
             return { network: e.network };
           },
@@ -1777,18 +1906,18 @@
               }
             };
           }
-        )(Qe),
-        Ze = n(66),
-        $e = (function(e) {
+        )(Ze),
+        et = n(66),
+        tt = (function(e) {
           function t() {
             var e, n;
             Object(l.a)(this, t);
             for (var a = arguments.length, r = new Array(a), c = 0; c < a; c++)
               r[c] = arguments[c];
             return (
-              ((n = Object(m.a)(
+              ((n = Object(p.a)(
                 this,
-                (e = Object(p.a)(t)).call.apply(e, [this].concat(r))
+                (e = Object(m.a)(t)).call.apply(e, [this].concat(r))
               )).state = {
                 password: "",
                 passwordErrMsg: "",
@@ -1813,7 +1942,7 @@
             );
           }
           return (
-            Object(h.a)(t, e),
+            Object(f.a)(t, e),
             Object(d.a)(t, [
               {
                 key: "render",
@@ -1829,9 +1958,9 @@
                     u = i.modal,
                     l = (u = void 0 === u ? {} : u).data,
                     d = (l = void 0 === l ? {} : l).callback,
-                    m = i.currentAccount,
-                    p = (m = void 0 === m ? {} : m).encryptedKey,
-                    h = "mainnet" !== m.network;
+                    p = i.currentAccount,
+                    m = (p = void 0 === p ? {} : p).encryptedKey,
+                    f = "mainnet" !== p.network;
                   return c.a.createElement(
                     Be,
                     {
@@ -1842,20 +1971,20 @@
                     o
                       ? c.a.createElement(
                           "div",
-                          { className: Ze.success },
+                          { className: et.success },
                           c.a.createElement("i", {
                             className: "iconfont iconsuccess"
                           }),
                           c.a.createElement(
                             "div",
-                            { className: Ze.button },
+                            { className: et.button },
                             c.a.createElement(
                               ue,
                               {
                                 isOutSide: !0,
                                 go: {
                                   pathname: "https://live.blockcypher.com/btc"
-                                    .concat(h ? "-testnet" : "", "/tx/")
+                                    .concat(f ? "-testnet" : "", "/tx/")
                                     .concat(s, "/")
                                 }
                               },
@@ -1872,8 +2001,8 @@
                           null,
                           c.a.createElement(
                             "div",
-                            { className: Ze.userInput },
-                            c.a.createElement(pe, {
+                            { className: et.userInput },
+                            c.a.createElement(me, {
                               isPassword: !0,
                               value: a,
                               errMsg: r,
@@ -1885,14 +2014,14 @@
                           ),
                           c.a.createElement(
                             "div",
-                            { className: Ze.button },
+                            { className: et.button },
                             c.a.createElement(
                               "button",
                               {
-                                onClick: Object(X.a)(
-                                  W.a.mark(function n() {
+                                onClick: Object(J.a)(
+                                  X.a.mark(function n() {
                                     var r, c;
-                                    return W.a.wrap(
+                                    return X.a.wrap(
                                       function(n) {
                                         for (;;)
                                           switch ((n.prev = n.next)) {
@@ -1908,7 +2037,7 @@
                                               return (
                                                 (n.prev = 2),
                                                 (n.next = 5),
-                                                d(p, a)
+                                                d(m, a)
                                               );
                                             case 5:
                                               (r = n.sent) &&
@@ -1957,17 +2086,17 @@
             t
           );
         })(oe),
-        et = n(173),
-        tt = (function(e) {
+        nt = n(175),
+        at = (function(e) {
           function t() {
             var e, n;
             Object(l.a)(this, t);
             for (var a = arguments.length, r = new Array(a), c = 0; c < a; c++)
               r[c] = arguments[c];
             return (
-              ((n = Object(m.a)(
+              ((n = Object(p.a)(
                 this,
-                (e = Object(p.a)(t)).call.apply(e, [this].concat(r))
+                (e = Object(m.a)(t)).call.apply(e, [this].concat(r))
               )).state = { step: 1, mnemonic: V.generateMnemonic() }),
               (n.changeStep = function(e) {
                 n.changeState({ step: e });
@@ -1976,7 +2105,7 @@
             );
           }
           return (
-            Object(h.a)(t, e),
+            Object(f.a)(t, e),
             Object(d.a)(t, [
               {
                 key: "render",
@@ -1990,11 +2119,11 @@
                     });
                   return c.a.createElement(
                     "div",
-                    { className: et.CreateAccount },
+                    { className: nt.CreateAccount },
                     1 === t && c.a.createElement(Ve, a),
-                    2 === t && c.a.createElement(Je, a),
-                    3 === t && c.a.createElement(Xe, a),
-                    4 === t && c.a.createElement(Ye, a)
+                    2 === t && c.a.createElement(He, a),
+                    3 === t && c.a.createElement(Je, a),
+                    4 === t && c.a.createElement($e, a)
                   );
                 }
               }
@@ -2002,25 +2131,25 @@
             t
           );
         })(oe),
-        nt = Object(w.b)(
+        rt = Object(w.b)(
           function(e) {
             return { state: e };
           },
           function() {
             return {};
           }
-        )(tt),
-        at = n(32),
-        rt = (function(e) {
+        )(at),
+        ct = n(32),
+        ot = (function(e) {
           function t() {
             var e, n;
             Object(l.a)(this, t);
             for (var a = arguments.length, r = new Array(a), c = 0; c < a; c++)
               r[c] = arguments[c];
             return (
-              ((n = Object(m.a)(
+              ((n = Object(p.a)(
                 this,
-                (e = Object(p.a)(t)).call.apply(e, [this].concat(r))
+                (e = Object(m.a)(t)).call.apply(e, [this].concat(r))
               )).state = { userInput: "", userInputErrMsg: "" }),
               (n.checkAll = {
                 checkUserInput: function() {
@@ -2040,7 +2169,7 @@
             );
           }
           return (
-            Object(h.a)(t, e),
+            Object(f.a)(t, e),
             Object(d.a)(t, [
               {
                 key: "render",
@@ -2055,21 +2184,21 @@
                     i = o.step;
                   return c.a.createElement(
                     "div",
-                    { className: at.ImportMnemonic },
+                    { className: ct.ImportMnemonic },
                     1 === i &&
                       c.a.createElement(
                         c.a.Fragment,
                         null,
                         c.a.createElement(
                           "div",
-                          { className: at.desc },
+                          { className: ct.desc },
                           "\u8bf7\u6309\u6b63\u786e\u987a\u5e8f\u8f93\u5165\u60a8\u7684\u52a9\u8bb0\u8bcd",
                           c.a.createElement("br", null),
                           "\u4ee5\u7a7a\u683c\u952e\u533a\u5206"
                         ),
                         c.a.createElement(
                           "div",
-                          { className: at.generatewords },
+                          { className: ct.generatewords },
                           c.a.createElement("textarea", {
                             value: a,
                             onChange: function(t) {
@@ -2081,7 +2210,7 @@
                         r &&
                           c.a.createElement(
                             "div",
-                            { className: at.errwarn },
+                            { className: ct.errwarn },
                             r
                           ),
                         c.a.createElement(
@@ -2096,7 +2225,7 @@
                       ),
                     2 === i &&
                       c.a.createElement(
-                        Ye,
+                        $e,
                         Object.assign({}, this.props, { mnemonic: a.trim() })
                       )
                   );
@@ -2106,16 +2235,16 @@
             t
           );
         })(oe),
-        ct = (function(e) {
+        st = (function(e) {
           function t() {
             var e, n;
             Object(l.a)(this, t);
             for (var a = arguments.length, r = new Array(a), c = 0; c < a; c++)
               r[c] = arguments[c];
             return (
-              ((n = Object(m.a)(
+              ((n = Object(p.a)(
                 this,
-                (e = Object(p.a)(t)).call.apply(e, [this].concat(r))
+                (e = Object(m.a)(t)).call.apply(e, [this].concat(r))
               )).state = { userInput: "", userInputErrMsg: "" }),
               (n.checkAll = {
                 checkUserInput: function() {
@@ -2127,8 +2256,8 @@
                       F.check("isValidPrivateKey")(
                         t,
                         "mainnet" === a
-                          ? D.a.networks.bitcoin
-                          : D.a.networks.testnet
+                          ? U.a.networks.bitcoin
+                          : U.a.networks.testnet
                       );
                   return n.setState({ userInputErrMsg: r }), r;
                 },
@@ -2142,7 +2271,7 @@
             );
           }
           return (
-            Object(h.a)(t, e),
+            Object(f.a)(t, e),
             Object(d.a)(t, [
               {
                 key: "render",
@@ -2157,19 +2286,19 @@
                     i = o.step;
                   return c.a.createElement(
                     "div",
-                    { className: at.ImportMnemonic },
+                    { className: ct.ImportMnemonic },
                     1 === i &&
                       c.a.createElement(
                         c.a.Fragment,
                         null,
                         c.a.createElement(
                           "div",
-                          { className: at.desc },
+                          { className: ct.desc },
                           "\u8bf7\u8f93\u5165\u60a8\u7684\u94b1\u5305\u79c1\u94a5"
                         ),
                         c.a.createElement(
                           "div",
-                          { className: at.generatewords },
+                          { className: ct.generatewords },
                           c.a.createElement("textarea", {
                             value: a,
                             onChange: function(t) {
@@ -2181,7 +2310,7 @@
                         r &&
                           c.a.createElement(
                             "div",
-                            { className: at.errwarn },
+                            { className: ct.errwarn },
                             r
                           ),
                         c.a.createElement(
@@ -2196,7 +2325,7 @@
                       ),
                     2 === i &&
                       c.a.createElement(
-                        Ye,
+                        $e,
                         Object.assign({}, this.props, { privateKey: a.trim() })
                       )
                   );
@@ -2206,20 +2335,20 @@
             t
           );
         })(oe),
-        ot = Object(w.b)(function(e) {
+        it = Object(w.b)(function(e) {
           return { network: e.network };
-        })(ct),
-        st = n(86),
-        it = (function(e) {
+        })(st),
+        ut = n(86),
+        lt = (function(e) {
           function t() {
             var e, n;
             Object(l.a)(this, t);
             for (var a = arguments.length, r = new Array(a), c = 0; c < a; c++)
               r[c] = arguments[c];
             return (
-              ((n = Object(m.a)(
+              ((n = Object(p.a)(
                 this,
-                (e = Object(p.a)(t)).call.apply(e, [this].concat(r))
+                (e = Object(m.a)(t)).call.apply(e, [this].concat(r))
               )).pageTitle = "\u5bfc\u5165\u8d26\u6237"),
               (n.state = { step: 1, activeIndex: 0 }),
               (n.changeStep = function(e) {
@@ -2229,7 +2358,7 @@
             );
           }
           return (
-            Object(h.a)(t, e),
+            Object(f.a)(t, e),
             Object(d.a)(t, [
               {
                 key: "render",
@@ -2244,11 +2373,11 @@
                     );
                   return c.a.createElement(
                     "div",
-                    { className: st.ImportAccount },
+                    { className: ut.ImportAccount },
                     1 === n &&
                       c.a.createElement(
                         "ul",
-                        { className: st.selectmode },
+                        { className: ut.selectmode },
                         [
                           "\u5bfc\u5165\u52a9\u8bb0\u8bcd",
                           "\u5bfc\u5165\u79c1\u94a5"
@@ -2257,7 +2386,7 @@
                             "li",
                             {
                               key: n,
-                              className: a === n ? st.active : null,
+                              className: a === n ? ut.active : null,
                               onClick: function() {
                                 e.setState({ step: 1, activeIndex: n });
                               }
@@ -2266,8 +2395,8 @@
                           );
                         })
                       ),
-                    0 === a && c.a.createElement(rt, r),
-                    1 === a && c.a.createElement(ot, r)
+                    0 === a && c.a.createElement(ot, r),
+                    1 === a && c.a.createElement(it, r)
                   );
                 }
               }
@@ -2275,24 +2404,24 @@
             t
           );
         })(oe),
-        ut = Object(w.b)(
+        dt = Object(w.b)(
           function(e) {
             return { state: e };
           },
           function() {
             return {};
           }
-        )(it),
-        lt = n(67),
-        dt = (function(e) {
+        )(lt),
+        pt = n(67),
+        mt = (function(e) {
           function t() {
             return (
               Object(l.a)(this, t),
-              Object(m.a)(this, Object(p.a)(t).apply(this, arguments))
+              Object(p.a)(this, Object(m.a)(t).apply(this, arguments))
             );
           }
           return (
-            Object(h.a)(t, e),
+            Object(f.a)(t, e),
             Object(d.a)(t, [
               {
                 key: "render",
@@ -2302,21 +2431,21 @@
                     n = "mainnet" !== t.network;
                   return c.a.createElement(
                     "div",
-                    { className: lt.AccountInfo },
+                    { className: pt.AccountInfo },
                     c.a.createElement(
                       "div",
-                      { className: lt.amount },
+                      { className: pt.amount },
                       t.balanceShow,
                       c.a.createElement("span", null, "BTC")
                     ),
                     c.a.createElement(
                       "div",
-                      { className: lt.address },
-                      c.a.createElement(_e, null, t.address)
+                      { className: pt.address },
+                      c.a.createElement(Ee, null, t.address)
                     ),
                     c.a.createElement(
                       "div",
-                      { className: lt.watchother },
+                      { className: pt.watchother },
                       c.a.createElement(
                         ue,
                         {
@@ -2337,22 +2466,22 @@
             t
           );
         })(oe),
-        mt = n(174),
-        pt = n.n(mt),
-        ht = n(117),
-        ft = (function(e) {
+        ft = n(176),
+        ht = n.n(ft),
+        vt = n(117),
+        Et = (function(e) {
           function t() {
             var e, n;
             Object(l.a)(this, t);
             for (var a = arguments.length, r = new Array(a), c = 0; c < a; c++)
               r[c] = arguments[c];
             return (
-              ((n = Object(m.a)(
+              ((n = Object(p.a)(
                 this,
-                (e = Object(p.a)(t)).call.apply(e, [this].concat(r))
+                (e = Object(m.a)(t)).call.apply(e, [this].concat(r))
               )).startInit = function() {
                 var e = n.props.currentAccount;
-                new pt.a({
+                new ht.a({
                   size: 190,
                   element: document.getElementById("qr"),
                   value: e.address
@@ -2362,18 +2491,18 @@
             );
           }
           return (
-            Object(h.a)(t, e),
+            Object(f.a)(t, e),
             Object(d.a)(t, [
               {
                 key: "render",
                 value: function() {
                   return c.a.createElement(
                     "div",
-                    { className: ht.AccountReceive },
+                    { className: vt.AccountReceive },
                     c.a.createElement("canvas", { id: "qr" }),
                     c.a.createElement(
                       "div",
-                      { className: ht.desc },
+                      { className: vt.desc },
                       "\u5730\u5740\u4e8c\u7ef4\u7801"
                     )
                   );
@@ -2383,18 +2512,18 @@
             t
           );
         })(oe),
-        vt = n(34),
-        _t = n(77),
-        Et = (function(e) {
+        _t = n(35),
+        bt = n(77),
+        gt = (function(e) {
           function t() {
             var e, n;
             Object(l.a)(this, t);
             for (var a = arguments.length, r = new Array(a), c = 0; c < a; c++)
               r[c] = arguments[c];
             return (
-              ((n = Object(m.a)(
+              ((n = Object(p.a)(
                 this,
-                (e = Object(p.a)(t)).call.apply(e, [this].concat(r))
+                (e = Object(m.a)(t)).call.apply(e, [this].concat(r))
               )).state = {
                 utxos: [],
                 address: "",
@@ -2452,7 +2581,7 @@
                     r = e.utxos,
                     c = Number(re.toBtcPrecision(a, 8, !0)),
                     o = Number(re.toBtcPrecision(t, 8, !0));
-                  if (!Object(_t.b)(r, c, o)) {
+                  if (!Object(bt.b)(r, c, o)) {
                     return (
                       n.setState({
                         feeErrMsg: "\u6570\u91cf\u4e0d\u8db3",
@@ -2492,7 +2621,7 @@
             );
           }
           return (
-            Object(h.a)(t, e),
+            Object(f.a)(t, e),
             Object(d.a)(t, [
               {
                 key: "constructTx",
@@ -2523,9 +2652,9 @@
                     u = n.hex,
                     l = n.hexErrMsg,
                     d = n.fee,
-                    m = n.feeErrMsg,
-                    p = this.props.currentAccount,
-                    h = (function(e) {
+                    p = n.feeErrMsg,
+                    m = this.props.currentAccount,
+                    f = (function(e) {
                       if (!/^(0x)?[\da-fA-F]+$/.test(e)) return "";
                       var t = e.startsWith("0x") ? e.substring(2) : e;
                       if (t.length % 2 === 1) return "";
@@ -2533,15 +2662,15 @@
                         n += String.fromCharCode(parseInt(t.substr(a, 2), 16));
                       return n;
                     })(u),
-                    f = this.props.modal,
-                    v = (f = void 0 === f ? {} : f).name;
+                    h = this.props.modal,
+                    v = (h = void 0 === h ? {} : h).name;
                   return c.a.createElement(
                     "div",
-                    { className: vt.AccountSend },
+                    { className: _t.AccountSend },
                     c.a.createElement(
                       "div",
-                      { className: vt.userInput },
-                      c.a.createElement(pe, {
+                      { className: _t.userInput },
+                      c.a.createElement(me, {
                         errMsg: r,
                         label: "\u63a5\u6536\u4eba\u5730\u5740",
                         value: a,
@@ -2550,7 +2679,7 @@
                           e.setState({ address: t });
                         }
                       }),
-                      c.a.createElement(pe, {
+                      c.a.createElement(me, {
                         errMsg: s,
                         label: "\u8f6c\u8d26\u6570\u91cf",
                         value: o,
@@ -2560,8 +2689,8 @@
                           e.setState({ amount: t });
                         }
                       }),
-                      c.a.createElement(pe, {
-                        errMsg: m,
+                      c.a.createElement(me, {
+                        errMsg: p,
                         label: "\u4ea4\u6613\u624b\u7eed\u8d39",
                         value: d,
                         suffix: "BTC",
@@ -2573,7 +2702,7 @@
                     ),
                     c.a.createElement(
                       "div",
-                      { className: vt.addreturn },
+                      { className: _t.addreturn },
                       "\u6dfb\u52a0OP_RETURN",
                       i
                         ? c.a.createElement("i", {
@@ -2594,11 +2723,11 @@
                     i &&
                       c.a.createElement(
                         "div",
-                        { className: vt.returncontent },
+                        { className: _t.returncontent },
                         c.a.createElement(
                           "div",
-                          { className: vt.input },
-                          c.a.createElement(pe, {
+                          { className: _t.input },
+                          c.a.createElement(me, {
                             rows: 2,
                             isTextArea: !0,
                             errMsg: l,
@@ -2612,18 +2741,18 @@
                         ),
                         c.a.createElement(
                           "div",
-                          { className: vt.ASCII },
+                          { className: _t.ASCII },
                           c.a.createElement(
                             "div",
-                            { className: vt.label },
+                            { className: _t.label },
                             "\u6587\u672c ASCII"
                           ),
-                          c.a.createElement("div", null, h)
+                          c.a.createElement("div", null, f)
                         )
                       ),
                     c.a.createElement(
                       "div",
-                      { className: vt.button },
+                      { className: _t.button },
                       c.a.createElement(
                         "button",
                         {
@@ -2633,10 +2762,10 @@
                                 name: "transfer",
                                 data: {
                                   callback: (function() {
-                                    var t = Object(X.a)(
-                                      W.a.mark(function t(n, a) {
+                                    var t = Object(J.a)(
+                                      X.a.mark(function t(n, a) {
                                         var r, c;
-                                        return W.a.wrap(function(t) {
+                                        return X.a.wrap(function(t) {
                                           for (;;)
                                             switch ((t.prev = t.next)) {
                                               case 0:
@@ -2650,7 +2779,7 @@
                                                 throw Error(r.message);
                                               case 5:
                                                 return (
-                                                  (t.next = 7), je(r, p.network)
+                                                  (t.next = 7), Se(r, m.network)
                                                 );
                                               case 7:
                                                 if (!(c = t.sent) || !c.tx) {
@@ -2676,7 +2805,7 @@
                         "\u786e\u5b9a"
                       )
                     ),
-                    "transfer" === v && c.a.createElement($e, this.props)
+                    "transfer" === v && c.a.createElement(tt, this.props)
                   );
                 }
               }
@@ -2684,33 +2813,50 @@
             t
           );
         })(oe),
-        bt = Object(w.b)(void 0, function(e) {
+        kt = Object(w.b)(void 0, function(e) {
           return {
             getAccountUtxos: function(t, n) {
               return e(xe(t, n));
             }
           };
-        })(Et);
-      function gt(e) {
+        })(gt);
+      function wt(e) {
         return c.a.createElement(
           "div",
           {
             className: e.className,
             onClick: function(t) {
-              t.stopPropagation(), e.handleStepChange("inputPassword");
+              t.stopPropagation(), e.onClick();
             }
           },
-          c.a.createElement("i", { className: "iconfont iconexport" }),
+          c.a.createElement("i", { className: "iconfont icondaochu" }),
           c.a.createElement("span", null, "\u5bfc\u51fa\u79c1\u94a5")
         );
       }
-      var kt = n(49),
-        wt = (function(e) {
+      var yt = function(e) {
+          return c.a.createElement(
+            "div",
+            {
+              className: e.className,
+              style: { display: "flex", alignItems: "center" },
+              onClick: function(t) {
+                t.stopPropagation(), e.onClick();
+              }
+            },
+            c.a.createElement("i", {
+              className: "iconfont iconbaseline-delete_forever-px",
+              style: { fontSize: "26px" }
+            }),
+            c.a.createElement("span", null, "\u5220\u9664\u8d26\u6237")
+          );
+        },
+        Ot = n(49),
+        At = (function(e) {
           function t(e) {
             var n;
             return (
               Object(l.a)(this, t),
-              ((n = Object(m.a)(this, Object(p.a)(t).call(this, e))).state = {
+              ((n = Object(p.a)(this, Object(m.a)(t).call(this, e))).state = {
                 password: "",
                 passwordErrMsg: ""
               }),
@@ -2718,7 +2864,7 @@
             );
           }
           return (
-            Object(h.a)(t, e),
+            Object(f.a)(t, e),
             Object(d.a)(t, [
               {
                 key: "checkPassword",
@@ -2750,28 +2896,28 @@
                   return c.a.createElement(
                     "div",
                     {
-                      className: me()(this.props.className, kt.input_password),
+                      className: pe()(this.props.className, Ot.input_password),
                       onClick: function(e) {
                         return e.stopPropagation();
                       }
                     },
                     c.a.createElement(
                       "div",
-                      { className: kt.top },
+                      { className: Ot.top },
                       c.a.createElement(
                         "span",
-                        { className: kt.title },
+                        { className: Ot.title },
                         "\u8f93\u5165\u8d26\u6237\u5bc6\u7801"
                       ),
                       c.a.createElement("i", {
-                        className: me()("iconfont iconClose", kt.close),
+                        className: pe()("iconfont iconClose", Ot.close),
                         onClick: function() {
                           e.props.onClose();
                         }
                       })
                     ),
-                    c.a.createElement(pe, {
-                      className: kt.input,
+                    c.a.createElement(me, {
+                      className: Ot.input,
                       isPassword: !0,
                       value: n,
                       errMsg: a,
@@ -2785,10 +2931,10 @@
                     c.a.createElement(
                       "button",
                       {
-                        className: kt.confirm,
+                        className: Ot.confirm,
                         onClick: function(t) {
                           t.stopPropagation(),
-                            e.checkPassword() || e.exportPrivateKey();
+                            e.checkPassword() || e.props.passwordCallback(n);
                         }
                       },
                       "\u786e\u5b9a"
@@ -2800,7 +2946,7 @@
             t
           );
         })(r.Component);
-      function yt(e) {
+      function Nt(e) {
         var t = e.privateKey,
           n = e.styles,
           a = e.onClose;
@@ -2831,27 +2977,28 @@
           )
         );
       }
-      var Ot = n(27),
-        At = (function(e) {
+      var St = n(26),
+        jt = (function(e) {
           function t(e) {
             var n;
             Object(l.a)(this, t),
-              (n = Object(m.a)(this, Object(p.a)(t).call(this, e)));
+              (n = Object(p.a)(this, Object(m.a)(t).call(this, e)));
             var a = e.currentAccount;
             return (
               (n.pageTitle = a.name),
               (n.didMount = oe.prototype.componentDidMount),
               (n.state = {
                 activeIndex: 0,
-                menuSwitch: !1,
+                showMenu: !1,
                 status: "toExportKey",
-                privateKey: ""
+                privateKey: "",
+                passwordCallback: function() {}
               }),
               n
             );
           }
           return (
-            Object(h.a)(t, e),
+            Object(f.a)(t, e),
             Object(d.a)(t, [
               {
                 key: "componentDidMount",
@@ -2861,7 +3008,7 @@
                     this.props.setMenu({
                       show: !0,
                       cb: function() {
-                        e.setState({ menuSwitch: !0 });
+                        e.setState({ showMenu: !0 });
                       }
                     });
                 }
@@ -2879,27 +3026,32 @@
                     t = this.state,
                     n = t.activeIndex,
                     a = t.status,
-                    r = t.menuSwitch,
-                    o = t.privateKey;
+                    r = t.showMenu,
+                    o = t.privateKey,
+                    s = t.passwordCallback,
+                    i = this.props,
+                    u = i.currentAccount,
+                    l = (u = void 0 === u ? {} : u).encryptedKey,
+                    d = i.deleteAccount;
                   return c.a.createElement(
                     "div",
-                    { className: Ot.AccountDetail },
-                    c.a.createElement(dt, this.props),
+                    { className: St.AccountDetail },
+                    c.a.createElement(mt, this.props),
                     c.a.createElement(
                       "div",
                       {
-                        className: Ot.content,
+                        className: St.content,
                         style: { background: 1 === n ? "white" : "" }
                       },
                       c.a.createElement(
                         "ul",
-                        { className: Ot.selectmode },
+                        { className: St.selectmode },
                         ["\u53d1\u9001", "\u63a5\u6536"].map(function(t, a) {
                           return c.a.createElement(
                             "li",
                             {
                               key: a,
-                              className: n === a ? Ot.active : null,
+                              className: n === a ? St.active : null,
                               onClick: function() {
                                 e.setState({ activeIndex: a });
                               }
@@ -2908,45 +3060,66 @@
                           );
                         })
                       ),
-                      0 === n && c.a.createElement(bt, this.props),
-                      1 === n && c.a.createElement(ft, this.props)
+                      0 === n && c.a.createElement(kt, this.props),
+                      1 === n && c.a.createElement(Et, this.props)
                     ),
                     r &&
                       c.a.createElement(
                         "div",
                         {
-                          className: Ot.modal,
+                          className: St.modal,
                           onClick: function() {
-                            e.setState({
-                              menuSwitch: !1,
-                              status: "toExportKey"
-                            });
+                            e.setState({ showMenu: !1, status: "toExportKey" });
                           }
                         },
                         "toExportKey" === a &&
                           c.a.createElement(
                             "div",
-                            { className: Ot.menu },
-                            c.a.createElement(gt, {
-                              className: Ot.export_key,
-                              handleStepChange: function(t) {
-                                e.handleStepChange(t);
+                            { className: St.menu },
+                            c.a.createElement(wt, {
+                              className: St.export_key,
+                              onClick: function() {
+                                e.setState({
+                                  status: "inputPassword",
+                                  passwordCallback: function(t) {
+                                    var n = T.a.decryptPair(l, t).privateKey;
+                                    e.setState({
+                                      privateKey: n.toString("hex"),
+                                      status: "showPrivateKey"
+                                    });
+                                  }
+                                });
                               }
+                            }),
+                            c.a.createElement(yt, {
+                              onClick: function() {
+                                e.setState({
+                                  status: "inputPassword",
+                                  passwordCallback: function() {
+                                    d(e.props.currentAccount.address),
+                                      te(e.props.goBack)
+                                        ? e.props.goBack()
+                                        : e.props.history.goBack();
+                                  }
+                                });
+                              },
+                              className: St.export_key
                             })
                           ),
                         "inputPassword" === a &&
                           c.a.createElement(
                             "div",
-                            { className: Ot.menu },
+                            { className: St.menu },
                             c.a.createElement(
-                              wt,
+                              At,
                               Object.assign({}, this.props, {
                                 onClose: function() {
                                   e.setState({
-                                    menuSwitch: !1,
+                                    showMenu: !1,
                                     status: "toExportKey"
                                   });
                                 },
+                                passwordCallback: s,
                                 setPrivateKey: function(t) {
                                   return e.setState({
                                     privateKey: t,
@@ -2959,13 +3132,13 @@
                         "showPrivateKey" === a &&
                           c.a.createElement(
                             "div",
-                            { className: Ot.menu },
-                            c.a.createElement(yt, {
-                              styles: Ot,
+                            { className: St.menu },
+                            c.a.createElement(Nt, {
+                              styles: St,
                               privateKey: o,
                               onClose: function() {
                                 e.setState({
-                                  menuSwitch: !1,
+                                  showMenu: !1,
                                   status: "toExportKey"
                                 });
                               }
@@ -2985,9 +3158,9 @@
             t
           );
         })(oe),
-        Nt = Object(w.b)(
+        Mt = Object(w.b)(
           function(e) {
-            return { accounts: e.accounts };
+            return { menu: e.menu, accounts: e.accounts };
           },
           function(e) {
             return {
@@ -2997,26 +3170,55 @@
                     return { type: "SET_MENU", menu: e };
                   })(t)
                 );
+              },
+              deleteAccount: function(t) {
+                return e(
+                  (function(e) {
+                    return { type: "DELETE_ACCOUNT", address: e };
+                  })(t)
+                );
               }
             };
           }
-        )(At),
-        jt = [
+        )(jt),
+        Ct = [
           { component: Re, path: y, title: "BitX" },
-          { component: nt, path: O, title: "" },
-          { component: ut, path: A, title: "" },
-          { component: Nt, path: N, title: "" }
+          { component: rt, path: O, title: "" },
+          { component: dt, path: A, title: "" },
+          { component: Mt, path: N, title: "" }
         ],
-        St = n(87),
-        Mt = (function(e) {
+        xt = n(177),
+        It = function(e) {
+          return c.a.createElement(
+            "div",
+            { className: xt.wrapper },
+            c.a.createElement(
+              "main",
+              null,
+              c.a.createElement("h3", null, "\u7528\u6237\u987b\u77e5"),
+              c.a.createElement(
+                "p",
+                null,
+                "BitX\u53ea\u4f5c\u4e3a\u8de8\u94fe\u5145\u503cChainX\u94b1\u5305\u7684\u4e2d\u8f6c\u94b1\u5305\u4f7f\u7528\uff0c\u4e0d\u5efa\u8bae\u7528\u6237\u4f7f\u7528BitX\u94b1\u5305\u5b58\u50a8BTC\uff1b\u4e5f\u4e0d\u5efa\u8bae\u7528\u6237\u5bfc\u5165\u5176\u4ed6\u94b1\u5305\u7684\u79c1\u94a5\u5230BitX\u4e2d\u3002"
+              ),
+              c.a.createElement(
+                "button",
+                { onClick: e.setSeen },
+                "\u6211\u5df2\u4e86\u89e3"
+              )
+            )
+          );
+        },
+        Pt = n(87),
+        Tt = (function(e) {
           function t() {
             return (
               Object(l.a)(this, t),
-              Object(m.a)(this, Object(p.a)(t).apply(this, arguments))
+              Object(p.a)(this, Object(m.a)(t).apply(this, arguments))
             );
           }
           return (
-            Object(h.a)(t, e),
+            Object(f.a)(t, e),
             Object(d.a)(t, [
               {
                 key: "render",
@@ -3030,10 +3232,10 @@
                     s = r.cb;
                   return c.a.createElement(
                     "div",
-                    { className: St.Header },
+                    { className: Pt.Header },
                     n !== y &&
                       c.a.createElement("i", {
-                        className: me()("iconfont iconback1", St.back),
+                        className: pe()("iconfont iconback1", Pt.back),
                         onClick: function() {
                           te(a) ? a() : t.goBack();
                         }
@@ -3041,7 +3243,7 @@
                     this.props.children,
                     o &&
                       c.a.createElement("i", {
-                        className: me()("iconfont iconmenu", St.menu),
+                        className: pe()("iconfont iconmore", Pt.menu),
                         onClick: function() {
                           return s();
                         }
@@ -3053,16 +3255,16 @@
             t
           );
         })(r.Component),
-        Ct = n(88),
-        xt = (function(e) {
+        Bt = n(88),
+        Kt = (function(e) {
           function t() {
             return (
               Object(l.a)(this, t),
-              Object(m.a)(this, Object(p.a)(t).apply(this, arguments))
+              Object(p.a)(this, Object(m.a)(t).apply(this, arguments))
             );
           }
           return (
-            Object(h.a)(t, e),
+            Object(f.a)(t, e),
             Object(d.a)(t, [
               {
                 key: "componentDidMount",
@@ -3093,34 +3295,36 @@
                     o = n.pageTitle,
                     s = n.history.location,
                     i = (s = void 0 === s ? {} : s).search,
-                    u = {},
-                    l = ((e = i), x.a.parse(e)).address;
+                    u = n.app,
+                    l = n.setSeenWarning,
+                    d = {},
+                    p = ((e = i), x.a.parse(e)).address;
                   return (
-                    l &&
-                      (u =
+                    p &&
+                      (d =
                         r.filter(function() {
                           return (
                             (arguments.length > 0 && void 0 !== arguments[0]
                               ? arguments[0]
                               : {}
-                            ).address === l
+                            ).address === p
                           );
                         })[0] || {}),
                     c.a.createElement(
                       "div",
-                      { className: Ct.CommonLayOut },
+                      { className: Bt.CommonLayOut },
                       c.a.createElement(
                         "div",
-                        { className: Ct.header },
-                        c.a.createElement(Mt, this.props, o)
+                        { className: Bt.header },
+                        c.a.createElement(Tt, this.props, o)
                       ),
                       c.a.createElement(
                         "div",
-                        { className: Ct.content },
+                        { className: Bt.content },
                         c.a.createElement(
                           b.a,
                           null,
-                          jt.map(function(e, n) {
+                          Ct.map(function(e, n) {
                             return c.a.createElement(g.a, {
                               exact: !0,
                               key: n,
@@ -3129,7 +3333,7 @@
                                 return c.a.createElement(
                                   e.component,
                                   Object.assign({}, n, t.props, {
-                                    currentAccount: u
+                                    currentAccount: d
                                   })
                                 );
                               }
@@ -3137,7 +3341,8 @@
                           }),
                           c.a.createElement(k.a, { to: y })
                         )
-                      )
+                      ),
+                      !u.seenWarning && c.a.createElement(It, { setSeen: l })
                     )
                   );
                 }
@@ -3146,14 +3351,15 @@
             t
           );
         })(r.Component),
-        It = Object(w.b)(
+        Dt = Object(w.b)(
           function(e) {
             return {
               goBack: e.goBack,
               accounts: e.accounts,
               pageTitle: e.pageTitle,
               modal: e.modal,
-              menu: e.menu
+              menu: e.menu,
+              app: e.app
             };
           },
           function(e) {
@@ -3170,10 +3376,10 @@
               getAllAccountBalance: function() {
                 return e(
                   (function() {
-                    var e = Object(X.a)(
-                      W.a.mark(function e(t, n) {
+                    var e = Object(J.a)(
+                      X.a.mark(function e(t, n) {
                         var a, r, c, o, s, i, u, l;
-                        return W.a.wrap(
+                        return X.a.wrap(
                           function(e) {
                             for (;;)
                               switch ((e.prev = e.next)) {
@@ -3239,20 +3445,23 @@
                     return { type: "SET_GO_BACK", goBack: e };
                   })(t)
                 );
+              },
+              setSeenWarning: function() {
+                return e({ type: "SET_SEEN_WARNING", seenWarning: !0 });
               }
             };
           }
-        )(xt),
-        Pt = (n(381),
+        )(Kt),
+        Ut = (n(385),
         (function(e) {
           function t() {
             return (
               Object(l.a)(this, t),
-              Object(m.a)(this, Object(p.a)(t).apply(this, arguments))
+              Object(p.a)(this, Object(m.a)(t).apply(this, arguments))
             );
           }
           return (
-            Object(h.a)(t, e),
+            Object(f.a)(t, e),
             Object(d.a)(t, [
               {
                 key: "componentDidMount",
@@ -3270,18 +3479,18 @@
                 key: "render",
                 value: function() {
                   var e = this,
-                    t = P ? f.a : v.a;
+                    t = P ? h.a : v.a;
                   return c.a.createElement(
                     t,
                     null,
                     c.a.createElement(
-                      _.a,
+                      E.a,
                       null,
-                      c.a.createElement(E.a, {
+                      c.a.createElement(_.a, {
                         path: "/",
                         render: function(t) {
                           return c.a.createElement(
-                            It,
+                            Dt,
                             Object.assign({}, t, e.props)
                           );
                         }
@@ -3301,33 +3510,40 @@
             /^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/
           )
       );
-      var Tt = n(38),
-        Bt = n(81),
-        Kt = V.getAccount();
-      (Kt && Array.isArray(Kt)) || (Kt = []),
+      var Lt = n(39),
+        qt = n(81),
+        Gt = V.getAccount();
+      function Rt(e) {
+        var t = e.map(function() {
+          var e =
+            arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {};
+          return {
+            name: e.name,
+            address: e.address,
+            encryptedKey: e.encryptedKey,
+            network: e.network
+          };
+        });
+        V.saveAccount(t);
+      }
+      (Gt && Array.isArray(Gt)) || (Gt = []),
         "undefined" === typeof ae.get("accountVersion") &&
           ae.set("accountVersion", 1);
-      var Ut = function() {
+      var Ft = function() {
           var e =
               arguments.length > 0 && void 0 !== arguments[0]
                 ? arguments[0]
-                : Kt,
+                : Gt,
             t = arguments.length > 1 ? arguments[1] : void 0;
           if ("ADD_ACCOUNT" === t.type) {
-            var n = [].concat(Object(Bt.a)(e), [t.account]),
-              a = n.map(function() {
-                var e =
-                  arguments.length > 0 && void 0 !== arguments[0]
-                    ? arguments[0]
-                    : {};
-                return {
-                  name: e.name,
-                  address: e.address,
-                  encryptedKey: e.encryptedKey,
-                  network: e.network
-                };
-              });
-            return V.saveAccount(a), n;
+            var n = [].concat(Object(qt.a)(e), [t.account]);
+            return Rt(n), n;
+          }
+          if ("DELETE_ACCOUNT" === t.type) {
+            var a = e.findIndex(function(e) {
+              return e.address === t.address;
+            });
+            return a < 0 ? e : (e.splice(a, 1), Rt(e), e);
           }
           return "UPDATE_ACCOUNT_BALANCE" === t.type
             ? e.map(function(e) {
@@ -3335,7 +3551,7 @@
               })
             : e;
         },
-        Dt = function() {
+        Vt = function() {
           var e =
               arguments.length > 0 && void 0 !== arguments[0]
                 ? arguments[0]
@@ -3347,17 +3563,17 @@
             ? []
             : e;
         },
-        Lt = function() {
+        Wt = function() {
           var e =
               arguments.length > 0 && void 0 !== arguments[0]
                 ? arguments[0]
                 : [],
             t = arguments.length > 1 ? arguments[1] : void 0;
           return "ADD_UTXO" === t.type
-            ? [{ utxos: t.utxos, address: t.address }].concat(Object(Bt.a)(e))
+            ? [{ utxos: t.utxos, address: t.address }].concat(Object(qt.a)(e))
             : e;
         },
-        qt = function() {
+        Ht = function() {
           var e =
               arguments.length > 0 && void 0 !== arguments[0]
                 ? arguments[0]
@@ -3365,7 +3581,7 @@
             t = arguments.length > 1 ? arguments[1] : void 0;
           return "SET_PAGE_TITLE" === t.type ? t.pageTitle : e;
         },
-        Gt = function() {
+        Xt = function() {
           var e =
               arguments.length > 0 && void 0 !== arguments[0]
                 ? arguments[0]
@@ -3376,7 +3592,7 @@
                 : {};
           return "SET_Modal" === t.type ? Object(z.a)({}, e, t.modal) : e;
         },
-        Rt = function() {
+        Jt = function() {
           var e =
               arguments.length > 0 && void 0 !== arguments[0]
                 ? arguments[0]
@@ -3384,7 +3600,7 @@
             t = arguments.length > 1 ? arguments[1] : void 0;
           return "SET_GO_BACK" === t.type ? t.goBack : e;
         },
-        Ft = function() {
+        zt = function() {
           var e =
               arguments.length > 0 && void 0 !== arguments[0]
                 ? arguments[0]
@@ -3392,7 +3608,7 @@
             t = arguments.length > 1 ? arguments[1] : void 0;
           return "SET_NETWORK" === t.type ? t.network : e;
         },
-        Vt = function() {
+        Yt = function() {
           var e =
               arguments.length > 0 && void 0 !== arguments[0]
                 ? arguments[0]
@@ -3400,22 +3616,36 @@
             t = arguments.length > 1 ? arguments[1] : void 0;
           return "SET_MENU" === t.type ? t.menu : e;
         },
-        Ht = Object(Tt.c)({
-          accounts: Ut,
-          network: Ft,
-          newMnemonic: Dt,
-          utxos: Lt,
-          pageTitle: qt,
-          modal: Gt,
-          goBack: Rt,
-          menu: Vt
+        Qt = ae.get("appData") || {},
+        Zt = function() {
+          var e =
+              arguments.length > 0 && void 0 !== arguments[0]
+                ? arguments[0]
+                : Qt,
+            t = arguments.length > 1 ? arguments[1] : void 0;
+          if ("SET_SEEN_WARNING" === t.type) {
+            var n = Object(z.a)({}, e, { seenWarning: t.seenWarning });
+            return ae.set("appData", n), n;
+          }
+          return e;
+        },
+        $t = Object(Lt.c)({
+          accounts: Ft,
+          network: zt,
+          newMnemonic: Vt,
+          utxos: Wt,
+          pageTitle: Ht,
+          modal: Xt,
+          goBack: Jt,
+          menu: Yt,
+          app: Zt
         }),
-        Jt = (n(382), n(176)),
-        Wt = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || Tt.d,
-        Xt = Object(Tt.e)(Ht, Wt(Object(Tt.a)(Jt.a)));
+        en = (n(386), n(179)),
+        tn = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || Lt.d,
+        nn = Object(Lt.e)($t, tn(Object(Lt.a)(en.a)));
       u()(),
         s.a.render(
-          c.a.createElement(w.a, { store: Xt }, c.a.createElement(Pt, null)),
+          c.a.createElement(w.a, { store: nn }, c.a.createElement(Ut, null)),
           document.getElementById("root")
         ),
         "serviceWorker" in navigator &&
@@ -3423,7 +3653,7 @@
             e.unregister();
           });
     },
-    40: function(e, t, n) {
+    41: function(e, t, n) {
       e.exports = {
         container: "Input_container__io0rI",
         label: "Input_label__wm9as",
@@ -3433,7 +3663,7 @@
         errMsg: "Input_errMsg__3Knym"
       };
     },
-    41: function(e, t, n) {
+    42: function(e, t, n) {
       e.exports = {
         CheckMnemonic: "CheckMnemonic_CheckMnemonic__2PmdU",
         desc: "CheckMnemonic_desc__3r_mQ",
@@ -3443,113 +3673,6 @@
         allwords: "CheckMnemonic_allwords__2XNEx",
         active: "CheckMnemonic_active__3qQQH"
       };
-    },
-    46: function(e, t, n) {
-      "use strict";
-      (function(e) {
-        n.d(t, "a", function() {
-          return p;
-        });
-        var a = n(45),
-          r = n.n(a),
-          c = n(112),
-          o = n.n(c),
-          s = n(54),
-          i = n.n(s),
-          u = n(10),
-          l = n.n(u),
-          d = n(77);
-        function m(e) {
-          return e === l.a.networks.bitcoin
-            ? "mainnet"
-            : e === l.a.networks.testnet
-            ? "testnet"
-            : "";
-        }
-        var p = {
-          generateMnemonic: function() {
-            return r.a.generateMnemonic();
-          },
-          generateAccount: function(t) {
-            var n,
-              a = t.name,
-              c = t.mnemonic,
-              s = t.password,
-              u = t.wif,
-              d =
-                arguments.length > 1 && void 0 !== arguments[1]
-                  ? arguments[1]
-                  : l.a.networks.testnet,
-              p = "m/44'/1'/0'/0/0";
-            d === l.a.networks.bitcoin && (p = "m/44'/0'/0'/0/0");
-            var h = { N: 128, r: 8, p: 8 };
-            if (a && c && s) {
-              var f = r.a.mnemonicToSeed(c),
-                v = o.a.fromSeed(f, d).derivePath(p),
-                _ = l.a.payments.p2pkh({ pubkey: v.publicKey, network: d }),
-                E = i.a.encrypt(v.privateKey, !0, s, null, h);
-              n = {
-                name: a,
-                address: _.address,
-                encryptedKey: E,
-                network: m(d)
-              };
-            } else if (a && u && s) {
-              var b;
-              (b = /^(0x)?[\da-zA-Z]{64}$/.test(u)
-                ? l.a.ECPair.fromPrivateKey(e.from(u, "hex"), { network: d })
-                : l.a.ECPair.fromWIF(u, d)),
-                (n = {
-                  name: a,
-                  address: l.a.payments.p2pkh({
-                    pubkey: b.publicKey,
-                    network: d
-                  }).address,
-                  encryptedKey: i.a.encrypt(
-                    b.privateKey,
-                    b.compressed,
-                    s,
-                    null,
-                    h
-                  ),
-                  network: m(d)
-                });
-            }
-            return n;
-          },
-          decrypt: function(e, t) {
-            return i.a.decrypt(e, t, function() {}, { N: 128, r: 8, p: 8 });
-          },
-          decryptPair: function(e, t) {
-            var n =
-                arguments.length > 2 && void 0 !== arguments[2]
-                  ? arguments[2]
-                  : l.a.networks.testnet,
-              a = p.decrypt(e, t);
-            return l.a.ECPair.fromPrivateKey(a.privateKey, {
-              compressed: a.compressed,
-              network: n
-            });
-          },
-          sign: function(e, t, n, a, r, c, o, s) {
-            var i =
-                arguments.length > 8 && void 0 !== arguments[8]
-                  ? arguments[8]
-                  : "mainnet",
-              u = p.decryptPair(o, s, i);
-            return Object(d.a)(
-              e,
-              t,
-              n,
-              a,
-              r,
-              c,
-              u,
-              "mainnet" === i ? l.a.networks.bitcoin : l.a.networks.testnet
-            );
-          }
-        };
-      }.call(this, n(9).Buffer));
     },
     47: function(e, t, n) {
       e.exports = {
@@ -3651,11 +3774,11 @@
                   !(s = (l = d.next()).done);
                   s = !0
                 ) {
-                  var m = l.value;
-                  if ((c.push(m), (o += m.value) >= t + n)) break;
+                  var p = l.value;
+                  if ((c.push(p), (o += p.value) >= t + n)) break;
                 }
-              } catch (p) {
-                (i = !0), (u = p);
+              } catch (m) {
+                (i = !0), (u = m);
               } finally {
                 try {
                   s || null == d.return || d.return();
@@ -3665,40 +3788,40 @@
               }
               return o >= t + n ? c : [];
             })(t, c, s),
-            m = new o.a.TransactionBuilder(l),
-            p = 0,
-            h = !0,
-            f = !1,
+            p = new o.a.TransactionBuilder(l),
+            m = 0,
+            f = !0,
+            h = !1,
             v = void 0;
           try {
             for (
-              var _, E = d[Symbol.iterator]();
-              !(h = (_ = E.next()).done);
-              h = !0
+              var E, _ = d[Symbol.iterator]();
+              !(f = (E = _.next()).done);
+              f = !0
             ) {
-              var b = _.value;
-              m.addInput(b.mintTxid, b.mintIndex, 0), (p += b.value);
+              var b = E.value;
+              p.addInput(b.mintTxid, b.mintIndex, 0), (m += b.value);
             }
           } catch (w) {
-            (f = !0), (v = w);
+            (h = !0), (v = w);
           } finally {
             try {
-              h || null == E.return || E.return();
+              f || null == _.return || _.return();
             } finally {
-              if (f) throw v;
+              if (h) throw v;
             }
           }
-          m.addOutput(a, c);
-          var g = p - c - s;
-          if ((g > 1e3 && m.addOutput(n, g), i)) {
+          p.addOutput(a, c);
+          var g = m - c - s;
+          if ((g > 1e3 && p.addOutput(n, g), i)) {
             var k = o.a.payments.embed({ data: [e.from(i, "hex")] });
-            m.addOutput(k.output, 0);
+            p.addOutput(k.output, 0);
           }
           return (
             d.forEach(function(e, t) {
-              m.sign(t, u);
+              p.sign(t, u);
             }),
-            m.build().toHex()
+            p.build().toHex()
           );
         }
       }.call(this, n(9).Buffer));
@@ -3738,6 +3861,6 @@
       };
     }
   },
-  [[179, 1, 2]]
+  [[182, 1, 2]]
 ]);
-//# sourceMappingURL=main.79761585.chunk.js.map
+//# sourceMappingURL=main.22ef840f.chunk.js.map

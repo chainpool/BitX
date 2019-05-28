@@ -1,7 +1,7 @@
 {
   "name": "bitx",
   "productName": "BitX",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "BitX",
   "main": "src/main.js",
   "scripts": {
