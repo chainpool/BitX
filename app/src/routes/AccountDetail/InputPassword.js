@@ -13,6 +13,7 @@ export default class InputPassword extends Component {
       passwordErrMsg: ""
     };
   }
+
   checkPassword() {
     const { password } = this.state;
     const { currentAccount: { encryptedKey } = {} } = this.props;
@@ -24,14 +25,17 @@ export default class InputPassword extends Component {
     });
     return err;
   }
+
   exportPrivateKey() {
     const { password } = this.state;
     const { currentAccount: { encryptedKey } = {} } = this.props;
     const { privateKey } = bitX.decryptPair(encryptedKey, password);
     this.props.setPrivateKey(privateKey.toString("hex"));
   }
+
   render() {
     const { password, passwordErrMsg } = this.state;
+
     return (
       <div
         className={classnames(this.props.className, styles.input_password)}
@@ -66,7 +70,7 @@ export default class InputPassword extends Component {
           onClick={e => {
             e.stopPropagation();
             if (!this.checkPassword()) {
-              this.exportPrivateKey();
+              this.props.passwordCallback(password);
             }
           }}
         >

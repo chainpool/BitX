@@ -52,6 +52,10 @@
       width: 100%;
       bottom: 0;
       background-color: #fff;
+
+      & > div:last-of-type {
+        margin-top: 20px;
+      }
     }
     .export_key {
       background-color: #fff;

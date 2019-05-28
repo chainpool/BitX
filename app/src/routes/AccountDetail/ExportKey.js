@@ -6,10 +6,10 @@ export default function ExportKey(props) {
       className={props.className}
       onClick={e => {
         e.stopPropagation();
-        props.handleStepChange("inputPassword");
+        props.onClick();
       }}
     >
-      <i className="iconfont iconexport" />
+      <i className="iconfont icondaochu" />
       <span>导出私钥</span>
     </div>
   );

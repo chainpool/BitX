@@ -12,10 +12,10 @@ export default class Header extends Component {
         location: { pathname }
       },
       goBack,
-      menu: { show, cb }
+      menu: { show: showMenu, cb }
     } = this.props;
     const isShowBack = () => pathname !== PATH.home;
-    // console.log(this.props);
+
     return (
       <div className={styles.Header}>
         {isShowBack() && (
@@ -32,9 +32,9 @@ export default class Header extends Component {
         )}
 
         {this.props.children}
-        {show && (
+        {showMenu && (
           <i
-            className={classnames("iconfont iconmenu", styles.menu)}
+            className={classnames("iconfont iconmore", styles.menu)}
             onClick={() => cb()}
           />
         )}

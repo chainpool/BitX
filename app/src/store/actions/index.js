@@ -74,3 +74,8 @@ export const setSeenWarning = () => ({
   type: "SET_SEEN_WARNING",
   seenWarning: true
 });
+
+export const deleteAccount = address => ({
+  type: "DELETE_ACCOUNT",
+  address
+});
