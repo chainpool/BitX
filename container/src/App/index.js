@@ -45,7 +45,6 @@ class App {
     this.window = new Window({
       width: 400,
       height: 680,
-      // url: "http://localhost:3000",
       url: path.join(__dirname, "../static/index.html"),
       fullscreen: false,
       resizable: false,

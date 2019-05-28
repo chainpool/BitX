@@ -11,12 +11,13 @@
     "dist": "rimraf dist && electron-builder"
   },
   "keywords": [
-    "chainX"
+    "chainX",
+    "bitx"
   ],
   "author": "chainpool",
   "license": "MIT",
   "build": {
-    "appId": "com.chainx.app",
+    "appId": "org.chainx.bitx",
     "files": [
       "**/*"
     ],

@@ -27,7 +27,6 @@ class Window {
       this.window = null;
     });
     this.loadUrl(url);
-    // this.openDevTools();
   }
 
   loadUrl(url) {
@@ -43,7 +42,9 @@ class Window {
   }
 
   reload() {
-    this.window.webContents.reload();
+    if (this.window) {
+      this.window.webContents.reload();
+    }
   }
 }
 
