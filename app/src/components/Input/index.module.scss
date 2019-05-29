@@ -3,11 +3,10 @@
   margin-top: 20px;
 }
 .container{
-  // background: red;
   .label{
     font-size: 15px;
     color:$yellow;
-    margin-bottom: 18px;
+    margin-bottom: 15px;
   }
   .content{
     display: flex;
@@ -29,10 +28,9 @@
     border-bottom: 1px solid #E3E3E3;
   }
   .errMsg{
-    height: 24px;
+    height: 15px;
     word-break: break-all;
     color:$red;
     margin-top: 5px;
   }
-
 }
