@@ -69,6 +69,19 @@
       };
     },
     34: function(e, t, n) {
+      e.exports = {
+        AccountSend: "AccountSend_AccountSend__S9Kg2",
+        userInput: "AccountSend_userInput__20k1k",
+        addreturn: "AccountSend_addreturn__c4haL",
+        returncontent: "AccountSend_returncontent__29AU1",
+        input: "AccountSend_input__VE8wO",
+        ASCII: "AccountSend_ASCII__2rBUi",
+        label: "AccountSend_label__EM9Bf",
+        button: "AccountSend_button__29T7s",
+        warning: "AccountSend_warning__2Q2PF"
+      };
+    },
+    35: function(e, t, n) {
       "use strict";
       (function(e) {
         n.d(t, "a", function() {
@@ -110,28 +123,28 @@
             if (a && c && s) {
               var h = r.a.mnemonicToSeed(c),
                 v = o.a.fromSeed(h, d).derivePath(m),
-                E = l.a.payments.p2pkh({ pubkey: v.publicKey, network: d }),
-                _ = i.a.encrypt(v.privateKey, !0, s, null, f);
+                _ = l.a.payments.p2pkh({ pubkey: v.publicKey, network: d }),
+                E = i.a.encrypt(v.privateKey, !0, s, null, f);
               n = {
                 name: a,
-                address: E.address,
-                encryptedKey: _,
+                address: _.address,
+                encryptedKey: E,
                 network: p(d)
               };
             } else if (a && u && s) {
-              var b;
-              (b = /^(0x)?[\da-zA-Z]{64}$/.test(u)
+              var g;
+              (g = /^(0x)?[\da-zA-Z]{64}$/.test(u)
                 ? l.a.ECPair.fromPrivateKey(e.from(u, "hex"), { network: d })
                 : l.a.ECPair.fromWIF(u, d)),
                 (n = {
                   name: a,
                   address: l.a.payments.p2pkh({
-                    pubkey: b.publicKey,
+                    pubkey: g.publicKey,
                     network: d
                   }).address,
                   encryptedKey: i.a.encrypt(
-                    b.privateKey,
-                    b.compressed,
+                    g.privateKey,
+                    g.compressed,
                     s,
                     null,
                     f
@@ -167,18 +180,6 @@
         };
       }.call(this, n(9).Buffer));
     },
-    35: function(e, t, n) {
-      e.exports = {
-        AccountSend: "AccountSend_AccountSend__S9Kg2",
-        userInput: "AccountSend_userInput__20k1k",
-        addreturn: "AccountSend_addreturn__c4haL",
-        returncontent: "AccountSend_returncontent__29AU1",
-        input: "AccountSend_input__VE8wO",
-        ASCII: "AccountSend_ASCII__2rBUi",
-        label: "AccountSend_label__EM9Bf",
-        button: "AccountSend_button__29T7s"
-      };
-    },
     385: function(e, t, n) {},
     387: function(e, t, n) {
       "use strict";
@@ -197,10 +198,10 @@
         f = n(7),
         h = n(391),
         v = n(392),
-        E = n(178),
-        _ = n(78),
-        b = n(389),
-        g = n(390),
+        _ = n(178),
+        E = n(78),
+        g = n(389),
+        b = n(390),
         k = n(393),
         w = n(15),
         y = "/",
@@ -215,7 +216,7 @@
         I = n(115);
       window.require && (a = window.require("electron").ipcRenderer);
       var P = a,
-        T = n(34),
+        T = n(35),
         B = n(46),
         K = n.n(B),
         D = n(10),
@@ -377,9 +378,9 @@
         X = n.n(H),
         J = n(23),
         z = n(25),
-        Y = n(83),
-        Q = n(53),
-        Z = n.n(Q),
+        Q = n(83),
+        Y = n(53),
+        Z = n.n(Y),
         $ = function(e) {
           var t = e.url,
             n = e.method,
@@ -390,7 +391,7 @@
             s = e.body,
             i = e.timeOut,
             u = void 0 === i ? 1e4 : i,
-            l = Object(Y.a)(e, [
+            l = Object(Q.a)(e, [
               "url",
               "method",
               "methodAlias",
@@ -682,7 +683,7 @@
                     l = e.isPassword,
                     d = e.isTextArea,
                     p = e.className,
-                    m = Object(Y.a)(e, [
+                    m = Object(Q.a)(e, [
                       "label",
                       "errMsg",
                       "value",
@@ -734,7 +735,7 @@
         fe = n(172),
         he = n.n(fe),
         ve = n(84),
-        Ee = (function(e) {
+        _e = (function(e) {
           function t() {
             var e, n;
             Object(l.a)(this, t);
@@ -807,9 +808,9 @@
             t
           );
         })(r.PureComponent),
-        _e = n(55),
-        be = n.n(_e),
-        ge = n(56),
+        Ee = n(55),
+        ge = n.n(Ee),
+        be = n(56),
         ke = (function(e) {
           function t() {
             var e, n;
@@ -854,18 +855,18 @@
                           null,
                           c.a.createElement(
                             "span",
-                            { "data-for": t, "data-tip": h, className: ge.tip },
+                            { "data-for": t, "data-tip": h, className: be.tip },
                             a
                           ),
                           c.a.createElement(
-                            be.a,
+                            ge.a,
                             {
                               effect: "solid",
                               offset: d,
                               multiline: !0,
                               id: t,
                               place: m,
-                              className: pe()(ge.tool, ge[u])
+                              className: pe()(be.tool, be[u])
                             },
                             h
                           )
@@ -875,7 +876,7 @@
                           null,
                           c.a.createElement(
                             "span",
-                            { id: t, "data-tip": h, className: ge.tip },
+                            { id: t, "data-tip": h, className: be.tip },
                             c.a.createElement(
                               "span",
                               {
@@ -885,26 +886,26 @@
                                       ? r(function(n) {
                                           n &&
                                             e.setState({ tip: n }, function() {
-                                              be.a.show(
+                                              ge.a.show(
                                                 document.getElementById(t)
                                               );
                                             });
                                         })
-                                      : be.a.show(document.getElementById(t));
+                                      : ge.a.show(document.getElementById(t));
                                 }
                               },
                               a
                             )
                           ),
-                          c.a.createElement(be.a, {
-                            className: ge.content,
+                          c.a.createElement(ge.a, {
+                            className: be.content,
                             event: "none",
                             effect: "solid",
                             isCapture: !0,
                             delayShow: 150,
                             afterShow: function() {
                               setTimeout(function() {
-                                be.a.hide(document.getElementById(t));
+                                ge.a.hide(document.getElementById(t));
                               }, 500);
                             }
                           })
@@ -1687,8 +1688,8 @@
           );
         })(oe),
         ze = n(65),
-        Ye = n(174),
-        Qe = n.n(Ye),
+        Qe = n(174),
+        Ye = n.n(Qe),
         Ze = (function(e) {
           function t() {
             var e, n;
@@ -1721,7 +1722,7 @@
                       F.check("characterLength")(e, 8) ||
                       n.checkAll.checkEqual();
                   if ((n.setState({ passwordErrMsg: t }), t)) return !0;
-                  var a = new Qe.a()
+                  var a = new Ye.a()
                     .has()
                     .uppercase()
                     .has()
@@ -2441,7 +2442,7 @@
                     c.a.createElement(
                       "div",
                       { className: pt.address },
-                      c.a.createElement(Ee, null, t.address)
+                      c.a.createElement(_e, null, t.address)
                     ),
                     c.a.createElement(
                       "div",
@@ -2469,7 +2470,7 @@
         ft = n(176),
         ht = n.n(ft),
         vt = n(117),
-        Et = (function(e) {
+        _t = (function(e) {
           function t() {
             var e, n;
             Object(l.a)(this, t);
@@ -2512,9 +2513,9 @@
             t
           );
         })(oe),
-        _t = n(35),
-        bt = n(77),
-        gt = (function(e) {
+        Et = n(34),
+        gt = n(77),
+        bt = (function(e) {
           function t() {
             var e, n;
             Object(l.a)(this, t);
@@ -2581,7 +2582,7 @@
                     r = e.utxos,
                     c = Number(re.toBtcPrecision(a, 8, !0)),
                     o = Number(re.toBtcPrecision(t, 8, !0));
-                  if (!Object(bt.b)(r, c, o)) {
+                  if (!Object(gt.b)(r, c, o)) {
                     return (
                       n.setState({
                         feeErrMsg: "\u6570\u91cf\u4e0d\u8db3",
@@ -2666,10 +2667,10 @@
                     v = (h = void 0 === h ? {} : h).name;
                   return c.a.createElement(
                     "div",
-                    { className: _t.AccountSend },
+                    { className: Et.AccountSend },
                     c.a.createElement(
                       "div",
-                      { className: _t.userInput },
+                      { className: Et.userInput },
                       c.a.createElement(me, {
                         errMsg: r,
                         label: "\u63a5\u6536\u4eba\u5730\u5740",
@@ -2698,11 +2699,16 @@
                         onChange: function(t) {
                           e.setState({ fee: t });
                         }
-                      })
+                      }),
+                      c.a.createElement(
+                        "p",
+                        { className: Et.warning },
+                        "\u8bf7\u53c2\u8003\u5e02\u573a\u624b\u7eed\u8d39\u586b\u5199\uff0c\u5426\u5219\u60a8\u5c06\u9762\u4e34\u652f\u4ed8\u8fc7\u591a\u624b\u7eed\u8d39\u6216\u8005\u60a8\u7684\u4ea4\u6613\u6c38\u8fdc\u4e0d\u4f1a\u88ab\u786e\u8ba4\u7684\u98ce\u9669\u3002"
+                      )
                     ),
                     c.a.createElement(
                       "div",
-                      { className: _t.addreturn },
+                      { className: Et.addreturn },
                       "\u6dfb\u52a0OP_RETURN",
                       i
                         ? c.a.createElement("i", {
@@ -2723,10 +2729,10 @@
                     i &&
                       c.a.createElement(
                         "div",
-                        { className: _t.returncontent },
+                        { className: Et.returncontent },
                         c.a.createElement(
                           "div",
-                          { className: _t.input },
+                          { className: Et.input },
                           c.a.createElement(me, {
                             rows: 2,
                             isTextArea: !0,
@@ -2741,10 +2747,10 @@
                         ),
                         c.a.createElement(
                           "div",
-                          { className: _t.ASCII },
+                          { className: Et.ASCII },
                           c.a.createElement(
                             "div",
-                            { className: _t.label },
+                            { className: Et.label },
                             "\u6587\u672c ASCII"
                           ),
                           c.a.createElement("div", null, f)
@@ -2752,7 +2758,7 @@
                       ),
                     c.a.createElement(
                       "div",
-                      { className: _t.button },
+                      { className: Et.button },
                       c.a.createElement(
                         "button",
                         {
@@ -2819,7 +2825,7 @@
               return e(xe(t, n));
             }
           };
-        })(gt);
+        })(bt);
       function wt(e) {
         return c.a.createElement(
           "div",
@@ -3061,7 +3067,7 @@
                         })
                       ),
                       0 === n && c.a.createElement(kt, this.props),
-                      1 === n && c.a.createElement(Et, this.props)
+                      1 === n && c.a.createElement(_t, this.props)
                     ),
                     r &&
                       c.a.createElement(
@@ -3322,10 +3328,10 @@
                         "div",
                         { className: Bt.content },
                         c.a.createElement(
-                          b.a,
+                          g.a,
                           null,
                           Ct.map(function(e, n) {
-                            return c.a.createElement(g.a, {
+                            return c.a.createElement(b.a, {
                               exact: !0,
                               key: n,
                               path: e.path,
@@ -3484,9 +3490,9 @@
                     t,
                     null,
                     c.a.createElement(
-                      E.a,
+                      _.a,
                       null,
-                      c.a.createElement(_.a, {
+                      c.a.createElement(E.a, {
                         path: "/",
                         render: function(t) {
                           return c.a.createElement(
@@ -3608,7 +3614,7 @@
             t = arguments.length > 1 ? arguments[1] : void 0;
           return "SET_NETWORK" === t.type ? t.network : e;
         },
-        Yt = function() {
+        Qt = function() {
           var e =
               arguments.length > 0 && void 0 !== arguments[0]
                 ? arguments[0]
@@ -3616,12 +3622,12 @@
             t = arguments.length > 1 ? arguments[1] : void 0;
           return "SET_MENU" === t.type ? t.menu : e;
         },
-        Qt = ae.get("appData") || {},
+        Yt = ae.get("appData") || {},
         Zt = function() {
           var e =
               arguments.length > 0 && void 0 !== arguments[0]
                 ? arguments[0]
-                : Qt,
+                : Yt,
             t = arguments.length > 1 ? arguments[1] : void 0;
           if ("SET_SEEN_WARNING" === t.type) {
             var n = Object(z.a)({}, e, { seenWarning: t.seenWarning });
@@ -3637,7 +3643,7 @@
           pageTitle: Ht,
           modal: Xt,
           goBack: Jt,
-          menu: Yt,
+          menu: Qt,
           app: Zt
         }),
         en = (n(386), n(179)),
@@ -3795,25 +3801,25 @@
             v = void 0;
           try {
             for (
-              var E, _ = d[Symbol.iterator]();
-              !(f = (E = _.next()).done);
+              var _, E = d[Symbol.iterator]();
+              !(f = (_ = E.next()).done);
               f = !0
             ) {
-              var b = E.value;
-              p.addInput(b.mintTxid, b.mintIndex, 0), (m += b.value);
+              var g = _.value;
+              p.addInput(g.mintTxid, g.mintIndex, 0), (m += g.value);
             }
           } catch (w) {
             (h = !0), (v = w);
           } finally {
             try {
-              f || null == _.return || _.return();
+              f || null == E.return || E.return();
             } finally {
               if (h) throw v;
             }
           }
           p.addOutput(a, c);
-          var g = m - c - s;
-          if ((g > 1e3 && p.addOutput(n, g), i)) {
+          var b = m - c - s;
+          if ((b > 1e3 && p.addOutput(n, b), i)) {
             var k = o.a.payments.embed({ data: [e.from(i, "hex")] });
             p.addOutput(k.output, 0);
           }
@@ -3863,4 +3869,4 @@
   },
   [[182, 1, 2]]
 ]);
-//# sourceMappingURL=main.22ef840f.chunk.js.map
+//# sourceMappingURL=main.5597404f.chunk.js.map

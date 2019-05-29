@@ -925,6 +925,12 @@ a {
   background: #f6c94a;
   border-radius: 4px;
 }
+.AccountSend_AccountSend__S9Kg2 .AccountSend_warning__2Q2PF {
+  font-size: 14px;
+  color: #d89601;
+  line-height: 18px;
+  margin-top: 5px;
+}
 .InputPassword_input_password__xHtXz {
   display: -webkit-flex;
   display: flex;
@@ -1174,4 +1180,4 @@ a {
   height: calc(100% - 56px);
   overflow-y: auto;
 }
-/*# sourceMappingURL=main.d3902acc.chunk.css.map */
+/*# sourceMappingURL=main.0b3c9b8d.chunk.css.map */
