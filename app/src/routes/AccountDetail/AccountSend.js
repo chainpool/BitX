@@ -193,6 +193,9 @@ class AccountSend extends Mixin {
               });
             }}
           />
+          <p className={styles.warning}>
+            请参考市场手续费填写，否则您将面临支付过多手续费或者您的交易永远不会被确认的风险。
+          </p>
         </div>
         <div className={styles.addreturn}>
           添加OP_RETURN
