@@ -1,8 +1,8 @@
-import React from 'react';
-import classNames from 'classnames';
-import { Mixin } from '../../components';
-import * as styles from './CheckMnemonic.module.scss';
-import { Patterns } from '../../utils';
+import React from "react";
+import classNames from "classnames";
+import { Mixin } from "../../components";
+import * as styles from "./CheckMnemonic.module.scss";
+import { Patterns } from "../../utils";
 
 export default class CheckMnemonic extends Mixin {
   constructor(props) {
@@ -12,8 +12,8 @@ export default class CheckMnemonic extends Mixin {
     };
     this.state = {
       userInput: [],
-      userInputErrMsg: '',
-      mnemonicSort: props.mnemonic.split(' ').sort(randomSort),
+      userInputErrMsg: "",
+      mnemonicSort: props.mnemonic.split(" ").sort(randomSort)
     };
   }
 
@@ -21,18 +21,18 @@ export default class CheckMnemonic extends Mixin {
     checkUserInput: () => {
       const { userInput = [] } = this.state;
       const { mnemonic } = this.props;
-      const err = Patterns.check('strictEqual')(
-        userInput.map((item = {}) => item.value).join(' '),
-        mnemonic,
+      const err = Patterns.check("strictEqual")(
+        userInput.map((item = {}) => item.value).join(" "),
+        mnemonic
       );
       this.setState({
-        userInputErrMsg: err,
+        userInputErrMsg: err
       });
       return err;
     },
     confirm: () => {
-      return ['checkUserInput'].every((item) => !this.checkAll[item]());
-    },
+      return ["checkUserInput"].every(item => !this.checkAll[item]());
+    }
   };
 
   render() {
@@ -40,14 +40,20 @@ export default class CheckMnemonic extends Mixin {
     const { userInput, userInputErrMsg, mnemonicSort } = this.state;
     const { changeStep } = this.props;
 
-    const getPostion = (index) => userInput.findIndex((item) => item.index === index);
+    const getPostion = index =>
+      userInput.findIndex(item => item.index === index);
     return (
       <div className={styles.CheckMnemonic}>
         <div className={styles.desc}>验证您记下的助记词</div>
         <div className={styles.generatewords}>
-          {userInput.map((item = {}) => item.value).join(' ')}
+          {userInput.map((item = {}) => item.value).join(" ")}
         </div>
-        <div className={classNames(styles.writedesc, userInputErrMsg && styles.warn)}>
+        <div
+          className={classNames(
+            styles.writedesc,
+            userInputErrMsg && styles.warn
+          )}
+        >
           请按正确的顺序点击单词
         </div>
         <ul className={styles.allwords}>
@@ -57,27 +63,28 @@ export default class CheckMnemonic extends Mixin {
               key={index}
               onClick={() => {
                 this.setState({
-                  userInputErrMsg: '',
+                  userInputErrMsg: ""
                 });
                 if (getPostion(index) === -1) {
-                  this.setState((prevState) => {
+                  this.setState(prevState => {
                     prevState.userInput.push({
                       value: item,
-                      index,
+                      index
                     });
                     return {
-                      userInput: prevState.userInput,
+                      userInput: prevState.userInput
                     };
                   });
                 } else {
-                  this.setState((prevState) => {
+                  this.setState(prevState => {
                     prevState.userInput.splice(getPostion(index), 1);
                     return {
-                      userInput: prevState.userInput,
+                      userInput: prevState.userInput
                     };
                   });
                 }
-              }}>
+              }}
+            >
               {item}
             </li>
           ))}
@@ -87,7 +94,8 @@ export default class CheckMnemonic extends Mixin {
             if (checkAll.confirm()) {
               changeStep(4);
             }
-          }}>
+          }}
+        >
           完成
         </button>
       </div>
