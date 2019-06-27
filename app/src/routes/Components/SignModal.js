@@ -36,6 +36,9 @@ export default class SignModal extends Mixin {
       currentAccount: { encryptedKey, network } = {}
     } = this.props;
     const isTestnet = network !== "mainnet";
+    const url = isTestnet
+      ? `https://chain.so/tx/BTCTEST/${hash}`
+      : `https://live.blockcypher.com/btc/tx/${hash}`;
 
     return (
       <Modal title={status ? "交易已广播" : "输入账户密码"}>
@@ -43,14 +46,7 @@ export default class SignModal extends Mixin {
           <div className={styles.success}>
             <i className="iconfont iconsuccess" />
             <div className={styles.button}>
-              <RouterGo
-                isOutSide
-                go={{
-                  pathname: `https://live.blockcypher.com/btc${
-                    isTestnet ? "-testnet" : ""
-                  }/tx/${hash}/`
-                }}
-              >
+              <RouterGo isOutSide go={{ pathname: url }}>
                 <button onClick={() => {}}>查看交易</button>
               </RouterGo>
             </div>
