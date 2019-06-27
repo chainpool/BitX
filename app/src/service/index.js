@@ -23,16 +23,22 @@ export async function getBalance(addr, network = "testnet") {
 export async function getUtxos(addr, network = "testnet") {
   // TODO: 主网数据正在同步，暂时用blockcypher的API
   const endpoint = "https://chain.so/api/v2/get_tx_unspent/";
-  return window
-    .fetch(`${endpoint}${network === "mainnet" ? "btc" : "btctest"}/${addr}`)
-    .then(response => response.json())
-    .then(({ data }) => {
-      return (data.txs || []).map(tx => ({
-        mintTxid: tx.txid,
-        mintIndex: tx.output_no,
-        value: parseInt(tx.value * Math.pow(10, 8))
-      }));
-    });
+  const url = `${endpoint}${network === "mainnet" ? "btc" : "btctest"}/${addr}`;
+
+  let allUtxos = [];
+  let utxos = [];
+  do {
+    const res = await window.fetch(url);
+    const { data } = await res.json();
+    utxos = (data.txs || []).map(tx => ({
+      mintTxid: tx.txid,
+      mintIndex: tx.output_no,
+      value: parseInt(tx.value * Math.pow(10, 8))
+    }));
+    allUtxos = allUtxos.concat(utxos);
+  } while (utxos.length >= 100);
+
+  return allUtxos;
 }
 
 export async function broadcastTx(tx, network = "testnet") {
