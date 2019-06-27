@@ -30,7 +30,7 @@ export async function getUtxos(addr, network = "testnet") {
       return (data.txs || []).map(tx => ({
         mintTxid: tx.txid,
         mintIndex: tx.output_no,
-        value: tx.value * Math.pow(10, 8)
+        value: parseInt(tx.value * Math.pow(10, 8))
       }));
     });
 }
