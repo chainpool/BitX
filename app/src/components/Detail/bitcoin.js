@@ -38,6 +38,7 @@ export function compose(
   const filteredUtxos = filterUnspentsByAmount(utxos, amount, fee);
 
   const txb = new bitcoin.TransactionBuilder(network);
+  txb.setVersion(1);
 
   let sum = 0;
   for (let utxo of filteredUtxos) {
