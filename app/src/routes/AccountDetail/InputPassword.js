@@ -1,82 +1,56 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import * as styles from "./InputPassword.module.scss";
 import classnames from "classnames";
 import { bitJS, Patterns } from "../../utils";
 import { Input } from "../../components";
-import { bitX } from "../../utils/bitX";
 
-export default class InputPassword extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      password: "",
-      passwordErrMsg: ""
-    };
-  }
+export default function InputPassword(props) {
+  const [password, setPassword] = useState("");
+  const [errMsg, setErrMsg] = useState("");
 
-  checkPassword() {
-    const { password } = this.state;
-    const { currentAccount: { encryptedKey } = {} } = this.props;
+  const checkPassword = function() {
+    const { currentAccount: { encryptedKey } = {} } = props;
     let err =
       Patterns.check("required")(password) ||
       bitJS.isValidPassword(encryptedKey, password);
-    this.setState({
-      passwordErrMsg: err
-    });
+    setErrMsg(err);
     return err;
-  }
+  };
 
-  exportPrivateKey() {
-    const { password } = this.state;
-    const { currentAccount: { encryptedKey } = {} } = this.props;
-    const { privateKey } = bitX.decryptPair(encryptedKey, password);
-    this.props.setPrivateKey(privateKey.toString("hex"));
-  }
-
-  render() {
-    const { password, passwordErrMsg } = this.state;
-
-    return (
-      <div
-        className={classnames(this.props.className, styles.input_password)}
-        onClick={e => e.stopPropagation()}
-      >
-        <div className={styles.top}>
-          <span className={styles.title}>输入账户密码</span>
-          <i
-            className={classnames("iconfont iconClose", styles.close)}
-            onClick={() => {
-              this.props.onClose();
-            }}
-          />
-        </div>
-        <Input
-          className={styles.input}
-          isPassword
-          value={password}
-          errMsg={passwordErrMsg}
-          onChange={value => {
-            this.setState({
-              passwordErrMsg: "",
-              password: value
-            });
-          }}
-          onBlur={() => {
-            this.checkPassword();
-          }}
+  return (
+    <div
+      className={classnames(props.className, styles.input_password)}
+      onClick={e => e.stopPropagation()}
+    >
+      <div className={styles.top}>
+        <span className={styles.title}>输入账户密码</span>
+        <i
+          className={classnames("iconfont iconClose", styles.close)}
+          onClick={props.onClose}
         />
-        <button
-          className={styles.confirm}
-          onClick={e => {
-            e.stopPropagation();
-            if (!this.checkPassword()) {
-              this.props.passwordCallback(password);
-            }
-          }}
-        >
-          确定
-        </button>
       </div>
-    );
-  }
+      <Input
+        className={styles.input}
+        isPassword
+        value={password}
+        errMsg={errMsg}
+        onChange={value => {
+          setPassword(value);
+          setErrMsg("");
+        }}
+        onBlur={checkPassword}
+      />
+      <button
+        className={styles.confirm}
+        onClick={e => {
+          e.stopPropagation();
+          if (!checkPassword()) {
+            props.passwordCallback(password);
+          }
+        }}
+      >
+        确定
+      </button>
+    </div>
+  );
 }
