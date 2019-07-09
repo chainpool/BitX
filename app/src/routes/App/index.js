@@ -1,32 +1,30 @@
-import React, { Component } from "react";
-import { HashRouter, BrowserRouter } from "react-router-dom";
-import { Route, Switch } from "react-router";
+import React, { useEffect } from "react";
+import { BrowserRouter, HashRouter, Route, Switch } from "react-router-dom";
 import CommonLayOut from "./CommonLayOut";
 import { Device, ipc } from "../../utils";
 
 import "./index.module.scss";
 
-class App extends Component {
-  componentDidMount() {
+function App(appProps) {
+  useEffect(() => {
     if (Device.isMobile()) {
       document.getElementById("root").setAttribute("class", "root-mobile");
     } else {
       document.getElementById("root").setAttribute("class", "root-desktop");
     }
-  }
-  render() {
-    const Router = ipc ? HashRouter : BrowserRouter;
-    return (
-      <Router>
-        <Switch>
-          <Route
-            path="/"
-            render={props => <CommonLayOut {...props} {...this.props} />}
-          />
-        </Switch>
-      </Router>
-    );
-  }
+  }, []);
+
+  const Router = ipc ? HashRouter : BrowserRouter;
+  return (
+    <Router>
+      <Switch>
+        <Route
+          path="/"
+          render={props => <CommonLayOut {...props} {...appProps} />}
+        />
+      </Switch>
+    </Router>
+  );
 }
 
 export default App;
