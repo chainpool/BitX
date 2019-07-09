@@ -15,7 +15,9 @@ class AccountList extends Mixin {
     };
   }
 
-  startInit = () => {};
+  startInit = () => {
+    this.props.getAllAccountBalance();
+  };
 
   changeClose = () => {
     this.setState(prevState => ({

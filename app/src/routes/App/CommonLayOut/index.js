@@ -17,18 +17,7 @@ import { bitJS, parseQueryString } from "../../../utils";
 
 class CommonLayOut extends Component {
   componentDidMount() {
-    const { getAllAccountBalance } = this.props;
-    getAllAccountBalance();
-
     bitJS.update();
-  }
-
-  componentDidUpdate(prevProps) {
-    const { accounts: prevAccounts = [] } = prevProps;
-    const { accounts = [], getAllAccountBalance } = this.props;
-    if (prevAccounts.length !== accounts.length) {
-      getAllAccountBalance();
-    }
   }
 
   render() {
