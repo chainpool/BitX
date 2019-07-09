@@ -50,8 +50,8 @@ export const getAllAccountBalance = () => {
 
 async function updateBalance(account, dispatch) {
   return new Promise(resolve => {
-    getBalance(account.address, account.network || "testnet").then(
-      (res = {}) => {
+    getBalance(account.address, account.network || "testnet")
+      .then((res = {}) => {
         const findOne = {
           ...account,
           ...res,
@@ -60,8 +60,10 @@ async function updateBalance(account, dispatch) {
         dispatch(updateAccountBalance(findOne));
 
         setTimeout(resolve, 500);
-      }
-    );
+      })
+      .catch(() => {
+        setTimeout(resolve, 500);
+      });
   });
 }
 
