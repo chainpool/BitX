@@ -43,8 +43,9 @@ router.get("/mainnet/:address/utxos", async ctx => {
     `${bitcoreEndpoint}/api/BTC/mainnet/address/${address}?unspent=true&limit=1000`
   );
   const rawUtxos = await response.json();
+  const filteredUtxos = rawUtxos.filter(utxo => utxo.mintHeight > 0);
 
-  ctx.body = rawUtxos.map(utxo =>
+  ctx.body = filteredUtxos.map(utxo =>
     pick(utxo, ["mintTxid", "mintIndex", "value", "script"])
   );
 });
@@ -56,8 +57,9 @@ router.get("/testnet/:address/utxos", async ctx => {
     `${bitcoreEndpoint}/api/BTC/testnet/address/${address}?unspent=true&limit=1000`
   );
   const rawUtxos = await response.json();
+  const filteredUtxos = rawUtxos.filter(utxo => utxo.mintHeight > 0);
 
-  ctx.body = rawUtxos.map(utxo =>
+  ctx.body = filteredUtxos.map(utxo =>
     pick(utxo, ["mintTxid", "mintIndex", "value", "script"])
   );
 });
