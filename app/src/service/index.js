@@ -1,9 +1,12 @@
 import { fetchFromHttp } from "../utils";
 
-// const testnetEndpoint = 'https://api.chainx.org/bitx/testnet';
 const submitEndpoint = "https://api.chainx.org/bitx/txs";
 
 export async function getBalance(addr, network = "testnet") {
+  if (network === "testnet") {
+    return getTestnetBalance(addr);
+  }
+
   // TODO: 主网数据正在同步，暂时用blockcypher的API
   return window
     .fetch(
@@ -21,7 +24,21 @@ export async function getBalance(addr, network = "testnet") {
     });
 }
 
+async function getTestnetBalance(addr) {
+  const url = `https://api.chainx.org/bitx/testnet/${addr}/balance`;
+  return window.fetch(url).then(res => res.json());
+}
+
+async function getTestnetUtxos(addr) {
+  const url = `https://api.chainx.org/bitx/testnet/${addr}/utxos`;
+  return window.fetch(url).then(res => res.json());
+}
+
 export async function getUtxos(addr, network = "testnet") {
+  if (network === "testnet") {
+    return getTestnetUtxos(addr);
+  }
+
   // TODO: 主网数据正在同步，暂时用blockcypher的API
   return window
     .fetch(
