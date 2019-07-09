@@ -40,7 +40,7 @@ router.get("/mainnet/:address/utxos", async ctx => {
   const { address } = ctx.params;
 
   const response = await fetch(
-    `${bitcoreEndpoint}/api/BTC/mainnet/address/${address}?unspent=true&limit=1000`
+    `${bitcoreEndpoint}/api/BTC/mainnet/address/${address}?unspent=true&limit=10000`
   );
   const rawUtxos = await response.json();
   const filteredUtxos = rawUtxos.filter(utxo => utxo.mintHeight > 0);
@@ -54,7 +54,7 @@ router.get("/testnet/:address/utxos", async ctx => {
   const { address } = ctx.params;
 
   const response = await fetch(
-    `${bitcoreEndpoint}/api/BTC/testnet/address/${address}?unspent=true&limit=1000`
+    `${bitcoreEndpoint}/api/BTC/testnet/address/${address}?unspent=true&limit=10000`
   );
   const rawUtxos = await response.json();
   const filteredUtxos = rawUtxos.filter(utxo => utxo.mintHeight > 0);
