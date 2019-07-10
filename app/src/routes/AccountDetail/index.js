@@ -8,7 +8,7 @@ import ExportKey from "./ExportKey";
 import DeleteAccount from "./DeleteAccount";
 import InputPassword from "./InputPassword";
 import ViewPrivateKey from "./ViewPrivateKey";
-import { setMenu, deleteAccount } from "../../store/actions";
+import { setMenu, deleteAccount, getAccountBalance } from "../../store/actions";
 import * as styles from "./index.module.scss";
 import { bitX } from "../../utils/bitX";
 import { isFunction } from "../../utils";
@@ -32,12 +32,16 @@ class AccountDetail extends Mixin {
     if (this.didMount) {
       this.didMount.apply(this);
     }
+
     this.props.setMenu({
       show: true,
       cb: () => {
         this.setState({ showMenu: true });
       }
     });
+
+    const { currentAccount = {} } = this.props;
+    this.props.getAccountBalance(currentAccount);
   }
 
   handleStepChange(status) {
@@ -173,7 +177,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     setMenu: menu => dispatch(setMenu(menu)),
-    deleteAccount: address => dispatch(deleteAccount(address))
+    deleteAccount: address => dispatch(deleteAccount(address)),
+    getAccountBalance: account => dispatch(getAccountBalance(account))
   };
 };
 

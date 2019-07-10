@@ -48,6 +48,12 @@ export const getAllAccountBalance = () => {
   };
 };
 
+export const getAccountBalance = account => {
+  return async function(dispatch) {
+    await updateBalance(account, dispatch);
+  };
+};
+
 async function updateBalance(account, dispatch) {
   return new Promise(resolve => {
     getBalance(account.address, account.network || "testnet")
