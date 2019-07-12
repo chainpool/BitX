@@ -65,10 +65,10 @@ async function updateBalance(account, dispatch) {
         };
         dispatch(updateAccountBalance(findOne));
 
-        setTimeout(resolve, 500);
+        setTimeout(resolve, account.network === "testnet" ? 0 : 500);
       })
       .catch(() => {
-        setTimeout(resolve, 500);
+        setTimeout(resolve, account.network === "testnet" ? 0 : 500);
       });
   });
 }

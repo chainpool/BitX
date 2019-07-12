@@ -25,12 +25,12 @@ export async function getBalance(addr, network = "testnet") {
 }
 
 async function getTestnetBalance(addr) {
-  const url = `https://api.chainx.org/bitx/testnet/${addr}/balance`;
+  const url = `https://api.chainx.org.cn/bitx/testnet/${addr}/balance`;
   return window.fetch(url).then(res => res.json());
 }
 
 async function getTestnetUtxos(addr) {
-  const url = `https://api.chainx.org/bitx/testnet/${addr}/utxos`;
+  const url = `https://api.chainx.org.cn/bitx/testnet/${addr}/utxos`;
   return window.fetch(url).then(res => res.json());
 }
 
