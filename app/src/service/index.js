@@ -3,29 +3,7 @@ import { fetchFromHttp } from "../utils";
 const submitEndpoint = "https://api.chainx.org/bitx/txs";
 
 export async function getBalance(addr, network = "testnet") {
-  if (network === "testnet") {
-    return getTestnetBalance(addr);
-  }
-
-  // TODO: 主网数据正在同步，暂时用blockcypher的API
-  return window
-    .fetch(
-      `https://api.blockcypher.com/v1/btc/${
-        network === "mainnet" ? "main" : "test3"
-      }/addrs/${addr}/balance`
-    )
-    .then(response => response.json())
-    .then(data => {
-      return {
-        balance: data.final_balance,
-        confirmed: data.balance,
-        unconfirmed: data.unconfirmed_balance
-      };
-    });
-}
-
-async function getTestnetBalance(addr) {
-  const url = `https://api.chainx.org.cn/bitx/testnet/${addr}/balance`;
+  const url = `https://api.chainx.org.cn/bitx/${network}/${addr}/balance`;
   return window.fetch(url).then(res => res.json());
 }
 

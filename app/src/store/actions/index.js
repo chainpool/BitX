@@ -43,7 +43,7 @@ export const getAllAccountBalance = () => {
   return async function(dispatch, getState) {
     const { accounts } = getState();
     for (let account of accounts) {
-      await updateBalance(account, dispatch);
+      updateBalance(account, dispatch);
     }
   };
 };
@@ -55,21 +55,13 @@ export const getAccountBalance = account => {
 };
 
 async function updateBalance(account, dispatch) {
-  return new Promise(resolve => {
-    getBalance(account.address, account.network || "testnet")
-      .then((res = {}) => {
-        const findOne = {
-          ...account,
-          ...res,
-          balanceShow: formatNumber.toBtcPrecision(res.confirmed)
-        };
-        dispatch(updateAccountBalance(findOne));
-
-        setTimeout(resolve, account.network === "testnet" ? 0 : 500);
-      })
-      .catch(() => {
-        setTimeout(resolve, account.network === "testnet" ? 0 : 500);
-      });
+  getBalance(account.address, account.network || "testnet").then((res = {}) => {
+    const findOne = {
+      ...account,
+      ...res,
+      balanceShow: formatNumber.toBtcPrecision(res.confirmed)
+    };
+    dispatch(updateAccountBalance(findOne));
   });
 }
 
