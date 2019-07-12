@@ -11,6 +11,12 @@ export const updateAccountBalance = account => ({
   account
 });
 
+export const updateUtxos = (address, utxos) => ({
+  type: "ADD_UTXO",
+  address,
+  utxos
+});
+
 export const generateMnemonic = () => ({ type: "GENERATE_MNEMONIC" });
 
 export const setPageTitle = pageTitle => ({
@@ -24,8 +30,9 @@ export const setModal = ({ name, show, data }) => ({
 });
 
 export const getAccountUtxos = (addr, network = "testnet") => {
-  return () => {
-    return getUtxos(addr, network);
+  return async dispatch => {
+    const res = await getUtxos(addr, network);
+    dispatch(updateUtxos(addr, res));
   };
 };
 

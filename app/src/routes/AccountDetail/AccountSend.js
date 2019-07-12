@@ -10,7 +10,6 @@ import { broadcastTx } from "../../service";
 
 class AccountSend extends Mixin {
   state = {
-    utxos: [],
     address: "",
     addressErrMsg: "",
     amount: "",
@@ -62,7 +61,8 @@ class AccountSend extends Mixin {
       return err;
     },
     checkAmountAndFee: () => {
-      const { fee, amount, utxos } = this.state;
+      const { fee, amount } = this.state;
+      const { utxos } = this.props;
       const BTCAmount = Number(formatNumber.toBtcPrecision(amount, 8, true));
       const feeInSatoshi = Number(formatNumber.toBtcPrecision(fee, 8, true));
       if (!enough(utxos, BTCAmount, feeInSatoshi)) {
@@ -95,17 +95,12 @@ class AccountSend extends Mixin {
 
   startInit = () => {
     const { getAccountUtxos, currentAccount } = this.props;
-    getAccountUtxos(currentAccount.address, currentAccount.network).then(
-      res => {
-        this.setState({
-          utxos: res
-        });
-      }
-    );
+    getAccountUtxos(currentAccount.address, currentAccount.network);
   };
 
   constructTx(encryptedKey, password) {
-    const { address, amount, hex, utxos, fee } = this.state;
+    const { address, amount, hex, fee } = this.state;
+    const { utxos } = this.props;
     const { currentAccount } = this.props;
     const BTCAmount = Number(formatNumber.toBtcPrecision(amount, 8, true));
     const feeInSatoshi = Number(formatNumber.toBtcPrecision(fee, 8, true));
@@ -283,6 +278,12 @@ class AccountSend extends Mixin {
   }
 }
 
+const mapStateToProps = (state, props) => {
+  const { address } = props.currentAccount || {};
+  const target = state.utxos.find(item => item.address === address);
+  return { utxos: target ? target.utxos : [] };
+};
+
 const mapDispatchToProps = dispatch => {
   return {
     getAccountUtxos: (address, network) =>
@@ -291,6 +292,6 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(
-  undefined,
+  mapStateToProps,
   mapDispatchToProps
 )(AccountSend);
