@@ -4,7 +4,7 @@ import { Input, Mixin } from "../../components";
 import { SignModal } from "../Components";
 import * as styles from "./AccountSend.module.scss";
 import { formatNumber, Patterns, bitJS } from "../../utils";
-import { getAccountUtxos } from "../../store/actions";
+import { getAccountUtxos, setModal } from "../../store/actions";
 import { enough } from "../../components/Detail/bitcoin";
 import { broadcastTx } from "../../service";
 
@@ -246,7 +246,7 @@ class AccountSend extends Mixin {
           <button
             onClick={() => {
               if (checkAll.confirm()) {
-                this.openModal({
+                this.props.openModal({
                   name: "transfer",
                   data: {
                     callback: async (encryptedKey, password) => {
@@ -287,7 +287,16 @@ const mapStateToProps = (state, props) => {
 const mapDispatchToProps = dispatch => {
   return {
     getAccountUtxos: (address, network) =>
-      dispatch(getAccountUtxos(address, network))
+      dispatch(getAccountUtxos(address, network)),
+    openModal: ({ name, data }) => {
+      dispatch(
+        setModal({
+          name,
+          data,
+          show: true
+        })
+      );
+    }
   };
 };
 
