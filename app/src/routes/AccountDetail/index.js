@@ -56,7 +56,7 @@ class AccountDetail extends Mixin {
         <OperationSwitch {...this.props} />
         {showMenu && (
           <div
-            className={styles.modal}
+            className={styles.modalWrapper}
             onClick={() => {
               this.setState({ showMenu: false, status: "toExportKey" });
             }}
