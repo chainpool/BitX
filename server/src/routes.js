@@ -87,7 +87,7 @@ router.get("/testnet/:address/balance", async ctx => {
 });
 
 router.post("/testnet/balances", async ctx => {
-  const { addrs } = ctx.request.body;
+  const { addrs = [] } = ctx.request.body;
 
   const result = [];
   for (let addr of addrs) {
@@ -103,7 +103,7 @@ router.post("/testnet/balances", async ctx => {
 });
 
 router.post("/mainnet/balances", async ctx => {
-  const { addrs } = ctx.request.body;
+  const { addrs = [] } = ctx.request.body;
 
   const result = [];
   for (let addr of addrs) {
