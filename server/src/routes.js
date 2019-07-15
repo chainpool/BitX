@@ -86,11 +86,44 @@ router.get("/testnet/:address/balance", async ctx => {
   ctx.body = balance;
 });
 
+router.post("/testnet/balances", async ctx => {
+  const { addrs } = ctx.request.body;
+
+  const result = [];
+  for (let addr of addrs) {
+    const response = await fetch(
+      `${bitcoreEndpoint}/api/BTC/testnet/address/${addr}/balance`
+    );
+
+    const balance = await response.json();
+    result.push({ address: addr, balance });
+  }
+
+  ctx.body = result;
+});
+
+router.post("/mainnet/balances", async ctx => {
+  const { addrs } = ctx.request.body;
+
+  const result = [];
+  for (let addr of addrs) {
+    const response = await fetch(
+      `${bitcoreEndpoint}/api/BTC/mainnet/address/${addr}/balance`
+    );
+
+    const balance = await response.json();
+    result.push({ address: addr, balance });
+  }
+
+  ctx.body = result;
+});
+
 module.exports = app => {
   app.use(router.routes()).use(router.allowedMethods({ throw: true }));
 };
 
 let id = 0;
+
 async function submit(raw, network) {
   const obj = {
     id: id++,
