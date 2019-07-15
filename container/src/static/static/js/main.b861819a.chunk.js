@@ -1,39 +1,37 @@
 (window.webpackJsonp = window.webpackJsonp || []).push([
   [0],
   {
-    116: function(e, t, n) {
+    117: function(e, t, n) {
       e.exports = {
         KnowAbout: "KnowAbout_KnowAbout__2632J",
         content: "KnowAbout_content__3ELhE"
       };
     },
-    117: function(e, t, n) {
+    118: function(e, t, n) {
       e.exports = {
         AccountReceive: "AccountReceive_AccountReceive__1lIaP",
         desc: "AccountReceive_desc__3K_de"
       };
     },
-    170: function(e, t, n) {
+    171: function(e, t, n) {
       e.exports = { url: "RouterGo_url__18SS2" };
     },
-    173: function(e, t, n) {
+    174: function(e, t, n) {
       e.exports = n.p + "static/media/Bitx.41fc5ea2.png";
     },
-    175: function(e, t, n) {
+    176: function(e, t, n) {
       e.exports = { CreateAccount: "CreateAccount_CreateAccount__Lrx00" };
     },
-    177: function(e, t, n) {
+    178: function(e, t, n) {
       e.exports = { wrapper: "warning_wrapper__1YjSX" };
     },
-    182: function(e, t, n) {
-      e.exports = n(387);
+    181: function(e, t, n) {
+      e.exports = n(386);
     },
-    188: function(e, t, n) {},
-    216: function(e, t) {},
-    218: function(e, t) {},
-    246: function(e, t) {},
-    249: function(e, t) {},
-    26: function(e, t, n) {
+    187: function(e, t, n) {},
+    215: function(e, t) {},
+    217: function(e, t) {},
+    24: function(e, t, n) {
       e.exports = {
         AccountDetail: "AccountDetail_AccountDetail__zADpZ",
         content: "AccountDetail_content__2gECl",
@@ -47,7 +45,9 @@
         warning: "AccountDetail_warning__2Mlcb"
       };
     },
-    32: function(e, t, n) {
+    245: function(e, t) {},
+    248: function(e, t) {},
+    33: function(e, t, n) {
       e.exports = {
         ImportMnemonic: "ImportMnemonicOrSecret_ImportMnemonic__2krIe",
         desc: "ImportMnemonicOrSecret_desc__26Rhe",
@@ -55,7 +55,7 @@
         errwarn: "ImportMnemonicOrSecret_errwarn__1lpB7"
       };
     },
-    33: function(e, t, n) {
+    34: function(e, t, n) {
       e.exports = {
         AccountList: "AccountList_AccountList__3U8YL",
         listtitle: "AccountList_listtitle__2KiWx",
@@ -68,7 +68,7 @@
         address: "AccountList_address__3tP2j"
       };
     },
-    34: function(e, t, n) {
+    35: function(e, t, n) {
       e.exports = {
         AccountSend: "AccountSend_AccountSend__S9Kg2",
         userInput: "AccountSend_userInput__20k1k",
@@ -81,151 +81,53 @@
         warning: "AccountSend_warning__2Q2PF"
       };
     },
-    35: function(e, t, n) {
-      "use strict";
-      (function(e) {
-        n.d(t, "a", function() {
-          return m;
-        });
-        var a = n(46),
-          r = n.n(a),
-          c = n(112),
-          o = n.n(c),
-          s = n(54),
-          i = n.n(s),
-          u = n(10),
-          l = n.n(u),
-          d = n(77);
-        function p(e) {
-          return e === l.a.networks.bitcoin
-            ? "mainnet"
-            : e === l.a.networks.testnet
-            ? "testnet"
-            : "";
-        }
-        var m = {
-          generateMnemonic: function() {
-            return r.a.generateMnemonic();
-          },
-          generateAccount: function(t) {
-            var n,
-              a = t.name,
-              c = t.mnemonic,
-              s = t.password,
-              u = t.wif,
-              d =
-                arguments.length > 1 && void 0 !== arguments[1]
-                  ? arguments[1]
-                  : l.a.networks.testnet,
-              m = "m/44'/1'/0'/0/0";
-            d === l.a.networks.bitcoin && (m = "m/44'/0'/0'/0/0");
-            var f = { N: 128, r: 8, p: 8 };
-            if (a && c && s) {
-              var h = r.a.mnemonicToSeed(c),
-                v = o.a.fromSeed(h, d).derivePath(m),
-                _ = l.a.payments.p2pkh({ pubkey: v.publicKey, network: d }),
-                E = i.a.encrypt(v.privateKey, !0, s, null, f);
-              n = {
-                name: a,
-                address: _.address,
-                encryptedKey: E,
-                network: p(d)
-              };
-            } else if (a && u && s) {
-              var g;
-              (g = /^(0x)?[\da-zA-Z]{64}$/.test(u)
-                ? l.a.ECPair.fromPrivateKey(e.from(u, "hex"), { network: d })
-                : l.a.ECPair.fromWIF(u, d)),
-                (n = {
-                  name: a,
-                  address: l.a.payments.p2pkh({
-                    pubkey: g.publicKey,
-                    network: d
-                  }).address,
-                  encryptedKey: i.a.encrypt(
-                    g.privateKey,
-                    g.compressed,
-                    s,
-                    null,
-                    f
-                  ),
-                  network: p(d)
-                });
-            }
-            return n;
-          },
-          decrypt: function(e, t) {
-            return i.a.decrypt(e, t, function() {}, { N: 128, r: 8, p: 8 });
-          },
-          decryptPair: function(e, t) {
-            var n =
-                arguments.length > 2 && void 0 !== arguments[2]
-                  ? arguments[2]
-                  : l.a.networks.testnet,
-              a = m.decrypt(e, t);
-            return l.a.ECPair.fromPrivateKey(a.privateKey, {
-              compressed: a.compressed,
-              network: n
-            });
-          },
-          sign: function(e, t, n, a, r, c, o, s) {
-            var i =
-              arguments.length > 8 && void 0 !== arguments[8]
-                ? arguments[8]
-                : "mainnet";
-            i = "mainnet" === i ? l.a.networks.bitcoin : l.a.networks.testnet;
-            var u = m.decryptPair(o, s, i);
-            return Object(d.a)(e, t, n, a, r, c, u, i);
-          }
-        };
-      }.call(this, n(9).Buffer));
-    },
-    385: function(e, t, n) {},
-    387: function(e, t, n) {
+    384: function(e, t, n) {},
+    386: function(e, t, n) {
       "use strict";
       n.r(t);
       var a,
         r = n(0),
         c = n.n(r),
-        o = n(110),
+        o = n(64),
         s = n.n(o),
-        i = n(166),
+        i = n(167),
         u = n.n(i),
-        l = (n(187), n(188), n(3)),
-        d = n(4),
-        p = n(6),
-        m = n(5),
-        f = n(7),
-        h = n(391),
-        v = n(392),
-        _ = n(178),
-        E = n(78),
-        g = n(389),
-        b = n(390),
-        k = n(393),
-        w = n(15),
-        y = "/",
-        O = "/createaccount",
-        A = "/importAccount",
-        N = "/accountdetail",
-        S = n(64),
-        j = n.n(S),
-        M = n(63),
-        C = n(168),
-        x = n.n(C),
-        I = n(115);
+        l = (n(186), n(187), n(390)),
+        d = n(391),
+        m = n(393),
+        p = n(389),
+        f = n(4),
+        h = n(5),
+        v = n(7),
+        E = n(6),
+        _ = n(8),
+        g = n(392),
+        b = n(13),
+        k = {
+          home: "/",
+          createaccount: "/createaccount",
+          importaccount: "/importAccount",
+          accountdetail: "/accountdetail"
+        },
+        w = n(32),
+        y = n(67),
+        A = n.n(y),
+        O = n(65),
+        N = n(169),
+        S = n.n(N),
+        M = n(116);
       window.require && (a = window.require("electron").ipcRenderer);
-      var P = a,
-        T = n(35),
-        B = n(46),
+      var j = a,
+        C = n(47),
+        x = n(46),
+        I = n.n(x),
+        P = n(10),
+        T = n.n(P),
+        B = n(55),
         K = n.n(B),
-        D = n(10),
+        D = n(170),
         U = n.n(D),
-        L = n(54),
-        q = n.n(L),
-        G = n(169),
-        R = n.n(G),
-        F = {
+        L = {
           required: function(e) {
             var t =
               arguments.length > 1 && void 0 !== arguments[1]
@@ -282,27 +184,27 @@
               arguments.length > 1 && void 0 !== arguments[1]
                 ? arguments[1]
                 : "\u5730\u5740\u683c\u5f0f\u9519\u8bef";
-            return R.a.validate(e, "BTC", "test") ? "" : t;
+            return U.a.validate(e, "BTC", "test") ? "" : t;
           },
           isValidMnemonic: function(e) {
             var t =
               arguments.length > 1 && void 0 !== arguments[1]
                 ? arguments[1]
                 : "\u52a9\u8bb0\u8bcd\u683c\u5f0f\u9519\u8bef";
-            return K.a.validateMnemonic(e) ? "" : t;
+            return I.a.validateMnemonic(e) ? "" : t;
           },
           isValidPrivateKey: function(e) {
             var t =
                 arguments.length > 1 && void 0 !== arguments[1]
                   ? arguments[1]
-                  : U.a.networks.testnet,
+                  : T.a.networks.testnet,
               n =
                 arguments.length > 2 && void 0 !== arguments[2]
                   ? arguments[2]
                   : "\u79c1\u94a5\u683c\u5f0f\u9519\u8bef";
             if (/^[\da-zA-Z]{64}$/.test(e)) return "";
             try {
-              return U.a.ECPair.fromWIF(e, t), "";
+              return T.a.ECPair.fromWIF(e, t), "";
             } catch (a) {
               return n;
             }
@@ -313,75 +215,75 @@
                 ? arguments[2]
                 : "\u5bc6\u7801\u9519\u8bef";
             try {
-              q.a.decrypt(e, t, function() {}, { N: 128, r: 8, p: 8 });
+              K.a.decrypt(e, t, function() {}, { N: 128, r: 8, p: 8 });
             } catch (a) {
               return n;
             }
           },
           check: function(e) {
             return function() {
-              if (F[e]) return F[e].apply(F, arguments);
+              if (L[e]) return L[e].apply(L, arguments);
             };
           }
         },
-        V = {
+        R = {
           generateMnemonic: function() {
-            return P ? P.sendSync("GENERATE_MNEMONIC") : T.a.generateMnemonic();
+            return j ? j.sendSync("GENERATE_MNEMONIC") : C.a.generateMnemonic();
           },
           generateAccount: function(e) {
             var t =
               arguments.length > 1 && void 0 !== arguments[1]
                 ? arguments[1]
-                : U.a.networks.testnet;
-            return P
-              ? JSON.parse(P.sendSync("GENERATE_ACCOUNT", e))
-              : T.a.generateAccount(e, t);
+                : T.a.networks.testnet;
+            return j
+              ? JSON.parse(j.sendSync("GENERATE_ACCOUNT", e))
+              : C.a.generateAccount(e, t);
           },
           saveAccount: function(e) {
-            P
-              ? P.send("SAVE_ACCOUNT", JSON.stringify(e))
-              : ae.set("accounts", e);
+            j
+              ? j.send("SAVE_ACCOUNT", JSON.stringify(e))
+              : $.set("accounts", e);
           },
           getAccount: function() {
-            return P
-              ? JSON.parse(P.sendSync("GET_ACCOUNT"))
-              : ae.get("accounts");
+            return j
+              ? JSON.parse(j.sendSync("GET_ACCOUNT"))
+              : $.get("accounts");
           },
           sign: function() {
             for (var e = arguments.length, t = new Array(e), n = 0; n < e; n++)
               t[n] = arguments[n];
-            return P ? P.sendSync("SIGN", t) : T.a.sign.apply(T.a, t);
+            return j ? j.sendSync("SIGN", t) : C.a.sign.apply(C.a, t);
           },
           isValidPassword: function() {
             for (var e = arguments.length, t = new Array(e), n = 0; n < e; n++)
               t[n] = arguments[n];
-            return P
-              ? P.sendSync("IS_VALID_PASSWORD", t)
-              : F.check("isValidPassword").apply(void 0, t);
+            return j
+              ? j.sendSync("IS_VALID_PASSWORD", t)
+              : L.check("isValidPassword").apply(void 0, t);
           },
           update: function() {
-            P && P.send("UPDATE");
+            j && j.send("UPDATE");
           },
           forceUpdate: function() {
-            P && P.send("FORCE_UPDATE");
+            j && j.send("FORCE_UPDATE");
           }
         };
-      P &&
-        (P.on("isForceUpdate", function() {
+      j &&
+        (j.on("isForceUpdate", function() {
           window.confirm(
             "\u5df2\u4e0b\u8f7d\u6700\u65b0\u7248\u672c\uff0c\u662f\u5426\u7acb\u5373\u5b89\u88c5?"
-          ) && V.forceUpdate();
+          ) && R.forceUpdate();
         }),
-        P.on("autoUpdater", function(e, t) {}));
-      var W,
-        H = n(14),
-        X = n.n(H),
-        J = n(23),
-        z = n(25),
-        Q = n(83),
-        Y = n(53),
-        Z = n.n(Y),
-        $ = function(e) {
+        j.on("autoUpdater", function(e, t) {}));
+      var q,
+        G = n(12),
+        F = n.n(G),
+        V = n(22),
+        W = n(26),
+        X = n(85),
+        H = n(54),
+        J = n.n(H),
+        z = function(e) {
           var t = e.url,
             n = e.method,
             a = void 0 === n ? "POST" : n,
@@ -391,7 +293,7 @@
             s = e.body,
             i = e.timeOut,
             u = void 0 === i ? 1e4 : i,
-            l = Object(Q.a)(e, [
+            l = Object(X.a)(e, [
               "url",
               "method",
               "methodAlias",
@@ -399,14 +301,14 @@
               "body",
               "timeOut"
             ]),
-            d = Z()(),
-            p = s
+            d = J()(),
+            m = s
               ? JSON.stringify(s)
               : JSON.stringify({ id: d, jsonrpc: "2.0", method: r, params: o }),
-            m = function() {
+            p = function() {
               return fetch(
                 t,
-                Object(z.a)(
+                Object(W.a)(
                   {
                     method: a,
                     headers: {
@@ -414,16 +316,16 @@
                       "Content-Type": "application/json"
                     }
                   },
-                  "GET" === a.toUpperCase() ? {} : { body: p },
+                  "GET" === a.toUpperCase() ? {} : { body: m },
                   l
                 )
               )
                 .then(
                   (function() {
-                    var e = Object(J.a)(
-                      X.a.mark(function e(t) {
+                    var e = Object(V.a)(
+                      F.a.mark(function e(t) {
                         var n;
-                        return X.a.wrap(function(e) {
+                        return F.a.wrap(function(e) {
                           for (;;)
                             switch ((e.prev = e.next)) {
                               case 0:
@@ -463,39 +365,39 @@
             };
           return u
             ? Promise.race([
-                m(),
+                p(),
                 new Promise(function(e, t) {
                   setTimeout(function() {
                     t("\u8bf7\u6c42\u8d85\u65f6");
                   }, u);
                 })
               ])
-            : m();
+            : p();
         },
-        ee = function(e) {
+        Q = function(e) {
           return isNaN(e) || void 0 === e || "" === e || e === {};
         },
-        te = function(e) {
+        Y = function(e) {
           return "function" === typeof e;
         },
-        ne = function(e) {
+        Z = function(e) {
           return "string" === typeof e;
         },
-        ae = {
+        $ = {
           get: function(e) {
-            return j.a.get(e);
+            return A.a.get(e);
           },
           set: function(e, t) {
-            j.a.set(e, t);
+            A.a.set(e, t);
           },
           remove: function(e) {
-            j.a.remove(e);
+            A.a.remove(e);
           },
           clearAll: function() {
-            j.a.clearAll();
+            A.a.clearAll();
           }
         },
-        re = {
+        ee = {
           toPrecision: function(e) {
             var t =
                 arguments.length > 1 && void 0 !== arguments[1]
@@ -505,30 +407,38 @@
                 arguments.length > 2 && void 0 !== arguments[2] && arguments[2];
             return (
               (t = Number(t)),
-              ee(e) || ee(t) || isNaN(e)
+              Q(e) || Q(t) || isNaN(e)
                 ? ""
                 : n
-                ? new M.BigNumber(e).multipliedBy(Math.pow(10, t)).toFixed(0)
-                : new M.BigNumber(e).dividedBy(Math.pow(10, t)).toFixed(t)
+                ? new O.BigNumber(e).multipliedBy(Math.pow(10, t)).toFixed(0)
+                : new O.BigNumber(e).dividedBy(Math.pow(10, t)).toFixed(t)
             );
           },
           toBtcPrecision: function(e) {
             var t =
               arguments.length > 1 && void 0 !== arguments[1] && arguments[1];
-            return re.toPrecision(e, 8, t);
+            return ee.toPrecision(e, 8, t);
           }
         },
-        ce = function() {
-          return I.a.mobile();
+        te = function(e, t) {
+          return Q(e) ? t : "".concat(e, " ").concat(t);
         },
-        oe = (function(e) {
+        ne = {
+          isMobile: function() {
+            return M.a.mobile();
+          },
+          isDesktop: function() {
+            return M.a.desktop();
+          }
+        },
+        ae = (function(e) {
           function t(e) {
             var n;
             return (
-              Object(l.a)(this, t),
-              ((n = Object(p.a)(
+              Object(f.a)(this, t),
+              ((n = Object(v.a)(
                 this,
-                Object(m.a)(t).call(this, e)
+                Object(E.a)(t).call(this, e)
               )).openModal = function(e) {
                 var t = e.name,
                   a = e.data;
@@ -547,7 +457,7 @@
                   t = arguments.length > 1 ? arguments[1] : void 0;
                 n._isMounted &&
                   n.setState(e, function() {
-                    te(t) && t(e);
+                    Y(t) && t(e);
                   });
               }),
               (n._isMounted = !0),
@@ -555,24 +465,24 @@
             );
           }
           return (
-            Object(f.a)(t, e),
-            Object(d.a)(t, [
+            Object(_.a)(t, e),
+            Object(h.a)(t, [
               {
                 key: "componentDidMount",
                 value: function() {
                   var e = this;
                   this.pageTitle &&
-                    te(this.props.setPageTitle) &&
+                    Y(this.props.setPageTitle) &&
                     this.props.setPageTitle(this.pageTitle),
                     this.state &&
                       this.state.step &&
-                      te(this.props.setGoBack) &&
+                      Y(this.props.setGoBack) &&
                       this.props.setGoBack(function() {
                         e.state.step > 1 && e._isMounted
                           ? e.setState({ step: e.state.step - 1 })
                           : e.props.history && e.props.history.goBack();
                       }),
-                    te(this.startInit) && this.startInit();
+                    Y(this.startInit) && this.startInit();
                 }
               },
               {
@@ -585,20 +495,20 @@
             t
           );
         })(r.Component),
-        se = n(388),
-        ie = n(170),
-        ue =
-          Object(se.a)(
-            (W = (function(e) {
+        re = n(388),
+        ce = n(171),
+        oe =
+          Object(re.a)(
+            (q = (function(e) {
               function t() {
                 return (
-                  Object(l.a)(this, t),
-                  Object(p.a)(this, Object(m.a)(t).apply(this, arguments))
+                  Object(f.a)(this, t),
+                  Object(v.a)(this, Object(E.a)(t).apply(this, arguments))
                 );
               }
               return (
-                Object(f.a)(t, e),
-                Object(d.a)(t, [
+                Object(_.a)(t, e),
+                Object(h.a)(t, [
                   {
                     key: "render",
                     value: function() {
@@ -613,19 +523,19 @@
                         u = (i = void 0 === i ? {} : i).pathname,
                         l = e.className,
                         d = e.isOutSide,
-                        p = void 0 !== d && d,
-                        m = e.onClick,
+                        m = void 0 !== d && d,
+                        p = e.onClick,
                         f = /http/.test(u) ? u : "http://".concat(u);
-                      return p
+                      return m
                         ? c.a.createElement(
                             "a",
                             {
-                              className: ie.url,
+                              className: ce.url,
                               rel: "noopener noreferrer",
                               href: f,
                               target: "_blank",
                               onClick: function(e) {
-                                if (P) {
+                                if (j) {
                                   var t = window.electron.shell;
                                   e.preventDefault(), t.openExternal(f);
                                 }
@@ -643,7 +553,7 @@
                                   if ("number" === typeof e) return n.go(e);
                                   e && n.push(e);
                                 })(s),
-                                  te(m) && m();
+                                  Y(p) && p();
                               }
                             },
                             t
@@ -654,20 +564,20 @@
                 t
               );
             })(r.PureComponent))
-          ) || W,
-        le = n(41),
-        de = n(16),
-        pe = n.n(de),
-        me = (function(e) {
+          ) || q,
+        se = n(41),
+        ie = n(17),
+        ue = n.n(ie),
+        le = (function(e) {
           function t() {
             return (
-              Object(l.a)(this, t),
-              Object(p.a)(this, Object(m.a)(t).apply(this, arguments))
+              Object(f.a)(this, t),
+              Object(v.a)(this, Object(E.a)(t).apply(this, arguments))
             );
           }
           return (
-            Object(f.a)(t, e),
-            Object(d.a)(t, [
+            Object(_.a)(t, e),
+            Object(h.a)(t, [
               {
                 key: "render",
                 value: function() {
@@ -682,8 +592,8 @@
                     u = e.placeholder,
                     l = e.isPassword,
                     d = e.isTextArea,
-                    p = e.className,
-                    m = Object(Q.a)(e, [
+                    m = e.className,
+                    p = Object(X.a)(e, [
                       "label",
                       "errMsg",
                       "value",
@@ -699,18 +609,18 @@
                     f = d ? "textarea" : "input";
                   return c.a.createElement(
                     "div",
-                    { className: le.container },
-                    t && c.a.createElement("div", { className: le.label }, t),
+                    { className: se.container },
+                    t && c.a.createElement("div", { className: se.label }, t),
                     c.a.createElement(
                       "div",
-                      { className: le.content },
+                      { className: se.content },
                       s &&
-                        c.a.createElement("div", { className: le.prefix }, s),
+                        c.a.createElement("div", { className: se.prefix }, s),
                       c.a.createElement(
                         f,
                         Object.assign(
                           {
-                            className: pe()(le.input, p),
+                            className: ue()(se.input, m),
                             type: l ? "password" : "text",
                             placeholder: u,
                             value: a,
@@ -719,12 +629,12 @@
                             },
                             onBlur: o
                           },
-                          m
+                          p
                         )
                       ),
-                      i && c.a.createElement("div", { className: le.suffix }, i)
+                      i && c.a.createElement("div", { className: se.suffix }, i)
                     ),
-                    c.a.createElement("div", { className: le.errMsg }, n)
+                    c.a.createElement("div", { className: se.errMsg }, n)
                   );
                 }
               }
@@ -732,102 +642,63 @@
             t
           );
         })(r.Component),
-        fe = n(172),
-        he = n.n(fe),
-        ve = n(84),
+        de = n(173),
+        me = n.n(de),
+        pe = n(86);
+      function fe(e) {
+        Object(r.useEffect)(function() {
+          var e = new me.a(".clipboard");
+          return function() {
+            e.destroy();
+          };
+        }, []);
+        var t = e.id || J()("clipboard_"),
+          n = e.children,
+          a = e.className,
+          o = e.width;
+        return c.a.createElement(
+          "span",
+          { className: ue()(pe.clipboard, a) },
+          c.a.createElement(
+            "span",
+            {
+              id: t,
+              className: ue()(pe.children, o ? pe.ellipse : null),
+              style: { width: o }
+            },
+            n
+          ),
+          c.a.createElement(
+            _e,
+            { tip: "\u590d\u5236\u6210\u529f", type: "click" },
+            c.a.createElement("i", {
+              className: "clipboard iconfont iconfuzhi",
+              "data-clipboard-target": "#".concat(t),
+              style: { marginLeft: n ? 8 : null, cursor: "pointer" }
+            })
+          )
+        );
+      }
+      var he = n(56),
+        ve = n.n(he),
+        Ee = n(57),
         _e = (function(e) {
           function t() {
             var e, n;
-            Object(l.a)(this, t);
+            Object(f.a)(this, t);
             for (var a = arguments.length, r = new Array(a), c = 0; c < a; c++)
               r[c] = arguments[c];
             return (
-              ((n = Object(p.a)(
+              ((n = Object(v.a)(
                 this,
-                (e = Object(m.a)(t)).call.apply(e, [this].concat(r))
-              )).state = { uid: n.props.id || Z()("clipboard_") }),
+                (e = Object(E.a)(t)).call.apply(e, [this].concat(r))
+              )).state = { uid: J()("tooltip_") }),
               n
             );
           }
           return (
-            Object(f.a)(t, e),
-            Object(d.a)(t, [
-              {
-                key: "componentDidMount",
-                value: function() {
-                  var e = this.props.outInner,
-                    t = void 0 === e ? "" : e;
-                  new he.a(t ? ".outerInner" : ".clipboard");
-                }
-              },
-              {
-                key: "render",
-                value: function() {
-                  var e = this.state.uid,
-                    t = this.props,
-                    n = t.children,
-                    a = t.className,
-                    r = t.width,
-                    o = t.outInner,
-                    s = void 0 === o ? "" : o;
-                  return c.a.createElement(
-                    "span",
-                    { className: pe()(ve.clipboard, a) },
-                    c.a.createElement(
-                      "span",
-                      {
-                        id: e,
-                        className: pe()(ve.children, r ? ve.ellipse : null),
-                        style: { width: r }
-                      },
-                      n
-                    ),
-                    c.a.createElement(
-                      ke,
-                      { tip: "\u590d\u5236\u6210\u529f", type: "click" },
-                      c.a.createElement("i", {
-                        className: "clipboard iconfont iconfuzhi",
-                        "data-clipboard-target": "#".concat(e),
-                        style: { marginLeft: n ? 8 : null, cursor: "pointer" }
-                      }),
-                      s
-                        ? c.a.createElement(
-                            "span",
-                            {
-                              className: "outerInner",
-                              "data-clipboard-target": "#".concat(e)
-                            },
-                            s
-                          )
-                        : null
-                    )
-                  );
-                }
-              }
-            ]),
-            t
-          );
-        })(r.PureComponent),
-        Ee = n(55),
-        ge = n.n(Ee),
-        be = n(56),
-        ke = (function(e) {
-          function t() {
-            var e, n;
-            Object(l.a)(this, t);
-            for (var a = arguments.length, r = new Array(a), c = 0; c < a; c++)
-              r[c] = arguments[c];
-            return (
-              ((n = Object(p.a)(
-                this,
-                (e = Object(m.a)(t)).call.apply(e, [this].concat(r))
-              )).state = { uid: Z()("tooltip_") }),
-              n
-            );
-          }
-          return (
-            Object(f.a)(t, e),
-            Object(d.a)(t, [
+            Object(_.a)(t, e),
+            Object(h.a)(t, [
               {
                 key: "render",
                 value: function() {
@@ -842,8 +713,8 @@
                     u = void 0 === i ? "middle" : i,
                     l = n.offset,
                     d = void 0 === l ? {} : l,
-                    p = n.place,
-                    m = void 0 === p ? "bottom" : p,
+                    m = n.place,
+                    p = void 0 === m ? "bottom" : m,
                     f = n.tip,
                     h = void 0 === f ? "tooltip\u63d0\u793a" : f;
                   return c.a.createElement(
@@ -855,18 +726,18 @@
                           null,
                           c.a.createElement(
                             "span",
-                            { "data-for": t, "data-tip": h, className: be.tip },
+                            { "data-for": t, "data-tip": h, className: Ee.tip },
                             a
                           ),
                           c.a.createElement(
-                            ge.a,
+                            ve.a,
                             {
                               effect: "solid",
                               offset: d,
                               multiline: !0,
                               id: t,
-                              place: m,
-                              className: pe()(be.tool, be[u])
+                              place: p,
+                              className: ue()(Ee.tool, Ee[u])
                             },
                             h
                           )
@@ -876,36 +747,36 @@
                           null,
                           c.a.createElement(
                             "span",
-                            { id: t, "data-tip": h, className: be.tip },
+                            { id: t, "data-tip": h, className: Ee.tip },
                             c.a.createElement(
                               "span",
                               {
                                 onClick: function(n) {
                                   n.stopPropagation(),
-                                    r && te(r)
+                                    r && Y(r)
                                       ? r(function(n) {
                                           n &&
                                             e.setState({ tip: n }, function() {
-                                              ge.a.show(
+                                              ve.a.show(
                                                 document.getElementById(t)
                                               );
                                             });
                                         })
-                                      : ge.a.show(document.getElementById(t));
+                                      : ve.a.show(document.getElementById(t));
                                 }
                               },
                               a
                             )
                           ),
-                          c.a.createElement(ge.a, {
-                            className: be.content,
+                          c.a.createElement(ve.a, {
+                            className: Ee.content,
                             event: "none",
                             effect: "solid",
                             isCapture: !0,
                             delayShow: 150,
                             afterShow: function() {
                               setTimeout(function() {
-                                ge.a.hide(document.getElementById(t));
+                                ve.a.hide(document.getElementById(t));
                               }, 500);
                             }
                           })
@@ -917,116 +788,31 @@
             t
           );
         })(r.PureComponent),
-        we = n(47),
-        ye = "https://api.chainx.org/bitx/txs";
-      function Oe(e) {
-        return Ae.apply(this, arguments);
+        ge = n(48),
+        be = "https://api.chainx.org/bitx/txs";
+      function ke(e) {
+        return we.apply(this, arguments);
       }
-      function Ae() {
-        return (Ae = Object(J.a)(
-          X.a.mark(function e(t) {
-            var n,
-              a = arguments;
-            return X.a.wrap(function(e) {
-              for (;;)
-                switch ((e.prev = e.next)) {
-                  case 0:
-                    return (
-                      (n = a.length > 1 && void 0 !== a[1] ? a[1] : "testnet"),
-                      e.abrupt(
-                        "return",
-                        window
-                          .fetch(
-                            "https://api.blockcypher.com/v1/btc/"
-                              .concat(
-                                "mainnet" === n ? "main" : "test3",
-                                "/addrs/"
-                              )
-                              .concat(t, "/balance")
-                          )
-                          .then(function(e) {
-                            return e.json();
-                          })
-                          .then(function(e) {
-                            return {
-                              balance: e.final_balance,
-                              confirmed: e.balance,
-                              unconfirmed: e.unconfirmed_balance
-                            };
-                          })
-                      )
-                    );
-                  case 2:
-                  case "end":
-                    return e.stop();
-                }
-            }, e);
-          })
-        )).apply(this, arguments);
-      }
-      function Ne() {
-        return (Ne = Object(J.a)(
-          X.a.mark(function e(t) {
-            var n,
-              a = arguments;
-            return X.a.wrap(function(e) {
-              for (;;)
-                switch ((e.prev = e.next)) {
-                  case 0:
-                    return (
-                      (n = a.length > 1 && void 0 !== a[1] ? a[1] : "testnet"),
-                      e.abrupt(
-                        "return",
-                        window
-                          .fetch(
-                            "https://api.blockcypher.com/v1/btc/"
-                              .concat(
-                                "mainnet" === n ? "main" : "test3",
-                                "/addrs/"
-                              )
-                              .concat(t, "?unspentOnly=true&confirmations=1")
-                          )
-                          .then(function(e) {
-                            return e.json();
-                          })
-                          .then(function(e) {
-                            return (e.txrefs || []).map(function(e) {
-                              return {
-                                mintTxid: e.tx_hash,
-                                mintIndex: e.tx_output_n,
-                                value: e.value
-                              };
-                            });
-                          })
-                      )
-                    );
-                  case 2:
-                  case "end":
-                    return e.stop();
-                }
-            }, e);
-          })
-        )).apply(this, arguments);
-      }
-      function Se(e) {
-        return je.apply(this, arguments);
-      }
-      function je() {
-        return (je = Object(J.a)(
-          X.a.mark(function e(t) {
+      function we() {
+        return (we = Object(V.a)(
+          F.a.mark(function e(t) {
             var n,
               a,
               r = arguments;
-            return X.a.wrap(function(e) {
+            return F.a.wrap(function(e) {
               for (;;)
                 switch ((e.prev = e.next)) {
                   case 0:
                     return (
                       (n = r.length > 1 && void 0 !== r[1] ? r[1] : "testnet"),
-                      (a = { raw: t, network: n }),
+                      (a = "https://api.chainx.org.cn/bitx/"
+                        .concat(n, "/")
+                        .concat(t, "/balance")),
                       e.abrupt(
                         "return",
-                        $({ url: ye, method: "POST", body: a })
+                        window.fetch(a).then(function(e) {
+                          return e.json();
+                        })
                       )
                     );
                   case 3:
@@ -1037,51 +823,156 @@
           })
         )).apply(this, arguments);
       }
-      var Me = function(e) {
+      function ye(e) {
+        return Ae.apply(this, arguments);
+      }
+      function Ae() {
+        return (Ae = Object(V.a)(
+          F.a.mark(function e(t) {
+            var n,
+              a,
+              r = arguments;
+            return F.a.wrap(function(e) {
+              for (;;)
+                switch ((e.prev = e.next)) {
+                  case 0:
+                    return (
+                      (n = r.length > 1 && void 0 !== r[1] ? r[1] : "testnet"),
+                      (a = "https://api.chainx.org.cn/bitx/"
+                        .concat(n, "/")
+                        .concat(t, "/utxos")),
+                      e.abrupt(
+                        "return",
+                        window.fetch(a).then(function(e) {
+                          return e.json();
+                        })
+                      )
+                    );
+                  case 3:
+                  case "end":
+                    return e.stop();
+                }
+            }, e);
+          })
+        )).apply(this, arguments);
+      }
+      function Oe(e) {
+        return Ne.apply(this, arguments);
+      }
+      function Ne() {
+        return (Ne = Object(V.a)(
+          F.a.mark(function e(t) {
+            var n,
+              a,
+              r = arguments;
+            return F.a.wrap(function(e) {
+              for (;;)
+                switch ((e.prev = e.next)) {
+                  case 0:
+                    return (
+                      (n = r.length > 1 && void 0 !== r[1] ? r[1] : "testnet"),
+                      (a = { raw: t, network: n }),
+                      e.abrupt(
+                        "return",
+                        z({ url: be, method: "POST", body: a })
+                      )
+                    );
+                  case 3:
+                  case "end":
+                    return e.stop();
+                }
+            }, e);
+          })
+        )).apply(this, arguments);
+      }
+      var Se = function(e) {
           return { type: "UPDATE_ACCOUNT_BALANCE", account: e };
         },
-        Ce = function(e) {
+        Me = function(e) {
           return {
             type: "SET_Modal",
             modal: { name: e.name, show: e.show, data: e.data }
           };
         },
-        xe = function(e) {
-          var t =
-            arguments.length > 1 && void 0 !== arguments[1]
-              ? arguments[1]
-              : "testnet";
-          return function() {
-            return (function(e) {
-              return Ne.apply(this, arguments);
-            })(e, t);
-          };
+        je = function() {
+          return (function() {
+            var e = Object(V.a)(
+              F.a.mark(function e(t, n) {
+                var a, r, c, o, s, i, u;
+                return F.a.wrap(
+                  function(e) {
+                    for (;;)
+                      switch ((e.prev = e.next)) {
+                        case 0:
+                          for (
+                            a = n(),
+                              r = a.accounts,
+                              c = !0,
+                              o = !1,
+                              s = void 0,
+                              e.prev = 4,
+                              i = r[Symbol.iterator]();
+                            !(c = (u = i.next()).done);
+                            c = !0
+                          )
+                            Ce(u.value, t);
+                          e.next = 12;
+                          break;
+                        case 8:
+                          (e.prev = 8),
+                            (e.t0 = e.catch(4)),
+                            (o = !0),
+                            (s = e.t0);
+                        case 12:
+                          (e.prev = 12),
+                            (e.prev = 13),
+                            c || null == i.return || i.return();
+                        case 15:
+                          if (((e.prev = 15), !o)) {
+                            e.next = 18;
+                            break;
+                          }
+                          throw s;
+                        case 18:
+                          return e.finish(15);
+                        case 19:
+                          return e.finish(12);
+                        case 20:
+                        case "end":
+                          return e.stop();
+                      }
+                  },
+                  e,
+                  null,
+                  [[4, 8, 12, 20], [13, , 15, 19]]
+                );
+              })
+            );
+            return function(t, n) {
+              return e.apply(this, arguments);
+            };
+          })();
         };
-      function Ie(e, t) {
-        return Pe.apply(this, arguments);
+      function Ce(e, t) {
+        return xe.apply(this, arguments);
       }
-      function Pe() {
-        return (Pe = Object(J.a)(
-          X.a.mark(function e(t, n) {
-            return X.a.wrap(function(e) {
+      function xe() {
+        return (xe = Object(V.a)(
+          F.a.mark(function e(t, n) {
+            return F.a.wrap(function(e) {
               for (;;)
                 switch ((e.prev = e.next)) {
                   case 0:
-                    return e.abrupt(
-                      "return",
-                      new Promise(function(e) {
-                        Oe(t.address, t.network || "testnet").then(function() {
-                          var a =
-                              arguments.length > 0 && void 0 !== arguments[0]
-                                ? arguments[0]
-                                : {},
-                            r = Object(z.a)({}, t, a, {
-                              balanceShow: re.toBtcPrecision(a.confirmed)
-                            });
-                          n(Me(r)), setTimeout(e, 500);
+                    ke(t.address, t.network || "testnet").then(function() {
+                      var e =
+                          arguments.length > 0 && void 0 !== arguments[0]
+                            ? arguments[0]
+                            : {},
+                        a = Object(W.a)({}, t, e, {
+                          balanceShow: ee.toBtcPrecision(e.confirmed)
                         });
-                      })
-                    );
+                      n(Se(a));
+                    });
                   case 1:
                   case "end":
                     return e.stop();
@@ -1090,398 +981,306 @@
           })
         )).apply(this, arguments);
       }
-      var Te = (function(e) {
-          function t() {
-            return (
-              Object(l.a)(this, t),
-              Object(p.a)(this, Object(m.a)(t).apply(this, arguments))
-            );
-          }
+      var Ie = function(e) {
+        return { type: "SET_NETWORK", network: e };
+      };
+      var Pe = function(e) {
+          var t = e.title,
+            n = e.children,
+            a = e.className,
+            r = e.closeCb,
+            o = (
+              Object(b.d)(function(e) {
+                return e.modal;
+              }) || {}
+            ).show,
+            s = Object(b.c)();
           return (
-            Object(f.a)(t, e),
-            Object(d.a)(t, [
+            o &&
+            c.a.createElement(
+              "div",
               {
-                key: "render",
-                value: function() {
-                  var e = this.props,
-                    t = e.title,
-                    n = e.setModal,
-                    a = e.modal,
-                    r = (a = void 0 === a ? {} : a).show,
-                    o = e.children,
-                    s = e.className,
-                    i = e.closeCb;
-                  return (
-                    r &&
-                    c.a.createElement(
-                      "div",
-                      {
-                        className: pe()(
-                          we.Modalcontainer,
-                          ce() ? we.rootModalMobile : we.rootModalDesktop
-                        ),
-                        id: "rootModal"
-                      },
-                      c.a.createElement(
-                        "div",
-                        { className: pe()(we.content, s) },
-                        t &&
-                          c.a.createElement(
-                            "div",
-                            {
-                              className: we.header,
-                              onClick: function() {
-                                i && i(), n(!1);
-                              }
-                            },
-                            c.a.createElement(
-                              "div",
-                              { className: we.title },
-                              t
-                            ),
-                            c.a.createElement("i", {
-                              className: "iconfont iconClose"
-                            })
-                          ),
-                        o
-                      )
-                    )
-                  );
-                }
-              }
-            ]),
-            t
-          );
-        })(r.Component),
-        Be = Object(w.b)(
-          function(e) {
-            return { modal: e.modal };
-          },
-          function(e) {
-            return {
-              setModal: function(t) {
-                return e(Ce({ show: t }));
-              }
-            };
-          }
-        )(Te),
-        Ke = n(173),
-        De = n.n(Ke),
-        Ue = n(48),
-        Le = (function(e) {
-          function t() {
-            var e, n;
-            Object(l.a)(this, t);
-            for (var a = arguments.length, r = new Array(a), c = 0; c < a; c++)
-              r[c] = arguments[c];
-            return (
-              ((n = Object(p.a)(
-                this,
-                (e = Object(m.a)(t)).call.apply(e, [this].concat(r))
-              )).state = { isCreate: !0, openNetworkSelection: !1 }),
-              n
-            );
-          }
-          return (
-            Object(f.a)(t, e),
-            Object(d.a)(t, [
-              {
-                key: "render",
-                value: function() {
-                  var e = this,
-                    t = this.props,
-                    n = t.changeClose,
-                    a = t.accounts,
-                    r = void 0 === a ? [] : a,
-                    o = t.setNetwork,
-                    s = this.state,
-                    i = s.isCreate,
-                    u = s.openNetworkSelection;
-                  return c.a.createElement(
+                className: ue()(
+                  ge.Modalcontainer,
+                  ne.isMobile() ? ge.rootModalMobile : ge.rootModalDesktop
+                ),
+                id: "rootModal"
+              },
+              c.a.createElement(
+                "div",
+                { className: ue()(ge.content, a) },
+                t &&
+                  c.a.createElement(
                     "div",
-                    { className: Ue.SelectModeGetAccount },
-                    r.length
-                      ? c.a.createElement(
-                          "div",
-                          { className: Ue.close, onClick: n },
-                          c.a.createElement("i", {
-                            className: "iconfont iconClose",
-                            style: { cursor: "pointer" }
-                          })
-                        )
-                      : null,
-                    c.a.createElement(
-                      "div",
-                      { className: Ue.bitx },
-                      c.a.createElement("img", {
-                        alt: "",
-                        src: De.a,
-                        height: 55
-                      })
-                    ),
-                    c.a.createElement(
-                      "div",
-                      { className: Ue.routerbutton },
-                      c.a.createElement(
-                        "div",
-                        null,
-                        c.a.createElement(
-                          "button",
-                          {
-                            onClick: function() {
-                              return e.setState({
-                                isCreate: !0,
-                                openNetworkSelection: !0
-                              });
-                            }
-                          },
-                          "\u521b\u5efa\u8d26\u6237"
-                        )
-                      ),
-                      c.a.createElement(
-                        "div",
-                        null,
-                        c.a.createElement(
-                          "button",
-                          {
-                            onClick: function() {
-                              return e.setState({
-                                isCreate: !1,
-                                openNetworkSelection: !0
-                              });
-                            }
-                          },
-                          "\u5bfc\u5165\u8d26\u6237"
-                        )
-                      )
-                    ),
-                    u
-                      ? c.a.createElement(
-                          "section",
-                          {
-                            className: Ue.networkSelection,
-                            onClick: function() {
-                              return e.setState({ openNetworkSelection: !1 });
-                            }
-                          },
-                          c.a.createElement(
-                            "main",
-                            {
-                              onClick: function(e) {
-                                return e.stopPropagation();
-                              }
-                            },
-                            c.a.createElement(
-                              "header",
-                              null,
-                              c.a.createElement(
-                                "h3",
-                                null,
-                                "\u9009\u62e9\u7f51\u7edc"
-                              ),
-                              c.a.createElement(
-                                "span",
-                                {
-                                  onClick: function() {
-                                    return e.setState({
-                                      openNetworkSelection: !1
-                                    });
-                                  }
-                                },
-                                c.a.createElement("i", {
-                                  className: "iconfont iconClose",
-                                  style: { cursor: "pointer" }
-                                })
-                              )
-                            ),
-                            c.a.createElement(
-                              "div",
-                              null,
-                              c.a.createElement(
-                                ue,
-                                {
-                                  onClick: function() {
-                                    return o("mainnet");
-                                  },
-                                  go: { pathname: i ? O : A }
-                                },
-                                "\u4e3b\u7f51"
-                              ),
-                              c.a.createElement("div", {
-                                className: Ue.separator
-                              }),
-                              c.a.createElement(
-                                ue,
-                                {
-                                  onClick: function() {
-                                    return o("testnet");
-                                  },
-                                  go: { pathname: i ? O : A }
-                                },
-                                "\u6d4b\u8bd5\u7f51"
-                              )
-                            )
-                          )
-                        )
-                      : null
-                  );
-                }
-              }
-            ]),
-            t
+                    {
+                      className: ge.header,
+                      onClick: function() {
+                        r && r(), s(Me({ show: !1 }));
+                      }
+                    },
+                    c.a.createElement("div", { className: ge.title }, t),
+                    c.a.createElement("i", { className: "iconfont iconClose" })
+                  ),
+                n
+              )
+            )
           );
-        })(r.Component),
-        qe = Object(w.b)(null, function(e) {
-          return {
-            setNetwork: function(t) {
-              return e(
-                (function(e) {
-                  return { type: "SET_NETWORK", network: e };
-                })(t)
-              );
-            }
-          };
-        })(Le),
-        Ge = n(33),
-        Re = (function(e) {
-          function t(e) {
-            var n;
-            Object(l.a)(this, t),
-              ((n = Object(p.a)(this, Object(m.a)(t).call(this, e))).pageTitle =
-                "BitX"),
-              (n.startInit = function() {}),
-              (n.changeClose = function() {
-                n.setState(function(e) {
-                  return { close: !e.close };
-                });
-              });
-            var a = e.accounts,
-              r = void 0 === a ? [] : a;
-            return (n.state = { close: !!r.length }), n;
-          }
-          return (
-            Object(f.a)(t, e),
-            Object(d.a)(t, [
-              {
-                key: "render",
-                value: function() {
-                  var e = this.changeClose,
-                    t = this.state.close,
-                    n = this.props.accounts,
-                    a = void 0 === n ? [] : n;
-                  return c.a.createElement(
-                    "div",
-                    { className: Ge.AccountList },
+        },
+        Te = n(174),
+        Be = n.n(Te),
+        Ke = n(49);
+      var De = function(e) {
+          var t = Object(r.useState)(!0),
+            n = Object(w.a)(t, 2),
+            a = n[0],
+            o = n[1],
+            s = Object(r.useState)(!1),
+            i = Object(w.a)(s, 2),
+            u = i[0],
+            l = i[1],
+            d = Object(b.c)(),
+            m = e.changeClose,
+            p = e.accounts,
+            f = void 0 === p ? [] : p;
+          return c.a.createElement(
+            "div",
+            { className: Ke.SelectModeGetAccount },
+            f.length
+              ? c.a.createElement(
+                  "div",
+                  { className: Ke.close, onClick: m },
+                  c.a.createElement("i", {
+                    className: "iconfont iconClose",
+                    style: { cursor: "pointer" }
+                  })
+                )
+              : null,
+            c.a.createElement(
+              "div",
+              { className: Ke.bitx },
+              c.a.createElement("img", { alt: "", src: Be.a, height: 55 })
+            ),
+            c.a.createElement(
+              "div",
+              { className: Ke.routerbutton },
+              c.a.createElement(
+                "div",
+                null,
+                c.a.createElement(
+                  "button",
+                  {
+                    onClick: function() {
+                      o(!0), l(!0);
+                    }
+                  },
+                  "\u521b\u5efa\u8d26\u6237"
+                )
+              ),
+              c.a.createElement(
+                "div",
+                null,
+                c.a.createElement(
+                  "button",
+                  {
+                    onClick: function() {
+                      o(!1), l(!0);
+                    }
+                  },
+                  "\u5bfc\u5165\u8d26\u6237"
+                )
+              )
+            ),
+            u
+              ? c.a.createElement(
+                  "section",
+                  {
+                    className: Ke.networkSelection,
+                    onClick: function() {
+                      return l(!1);
+                    }
+                  },
+                  c.a.createElement(
+                    "main",
+                    {
+                      onClick: function(e) {
+                        return e.stopPropagation();
+                      }
+                    },
                     c.a.createElement(
-                      "div",
-                      { className: Ge.listtitle },
+                      "header",
+                      null,
+                      c.a.createElement("h3", null, "\u9009\u62e9\u7f51\u7edc"),
                       c.a.createElement(
-                        "div",
-                        null,
-                        "\u8d26\u6237\u5217\u8868"
-                      ),
-                      c.a.createElement(
-                        "div",
-                        { onClick: e },
+                        "span",
+                        {
+                          onClick: function() {
+                            return l(!1);
+                          }
+                        },
                         c.a.createElement("i", {
-                          className: "iconfont iconadd",
+                          className: "iconfont iconClose",
                           style: { cursor: "pointer" }
                         })
                       )
                     ),
                     c.a.createElement(
-                      "ul",
+                      "div",
                       null,
-                      a.map(function(e, t) {
-                        return c.a.createElement(
-                          ue,
-                          {
-                            key: t,
-                            Ele: "li",
-                            go: {
-                              pathname: N,
-                              search: "?address=".concat(e.address)
-                            }
+                      c.a.createElement(
+                        oe,
+                        {
+                          onClick: function() {
+                            return d(Ie("mainnet"));
                           },
-                          c.a.createElement("div", { className: Ge.seperate }),
-                          c.a.createElement(
-                            "div",
-                            { className: Ge.desc },
-                            c.a.createElement(
-                              "div",
-                              { className: Ge.title },
-                              c.a.createElement(
-                                "span",
-                                { className: Ge.name },
-                                e.name
-                              ),
-                              "mainnet" !== e.network
-                                ? c.a.createElement(
-                                    "span",
-                                    { className: Ge.badge },
-                                    "\u6d4b\u8bd5\u7f51"
-                                  )
-                                : null
-                            ),
-                            c.a.createElement(
-                              "div",
-                              { className: Ge.amount },
-                              ((n = e.balanceShow),
-                              (a = "BTC"),
-                              ee(n) ? a : "".concat(n, " ").concat(a))
-                            )
-                          ),
-                          c.a.createElement(
-                            "div",
-                            { className: Ge.address },
-                            e.address
-                          )
-                        );
-                        var n, a;
-                      })
-                    ),
-                    t
-                      ? null
-                      : c.a.createElement(
-                          qe,
-                          Object.assign({}, this.props, { changeClose: e })
-                        )
-                  );
-                }
-              }
-            ]),
-            t
+                          go: {
+                            pathname: a ? k.createaccount : k.importaccount
+                          }
+                        },
+                        "\u4e3b\u7f51"
+                      ),
+                      c.a.createElement("div", { className: Ke.separator }),
+                      c.a.createElement(
+                        oe,
+                        {
+                          onClick: function() {
+                            return d(Ie("testnet"));
+                          },
+                          go: {
+                            pathname: a ? k.createaccount : k.importaccount
+                          }
+                        },
+                        "\u6d4b\u8bd5\u7f51"
+                      )
+                    )
+                  )
+                )
+              : null
           );
-        })(oe),
-        Fe = n(116),
-        Ve = (function(e) {
+        },
+        Ue = n(34);
+      var Le = function(e) {
+          var t = Object(r.useState)((e.accounts || []).length > 0),
+            n = Object(w.a)(t, 2),
+            a = n[0],
+            o = n[1],
+            s = Object(b.c)();
+          return (
+            Object(r.useEffect)(function() {
+              e.setPageTitle("BitX");
+            }, []),
+            Object(r.useEffect)(function() {
+              s(je());
+            }, []),
+            c.a.createElement(
+              "div",
+              { className: Ue.AccountList },
+              c.a.createElement(
+                "div",
+                { className: Ue.listtitle },
+                c.a.createElement("div", null, "\u8d26\u6237\u5217\u8868"),
+                c.a.createElement(
+                  "div",
+                  {
+                    onClick: function() {
+                      return o(!a);
+                    }
+                  },
+                  c.a.createElement("i", {
+                    className: "iconfont iconadd",
+                    style: { cursor: "pointer" }
+                  })
+                )
+              ),
+              c.a.createElement(
+                "ul",
+                null,
+                (e.accounts || []).map(function(e, t) {
+                  return c.a.createElement(
+                    oe,
+                    {
+                      key: t,
+                      Ele: "li",
+                      go: {
+                        pathname: k.accountdetail,
+                        search: "?address=".concat(e.address)
+                      }
+                    },
+                    c.a.createElement("div", { className: Ue.seperate }),
+                    c.a.createElement(
+                      "div",
+                      { className: Ue.desc },
+                      c.a.createElement(
+                        "div",
+                        { className: Ue.title },
+                        c.a.createElement(
+                          "span",
+                          { className: Ue.name },
+                          e.name
+                        ),
+                        "mainnet" !== e.network
+                          ? c.a.createElement(
+                              "span",
+                              { className: Ue.badge },
+                              "\u6d4b\u8bd5\u7f51"
+                            )
+                          : null
+                      ),
+                      c.a.createElement(
+                        "div",
+                        { className: Ue.amount },
+                        te(e.balanceShow, "BTC")
+                      )
+                    ),
+                    c.a.createElement(
+                      "div",
+                      { className: Ue.address },
+                      e.address
+                    )
+                  );
+                })
+              ),
+              a
+                ? null
+                : c.a.createElement(
+                    De,
+                    Object.assign({}, e, {
+                      changeClose: function() {
+                        o(!a);
+                      }
+                    })
+                  )
+            )
+          );
+        },
+        Re = n(117),
+        qe = (function(e) {
           function t() {
             var e, n;
-            Object(l.a)(this, t);
+            Object(f.a)(this, t);
             for (var a = arguments.length, r = new Array(a), c = 0; c < a; c++)
               r[c] = arguments[c];
             return (
-              ((n = Object(p.a)(
+              ((n = Object(v.a)(
                 this,
-                (e = Object(m.a)(t)).call.apply(e, [this].concat(r))
+                (e = Object(E.a)(t)).call.apply(e, [this].concat(r))
               )).pageTitle = "\u5907\u4efd\u52a9\u8bb0\u8bcd"),
               n
             );
           }
           return (
-            Object(f.a)(t, e),
-            Object(d.a)(t, [
+            Object(_.a)(t, e),
+            Object(h.a)(t, [
               {
                 key: "render",
                 value: function() {
                   var e = this.props.changeStep;
                   return c.a.createElement(
                     "div",
-                    { className: Fe.KnowAbout },
+                    { className: Re.KnowAbout },
                     c.a.createElement("i", { className: "iconfont iconsuo" }),
                     c.a.createElement(
                       "div",
-                      { className: Fe.content },
+                      { className: Re.content },
                       "\u5728BitX\u4e0a\u751f\u6210\u6216\u5bfc\u5165\u7684\u52a9\u8bb0\u8bcd\u548c\u79c1\u94a5",
                       c.a.createElement("br", null),
                       "\u7531\u7528\u6237\u81ea\u5df1\u4fdd\u7ba1\uff01\u5e73\u53f0\u65b9\u5e76\u65e0\u5907\u4efd"
@@ -1501,18 +1300,18 @@
             ]),
             t
           );
-        })(oe),
-        We = n(85),
-        He = (function(e) {
+        })(ae),
+        Ge = n(87),
+        Fe = (function(e) {
           function t() {
             return (
-              Object(l.a)(this, t),
-              Object(p.a)(this, Object(m.a)(t).apply(this, arguments))
+              Object(f.a)(this, t),
+              Object(v.a)(this, Object(E.a)(t).apply(this, arguments))
             );
           }
           return (
-            Object(f.a)(t, e),
-            Object(d.a)(t, [
+            Object(_.a)(t, e),
+            Object(h.a)(t, [
               {
                 key: "render",
                 value: function() {
@@ -1521,17 +1320,17 @@
                     n = e.changeStep;
                   return c.a.createElement(
                     "div",
-                    { className: We.SaveMnemonic },
+                    { className: Ge.SaveMnemonic },
                     c.a.createElement(
                       "div",
-                      { className: We.desc },
+                      { className: Ge.desc },
                       "\u8bf7\u5c06\u4ee5\u4e0b12\u4e2a\u5355\u8bcd\u8bb0\u5728\u7eb8\u4e0a",
                       c.a.createElement("br", null),
                       "\u6211\u4eec\u4f1a\u5728\u4e4b\u540e\u8fdb\u884c\u9a8c\u8bc1"
                     ),
                     c.a.createElement(
                       "div",
-                      { className: We.generatewords },
+                      { className: Ge.generatewords },
                       t
                     ),
                     c.a.createElement(
@@ -1549,21 +1348,21 @@
             ]),
             t
           );
-        })(oe),
-        Xe = n(42),
-        Je = (function(e) {
+        })(ae),
+        Ve = n(42),
+        We = (function(e) {
           function t(e) {
             var n;
-            Object(l.a)(this, t),
-              ((n = Object(p.a)(
+            Object(f.a)(this, t),
+              ((n = Object(v.a)(
                 this,
-                Object(m.a)(t).call(this, e)
+                Object(E.a)(t).call(this, e)
               )).checkAll = {
                 checkUserInput: function() {
                   var e = n.state.userInput,
                     t = void 0 === e ? [] : e,
                     a = n.props.mnemonic,
-                    r = F.check("strictEqual")(
+                    r = L.check("strictEqual")(
                       t
                         .map(function() {
                           return (arguments.length > 0 &&
@@ -1595,8 +1394,8 @@
             );
           }
           return (
-            Object(f.a)(t, e),
-            Object(d.a)(t, [
+            Object(_.a)(t, e),
+            Object(h.a)(t, [
               {
                 key: "render",
                 value: function() {
@@ -1614,15 +1413,15 @@
                     };
                   return c.a.createElement(
                     "div",
-                    { className: Xe.CheckMnemonic },
+                    { className: Ve.CheckMnemonic },
                     c.a.createElement(
                       "div",
-                      { className: Xe.desc },
+                      { className: Ve.desc },
                       "\u9a8c\u8bc1\u60a8\u8bb0\u4e0b\u7684\u52a9\u8bb0\u8bcd"
                     ),
                     c.a.createElement(
                       "div",
-                      { className: Xe.generatewords },
+                      { className: Ve.generatewords },
                       a
                         .map(function() {
                           return (arguments.length > 0 &&
@@ -1635,17 +1434,17 @@
                     ),
                     c.a.createElement(
                       "div",
-                      { className: pe()(Xe.writedesc, r && Xe.warn) },
+                      { className: ue()(Ve.writedesc, r && Ve.warn) },
                       "\u8bf7\u6309\u6b63\u786e\u7684\u987a\u5e8f\u70b9\u51fb\u5355\u8bcd"
                     ),
                     c.a.createElement(
                       "ul",
-                      { className: Xe.allwords },
+                      { className: Ve.allwords },
                       o.map(function(t, n) {
                         return c.a.createElement(
                           "li",
                           {
-                            className: -1 !== i(n) ? Xe.active : null,
+                            className: -1 !== i(n) ? Ve.active : null,
                             key: n,
                             onClick: function() {
                               e.setState({ userInputErrMsg: "" }),
@@ -1686,20 +1485,20 @@
             ]),
             t
           );
-        })(oe),
-        ze = n(65),
-        Qe = n(174),
-        Ye = n.n(Qe),
-        Ze = (function(e) {
+        })(ae),
+        Xe = n(68),
+        He = n(175),
+        Je = n.n(He),
+        ze = (function(e) {
           function t() {
             var e, n;
-            Object(l.a)(this, t);
+            Object(f.a)(this, t);
             for (var a = arguments.length, r = new Array(a), c = 0; c < a; c++)
               r[c] = arguments[c];
             return (
-              ((n = Object(p.a)(
+              ((n = Object(v.a)(
                 this,
-                (e = Object(m.a)(t)).call.apply(e, [this].concat(r))
+                (e = Object(E.a)(t)).call.apply(e, [this].concat(r))
               )).pageTitle = "\u8bbe\u7f6e\u5bc6\u7801"),
               (n.state = {
                 name: "",
@@ -1712,17 +1511,17 @@
               (n.checkAll = {
                 checkName: function() {
                   var e = n.state.name,
-                    t = F.check("required")(e);
+                    t = L.check("required")(e);
                   return n.setState({ nameErrMsg: t }), t;
                 },
                 checkPassword: function() {
                   var e = n.state.password,
                     t =
-                      F.check("required")(e) ||
-                      F.check("characterLength")(e, 8) ||
+                      L.check("required")(e) ||
+                      L.check("characterLength")(e, 8) ||
                       n.checkAll.checkEqual();
                   if ((n.setState({ passwordErrMsg: t }), t)) return !0;
-                  var a = new Ye.a()
+                  var a = new Je.a()
                     .has()
                     .uppercase()
                     .has()
@@ -1750,7 +1549,7 @@
                 },
                 checkConfirmPassword: function() {
                   var e = n.state.confirmPassword,
-                    t = F.check("required")(e) || n.checkAll.checkEqual();
+                    t = L.check("required")(e) || n.checkAll.checkEqual();
                   return n.setState({ confirmPasswordErrMsg: t }), t;
                 },
                 checkEqual: function() {
@@ -1758,7 +1557,7 @@
                     t = e.password,
                     a = e.confirmPassword;
                   if (t && a) {
-                    var r = F.check("equal")(t, a);
+                    var r = L.check("equal")(t, a);
                     return (
                       n.setState({
                         passwordErrMsg: r,
@@ -1782,8 +1581,8 @@
             );
           }
           return (
-            Object(f.a)(t, e),
-            Object(d.a)(t, [
+            Object(_.a)(t, e),
+            Object(h.a)(t, [
               {
                 key: "render",
                 value: function() {
@@ -1798,26 +1597,26 @@
                     u = n.confirmPasswordErrMsg,
                     l = this.props,
                     d = l.mnemonic,
-                    p = l.privateKey,
-                    m = l.addAccount,
+                    m = l.privateKey,
+                    p = l.addAccount,
                     f = l.history,
                     h = l.network,
                     v =
                       "mainnet" === h
-                        ? U.a.networks.bitcoin
-                        : U.a.networks.testnet;
+                        ? T.a.networks.bitcoin
+                        : T.a.networks.testnet;
                   return c.a.createElement(
                     "div",
-                    { className: ze.SetPassword },
+                    { className: Xe.SetPassword },
                     c.a.createElement(
                       "div",
-                      { className: ze.inputcontent },
+                      { className: Xe.inputcontent },
                       c.a.createElement(
                         "div",
-                        { className: ze.desc },
+                        { className: Xe.desc },
                         "\u4e3a\u4f60\u7684\u94b1\u5305\u8d26\u6237\u8bbe\u7f6e\u5bc6\u7801"
                       ),
-                      c.a.createElement(me, {
+                      c.a.createElement(le, {
                         label: "\u6635\u79f0",
                         value: a,
                         errMsg: r,
@@ -1830,7 +1629,7 @@
                           });
                         }
                       }),
-                      c.a.createElement(me, {
+                      c.a.createElement(le, {
                         isPassword: !0,
                         label: "\u5bc6\u7801",
                         value: o,
@@ -1845,7 +1644,7 @@
                           });
                         }
                       }),
-                      c.a.createElement(me, {
+                      c.a.createElement(le, {
                         isPassword: !0,
                         label: "\u786e\u8ba4\u5bc6\u7801",
                         value: i,
@@ -1862,23 +1661,23 @@
                     ),
                     c.a.createElement(
                       "div",
-                      { className: ze.button },
+                      { className: Xe.button },
                       c.a.createElement(
                         "button",
                         {
                           onClick: function() {
                             if (t.confirm()) {
-                              var e = V.generateAccount(
+                              var e = R.generateAccount(
                                 {
                                   name: a,
                                   mnemonic: d,
-                                  wif: p,
+                                  wif: m,
                                   password: o,
                                   network: h
                                 },
                                 v
                               );
-                              m(e), f.push({ pathname: y });
+                              p(e), f.push({ pathname: k.home });
                             }
                           }
                         },
@@ -1891,8 +1690,8 @@
             ]),
             t
           );
-        })(oe),
-        $e = Object(w.b)(
+        })(ae),
+        Qe = Object(b.b)(
           function(e) {
             return { network: e.network };
           },
@@ -1907,18 +1706,18 @@
               }
             };
           }
-        )(Ze),
-        et = n(66),
-        tt = (function(e) {
+        )(ze),
+        Ye = n(69),
+        Ze = (function(e) {
           function t() {
             var e, n;
-            Object(l.a)(this, t);
+            Object(f.a)(this, t);
             for (var a = arguments.length, r = new Array(a), c = 0; c < a; c++)
               r[c] = arguments[c];
             return (
-              ((n = Object(p.a)(
+              ((n = Object(v.a)(
                 this,
-                (e = Object(m.a)(t)).call.apply(e, [this].concat(r))
+                (e = Object(E.a)(t)).call.apply(e, [this].concat(r))
               )).state = {
                 password: "",
                 passwordErrMsg: "",
@@ -1930,7 +1729,7 @@
                   var e = n.state.password,
                     t = n.props.currentAccount,
                     a = (t = void 0 === t ? {} : t).encryptedKey,
-                    r = F.check("required")(e) || V.isValidPassword(a, e);
+                    r = L.check("required")(e) || R.isValidPassword(a, e);
                   return n.setState({ passwordErrMsg: r }), r;
                 },
                 confirm: function() {
@@ -1943,8 +1742,8 @@
             );
           }
           return (
-            Object(f.a)(t, e),
-            Object(d.a)(t, [
+            Object(_.a)(t, e),
+            Object(h.a)(t, [
               {
                 key: "render",
                 value: function() {
@@ -1959,11 +1758,11 @@
                     u = i.modal,
                     l = (u = void 0 === u ? {} : u).data,
                     d = (l = void 0 === l ? {} : l).callback,
-                    p = i.currentAccount,
-                    m = (p = void 0 === p ? {} : p).encryptedKey,
-                    f = "mainnet" !== p.network;
+                    m = i.currentAccount,
+                    p = (m = void 0 === m ? {} : m).encryptedKey,
+                    f = "mainnet" !== m.network;
                   return c.a.createElement(
-                    Be,
+                    Pe,
                     {
                       title: o
                         ? "\u4ea4\u6613\u5df2\u5e7f\u64ad"
@@ -1972,15 +1771,15 @@
                     o
                       ? c.a.createElement(
                           "div",
-                          { className: et.success },
+                          { className: Ye.success },
                           c.a.createElement("i", {
                             className: "iconfont iconsuccess"
                           }),
                           c.a.createElement(
                             "div",
-                            { className: et.button },
+                            { className: Ye.button },
                             c.a.createElement(
-                              ue,
+                              oe,
                               {
                                 isOutSide: !0,
                                 go: {
@@ -2002,8 +1801,8 @@
                           null,
                           c.a.createElement(
                             "div",
-                            { className: et.userInput },
-                            c.a.createElement(me, {
+                            { className: Ye.userInput },
+                            c.a.createElement(le, {
                               isPassword: !0,
                               value: a,
                               errMsg: r,
@@ -2015,14 +1814,14 @@
                           ),
                           c.a.createElement(
                             "div",
-                            { className: et.button },
+                            { className: Ye.button },
                             c.a.createElement(
                               "button",
                               {
-                                onClick: Object(J.a)(
-                                  X.a.mark(function n() {
+                                onClick: Object(V.a)(
+                                  F.a.mark(function n() {
                                     var r, c;
-                                    return X.a.wrap(
+                                    return F.a.wrap(
                                       function(n) {
                                         for (;;)
                                           switch ((n.prev = n.next)) {
@@ -2031,14 +1830,14 @@
                                                 n.next = 14;
                                                 break;
                                               }
-                                              if (!te(d)) {
+                                              if (!Y(d)) {
                                                 n.next = 14;
                                                 break;
                                               }
                                               return (
                                                 (n.prev = 2),
                                                 (n.next = 5),
-                                                d(m, a)
+                                                d(p, a)
                                               );
                                             case 5:
                                               (r = n.sent) &&
@@ -2051,14 +1850,14 @@
                                             case 9:
                                               (n.prev = 9),
                                                 (n.t0 = n.catch(2)),
-                                                (c = ne(n.t0)
+                                                (c = Z(n.t0)
                                                   ? n.t0
                                                   : n.t0.message &&
-                                                    ne(n.t0.message)
+                                                    Z(n.t0.message)
                                                   ? n.t0.message
                                                   : n.t0.message &&
                                                     n.t0.message.error &&
-                                                    ne(n.t0.message.error)
+                                                    Z(n.t0.message.error)
                                                   ? n.t0.message.error
                                                   : "\u4ea4\u6613\u5e7f\u64ad\u5931\u8d25"),
                                                 e.setState({
@@ -2086,19 +1885,19 @@
             ]),
             t
           );
-        })(oe),
-        nt = n(175),
-        at = (function(e) {
+        })(ae),
+        $e = n(176),
+        et = (function(e) {
           function t() {
             var e, n;
-            Object(l.a)(this, t);
+            Object(f.a)(this, t);
             for (var a = arguments.length, r = new Array(a), c = 0; c < a; c++)
               r[c] = arguments[c];
             return (
-              ((n = Object(p.a)(
+              ((n = Object(v.a)(
                 this,
-                (e = Object(m.a)(t)).call.apply(e, [this].concat(r))
-              )).state = { step: 1, mnemonic: V.generateMnemonic() }),
+                (e = Object(E.a)(t)).call.apply(e, [this].concat(r))
+              )).state = { step: 1, mnemonic: R.generateMnemonic() }),
               (n.changeStep = function(e) {
                 n.changeState({ step: e });
               }),
@@ -2106,58 +1905,58 @@
             );
           }
           return (
-            Object(f.a)(t, e),
-            Object(d.a)(t, [
+            Object(_.a)(t, e),
+            Object(h.a)(t, [
               {
                 key: "render",
                 value: function() {
                   var e = this.state,
                     t = e.step,
                     n = e.mnemonic,
-                    a = Object(z.a)({}, this.props, {
+                    a = Object(W.a)({}, this.props, {
                       mnemonic: n,
                       changeStep: this.changeStep
                     });
                   return c.a.createElement(
                     "div",
-                    { className: nt.CreateAccount },
-                    1 === t && c.a.createElement(Ve, a),
-                    2 === t && c.a.createElement(He, a),
-                    3 === t && c.a.createElement(Je, a),
-                    4 === t && c.a.createElement($e, a)
+                    { className: $e.CreateAccount },
+                    1 === t && c.a.createElement(qe, a),
+                    2 === t && c.a.createElement(Fe, a),
+                    3 === t && c.a.createElement(We, a),
+                    4 === t && c.a.createElement(Qe, a)
                   );
                 }
               }
             ]),
             t
           );
-        })(oe),
-        rt = Object(w.b)(
+        })(ae),
+        tt = Object(b.b)(
           function(e) {
             return { state: e };
           },
           function() {
             return {};
           }
-        )(at),
-        ct = n(32),
-        ot = (function(e) {
+        )(et),
+        nt = n(33),
+        at = (function(e) {
           function t() {
             var e, n;
-            Object(l.a)(this, t);
+            Object(f.a)(this, t);
             for (var a = arguments.length, r = new Array(a), c = 0; c < a; c++)
               r[c] = arguments[c];
             return (
-              ((n = Object(p.a)(
+              ((n = Object(v.a)(
                 this,
-                (e = Object(m.a)(t)).call.apply(e, [this].concat(r))
+                (e = Object(E.a)(t)).call.apply(e, [this].concat(r))
               )).state = { userInput: "", userInputErrMsg: "" }),
               (n.checkAll = {
                 checkUserInput: function() {
                   var e = n.state.userInput,
                     t =
-                      F.check("required")(e) ||
-                      F.check("isValidMnemonic")(e.trim());
+                      L.check("required")(e) ||
+                      L.check("isValidMnemonic")(e.trim());
                   return n.setState({ userInputErrMsg: t }), t;
                 },
                 confirm: function() {
@@ -2170,8 +1969,8 @@
             );
           }
           return (
-            Object(f.a)(t, e),
-            Object(d.a)(t, [
+            Object(_.a)(t, e),
+            Object(h.a)(t, [
               {
                 key: "render",
                 value: function() {
@@ -2185,21 +1984,21 @@
                     i = o.step;
                   return c.a.createElement(
                     "div",
-                    { className: ct.ImportMnemonic },
+                    { className: nt.ImportMnemonic },
                     1 === i &&
                       c.a.createElement(
                         c.a.Fragment,
                         null,
                         c.a.createElement(
                           "div",
-                          { className: ct.desc },
+                          { className: nt.desc },
                           "\u8bf7\u6309\u6b63\u786e\u987a\u5e8f\u8f93\u5165\u60a8\u7684\u52a9\u8bb0\u8bcd",
                           c.a.createElement("br", null),
                           "\u4ee5\u7a7a\u683c\u952e\u533a\u5206"
                         ),
                         c.a.createElement(
                           "div",
-                          { className: ct.generatewords },
+                          { className: nt.generatewords },
                           c.a.createElement("textarea", {
                             value: a,
                             onChange: function(t) {
@@ -2211,7 +2010,7 @@
                         r &&
                           c.a.createElement(
                             "div",
-                            { className: ct.errwarn },
+                            { className: nt.errwarn },
                             r
                           ),
                         c.a.createElement(
@@ -2226,7 +2025,7 @@
                       ),
                     2 === i &&
                       c.a.createElement(
-                        $e,
+                        Qe,
                         Object.assign({}, this.props, { mnemonic: a.trim() })
                       )
                   );
@@ -2235,17 +2034,17 @@
             ]),
             t
           );
-        })(oe),
-        st = (function(e) {
+        })(ae),
+        rt = (function(e) {
           function t() {
             var e, n;
-            Object(l.a)(this, t);
+            Object(f.a)(this, t);
             for (var a = arguments.length, r = new Array(a), c = 0; c < a; c++)
               r[c] = arguments[c];
             return (
-              ((n = Object(p.a)(
+              ((n = Object(v.a)(
                 this,
-                (e = Object(m.a)(t)).call.apply(e, [this].concat(r))
+                (e = Object(E.a)(t)).call.apply(e, [this].concat(r))
               )).state = { userInput: "", userInputErrMsg: "" }),
               (n.checkAll = {
                 checkUserInput: function() {
@@ -2253,12 +2052,12 @@
                     t = void 0 === e ? [] : e,
                     a = n.props.network,
                     r =
-                      F.check("required")(t) ||
-                      F.check("isValidPrivateKey")(
+                      L.check("required")(t) ||
+                      L.check("isValidPrivateKey")(
                         t,
                         "mainnet" === a
-                          ? U.a.networks.bitcoin
-                          : U.a.networks.testnet
+                          ? T.a.networks.bitcoin
+                          : T.a.networks.testnet
                       );
                   return n.setState({ userInputErrMsg: r }), r;
                 },
@@ -2272,8 +2071,8 @@
             );
           }
           return (
-            Object(f.a)(t, e),
-            Object(d.a)(t, [
+            Object(_.a)(t, e),
+            Object(h.a)(t, [
               {
                 key: "render",
                 value: function() {
@@ -2287,19 +2086,19 @@
                     i = o.step;
                   return c.a.createElement(
                     "div",
-                    { className: ct.ImportMnemonic },
+                    { className: nt.ImportMnemonic },
                     1 === i &&
                       c.a.createElement(
                         c.a.Fragment,
                         null,
                         c.a.createElement(
                           "div",
-                          { className: ct.desc },
+                          { className: nt.desc },
                           "\u8bf7\u8f93\u5165\u60a8\u7684\u94b1\u5305\u79c1\u94a5"
                         ),
                         c.a.createElement(
                           "div",
-                          { className: ct.generatewords },
+                          { className: nt.generatewords },
                           c.a.createElement("textarea", {
                             value: a,
                             onChange: function(t) {
@@ -2311,7 +2110,7 @@
                         r &&
                           c.a.createElement(
                             "div",
-                            { className: ct.errwarn },
+                            { className: nt.errwarn },
                             r
                           ),
                         c.a.createElement(
@@ -2326,7 +2125,7 @@
                       ),
                     2 === i &&
                       c.a.createElement(
-                        $e,
+                        Qe,
                         Object.assign({}, this.props, { privateKey: a.trim() })
                       )
                   );
@@ -2335,21 +2134,21 @@
             ]),
             t
           );
-        })(oe),
-        it = Object(w.b)(function(e) {
+        })(ae),
+        ct = Object(b.b)(function(e) {
           return { network: e.network };
-        })(st),
-        ut = n(86),
-        lt = (function(e) {
+        })(rt),
+        ot = n(88),
+        st = (function(e) {
           function t() {
             var e, n;
-            Object(l.a)(this, t);
+            Object(f.a)(this, t);
             for (var a = arguments.length, r = new Array(a), c = 0; c < a; c++)
               r[c] = arguments[c];
             return (
-              ((n = Object(p.a)(
+              ((n = Object(v.a)(
                 this,
-                (e = Object(m.a)(t)).call.apply(e, [this].concat(r))
+                (e = Object(E.a)(t)).call.apply(e, [this].concat(r))
               )).pageTitle = "\u5bfc\u5165\u8d26\u6237"),
               (n.state = { step: 1, activeIndex: 0 }),
               (n.changeStep = function(e) {
@@ -2359,8 +2158,8 @@
             );
           }
           return (
-            Object(f.a)(t, e),
-            Object(d.a)(t, [
+            Object(_.a)(t, e),
+            Object(h.a)(t, [
               {
                 key: "render",
                 value: function() {
@@ -2368,17 +2167,17 @@
                     t = this.state,
                     n = t.step,
                     a = t.activeIndex,
-                    r = Object(z.a)(
+                    r = Object(W.a)(
                       { step: n, changeStep: this.changeStep },
                       this.props
                     );
                   return c.a.createElement(
                     "div",
-                    { className: ut.ImportAccount },
+                    { className: ot.ImportAccount },
                     1 === n &&
                       c.a.createElement(
                         "ul",
-                        { className: ut.selectmode },
+                        { className: ot.selectmode },
                         [
                           "\u5bfc\u5165\u52a9\u8bb0\u8bcd",
                           "\u5bfc\u5165\u79c1\u94a5"
@@ -2387,7 +2186,7 @@
                             "li",
                             {
                               key: n,
-                              className: a === n ? ut.active : null,
+                              className: a === n ? ot.active : null,
                               onClick: function() {
                                 e.setState({ step: 1, activeIndex: n });
                               }
@@ -2396,137 +2195,194 @@
                           );
                         })
                       ),
-                    0 === a && c.a.createElement(ot, r),
-                    1 === a && c.a.createElement(it, r)
+                    0 === a && c.a.createElement(at, r),
+                    1 === a && c.a.createElement(ct, r)
                   );
                 }
               }
             ]),
             t
           );
-        })(oe),
-        dt = Object(w.b)(
+        })(ae),
+        it = Object(b.b)(
           function(e) {
             return { state: e };
           },
           function() {
             return {};
           }
-        )(lt),
-        pt = n(67),
-        mt = (function(e) {
-          function t() {
-            return (
-              Object(l.a)(this, t),
-              Object(p.a)(this, Object(m.a)(t).apply(this, arguments))
-            );
-          }
-          return (
-            Object(f.a)(t, e),
-            Object(d.a)(t, [
+        )(st),
+        ut = n(70);
+      function lt(e) {
+        var t = e.currentAccount,
+          n = void 0 === t ? {} : t,
+          a = "mainnet" !== n.network;
+        return c.a.createElement(
+          "div",
+          { className: ut.AccountInfo },
+          c.a.createElement(
+            "div",
+            { className: ut.amount },
+            n.balanceShow,
+            c.a.createElement("span", null, "BTC")
+          ),
+          c.a.createElement(
+            "div",
+            { className: ut.address },
+            c.a.createElement(fe, null, n.address)
+          ),
+          c.a.createElement(
+            "div",
+            { className: ut.watchother },
+            c.a.createElement(
+              oe,
               {
-                key: "render",
-                value: function() {
-                  var e = this.props.currentAccount,
-                    t = void 0 === e ? {} : e,
-                    n = "mainnet" !== t.network;
-                  return c.a.createElement(
-                    "div",
-                    { className: pt.AccountInfo },
-                    c.a.createElement(
-                      "div",
-                      { className: pt.amount },
-                      t.balanceShow,
-                      c.a.createElement("span", null, "BTC")
-                    ),
-                    c.a.createElement(
-                      "div",
-                      { className: pt.address },
-                      c.a.createElement(_e, null, t.address)
-                    ),
-                    c.a.createElement(
-                      "div",
-                      { className: pt.watchother },
-                      c.a.createElement(
-                        ue,
-                        {
-                          isOutSide: !0,
-                          go: {
-                            pathname: "https://live.blockcypher.com/btc"
-                              .concat(n ? "-testnet" : "", "/address/")
-                              .concat(t.address, "/")
-                          }
-                        },
-                        "\u5728\u6d4f\u89c8\u5668\u4e2d\u67e5\u770b"
-                      )
-                    )
-                  );
+                isOutSide: !0,
+                go: {
+                  pathname: "https://live.blockcypher.com/btc"
+                    .concat(a ? "-testnet" : "", "/address/")
+                    .concat(n.address, "/")
                 }
+              },
+              "\u5728\u6d4f\u89c8\u5668\u4e2d\u67e5\u770b"
+            )
+          )
+        );
+      }
+      function dt(e) {
+        return c.a.createElement(
+          "div",
+          {
+            className: e.className,
+            onClick: function(t) {
+              t.stopPropagation(), e.onClick();
+            }
+          },
+          c.a.createElement("i", { className: "iconfont icondaochu" }),
+          c.a.createElement("span", null, "\u5bfc\u51fa\u79c1\u94a5")
+        );
+      }
+      var mt = function(e) {
+          return c.a.createElement(
+            "div",
+            {
+              className: e.className,
+              style: { display: "flex", alignItems: "center" },
+              onClick: function(t) {
+                t.stopPropagation(), e.onClick();
               }
-            ]),
-            t
+            },
+            c.a.createElement("i", {
+              className: "iconfont iconbaseline-delete_forever-px",
+              style: { fontSize: "26px" }
+            }),
+            c.a.createElement("span", null, "\u5220\u9664\u8d26\u6237")
           );
-        })(oe),
-        ft = n(176),
-        ht = n.n(ft),
-        vt = n(117),
-        _t = (function(e) {
+        },
+        pt = n(50);
+      function ft(e) {
+        var t = Object(r.useState)(""),
+          n = Object(w.a)(t, 2),
+          a = n[0],
+          o = n[1],
+          s = Object(r.useState)(""),
+          i = Object(w.a)(s, 2),
+          u = i[0],
+          l = i[1],
+          d = function() {
+            var t = e.currentAccount,
+              n = (t = void 0 === t ? {} : t).encryptedKey,
+              r = L.check("required")(a) || R.isValidPassword(n, a);
+            return l(r), r;
+          };
+        return c.a.createElement(
+          "div",
+          {
+            className: ue()(e.className, pt.input_password),
+            onClick: function(e) {
+              return e.stopPropagation();
+            }
+          },
+          c.a.createElement(
+            "div",
+            { className: pt.top },
+            c.a.createElement(
+              "span",
+              { className: pt.title },
+              "\u8f93\u5165\u8d26\u6237\u5bc6\u7801"
+            ),
+            c.a.createElement("i", {
+              className: ue()("iconfont iconClose", pt.close),
+              onClick: e.onClose
+            })
+          ),
+          c.a.createElement(le, {
+            className: pt.input,
+            isPassword: !0,
+            value: a,
+            errMsg: u,
+            onChange: function(e) {
+              o(e), l("");
+            },
+            onBlur: d
+          }),
+          c.a.createElement(
+            "button",
+            {
+              className: pt.confirm,
+              onClick: function(t) {
+                t.stopPropagation(), d() || e.passwordCallback(a);
+              }
+            },
+            "\u786e\u5b9a"
+          )
+        );
+      }
+      function ht(e) {
+        var t = e.privateKey,
+          n = e.styles,
+          a = e.onClose;
+        return c.a.createElement(
+          "div",
+          {
+            onClick: function(e) {
+              return e.stopPropagation();
+            }
+          },
+          c.a.createElement(
+            "div",
+            { className: n.title },
+            c.a.createElement("span", null, "\u79c1\u94a5"),
+            c.a.createElement("i", {
+              className: "iconfont iconClose",
+              onClick: function() {
+                return a();
+              },
+              style: { cursor: "pointer" }
+            })
+          ),
+          c.a.createElement("span", { className: n.private_key }, t),
+          c.a.createElement(
+            "span",
+            { className: n.warning },
+            "\u4e0d\u8981\u5c06\u60a8\u7684\u79c1\u94a5\u5b58\u50a8\u5728\u60a8\u7684\u7535\u8111\u4e0a\uff0c\u6216\u8005\u7f51\u4e0a\u67d0\u5904\u3002\u4efb\u4f55\u80fd\u591f\u8bbf\u95ee\u60a8\u5907\u4efd\u79c1\u94a5\u7684\u4eba\u5c31\u80fd\u53d6\u7528\u60a8\u7684\u8d44\u91d1"
+          )
+        );
+      }
+      var vt = n(24),
+        Et = n(35),
+        _t = n(80),
+        gt = (function(e) {
           function t() {
             var e, n;
-            Object(l.a)(this, t);
+            Object(f.a)(this, t);
             for (var a = arguments.length, r = new Array(a), c = 0; c < a; c++)
               r[c] = arguments[c];
             return (
-              ((n = Object(p.a)(
+              ((n = Object(v.a)(
                 this,
-                (e = Object(m.a)(t)).call.apply(e, [this].concat(r))
-              )).startInit = function() {
-                var e = n.props.currentAccount;
-                new ht.a({
-                  size: 190,
-                  element: document.getElementById("qr"),
-                  value: e.address
-                });
-              }),
-              n
-            );
-          }
-          return (
-            Object(f.a)(t, e),
-            Object(d.a)(t, [
-              {
-                key: "render",
-                value: function() {
-                  return c.a.createElement(
-                    "div",
-                    { className: vt.AccountReceive },
-                    c.a.createElement("canvas", { id: "qr" }),
-                    c.a.createElement(
-                      "div",
-                      { className: vt.desc },
-                      "\u5730\u5740\u4e8c\u7ef4\u7801"
-                    )
-                  );
-                }
-              }
-            ]),
-            t
-          );
-        })(oe),
-        Et = n(34),
-        gt = n(77),
-        bt = (function(e) {
-          function t() {
-            var e, n;
-            Object(l.a)(this, t);
-            for (var a = arguments.length, r = new Array(a), c = 0; c < a; c++)
-              r[c] = arguments[c];
-            return (
-              ((n = Object(p.a)(
-                this,
-                (e = Object(m.a)(t)).call.apply(e, [this].concat(r))
+                (e = Object(E.a)(t)).call.apply(e, [this].concat(r))
               )).state = {
-                utxos: [],
                 address: "",
                 addressErrMsg: "",
                 amount: "",
@@ -2540,14 +2396,14 @@
               (n.checkAll = {
                 checkAddress: function() {
                   var e = n.state.address,
-                    t = F.check("required")(e) || F.check("isBTCAddress")(e);
+                    t = L.check("required")(e) || L.check("isBTCAddress")(e);
                   return n.setState({ addressErrMsg: t }), t;
                 },
                 checkAmount: function() {
                   var e = n.state.amount,
                     t =
-                      F.check("required")(e) ||
-                      F.check("smallerOrEqual")(
+                      L.check("required")(e) ||
+                      L.check("smallerOrEqual")(
                         0,
                         e,
                         "\u6570\u91cf\u5fc5\u987b\u5927\u4e8e\u6216\u7b49\u4e8e0"
@@ -2562,8 +2418,8 @@
                 checkFee: function() {
                   var e = n.state.fee,
                     t =
-                      F.check("required")(e) ||
-                      F.check("smallerOrEqual")(
+                      L.check("required")(e) ||
+                      L.check("smallerOrEqual")(
                         0,
                         e,
                         "\u6570\u91cf\u5fc5\u987b\u5927\u4e8e\u6216\u7b49\u4e8e0"
@@ -2579,10 +2435,10 @@
                   var e = n.state,
                     t = e.fee,
                     a = e.amount,
-                    r = e.utxos,
-                    c = Number(re.toBtcPrecision(a, 8, !0)),
-                    o = Number(re.toBtcPrecision(t, 8, !0));
-                  if (!Object(gt.b)(r, c, o)) {
+                    r = n.props.utxos,
+                    c = Number(ee.toBtcPrecision(a, 8, !0)),
+                    o = Number(ee.toBtcPrecision(t, 8, !0));
+                  if (!Object(_t.b)(r, c, o)) {
                     return (
                       n.setState({
                         feeErrMsg: "\u6570\u91cf\u4e0d\u8db3",
@@ -2596,7 +2452,7 @@
                 checkHex: function() {
                   var e = n.state,
                     t = e.hex,
-                    a = e.addOpReturn ? F.check("required")(t) : "";
+                    a = e.addOpReturn ? L.check("required")(t) : "";
                   return n.setState({ hexErrMsg: a }), a;
                 },
                 confirm: function() {
@@ -2614,16 +2470,14 @@
                 var e = n.props,
                   t = e.getAccountUtxos,
                   a = e.currentAccount;
-                t(a.address, a.network).then(function(e) {
-                  return n.setState({ utxos: e });
-                });
+                t(a.address, a.network);
               }),
               n
             );
           }
           return (
-            Object(f.a)(t, e),
-            Object(d.a)(t, [
+            Object(_.a)(t, e),
+            Object(h.a)(t, [
               {
                 key: "constructTx",
                 value: function(e, t) {
@@ -2631,12 +2485,12 @@
                     a = n.address,
                     r = n.amount,
                     c = n.hex,
-                    o = n.utxos,
-                    s = n.fee,
+                    o = n.fee,
+                    s = this.props.utxos,
                     i = this.props.currentAccount,
-                    u = Number(re.toBtcPrecision(r, 8, !0)),
-                    l = Number(re.toBtcPrecision(s, 8, !0));
-                  return V.sign(o, i.address, a, u, l, c, e, t, i.network);
+                    u = Number(ee.toBtcPrecision(r, 8, !0)),
+                    l = Number(ee.toBtcPrecision(o, 8, !0));
+                  return R.sign(s, i.address, a, u, l, c, e, t, i.network);
                 }
               },
               {
@@ -2653,8 +2507,8 @@
                     u = n.hex,
                     l = n.hexErrMsg,
                     d = n.fee,
-                    p = n.feeErrMsg,
-                    m = this.props.currentAccount,
+                    m = n.feeErrMsg,
+                    p = this.props.currentAccount,
                     f = (function(e) {
                       if (!/^(0x)?[\da-fA-F]+$/.test(e)) return "";
                       var t = e.startsWith("0x") ? e.substring(2) : e;
@@ -2671,7 +2525,7 @@
                     c.a.createElement(
                       "div",
                       { className: Et.userInput },
-                      c.a.createElement(me, {
+                      c.a.createElement(le, {
                         errMsg: r,
                         label: "\u63a5\u6536\u4eba\u5730\u5740",
                         value: a,
@@ -2680,7 +2534,7 @@
                           e.setState({ address: t });
                         }
                       }),
-                      c.a.createElement(me, {
+                      c.a.createElement(le, {
                         errMsg: s,
                         label: "\u8f6c\u8d26\u6570\u91cf",
                         value: o,
@@ -2690,8 +2544,8 @@
                           e.setState({ amount: t });
                         }
                       }),
-                      c.a.createElement(me, {
-                        errMsg: p,
+                      c.a.createElement(le, {
+                        errMsg: m,
                         label: "\u4ea4\u6613\u624b\u7eed\u8d39",
                         value: d,
                         suffix: "BTC",
@@ -2733,7 +2587,7 @@
                         c.a.createElement(
                           "div",
                           { className: Et.input },
-                          c.a.createElement(me, {
+                          c.a.createElement(le, {
                             rows: 2,
                             isTextArea: !0,
                             errMsg: l,
@@ -2764,14 +2618,14 @@
                         {
                           onClick: function() {
                             t.confirm() &&
-                              e.openModal({
+                              e.props.openModal({
                                 name: "transfer",
                                 data: {
                                   callback: (function() {
-                                    var t = Object(J.a)(
-                                      X.a.mark(function t(n, a) {
+                                    var t = Object(V.a)(
+                                      F.a.mark(function t(n, a) {
                                         var r, c;
-                                        return X.a.wrap(function(t) {
+                                        return F.a.wrap(function(t) {
                                           for (;;)
                                             switch ((t.prev = t.next)) {
                                               case 0:
@@ -2785,7 +2639,7 @@
                                                 throw Error(r.message);
                                               case 5:
                                                 return (
-                                                  (t.next = 7), Se(r, m.network)
+                                                  (t.next = 7), Oe(r, p.network)
                                                 );
                                               case 7:
                                                 if (!(c = t.sent) || !c.tx) {
@@ -2811,190 +2665,133 @@
                         "\u786e\u5b9a"
                       )
                     ),
-                    "transfer" === v && c.a.createElement(tt, this.props)
+                    "transfer" === v && c.a.createElement(Ze, this.props)
                   );
                 }
               }
             ]),
             t
           );
-        })(oe),
-        kt = Object(w.b)(void 0, function(e) {
-          return {
-            getAccountUtxos: function(t, n) {
-              return e(xe(t, n));
-            }
-          };
-        })(bt);
-      function wt(e) {
-        return c.a.createElement(
-          "div",
-          {
-            className: e.className,
-            onClick: function(t) {
-              t.stopPropagation(), e.onClick();
-            }
+        })(ae),
+        bt = Object(b.b)(
+          function(e, t) {
+            var n = (t.currentAccount || {}).address,
+              a = e.utxos.find(function(e) {
+                return e.address === n;
+              });
+            return { utxos: a ? a.utxos : [] };
           },
-          c.a.createElement("i", { className: "iconfont icondaochu" }),
-          c.a.createElement("span", null, "\u5bfc\u51fa\u79c1\u94a5")
-        );
-      }
-      var yt = function(e) {
-          return c.a.createElement(
-            "div",
-            {
-              className: e.className,
-              style: { display: "flex", alignItems: "center" },
-              onClick: function(t) {
-                t.stopPropagation(), e.onClick();
+          function(e) {
+            return {
+              getAccountUtxos: function(t, n) {
+                return e(
+                  (function(e) {
+                    var t =
+                      arguments.length > 1 && void 0 !== arguments[1]
+                        ? arguments[1]
+                        : "testnet";
+                    return (function() {
+                      var n = Object(V.a)(
+                        F.a.mark(function n(a) {
+                          var r;
+                          return F.a.wrap(function(n) {
+                            for (;;)
+                              switch ((n.prev = n.next)) {
+                                case 0:
+                                  return (n.next = 2), ye(e, t);
+                                case 2:
+                                  (r = n.sent),
+                                    a({
+                                      type: "ADD_UTXO",
+                                      address: e,
+                                      utxos: r
+                                    });
+                                case 4:
+                                case "end":
+                                  return n.stop();
+                              }
+                          }, n);
+                        })
+                      );
+                      return function(e) {
+                        return n.apply(this, arguments);
+                      };
+                    })();
+                  })(t, n)
+                );
+              },
+              openModal: function(t) {
+                var n = t.name,
+                  a = t.data;
+                e(Me({ name: n, data: a, show: !0 }));
               }
-            },
-            c.a.createElement("i", {
-              className: "iconfont iconbaseline-delete_forever-px",
-              style: { fontSize: "26px" }
-            }),
-            c.a.createElement("span", null, "\u5220\u9664\u8d26\u6237")
-          );
-        },
-        Ot = n(49),
-        At = (function(e) {
-          function t(e) {
-            var n;
-            return (
-              Object(l.a)(this, t),
-              ((n = Object(p.a)(this, Object(m.a)(t).call(this, e))).state = {
-                password: "",
-                passwordErrMsg: ""
-              }),
-              n
-            );
+            };
           }
-          return (
-            Object(f.a)(t, e),
-            Object(d.a)(t, [
-              {
-                key: "checkPassword",
-                value: function() {
-                  var e = this.state.password,
-                    t = this.props.currentAccount,
-                    n = (t = void 0 === t ? {} : t).encryptedKey,
-                    a = F.check("required")(e) || V.isValidPassword(n, e);
-                  return this.setState({ passwordErrMsg: a }), a;
-                }
-              },
-              {
-                key: "exportPrivateKey",
-                value: function() {
-                  var e = this.state.password,
-                    t = this.props.currentAccount,
-                    n = (t = void 0 === t ? {} : t).encryptedKey,
-                    a = T.a.decryptPair(n, e).privateKey;
-                  this.props.setPrivateKey(a.toString("hex"));
-                }
-              },
-              {
-                key: "render",
-                value: function() {
-                  var e = this,
-                    t = this.state,
-                    n = t.password,
-                    a = t.passwordErrMsg;
-                  return c.a.createElement(
-                    "div",
-                    {
-                      className: pe()(this.props.className, Ot.input_password),
-                      onClick: function(e) {
-                        return e.stopPropagation();
-                      }
-                    },
-                    c.a.createElement(
-                      "div",
-                      { className: Ot.top },
-                      c.a.createElement(
-                        "span",
-                        { className: Ot.title },
-                        "\u8f93\u5165\u8d26\u6237\u5bc6\u7801"
-                      ),
-                      c.a.createElement("i", {
-                        className: pe()("iconfont iconClose", Ot.close),
-                        onClick: function() {
-                          e.props.onClose();
-                        }
-                      })
-                    ),
-                    c.a.createElement(me, {
-                      className: Ot.input,
-                      isPassword: !0,
-                      value: n,
-                      errMsg: a,
-                      onChange: function(t) {
-                        e.setState({ passwordErrMsg: "", password: t });
-                      },
-                      onBlur: function() {
-                        e.checkPassword();
-                      }
-                    }),
-                    c.a.createElement(
-                      "button",
-                      {
-                        className: Ot.confirm,
-                        onClick: function(t) {
-                          t.stopPropagation(),
-                            e.checkPassword() || e.props.passwordCallback(n);
-                        }
-                      },
-                      "\u786e\u5b9a"
-                    )
-                  );
-                }
-              }
-            ]),
-            t
-          );
-        })(r.Component);
-      function Nt(e) {
-        var t = e.privateKey,
-          n = e.styles,
-          a = e.onClose;
-        return c.a.createElement(
-          "div",
-          {
-            onClick: function(e) {
-              return e.stopPropagation();
-            }
-          },
+        )(gt),
+        kt = n(177),
+        wt = n.n(kt),
+        yt = n(118);
+      function At(e) {
+        var t = Object(r.useRef)(null),
+          n = e.currentAccount;
+        return (
+          Object(r.useEffect)(function() {
+            new wt.a({ size: 190, element: t.current, value: n.address });
+          }, []),
           c.a.createElement(
             "div",
-            { className: n.title },
-            c.a.createElement("span", null, "\u79c1\u94a5"),
-            c.a.createElement("i", {
-              className: "iconfont iconClose",
-              onClick: function() {
-                return a();
-              },
-              style: { cursor: "pointer" }
-            })
-          ),
-          c.a.createElement("span", { className: n.private_key }, t),
-          c.a.createElement(
-            "span",
-            { className: n.warning },
-            "\u4e0d\u8981\u5c06\u60a8\u7684\u79c1\u94a5\u5b58\u50a8\u5728\u60a8\u7684\u7535\u8111\u4e0a\uff0c\u6216\u8005\u7f51\u4e0a\u67d0\u5904\u3002\u4efb\u4f55\u80fd\u591f\u8bbf\u95ee\u60a8\u5907\u4efd\u79c1\u94a5\u7684\u4eba\u5c31\u80fd\u53d6\u7528\u60a8\u7684\u8d44\u91d1"
+            { className: yt.AccountReceive },
+            c.a.createElement("canvas", { ref: t }),
+            c.a.createElement(
+              "div",
+              { className: yt.desc },
+              "\u5730\u5740\u4e8c\u7ef4\u7801"
+            )
           )
         );
       }
-      var St = n(26),
-        jt = (function(e) {
+      function Ot(e) {
+        var t = Object(r.useState)(0),
+          n = Object(w.a)(t, 2),
+          a = n[0],
+          o = n[1];
+        return c.a.createElement(
+          "div",
+          {
+            className: vt.content,
+            style: { background: 1 === a ? "white" : "" }
+          },
+          c.a.createElement(
+            "ul",
+            { className: vt.selectmode },
+            ["\u53d1\u9001", "\u63a5\u6536"].map(function(e, t) {
+              return c.a.createElement(
+                "li",
+                {
+                  key: t,
+                  className: a === t ? vt.active : null,
+                  onClick: function() {
+                    return o(t);
+                  }
+                },
+                e
+              );
+            })
+          ),
+          0 === a && c.a.createElement(bt, e),
+          1 === a && c.a.createElement(At, e)
+        );
+      }
+      var Nt = (function(e) {
           function t(e) {
             var n;
-            Object(l.a)(this, t),
-              (n = Object(p.a)(this, Object(m.a)(t).call(this, e)));
+            Object(f.a)(this, t),
+              (n = Object(v.a)(this, Object(E.a)(t).call(this, e)));
             var a = e.currentAccount;
             return (
               (n.pageTitle = a.name),
-              (n.didMount = oe.prototype.componentDidMount),
+              (n.didMount = ae.prototype.componentDidMount),
               (n.state = {
-                activeIndex: 0,
                 showMenu: !1,
                 status: "toExportKey",
                 privateKey: "",
@@ -3004,8 +2801,8 @@
             );
           }
           return (
-            Object(f.a)(t, e),
-            Object(d.a)(t, [
+            Object(_.a)(t, e),
+            Object(h.a)(t, [
               {
                 key: "componentDidMount",
                 value: function() {
@@ -3017,6 +2814,9 @@
                         e.setState({ showMenu: !0 });
                       }
                     });
+                  var t = this.props.currentAccount,
+                    n = void 0 === t ? {} : t;
+                  this.props.getAccountBalance(n);
                 }
               },
               {
@@ -3030,65 +2830,39 @@
                 value: function() {
                   var e = this,
                     t = this.state,
-                    n = t.activeIndex,
-                    a = t.status,
-                    r = t.showMenu,
-                    o = t.privateKey,
-                    s = t.passwordCallback,
-                    i = this.props,
-                    u = i.currentAccount,
-                    l = (u = void 0 === u ? {} : u).encryptedKey,
-                    d = i.deleteAccount;
+                    n = t.status,
+                    a = t.showMenu,
+                    r = t.privateKey,
+                    o = t.passwordCallback,
+                    s = this.props,
+                    i = s.currentAccount,
+                    u = (i = void 0 === i ? {} : i).encryptedKey,
+                    l = s.deleteAccount;
                   return c.a.createElement(
                     "div",
-                    { className: St.AccountDetail },
-                    c.a.createElement(mt, this.props),
-                    c.a.createElement(
-                      "div",
-                      {
-                        className: St.content,
-                        style: { background: 1 === n ? "white" : "" }
-                      },
-                      c.a.createElement(
-                        "ul",
-                        { className: St.selectmode },
-                        ["\u53d1\u9001", "\u63a5\u6536"].map(function(t, a) {
-                          return c.a.createElement(
-                            "li",
-                            {
-                              key: a,
-                              className: n === a ? St.active : null,
-                              onClick: function() {
-                                e.setState({ activeIndex: a });
-                              }
-                            },
-                            t
-                          );
-                        })
-                      ),
-                      0 === n && c.a.createElement(kt, this.props),
-                      1 === n && c.a.createElement(_t, this.props)
-                    ),
-                    r &&
+                    { className: vt.AccountDetail },
+                    c.a.createElement(lt, this.props),
+                    c.a.createElement(Ot, this.props),
+                    a &&
                       c.a.createElement(
                         "div",
                         {
-                          className: St.modal,
+                          className: vt.modal,
                           onClick: function() {
                             e.setState({ showMenu: !1, status: "toExportKey" });
                           }
                         },
-                        "toExportKey" === a &&
+                        "toExportKey" === n &&
                           c.a.createElement(
                             "div",
-                            { className: St.menu },
-                            c.a.createElement(wt, {
-                              className: St.export_key,
+                            { className: vt.menu },
+                            c.a.createElement(dt, {
+                              className: vt.export_key,
                               onClick: function() {
                                 e.setState({
                                   status: "inputPassword",
                                   passwordCallback: function(t) {
-                                    var n = T.a.decryptPair(l, t).privateKey;
+                                    var n = C.a.decryptPair(u, t).privateKey;
                                     e.setState({
                                       privateKey: n.toString("hex"),
                                       status: "showPrivateKey"
@@ -3097,27 +2871,27 @@
                                 });
                               }
                             }),
-                            c.a.createElement(yt, {
+                            c.a.createElement(mt, {
                               onClick: function() {
                                 e.setState({
                                   status: "inputPassword",
                                   passwordCallback: function() {
-                                    d(e.props.currentAccount.address),
-                                      te(e.props.goBack)
+                                    l(e.props.currentAccount.address),
+                                      Y(e.props.goBack)
                                         ? e.props.goBack()
                                         : e.props.history.goBack();
                                   }
                                 });
                               },
-                              className: St.export_key
+                              className: vt.export_key
                             })
                           ),
-                        "inputPassword" === a &&
+                        "inputPassword" === n &&
                           c.a.createElement(
                             "div",
-                            { className: St.menu },
+                            { className: vt.menu },
                             c.a.createElement(
-                              At,
+                              ft,
                               Object.assign({}, this.props, {
                                 onClose: function() {
                                   e.setState({
@@ -3125,7 +2899,7 @@
                                     status: "toExportKey"
                                   });
                                 },
-                                passwordCallback: s,
+                                passwordCallback: o,
                                 setPrivateKey: function(t) {
                                   return e.setState({
                                     privateKey: t,
@@ -3135,13 +2909,13 @@
                               })
                             )
                           ),
-                        "showPrivateKey" === a &&
+                        "showPrivateKey" === n &&
                           c.a.createElement(
                             "div",
-                            { className: St.menu },
-                            c.a.createElement(Nt, {
-                              styles: St,
-                              privateKey: o,
+                            { className: vt.menu },
+                            c.a.createElement(ht, {
+                              styles: vt,
+                              privateKey: r,
                               onClose: function() {
                                 e.setState({
                                   showMenu: !1,
@@ -3163,8 +2937,8 @@
             ]),
             t
           );
-        })(oe),
-        Mt = Object(w.b)(
+        })(ae),
+        St = Object(b.b)(
           function(e) {
             return { menu: e.menu, accounts: e.accounts };
           },
@@ -3183,21 +2957,46 @@
                     return { type: "DELETE_ACCOUNT", address: e };
                   })(t)
                 );
+              },
+              getAccountBalance: function(t) {
+                return e(
+                  (function(e) {
+                    return (function() {
+                      var t = Object(V.a)(
+                        F.a.mark(function t(n) {
+                          return F.a.wrap(function(t) {
+                            for (;;)
+                              switch ((t.prev = t.next)) {
+                                case 0:
+                                  return (t.next = 2), Ce(e, n);
+                                case 2:
+                                case "end":
+                                  return t.stop();
+                              }
+                          }, t);
+                        })
+                      );
+                      return function(e) {
+                        return t.apply(this, arguments);
+                      };
+                    })();
+                  })(t)
+                );
               }
             };
           }
-        )(jt),
-        Ct = [
-          { component: Re, path: y, title: "BitX" },
-          { component: rt, path: O, title: "" },
-          { component: dt, path: A, title: "" },
-          { component: Mt, path: N, title: "" }
+        )(Nt),
+        Mt = [
+          { component: Le, path: k.home, title: "BitX" },
+          { component: tt, path: k.createaccount, title: "" },
+          { component: it, path: k.importaccount, title: "" },
+          { component: St, path: k.accountdetail, title: "" }
         ],
-        xt = n(177),
-        It = function(e) {
+        jt = n(178),
+        Ct = function(e) {
           return c.a.createElement(
             "div",
-            { className: xt.wrapper },
+            { className: jt.wrapper },
             c.a.createElement(
               "main",
               null,
@@ -3215,17 +3014,17 @@
             )
           );
         },
-        Pt = n(87),
-        Tt = (function(e) {
+        xt = n(89),
+        It = (function(e) {
           function t() {
             return (
-              Object(l.a)(this, t),
-              Object(p.a)(this, Object(m.a)(t).apply(this, arguments))
+              Object(f.a)(this, t),
+              Object(v.a)(this, Object(E.a)(t).apply(this, arguments))
             );
           }
           return (
-            Object(f.a)(t, e),
-            Object(d.a)(t, [
+            Object(_.a)(t, e),
+            Object(h.a)(t, [
               {
                 key: "render",
                 value: function() {
@@ -3238,18 +3037,18 @@
                     s = r.cb;
                   return c.a.createElement(
                     "div",
-                    { className: Pt.Header },
-                    n !== y &&
+                    { className: xt.Header },
+                    n !== k.home &&
                       c.a.createElement("i", {
-                        className: pe()("iconfont iconback1", Pt.back),
+                        className: ue()("iconfont iconback1", xt.back),
                         onClick: function() {
-                          te(a) ? a() : t.goBack();
+                          Y(a) ? a() : t.goBack();
                         }
                       }),
                     this.props.children,
                     o &&
                       c.a.createElement("i", {
-                        className: pe()("iconfont iconmore", Pt.menu),
+                        className: ue()("iconfont iconmore", xt.menu),
                         onClick: function() {
                           return s();
                         }
@@ -3261,33 +3060,21 @@
             t
           );
         })(r.Component),
-        Bt = n(88),
-        Kt = (function(e) {
+        Pt = n(90),
+        Tt = (function(e) {
           function t() {
             return (
-              Object(l.a)(this, t),
-              Object(p.a)(this, Object(m.a)(t).apply(this, arguments))
+              Object(f.a)(this, t),
+              Object(v.a)(this, Object(E.a)(t).apply(this, arguments))
             );
           }
           return (
-            Object(f.a)(t, e),
-            Object(d.a)(t, [
+            Object(_.a)(t, e),
+            Object(h.a)(t, [
               {
                 key: "componentDidMount",
                 value: function() {
-                  (0, this.props.getAllAccountBalance)(), V.update();
-                }
-              },
-              {
-                key: "componentDidUpdate",
-                value: function(e) {
-                  var t = e.accounts,
-                    n = void 0 === t ? [] : t,
-                    a = this.props,
-                    r = a.accounts,
-                    c = void 0 === r ? [] : r,
-                    o = a.getAllAccountBalance;
-                  n.length !== c.length && o();
+                  R.update();
                 }
               },
               {
@@ -3304,34 +3091,34 @@
                     u = n.app,
                     l = n.setSeenWarning,
                     d = {},
-                    p = ((e = i), x.a.parse(e)).address;
+                    f = ((e = i), S.a.parse(e)).address;
                   return (
-                    p &&
+                    f &&
                       (d =
                         r.filter(function() {
                           return (
                             (arguments.length > 0 && void 0 !== arguments[0]
                               ? arguments[0]
                               : {}
-                            ).address === p
+                            ).address === f
                           );
                         })[0] || {}),
                     c.a.createElement(
                       "div",
-                      { className: Bt.CommonLayOut },
+                      { className: Pt.CommonLayOut },
                       c.a.createElement(
                         "div",
-                        { className: Bt.header },
-                        c.a.createElement(Tt, this.props, o)
+                        { className: Pt.header },
+                        c.a.createElement(It, this.props, o)
                       ),
                       c.a.createElement(
                         "div",
-                        { className: Bt.content },
+                        { className: Pt.content },
                         c.a.createElement(
-                          g.a,
+                          m.a,
                           null,
-                          Ct.map(function(e, n) {
-                            return c.a.createElement(b.a, {
+                          Mt.map(function(e, n) {
+                            return c.a.createElement(p.a, {
                               exact: !0,
                               key: n,
                               path: e.path,
@@ -3345,10 +3132,10 @@
                               }
                             });
                           }),
-                          c.a.createElement(k.a, { to: y })
+                          c.a.createElement(g.a, { to: k.home })
                         )
                       ),
-                      !u.seenWarning && c.a.createElement(It, { setSeen: l })
+                      !u.seenWarning && c.a.createElement(Ct, { setSeen: l })
                     )
                   );
                 }
@@ -3357,7 +3144,7 @@
             t
           );
         })(r.Component),
-        Dt = Object(w.b)(
+        Bt = Object(b.b)(
           function(e) {
             return {
               goBack: e.goBack,
@@ -3377,73 +3164,10 @@
                 var n = t.name,
                   a = t.show,
                   r = t.data;
-                return e(Ce({ name: n, show: a, data: r }));
+                return e(Me({ name: n, show: a, data: r }));
               },
               getAllAccountBalance: function() {
-                return e(
-                  (function() {
-                    var e = Object(J.a)(
-                      X.a.mark(function e(t, n) {
-                        var a, r, c, o, s, i, u, l;
-                        return X.a.wrap(
-                          function(e) {
-                            for (;;)
-                              switch ((e.prev = e.next)) {
-                                case 0:
-                                  (a = n()),
-                                    (r = a.accounts),
-                                    (c = !0),
-                                    (o = !1),
-                                    (s = void 0),
-                                    (e.prev = 4),
-                                    (i = r[Symbol.iterator]());
-                                case 6:
-                                  if ((c = (u = i.next()).done)) {
-                                    e.next = 13;
-                                    break;
-                                  }
-                                  return (l = u.value), (e.next = 10), Ie(l, t);
-                                case 10:
-                                  (c = !0), (e.next = 6);
-                                  break;
-                                case 13:
-                                  e.next = 19;
-                                  break;
-                                case 15:
-                                  (e.prev = 15),
-                                    (e.t0 = e.catch(4)),
-                                    (o = !0),
-                                    (s = e.t0);
-                                case 19:
-                                  (e.prev = 19),
-                                    (e.prev = 20),
-                                    c || null == i.return || i.return();
-                                case 22:
-                                  if (((e.prev = 22), !o)) {
-                                    e.next = 25;
-                                    break;
-                                  }
-                                  throw s;
-                                case 25:
-                                  return e.finish(22);
-                                case 26:
-                                  return e.finish(19);
-                                case 27:
-                                case "end":
-                                  return e.stop();
-                              }
-                          },
-                          e,
-                          null,
-                          [[4, 15, 19, 27], [20, , 22, 26]]
-                        );
-                      })
-                    );
-                    return function(t, n) {
-                      return e.apply(this, arguments);
-                    };
-                  })()
-                );
+                return e(je());
               },
               setGoBack: function(t) {
                 return e(
@@ -3457,58 +3181,34 @@
               }
             };
           }
-        )(Kt),
-        Ut = (n(385),
-        (function(e) {
-          function t() {
-            return (
-              Object(l.a)(this, t),
-              Object(p.a)(this, Object(m.a)(t).apply(this, arguments))
-            );
-          }
-          return (
-            Object(f.a)(t, e),
-            Object(d.a)(t, [
-              {
-                key: "componentDidMount",
-                value: function() {
-                  ce()
-                    ? document
-                        .getElementById("root")
-                        .setAttribute("class", "root-mobile")
-                    : document
-                        .getElementById("root")
-                        .setAttribute("class", "root-desktop");
-                }
-              },
-              {
-                key: "render",
-                value: function() {
-                  var e = this,
-                    t = P ? h.a : v.a;
-                  return c.a.createElement(
-                    t,
-                    null,
-                    c.a.createElement(
-                      _.a,
-                      null,
-                      c.a.createElement(E.a, {
-                        path: "/",
-                        render: function(t) {
-                          return c.a.createElement(
-                            Dt,
-                            Object.assign({}, t, e.props)
-                          );
-                        }
-                      })
-                    )
-                  );
-                }
+        )(Tt);
+      n(384);
+      var Kt = function(e) {
+        Object(r.useEffect)(function() {
+          ne.isMobile()
+            ? document
+                .getElementById("root")
+                .setAttribute("class", "root-mobile")
+            : document
+                .getElementById("root")
+                .setAttribute("class", "root-desktop");
+        }, []);
+        var t = j ? l.a : d.a;
+        return c.a.createElement(
+          t,
+          null,
+          c.a.createElement(
+            m.a,
+            null,
+            c.a.createElement(p.a, {
+              path: "/",
+              render: function(t) {
+                return c.a.createElement(Bt, Object.assign({}, t, e));
               }
-            ]),
-            t
-          );
-        })(r.Component));
+            })
+          )
+        );
+      };
       Boolean(
         "localhost" === window.location.hostname ||
           "[::1]" === window.location.hostname ||
@@ -3516,9 +3216,9 @@
             /^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/
           )
       );
-      var Lt = n(39),
-        qt = n(81),
-        Gt = V.getAccount();
+      var Dt = n(39),
+        Ut = n(66),
+        Lt = R.getAccount();
       function Rt(e) {
         var t = e.map(function() {
           var e =
@@ -3530,19 +3230,19 @@
             network: e.network
           };
         });
-        V.saveAccount(t);
+        R.saveAccount(t);
       }
-      (Gt && Array.isArray(Gt)) || (Gt = []),
-        "undefined" === typeof ae.get("accountVersion") &&
-          ae.set("accountVersion", 1);
-      var Ft = function() {
+      (Lt && Array.isArray(Lt)) || (Lt = []),
+        "undefined" === typeof $.get("accountVersion") &&
+          $.set("accountVersion", 1);
+      var qt = function() {
           var e =
               arguments.length > 0 && void 0 !== arguments[0]
                 ? arguments[0]
-                : Gt,
+                : Lt,
             t = arguments.length > 1 ? arguments[1] : void 0;
           if ("ADD_ACCOUNT" === t.type) {
-            var n = [].concat(Object(qt.a)(e), [t.account]);
+            var n = [].concat(Object(Ut.a)(e), [t.account]);
             return Rt(n), n;
           }
           if ("DELETE_ACCOUNT" === t.type) {
@@ -3557,29 +3257,38 @@
               })
             : e;
         },
-        Vt = function() {
+        Gt = function() {
           var e =
               arguments.length > 0 && void 0 !== arguments[0]
                 ? arguments[0]
                 : [],
             t = arguments.length > 1 ? arguments[1] : void 0;
           return "GENERATE_MNEMONIC" === t.type
-            ? K.a.generateMnemonic().split(" ")
+            ? I.a.generateMnemonic().split(" ")
             : "GENERATE_MNEMONIC" === t.type
             ? []
             : e;
         },
-        Wt = function() {
+        Ft = function() {
           var e =
               arguments.length > 0 && void 0 !== arguments[0]
                 ? arguments[0]
                 : [],
             t = arguments.length > 1 ? arguments[1] : void 0;
-          return "ADD_UTXO" === t.type
-            ? [{ utxos: t.utxos, address: t.address }].concat(Object(qt.a)(e))
-            : e;
+          if ("ADD_UTXO" === t.type) {
+            var n = e.findIndex(function(e) {
+              return e.address === t.address;
+            });
+            if (n < 0)
+              return [{ utxos: t.utxos, address: t.address }].concat(
+                Object(Ut.a)(e)
+              );
+            var a = Object(Ut.a)(e);
+            return a.splice(n, 1, { utxos: t.utxos, address: t.address }), a;
+          }
+          return e;
         },
-        Ht = function() {
+        Vt = function() {
           var e =
               arguments.length > 0 && void 0 !== arguments[0]
                 ? arguments[0]
@@ -3587,7 +3296,7 @@
             t = arguments.length > 1 ? arguments[1] : void 0;
           return "SET_PAGE_TITLE" === t.type ? t.pageTitle : e;
         },
-        Xt = function() {
+        Wt = function() {
           var e =
               arguments.length > 0 && void 0 !== arguments[0]
                 ? arguments[0]
@@ -3596,9 +3305,9 @@
               arguments.length > 1 && void 0 !== arguments[1]
                 ? arguments[1]
                 : {};
-          return "SET_Modal" === t.type ? Object(z.a)({}, e, t.modal) : e;
+          return "SET_Modal" === t.type ? Object(W.a)({}, e, t.modal) : e;
         },
-        Jt = function() {
+        Xt = function() {
           var e =
               arguments.length > 0 && void 0 !== arguments[0]
                 ? arguments[0]
@@ -3606,7 +3315,7 @@
             t = arguments.length > 1 ? arguments[1] : void 0;
           return "SET_GO_BACK" === t.type ? t.goBack : e;
         },
-        zt = function() {
+        Ht = function() {
           var e =
               arguments.length > 0 && void 0 !== arguments[0]
                 ? arguments[0]
@@ -3614,7 +3323,7 @@
             t = arguments.length > 1 ? arguments[1] : void 0;
           return "SET_NETWORK" === t.type ? t.network : e;
         },
-        Qt = function() {
+        Jt = function() {
           var e =
               arguments.length > 0 && void 0 !== arguments[0]
                 ? arguments[0]
@@ -3622,36 +3331,36 @@
             t = arguments.length > 1 ? arguments[1] : void 0;
           return "SET_MENU" === t.type ? t.menu : e;
         },
-        Yt = ae.get("appData") || {},
-        Zt = function() {
+        zt = $.get("appData") || {},
+        Qt = function() {
           var e =
               arguments.length > 0 && void 0 !== arguments[0]
                 ? arguments[0]
-                : Yt,
+                : zt,
             t = arguments.length > 1 ? arguments[1] : void 0;
           if ("SET_SEEN_WARNING" === t.type) {
-            var n = Object(z.a)({}, e, { seenWarning: t.seenWarning });
-            return ae.set("appData", n), n;
+            var n = Object(W.a)({}, e, { seenWarning: t.seenWarning });
+            return $.set("appData", n), n;
           }
           return e;
         },
-        $t = Object(Lt.c)({
-          accounts: Ft,
-          network: zt,
-          newMnemonic: Vt,
-          utxos: Wt,
-          pageTitle: Ht,
-          modal: Xt,
-          goBack: Jt,
-          menu: Qt,
-          app: Zt
+        Yt = Object(Dt.c)({
+          accounts: qt,
+          network: Ht,
+          newMnemonic: Gt,
+          utxos: Ft,
+          pageTitle: Vt,
+          modal: Wt,
+          goBack: Xt,
+          menu: Jt,
+          app: Qt
         }),
-        en = (n(386), n(179)),
-        tn = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || Lt.d,
-        nn = Object(Lt.e)($t, tn(Object(Lt.a)(en.a)));
+        Zt = (n(385), n(179)),
+        $t = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || Dt.d,
+        en = Object(Dt.e)(Yt, $t(Object(Dt.a)(Zt.a)));
       u()(),
         s.a.render(
-          c.a.createElement(w.a, { store: nn }, c.a.createElement(Ut, null)),
+          c.a.createElement(b.a, { store: en }, c.a.createElement(Kt, null)),
           document.getElementById("root")
         ),
         "serviceWorker" in navigator &&
@@ -3681,6 +3390,105 @@
       };
     },
     47: function(e, t, n) {
+      "use strict";
+      (function(e) {
+        n.d(t, "a", function() {
+          return p;
+        });
+        var a = n(46),
+          r = n.n(a),
+          c = n(113),
+          o = n.n(c),
+          s = n(55),
+          i = n.n(s),
+          u = n(10),
+          l = n.n(u),
+          d = n(80);
+        function m(e) {
+          return e === l.a.networks.bitcoin
+            ? "mainnet"
+            : e === l.a.networks.testnet
+            ? "testnet"
+            : "";
+        }
+        var p = {
+          generateMnemonic: function() {
+            return r.a.generateMnemonic();
+          },
+          generateAccount: function(t) {
+            var n,
+              a = t.name,
+              c = t.mnemonic,
+              s = t.password,
+              u = t.wif,
+              d =
+                arguments.length > 1 && void 0 !== arguments[1]
+                  ? arguments[1]
+                  : l.a.networks.testnet,
+              p = "m/44'/1'/0'/0/0";
+            d === l.a.networks.bitcoin && (p = "m/44'/0'/0'/0/0");
+            var f = { N: 128, r: 8, p: 8 };
+            if (a && c && s) {
+              var h = r.a.mnemonicToSeed(c),
+                v = o.a.fromSeed(h, d).derivePath(p),
+                E = l.a.payments.p2pkh({ pubkey: v.publicKey, network: d }),
+                _ = i.a.encrypt(v.privateKey, !0, s, null, f);
+              n = {
+                name: a,
+                address: E.address,
+                encryptedKey: _,
+                network: m(d)
+              };
+            } else if (a && u && s) {
+              var g;
+              (g = /^(0x)?[\da-zA-Z]{64}$/.test(u)
+                ? l.a.ECPair.fromPrivateKey(e.from(u, "hex"), { network: d })
+                : l.a.ECPair.fromWIF(u, d)),
+                (n = {
+                  name: a,
+                  address: l.a.payments.p2pkh({
+                    pubkey: g.publicKey,
+                    network: d
+                  }).address,
+                  encryptedKey: i.a.encrypt(
+                    g.privateKey,
+                    g.compressed,
+                    s,
+                    null,
+                    f
+                  ),
+                  network: m(d)
+                });
+            }
+            return n;
+          },
+          decrypt: function(e, t) {
+            return i.a.decrypt(e, t, function() {}, { N: 128, r: 8, p: 8 });
+          },
+          decryptPair: function(e, t) {
+            var n =
+                arguments.length > 2 && void 0 !== arguments[2]
+                  ? arguments[2]
+                  : l.a.networks.testnet,
+              a = p.decrypt(e, t);
+            return l.a.ECPair.fromPrivateKey(a.privateKey, {
+              compressed: a.compressed,
+              network: n
+            });
+          },
+          sign: function(e, t, n, a, r, c, o, s) {
+            var i =
+              arguments.length > 8 && void 0 !== arguments[8]
+                ? arguments[8]
+                : "mainnet";
+            i = "mainnet" === i ? l.a.networks.bitcoin : l.a.networks.testnet;
+            var u = p.decryptPair(o, s, i);
+            return Object(d.a)(e, t, n, a, r, c, u, i);
+          }
+        };
+      }.call(this, n(9).Buffer));
+    },
+    48: function(e, t, n) {
       e.exports = {
         Modalcontainer: "Modal_Modalcontainer__1-1i6",
         rootModalDesktop: "Modal_rootModalDesktop__1q3ON",
@@ -3689,7 +3497,7 @@
         title: "Modal_title__tK9-d"
       };
     },
-    48: function(e, t, n) {
+    49: function(e, t, n) {
       e.exports = {
         SelectModeGetAccount:
           "SelectModeGetAccount_SelectModeGetAccount__2tlmP",
@@ -3700,7 +3508,7 @@
         separator: "SelectModeGetAccount_separator__36AmM"
       };
     },
-    49: function(e, t, n) {
+    50: function(e, t, n) {
       e.exports = {
         input_password: "InputPassword_input_password__xHtXz",
         top: "InputPassword_top__G92ug",
@@ -3710,13 +3518,13 @@
         confirm: "InputPassword_confirm__B83Pv"
       };
     },
-    56: function(e, t, n) {
+    57: function(e, t, n) {
       e.exports = {
         tool: "Tooltip_tool__1CxeX",
         large: "Tooltip_large__rLp1V"
       };
     },
-    65: function(e, t, n) {
+    68: function(e, t, n) {
       e.exports = {
         SetPassword: "SetPassword_SetPassword__3XwEv",
         inputcontent: "SetPassword_inputcontent__1aACH",
@@ -3724,14 +3532,14 @@
         button: "SetPassword_button__1G1mm"
       };
     },
-    66: function(e, t, n) {
+    69: function(e, t, n) {
       e.exports = {
         success: "SignModal_success__3vCKm",
         button: "SignModal_button__1kWfr",
         userInput: "SignModal_userInput__ljZ7i"
       };
     },
-    67: function(e, t, n) {
+    70: function(e, t, n) {
       e.exports = {
         AccountInfo: "AccountInfo_AccountInfo__13Hon",
         amount: "AccountInfo_amount__3cznI",
@@ -3739,7 +3547,7 @@
         watchother: "AccountInfo_watchother__RHieT"
       };
     },
-    77: function(e, t, n) {
+    80: function(e, t, n) {
       "use strict";
       (function(e) {
         n.d(t, "b", function() {
@@ -3748,7 +3556,7 @@
           n.d(t, "a", function() {
             return i;
           });
-        var a = n(63),
+        var a = n(65),
           r = n.n(a),
           c = n(10),
           o = n.n(c);
@@ -3780,11 +3588,11 @@
                   !(s = (l = d.next()).done);
                   s = !0
                 ) {
-                  var p = l.value;
-                  if ((c.push(p), (o += p.value) >= t + n)) break;
+                  var m = l.value;
+                  if ((c.push(m), (o += m.value) >= t + n)) break;
                 }
-              } catch (m) {
-                (i = !0), (u = m);
+              } catch (p) {
+                (i = !0), (u = p);
               } finally {
                 try {
                   s || null == d.return || d.return();
@@ -3794,79 +3602,80 @@
               }
               return o >= t + n ? c : [];
             })(t, c, s),
-            p = new o.a.TransactionBuilder(l),
-            m = 0,
+            m = new o.a.TransactionBuilder(l);
+          m.setVersion(1);
+          var p = 0,
             f = !0,
             h = !1,
             v = void 0;
           try {
             for (
-              var _, E = d[Symbol.iterator]();
-              !(f = (_ = E.next()).done);
+              var E, _ = d[Symbol.iterator]();
+              !(f = (E = _.next()).done);
               f = !0
             ) {
-              var g = _.value;
-              p.addInput(g.mintTxid, g.mintIndex, 0), (m += g.value);
+              var g = E.value;
+              m.addInput(g.mintTxid, g.mintIndex, 0), (p += g.value);
             }
           } catch (w) {
             (h = !0), (v = w);
           } finally {
             try {
-              f || null == E.return || E.return();
+              f || null == _.return || _.return();
             } finally {
               if (h) throw v;
             }
           }
-          p.addOutput(a, c);
-          var b = m - c - s;
-          if ((b > 1e3 && p.addOutput(n, b), i)) {
+          m.addOutput(a, c);
+          var b = p - c - s;
+          if ((b > 1e3 && m.addOutput(n, b), i)) {
             var k = o.a.payments.embed({ data: [e.from(i, "hex")] });
-            p.addOutput(k.output, 0);
+            m.addOutput(k.output, 0);
           }
           return (
             d.forEach(function(e, t) {
-              p.sign(t, u);
+              m.sign(t, u);
             }),
-            p.build().toHex()
+            m.build().toHex()
           );
         }
       }.call(this, n(9).Buffer));
     },
-    84: function(e, t, n) {
+    86: function(e, t, n) {
       e.exports = {
         clipboard: "Clipboard_clipboard__3NJHh",
         children: "Clipboard_children__2QF2s",
         ellipse: "Clipboard_ellipse__2fy2X"
       };
     },
-    85: function(e, t, n) {
+    87: function(e, t, n) {
       e.exports = {
         SaveMnemonic: "SaveMnemonic_SaveMnemonic__3U0v-",
         desc: "SaveMnemonic_desc__3l6VF",
         generatewords: "SaveMnemonic_generatewords__AJdtz"
       };
     },
-    86: function(e, t, n) {
+    88: function(e, t, n) {
       e.exports = {
         ImportAccount: "ImportAccount_ImportAccount__1j0yl",
         selectmode: "ImportAccount_selectmode__1Nurw",
         active: "ImportAccount_active__ffKXC"
       };
     },
-    87: function(e, t, n) {
+    89: function(e, t, n) {
       e.exports = {
         Header: "Header_Header__2CI_T",
         back: "Header_back__3QuoP",
         menu: "Header_menu__1gycx"
       };
     },
-    88: function(e, t, n) {
+    90: function(e, t, n) {
       e.exports = {
         CommonLayOut: "CommonLayOut_CommonLayOut__3AODs",
         content: "CommonLayOut_content__1-0gL"
       };
     }
   },
-  [[182, 1, 2]]
+  [[181, 1, 2]]
 ]);
-//# sourceMappingURL=main.5597404f.chunk.js.map
+//# sourceMappingURL=main.b861819a.chunk.js.map

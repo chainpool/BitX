@@ -847,90 +847,6 @@ a {
   color: #d8a924;
   margin-top: 8px;
 }
-.AccountReceive_AccountReceive__1lIaP {
-  display: -webkit-flex;
-  display: flex;
-  -webkit-flex-wrap: wrap;
-  flex-wrap: wrap;
-  -webkit-justify-content: center;
-  justify-content: center;
-  margin-top: 60px;
-}
-.AccountReceive_AccountReceive__1lIaP .AccountReceive_desc__3K_de {
-  display: -webkit-flex;
-  display: flex;
-  -webkit-justify-content: center;
-  justify-content: center;
-  width: 100%;
-  margin-top: 30px;
-}
-.AccountSend_AccountSend__S9Kg2 .AccountSend_userInput__20k1k {
-  padding-top: 30px;
-  background: #fff;
-  padding-left: 20px;
-  padding-bottom: 20px;
-}
-.AccountSend_AccountSend__S9Kg2 .AccountSend_addreturn__c4haL {
-  color: #615227;
-  font-size: 16px;
-  display: -webkit-flex;
-  display: flex;
-  -webkit-align-items: center;
-  align-items: center;
-  -webkit-justify-content: flex-end;
-  justify-content: flex-end;
-  margin: 22px 23px 22px 0;
-}
-.AccountSend_AccountSend__S9Kg2 .AccountSend_addreturn__c4haL i {
-  margin-left: 16px;
-  font-size: 25px;
-  cursor: pointer;
-}
-.AccountSend_AccountSend__S9Kg2 .AccountSend_returncontent__29AU1 {
-  color: #615227;
-  padding: 20px 0;
-  background: #fff;
-  border-top: 1px solid #e3e3e3;
-}
-.AccountSend_AccountSend__S9Kg2
-  .AccountSend_returncontent__29AU1
-  .AccountSend_input__VE8wO {
-  margin-left: 20px;
-}
-.AccountSend_AccountSend__S9Kg2
-  .AccountSend_returncontent__29AU1
-  .AccountSend_ASCII__2rBUi {
-  word-break: break-word;
-  margin: 16px 10px 0;
-  padding: 16px 10px;
-  background: #f5f5f5;
-}
-.AccountSend_AccountSend__S9Kg2
-  .AccountSend_returncontent__29AU1
-  .AccountSend_ASCII__2rBUi
-  .AccountSend_label__EM9Bf {
-  margin-bottom: 16px;
-}
-.AccountSend_AccountSend__S9Kg2 .AccountSend_button__29T7s {
-  display: -webkit-flex;
-  display: flex;
-  -webkit-justify-content: center;
-  justify-content: center;
-  margin-top: 60px;
-  margin-bottom: 27px;
-}
-.AccountSend_AccountSend__S9Kg2 .AccountSend_button__29T7s button {
-  width: 240px;
-  height: 52px;
-  background: #f6c94a;
-  border-radius: 4px;
-}
-.AccountSend_AccountSend__S9Kg2 .AccountSend_warning__2Q2PF {
-  font-size: 14px;
-  color: #d89601;
-  line-height: 18px;
-  margin-top: 5px;
-}
 .InputPassword_input_password__xHtXz {
   display: -webkit-flex;
   display: flex;
@@ -1097,6 +1013,90 @@ a {
   color: #ea754b;
   text-align: center;
 }
+.AccountSend_AccountSend__S9Kg2 .AccountSend_userInput__20k1k {
+  padding-top: 30px;
+  background: #fff;
+  padding-left: 20px;
+  padding-bottom: 20px;
+}
+.AccountSend_AccountSend__S9Kg2 .AccountSend_addreturn__c4haL {
+  color: #615227;
+  font-size: 16px;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: flex-end;
+  justify-content: flex-end;
+  margin: 22px 23px 22px 0;
+}
+.AccountSend_AccountSend__S9Kg2 .AccountSend_addreturn__c4haL i {
+  margin-left: 16px;
+  font-size: 25px;
+  cursor: pointer;
+}
+.AccountSend_AccountSend__S9Kg2 .AccountSend_returncontent__29AU1 {
+  color: #615227;
+  padding: 20px 0;
+  background: #fff;
+  border-top: 1px solid #e3e3e3;
+}
+.AccountSend_AccountSend__S9Kg2
+  .AccountSend_returncontent__29AU1
+  .AccountSend_input__VE8wO {
+  margin-left: 20px;
+}
+.AccountSend_AccountSend__S9Kg2
+  .AccountSend_returncontent__29AU1
+  .AccountSend_ASCII__2rBUi {
+  word-break: break-word;
+  margin: 16px 10px 0;
+  padding: 16px 10px;
+  background: #f5f5f5;
+}
+.AccountSend_AccountSend__S9Kg2
+  .AccountSend_returncontent__29AU1
+  .AccountSend_ASCII__2rBUi
+  .AccountSend_label__EM9Bf {
+  margin-bottom: 16px;
+}
+.AccountSend_AccountSend__S9Kg2 .AccountSend_button__29T7s {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-justify-content: center;
+  justify-content: center;
+  margin-top: 60px;
+  margin-bottom: 27px;
+}
+.AccountSend_AccountSend__S9Kg2 .AccountSend_button__29T7s button {
+  width: 240px;
+  height: 52px;
+  background: #f6c94a;
+  border-radius: 4px;
+}
+.AccountSend_AccountSend__S9Kg2 .AccountSend_warning__2Q2PF {
+  font-size: 14px;
+  color: #d89601;
+  line-height: 18px;
+  margin-top: 5px;
+}
+.AccountReceive_AccountReceive__1lIaP {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-justify-content: center;
+  justify-content: center;
+  margin-top: 60px;
+}
+.AccountReceive_AccountReceive__1lIaP .AccountReceive_desc__3K_de {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-justify-content: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 30px;
+}
 .warning_wrapper__1YjSX {
   position: absolute;
   top: 0;
@@ -1180,4 +1180,4 @@ a {
   height: calc(100% - 56px);
   overflow-y: auto;
 }
-/*# sourceMappingURL=main.0b3c9b8d.chunk.css.map */
+/*# sourceMappingURL=main.dd15e66f.chunk.css.map */
