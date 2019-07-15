@@ -2,16 +2,15 @@ import React from "react";
 import { connect } from "react-redux";
 import { Mixin } from "../../components";
 import AccountInfo from "./AccountInfo";
-import AccountReceive from "./AccountReceive";
-import AccountSend from "./AccountSend";
 import ExportKey from "./ExportKey";
 import DeleteAccount from "./DeleteAccount";
 import InputPassword from "./InputPassword";
 import ViewPrivateKey from "./ViewPrivateKey";
-import { setMenu, deleteAccount, getAccountBalance } from "../../store/actions";
+import { deleteAccount, getAccountBalance, setMenu } from "../../store/actions";
 import * as styles from "./index.module.scss";
 import { bitX } from "../../utils/bitX";
 import { isFunction } from "../../utils";
+import OperationSwitch from "./SendOrReceive";
 
 class AccountDetail extends Mixin {
   constructor(props) {
@@ -20,7 +19,6 @@ class AccountDetail extends Mixin {
     this.pageTitle = currentAccount.name;
     this.didMount = Mixin.prototype.componentDidMount;
     this.state = {
-      activeIndex: 0,
       showMenu: false,
       status: "toExportKey", //"toExportKey": 导出私钥; "inputPassword": 输入密码; "showPrivateKey":展示私钥
       privateKey: "",
@@ -49,40 +47,13 @@ class AccountDetail extends Mixin {
   }
 
   render() {
-    const {
-      activeIndex,
-      status,
-      showMenu,
-      privateKey,
-      passwordCallback
-    } = this.state;
+    const { status, showMenu, privateKey, passwordCallback } = this.state;
     const { currentAccount: { encryptedKey } = {}, deleteAccount } = this.props;
 
     return (
       <div className={styles.AccountDetail}>
         <AccountInfo {...this.props} />
-        <div
-          className={styles.content}
-          style={{ background: activeIndex === 1 ? "white" : "" }}
-        >
-          <ul className={styles.selectmode}>
-            {["发送", "接收"].map((item, index) => (
-              <li
-                key={index}
-                className={activeIndex === index ? styles.active : null}
-                onClick={() => {
-                  this.setState({
-                    activeIndex: index
-                  });
-                }}
-              >
-                {item}
-              </li>
-            ))}
-          </ul>
-          {activeIndex === 0 && <AccountSend {...this.props} />}
-          {activeIndex === 1 && <AccountReceive {...this.props} />}
-        </div>
+        <OperationSwitch {...this.props} />
         {showMenu && (
           <div
             className={styles.modal}
