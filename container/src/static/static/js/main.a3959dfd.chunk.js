@@ -37,7 +37,7 @@
         content: "AccountDetail_content__2gECl",
         selectmode: "AccountDetail_selectmode__35O3K",
         active: "AccountDetail_active__3jV8d",
-        modal: "AccountDetail_modal__2adfV",
+        modalWrapper: "AccountDetail_modalWrapper__3kdCs",
         title: "AccountDetail_title__1-_ml",
         menu: "AccountDetail_menu__1Pmz1",
         export_key: "AccountDetail_export_key__eYv0y",
@@ -102,7 +102,7 @@
         E = n(6),
         _ = n(8),
         g = n(392),
-        b = n(13),
+        b = n(12),
         k = {
           home: "/",
           createaccount: "/createaccount",
@@ -117,8 +117,8 @@
         S = n.n(N),
         M = n(116);
       window.require && (a = window.require("electron").ipcRenderer);
-      var j = a,
-        C = n(47),
+      var C = a,
+        j = n(47),
         x = n(46),
         I = n.n(x),
         P = n(10),
@@ -228,58 +228,58 @@
         },
         R = {
           generateMnemonic: function() {
-            return j ? j.sendSync("GENERATE_MNEMONIC") : C.a.generateMnemonic();
+            return C ? C.sendSync("GENERATE_MNEMONIC") : j.a.generateMnemonic();
           },
           generateAccount: function(e) {
             var t =
               arguments.length > 1 && void 0 !== arguments[1]
                 ? arguments[1]
                 : T.a.networks.testnet;
-            return j
-              ? JSON.parse(j.sendSync("GENERATE_ACCOUNT", e))
-              : C.a.generateAccount(e, t);
+            return C
+              ? JSON.parse(C.sendSync("GENERATE_ACCOUNT", e))
+              : j.a.generateAccount(e, t);
           },
           saveAccount: function(e) {
-            j
-              ? j.send("SAVE_ACCOUNT", JSON.stringify(e))
+            C
+              ? C.send("SAVE_ACCOUNT", JSON.stringify(e))
               : $.set("accounts", e);
           },
           getAccount: function() {
-            return j
-              ? JSON.parse(j.sendSync("GET_ACCOUNT"))
+            return C
+              ? JSON.parse(C.sendSync("GET_ACCOUNT"))
               : $.get("accounts");
           },
           sign: function() {
             for (var e = arguments.length, t = new Array(e), n = 0; n < e; n++)
               t[n] = arguments[n];
-            return j ? j.sendSync("SIGN", t) : C.a.sign.apply(C.a, t);
+            return C ? C.sendSync("SIGN", t) : j.a.sign.apply(j.a, t);
           },
           isValidPassword: function() {
             for (var e = arguments.length, t = new Array(e), n = 0; n < e; n++)
               t[n] = arguments[n];
-            return j
-              ? j.sendSync("IS_VALID_PASSWORD", t)
+            return C
+              ? C.sendSync("IS_VALID_PASSWORD", t)
               : L.check("isValidPassword").apply(void 0, t);
           },
           update: function() {
-            j && j.send("UPDATE");
+            C && C.send("UPDATE");
           },
           forceUpdate: function() {
-            j && j.send("FORCE_UPDATE");
+            C && C.send("FORCE_UPDATE");
           }
         };
-      j &&
-        (j.on("isForceUpdate", function() {
+      C &&
+        (C.on("isForceUpdate", function() {
           window.confirm(
             "\u5df2\u4e0b\u8f7d\u6700\u65b0\u7248\u672c\uff0c\u662f\u5426\u7acb\u5373\u5b89\u88c5?"
           ) && R.forceUpdate();
         }),
-        j.on("autoUpdater", function(e, t) {}));
+        C.on("autoUpdater", function(e, t) {}));
       var q,
-        G = n(12),
-        F = n.n(G),
-        V = n(22),
-        W = n(26),
+        G = n(13),
+        W = n.n(G),
+        F = n(22),
+        V = n(26),
         X = n(85),
         H = n(54),
         J = n.n(H),
@@ -308,7 +308,7 @@
             p = function() {
               return fetch(
                 t,
-                Object(W.a)(
+                Object(V.a)(
                   {
                     method: a,
                     headers: {
@@ -322,10 +322,10 @@
               )
                 .then(
                   (function() {
-                    var e = Object(V.a)(
-                      F.a.mark(function e(t) {
+                    var e = Object(F.a)(
+                      W.a.mark(function e(t) {
                         var n;
-                        return F.a.wrap(function(e) {
+                        return W.a.wrap(function(e) {
                           for (;;)
                             switch ((e.prev = e.next)) {
                               case 0:
@@ -535,7 +535,7 @@
                               href: f,
                               target: "_blank",
                               onClick: function(e) {
-                                if (j) {
+                                if (C) {
                                   var t = window.electron.shell;
                                   e.preventDefault(), t.openExternal(f);
                                 }
@@ -794,12 +794,12 @@
         return we.apply(this, arguments);
       }
       function we() {
-        return (we = Object(V.a)(
-          F.a.mark(function e(t) {
+        return (we = Object(F.a)(
+          W.a.mark(function e(t) {
             var n,
               a,
               r = arguments;
-            return F.a.wrap(function(e) {
+            return W.a.wrap(function(e) {
               for (;;)
                 switch ((e.prev = e.next)) {
                   case 0:
@@ -827,12 +827,12 @@
         return Ae.apply(this, arguments);
       }
       function Ae() {
-        return (Ae = Object(V.a)(
-          F.a.mark(function e(t) {
+        return (Ae = Object(F.a)(
+          W.a.mark(function e(t) {
             var n,
               a,
               r = arguments;
-            return F.a.wrap(function(e) {
+            return W.a.wrap(function(e) {
               for (;;)
                 switch ((e.prev = e.next)) {
                   case 0:
@@ -860,12 +860,12 @@
         return Ne.apply(this, arguments);
       }
       function Ne() {
-        return (Ne = Object(V.a)(
-          F.a.mark(function e(t) {
+        return (Ne = Object(F.a)(
+          W.a.mark(function e(t) {
             var n,
               a,
               r = arguments;
-            return F.a.wrap(function(e) {
+            return W.a.wrap(function(e) {
               for (;;)
                 switch ((e.prev = e.next)) {
                   case 0:
@@ -894,12 +894,12 @@
             modal: { name: e.name, show: e.show, data: e.data }
           };
         },
-        je = function() {
+        Ce = function() {
           return (function() {
-            var e = Object(V.a)(
-              F.a.mark(function e(t, n) {
+            var e = Object(F.a)(
+              W.a.mark(function e(t, n) {
                 var a, r, c, o, s, i, u;
-                return F.a.wrap(
+                return W.a.wrap(
                   function(e) {
                     for (;;)
                       switch ((e.prev = e.next)) {
@@ -915,7 +915,7 @@
                             !(c = (u = i.next()).done);
                             c = !0
                           )
-                            Ce(u.value, t);
+                            je(u.value, t);
                           e.next = 12;
                           break;
                         case 8:
@@ -953,13 +953,13 @@
             };
           })();
         };
-      function Ce(e, t) {
+      function je(e, t) {
         return xe.apply(this, arguments);
       }
       function xe() {
-        return (xe = Object(V.a)(
-          F.a.mark(function e(t, n) {
-            return F.a.wrap(function(e) {
+        return (xe = Object(F.a)(
+          W.a.mark(function e(t, n) {
+            return W.a.wrap(function(e) {
               for (;;)
                 switch ((e.prev = e.next)) {
                   case 0:
@@ -968,7 +968,7 @@
                           arguments.length > 0 && void 0 !== arguments[0]
                             ? arguments[0]
                             : {},
-                        a = Object(W.a)({}, t, e, {
+                        a = Object(V.a)({}, t, e, {
                           balanceShow: ee.toBtcPrecision(e.confirmed)
                         });
                       n(Se(a));
@@ -1169,7 +1169,7 @@
               e.setPageTitle("BitX");
             }, []),
             Object(r.useEffect)(function() {
-              s(je());
+              s(Ce());
             }, []),
             c.a.createElement(
               "div",
@@ -1302,7 +1302,7 @@
           );
         })(ae),
         Ge = n(87),
-        Fe = (function(e) {
+        We = (function(e) {
           function t() {
             return (
               Object(f.a)(this, t),
@@ -1349,8 +1349,8 @@
             t
           );
         })(ae),
-        Ve = n(42),
-        We = (function(e) {
+        Fe = n(42),
+        Ve = (function(e) {
           function t(e) {
             var n;
             Object(f.a)(this, t),
@@ -1413,15 +1413,15 @@
                     };
                   return c.a.createElement(
                     "div",
-                    { className: Ve.CheckMnemonic },
+                    { className: Fe.CheckMnemonic },
                     c.a.createElement(
                       "div",
-                      { className: Ve.desc },
+                      { className: Fe.desc },
                       "\u9a8c\u8bc1\u60a8\u8bb0\u4e0b\u7684\u52a9\u8bb0\u8bcd"
                     ),
                     c.a.createElement(
                       "div",
-                      { className: Ve.generatewords },
+                      { className: Fe.generatewords },
                       a
                         .map(function() {
                           return (arguments.length > 0 &&
@@ -1434,17 +1434,17 @@
                     ),
                     c.a.createElement(
                       "div",
-                      { className: ue()(Ve.writedesc, r && Ve.warn) },
+                      { className: ue()(Fe.writedesc, r && Fe.warn) },
                       "\u8bf7\u6309\u6b63\u786e\u7684\u987a\u5e8f\u70b9\u51fb\u5355\u8bcd"
                     ),
                     c.a.createElement(
                       "ul",
-                      { className: Ve.allwords },
+                      { className: Fe.allwords },
                       o.map(function(t, n) {
                         return c.a.createElement(
                           "li",
                           {
-                            className: -1 !== i(n) ? Ve.active : null,
+                            className: -1 !== i(n) ? Fe.active : null,
                             key: n,
                             onClick: function() {
                               e.setState({ userInputErrMsg: "" }),
@@ -1818,10 +1818,10 @@
                             c.a.createElement(
                               "button",
                               {
-                                onClick: Object(V.a)(
-                                  F.a.mark(function n() {
+                                onClick: Object(F.a)(
+                                  W.a.mark(function n() {
                                     var r, c;
-                                    return F.a.wrap(
+                                    return W.a.wrap(
                                       function(n) {
                                         for (;;)
                                           switch ((n.prev = n.next)) {
@@ -1913,7 +1913,7 @@
                   var e = this.state,
                     t = e.step,
                     n = e.mnemonic,
-                    a = Object(W.a)({}, this.props, {
+                    a = Object(V.a)({}, this.props, {
                       mnemonic: n,
                       changeStep: this.changeStep
                     });
@@ -1921,8 +1921,8 @@
                     "div",
                     { className: $e.CreateAccount },
                     1 === t && c.a.createElement(qe, a),
-                    2 === t && c.a.createElement(Fe, a),
-                    3 === t && c.a.createElement(We, a),
+                    2 === t && c.a.createElement(We, a),
+                    3 === t && c.a.createElement(Ve, a),
                     4 === t && c.a.createElement(Qe, a)
                   );
                 }
@@ -2167,7 +2167,7 @@
                     t = this.state,
                     n = t.step,
                     a = t.activeIndex,
-                    r = Object(W.a)(
+                    r = Object(V.a)(
                       { step: n, changeStep: this.changeStep },
                       this.props
                     );
@@ -2622,10 +2622,10 @@
                                 name: "transfer",
                                 data: {
                                   callback: (function() {
-                                    var t = Object(V.a)(
-                                      F.a.mark(function t(n, a) {
+                                    var t = Object(F.a)(
+                                      W.a.mark(function t(n, a) {
                                         var r, c;
-                                        return F.a.wrap(function(t) {
+                                        return W.a.wrap(function(t) {
                                           for (;;)
                                             switch ((t.prev = t.next)) {
                                               case 0:
@@ -2691,10 +2691,10 @@
                         ? arguments[1]
                         : "testnet";
                     return (function() {
-                      var n = Object(V.a)(
-                        F.a.mark(function n(a) {
+                      var n = Object(F.a)(
+                        W.a.mark(function n(a) {
                           var r;
-                          return F.a.wrap(function(n) {
+                          return W.a.wrap(function(n) {
                             for (;;)
                               switch ((n.prev = n.next)) {
                                 case 0:
@@ -2847,7 +2847,7 @@
                       c.a.createElement(
                         "div",
                         {
-                          className: vt.modal,
+                          className: vt.modalWrapper,
                           onClick: function() {
                             e.setState({ showMenu: !1, status: "toExportKey" });
                           }
@@ -2862,7 +2862,7 @@
                                 e.setState({
                                   status: "inputPassword",
                                   passwordCallback: function(t) {
-                                    var n = C.a.decryptPair(u, t).privateKey;
+                                    var n = j.a.decryptPair(u, t).privateKey;
                                     e.setState({
                                       privateKey: n.toString("hex"),
                                       status: "showPrivateKey"
@@ -2962,13 +2962,13 @@
                 return e(
                   (function(e) {
                     return (function() {
-                      var t = Object(V.a)(
-                        F.a.mark(function t(n) {
-                          return F.a.wrap(function(t) {
+                      var t = Object(F.a)(
+                        W.a.mark(function t(n) {
+                          return W.a.wrap(function(t) {
                             for (;;)
                               switch ((t.prev = t.next)) {
                                 case 0:
-                                  return (t.next = 2), Ce(e, n);
+                                  return (t.next = 2), je(e, n);
                                 case 2:
                                 case "end":
                                   return t.stop();
@@ -2992,11 +2992,11 @@
           { component: it, path: k.importaccount, title: "" },
           { component: St, path: k.accountdetail, title: "" }
         ],
-        jt = n(178),
-        Ct = function(e) {
+        Ct = n(178),
+        jt = function(e) {
           return c.a.createElement(
             "div",
-            { className: jt.wrapper },
+            { className: Ct.wrapper },
             c.a.createElement(
               "main",
               null,
@@ -3014,53 +3014,43 @@
             )
           );
         },
-        xt = n(89),
-        It = (function(e) {
-          function t() {
-            return (
-              Object(f.a)(this, t),
-              Object(v.a)(this, Object(E.a)(t).apply(this, arguments))
-            );
-          }
-          return (
-            Object(_.a)(t, e),
-            Object(h.a)(t, [
-              {
-                key: "render",
-                value: function() {
-                  var e = this.props,
-                    t = e.history,
-                    n = e.history.location.pathname,
-                    a = e.goBack,
-                    r = e.menu,
-                    o = r.show,
-                    s = r.cb;
-                  return c.a.createElement(
-                    "div",
-                    { className: xt.Header },
-                    n !== k.home &&
-                      c.a.createElement("i", {
-                        className: ue()("iconfont iconback1", xt.back),
-                        onClick: function() {
-                          Y(a) ? a() : t.goBack();
-                        }
-                      }),
-                    this.props.children,
-                    o &&
-                      c.a.createElement("i", {
-                        className: ue()("iconfont iconmore", xt.menu),
-                        onClick: function() {
-                          return s();
-                        }
-                      })
-                  );
-                }
+        xt = n(89);
+      function It(e) {
+        var t = e.history,
+          n = e.history.location.pathname,
+          a = Object(b.d)(function(e) {
+            return e.menu;
+          }),
+          r = a.show,
+          o = a.cb,
+          s = Object(b.d)(function(e) {
+            return e.goBack;
+          }),
+          i =
+            n !== k.home &&
+            c.a.createElement("i", {
+              className: ue()("iconfont iconback1", xt.back),
+              onClick: function() {
+                Y(s) ? s() : t.goBack();
               }
-            ]),
-            t
-          );
-        })(r.Component),
-        Pt = n(90),
+            }),
+          u =
+            r &&
+            c.a.createElement("i", {
+              className: ue()("iconfont iconmore", xt.menu),
+              onClick: function() {
+                return o();
+              }
+            });
+        return c.a.createElement(
+          "div",
+          { className: xt.Header },
+          i,
+          e.children,
+          u
+        );
+      }
+      var Pt = n(90),
         Tt = (function(e) {
           function t() {
             return (
@@ -3135,7 +3125,7 @@
                           c.a.createElement(g.a, { to: k.home })
                         )
                       ),
-                      !u.seenWarning && c.a.createElement(Ct, { setSeen: l })
+                      !u.seenWarning && c.a.createElement(jt, { setSeen: l })
                     )
                   );
                 }
@@ -3167,7 +3157,7 @@
                 return e(Me({ name: n, show: a, data: r }));
               },
               getAllAccountBalance: function() {
-                return e(je());
+                return e(Ce());
               },
               setGoBack: function(t) {
                 return e(
@@ -3193,7 +3183,7 @@
                 .getElementById("root")
                 .setAttribute("class", "root-desktop");
         }, []);
-        var t = j ? l.a : d.a;
+        var t = C ? l.a : d.a;
         return c.a.createElement(
           t,
           null,
@@ -3269,7 +3259,7 @@
             ? []
             : e;
         },
-        Ft = function() {
+        Wt = function() {
           var e =
               arguments.length > 0 && void 0 !== arguments[0]
                 ? arguments[0]
@@ -3288,7 +3278,7 @@
           }
           return e;
         },
-        Vt = function() {
+        Ft = function() {
           var e =
               arguments.length > 0 && void 0 !== arguments[0]
                 ? arguments[0]
@@ -3296,7 +3286,7 @@
             t = arguments.length > 1 ? arguments[1] : void 0;
           return "SET_PAGE_TITLE" === t.type ? t.pageTitle : e;
         },
-        Wt = function() {
+        Vt = function() {
           var e =
               arguments.length > 0 && void 0 !== arguments[0]
                 ? arguments[0]
@@ -3305,7 +3295,7 @@
               arguments.length > 1 && void 0 !== arguments[1]
                 ? arguments[1]
                 : {};
-          return "SET_Modal" === t.type ? Object(W.a)({}, e, t.modal) : e;
+          return "SET_Modal" === t.type ? Object(V.a)({}, e, t.modal) : e;
         },
         Xt = function() {
           var e =
@@ -3339,7 +3329,7 @@
                 : zt,
             t = arguments.length > 1 ? arguments[1] : void 0;
           if ("SET_SEEN_WARNING" === t.type) {
-            var n = Object(W.a)({}, e, { seenWarning: t.seenWarning });
+            var n = Object(V.a)({}, e, { seenWarning: t.seenWarning });
             return $.set("appData", n), n;
           }
           return e;
@@ -3348,9 +3338,9 @@
           accounts: qt,
           network: Ht,
           newMnemonic: Gt,
-          utxos: Ft,
-          pageTitle: Vt,
-          modal: Wt,
+          utxos: Wt,
+          pageTitle: Ft,
+          modal: Vt,
           goBack: Xt,
           menu: Jt,
           app: Qt
@@ -3678,4 +3668,4 @@
   },
   [[181, 1, 2]]
 ]);
-//# sourceMappingURL=main.b861819a.chunk.js.map
+//# sourceMappingURL=main.a3959dfd.chunk.js.map
