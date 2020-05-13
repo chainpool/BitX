@@ -118,6 +118,18 @@ router.post("/mainnet/balances", async ctx => {
   ctx.body = result;
 });
 
+router.get("/testnet/block/tip", async ctx => {
+  const response = await fetch(`${bitcoreEndpoint}/api/BTC/testnet/block/tip`);
+
+  ctx.body = await response.json();
+});
+
+router.get("/mainnet/block/tip", async ctx => {
+  const response = await fetch(`${bitcoreEndpoint}/api/BTC/mainnet/block/tip`);
+
+  ctx.body = await response.json();
+});
+
 module.exports = app => {
   app.use(router.routes()).use(router.allowedMethods({ throw: true }));
 };
