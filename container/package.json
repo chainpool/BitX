@@ -1,14 +1,14 @@
 {
   "name": "bitx",
   "productName": "BitX",
-  "version": "1.0.5",
+  "version": "1.0.7",
   "description": "BitX",
   "main": "src/main.js",
   "scripts": {
     "start": "electron . --debug",
     "start:watch": "nodemon --watch ./src/**/* --exec electron . --debug",
     "pack": "electron-builder --dir",
-    "dist": "rimraf dist && electron-builder"
+    "dist": "rimraf dist && electron-builder -lw"
   },
   "keywords": [
     "chainX",
