@@ -805,7 +805,7 @@
                   case 0:
                     return (
                       (n = r.length > 1 && void 0 !== r[1] ? r[1] : "testnet"),
-                      (a = "https://api.chainx.org.cn/bitx/"
+                      (a = "https://api.chainx.org/bitx/"
                         .concat(n, "/")
                         .concat(t, "/balance")),
                       e.abrupt(
@@ -838,7 +838,7 @@
                   case 0:
                     return (
                       (n = r.length > 1 && void 0 !== r[1] ? r[1] : "testnet"),
-                      (a = "https://api.chainx.org.cn/bitx/"
+                      (a = "https://api.chainx.org/bitx/"
                         .concat(n, "/")
                         .concat(t, "/utxos")),
                       e.abrupt(
