@@ -3,12 +3,12 @@ import { fetchFromHttp } from "../utils";
 const submitEndpoint = "https://api.chainx.org/bitx/txs";
 
 export async function getBalance(addr, network = "testnet") {
-  const url = `https://api.chainx.org.cn/bitx/${network}/${addr}/balance`;
+  const url = `https://api.chainx.org/bitx/${network}/${addr}/balance`;
   return window.fetch(url).then(res => res.json());
 }
 
 export async function getUtxos(addr, network = "testnet") {
-  const url = `https://api.chainx.org.cn/bitx/${network}/${addr}/utxos`;
+  const url = `https://api.chainx.org/bitx/${network}/${addr}/utxos`;
   return window.fetch(url).then(res => res.json());
 }
 
