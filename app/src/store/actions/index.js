@@ -66,7 +66,7 @@ async function updateBalance(account, dispatch) {
     const findOne = {
       ...account,
       ...res,
-      balanceShow: formatNumber.toBtcPrecision(res.confirmed)
+      balanceShow: formatNumber.toBtcPrecision(res.balance)
     };
     dispatch(updateAccountBalance(findOne));
   });

@@ -2,15 +2,15 @@ const fetch = require("node-fetch");
 const Router = require("koa-router");
 const pick = require("lodash.pick");
 
-const defaultEndpoint = "http://47.111.89.46:18332";
-const defaultBitcoreEndpoint = "http://47.111.89.46:3000";
+const defaultEndpoint = "http://115.29.163.193:18332";
+const defaultBitcoreEndpoint = "http://115.29.163.193:3000";
 
 const btcTestnetEndpoint = process.env.BTC_TESTNET_END_POINT || defaultEndpoint;
 const btcMainnetEndpoint =
-  process.env.BTC_MAINNET_END_POINT || "http://47.111.89.46:8332";
+  process.env.BTC_MAINNET_END_POINT || "http://115.29.163.193:8332";
 const bitcoreEndpoint = process.env.BITCORE_END_POINT || defaultBitcoreEndpoint;
 
-const authorization = process.env.Authorization;
+const authorization = "Basic YXV0aDpiaXRjb2luLWIyZGQwNzc=";
 
 const router = new Router();
 
@@ -68,7 +68,7 @@ router.get("/mainnet/:address/balance", async ctx => {
   const { address } = ctx.params;
 
   const response = await fetch(
-    `${bitcoreEndpoint}/api/BTC/mainnet/address/${address}/balance`
+    `https://api.blockcypher.com/v1/btc/main/addrs/${address}/balance`
   );
 
   const balance = await response.json();
