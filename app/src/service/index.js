@@ -1,6 +1,6 @@
 import { fetchFromHttp } from "../utils";
 
-const submitEndpoint = "https://api.chainx.org/bitx/txs";
+const submitEndpoint = "http://127.0.0.1:4001/txs";
 
 export async function getBalance(addr, network = "testnet") {
   const net = network === "testnet" ? "test3" : "main";
@@ -27,8 +27,9 @@ export async function getUtxos(addr, network = "testnet") {
 
 export async function broadcastTx(tx, network = "testnet") {
   const body = { raw: tx, network };
+
   return fetchFromHttp({
-    url: "",
+    url: submitEndpoint,
     method: "POST",
     body
   });

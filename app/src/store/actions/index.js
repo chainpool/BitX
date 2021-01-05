@@ -32,6 +32,7 @@ export const setModal = ({ name, show, data }) => ({
 export const getAccountUtxos = (addr, network = "testnet") => {
   return async dispatch => {
     const res = await getUtxos(addr, network);
+
     dispatch(updateUtxos(addr, res));
   };
 };
@@ -63,6 +64,7 @@ export const getAccountBalance = account => {
 
 async function updateBalance(account, dispatch) {
   getBalance(account.address, account.network || "testnet").then((res = {}) => {
+    res.confirmed = res.balance;
     const findOne = {
       ...account,
       ...res,

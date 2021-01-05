@@ -17,6 +17,7 @@ export const fetchFromHttp = ({
     fetch(url, {
       method: method,
       headers: {
+        Authorization: `Basic YXV0aDpiaXRjb2luLWIyZGQwNzc=`,
         Accept: "application/json",
         "Content-Type": "application/json"
       },

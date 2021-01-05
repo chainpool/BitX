@@ -65,6 +65,7 @@ class AccountSend extends Mixin {
       const { utxos } = this.props;
       const BTCAmount = Number(formatNumber.toBtcPrecision(amount, 8, true));
       const feeInSatoshi = Number(formatNumber.toBtcPrecision(fee, 8, true));
+
       if (!enough(utxos, BTCAmount, feeInSatoshi)) {
         const errMsg = "数量不足";
         this.setState({
@@ -101,6 +102,7 @@ class AccountSend extends Mixin {
   constructTx(encryptedKey, password) {
     const { address, amount, hex, fee } = this.state;
     const { utxos } = this.props;
+
     const { currentAccount } = this.props;
     const BTCAmount = Number(formatNumber.toBtcPrecision(amount, 8, true));
     const feeInSatoshi = Number(formatNumber.toBtcPrecision(fee, 8, true));
@@ -258,6 +260,7 @@ class AccountSend extends Mixin {
                           tx,
                           currentAccount.network
                         );
+
                         if (res && res.tx) {
                           return res.tx;
                         }

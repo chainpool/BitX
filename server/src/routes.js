@@ -5,9 +5,8 @@ const pick = require("lodash.pick");
 const defaultEndpoint = "http://115.29.163.193:18332";
 const defaultBitcoreEndpoint = "http://115.29.163.193:3000";
 
-const btcTestnetEndpoint = process.env.BTC_TESTNET_END_POINT || defaultEndpoint;
-const btcMainnetEndpoint =
-  process.env.BTC_MAINNET_END_POINT || "http://115.29.163.193:8332";
+const btcTestnetEndpoint = defaultEndpoint;
+const btcMainnetEndpoint = "http://115.29.163.193:8332";
 const bitcoreEndpoint = process.env.BITCORE_END_POINT || defaultBitcoreEndpoint;
 
 const authorization = "Basic YXV0aDpiaXRjb2luLWIyZGQwNzc=";
@@ -160,5 +159,6 @@ async function submit(raw, network) {
     network === "mainnet" ? btcMainnetEndpoint : btcTestnetEndpoint,
     request
   );
+  console.log(JSON.stringify(response));
   return response;
 }

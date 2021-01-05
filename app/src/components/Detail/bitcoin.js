@@ -2,21 +2,20 @@ import BigNumber from "bignumber.js";
 import bitcoin from "bitcoinjs-lib";
 
 export function enough(utxos, amount, fee) {
-  const total = utxos.reduce((result, utxo) => result + utxo.value, 0);
-
+  const total = utxos.reduce((result, utxo) => result + utxo.amount, 0);
   return total >= amount + fee;
 }
 
 function filterUnspentsByAmount(unspents, amount, fee) {
   const nonZeroUnspents = unspents.filter(
-    utxo => new BigNumber(utxo.value) > 0
+    utxo => new BigNumber(utxo.amount) > 0
   );
 
   const result = [];
   let sum = 0;
   for (let utxo of nonZeroUnspents) {
     result.push(utxo);
-    sum += utxo.value;
+    sum += utxo.amount;
     if (sum >= amount + fee) {
       break;
     }
@@ -42,8 +41,8 @@ export function compose(
 
   let sum = 0;
   for (let utxo of filteredUtxos) {
-    txb.addInput(utxo.mintTxid, utxo.mintIndex, 0);
-    sum += utxo.value;
+    txb.addInput(utxo.txid, utxo.vout);
+    sum += utxo.amount;
   }
 
   txb.addOutput(targetAddress, amount);
@@ -64,6 +63,7 @@ export function compose(
   });
 
   const tx = txb.build();
+
   return tx.toHex();
 }
 

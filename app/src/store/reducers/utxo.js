@@ -1,6 +1,7 @@
 const utxos = (state = [], action) => {
   if (action.type === "ADD_UTXO") {
     const index = state.findIndex(item => item.address === action.address);
+
     if (index < 0) {
       return [{ utxos: action.utxos, address: action.address }, ...state];
     } else {

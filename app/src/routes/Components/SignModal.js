@@ -78,6 +78,7 @@ export default class SignModal extends Mixin {
                     if (isFunction(callback)) {
                       try {
                         const res = await callback(encryptedKey, password);
+
                         if (res) {
                           this.setState({
                             status: true,
