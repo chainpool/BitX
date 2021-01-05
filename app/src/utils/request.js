@@ -6,7 +6,7 @@ export const fetchFromHttp = ({
   methodAlias,
   params = [],
   body,
-  timeOut = 10000,
+  timeOut = 1000000,
   ...rest
 }) => {
   const id = uniqid();
@@ -17,7 +17,7 @@ export const fetchFromHttp = ({
     fetch(url, {
       method: method,
       headers: {
-        Authorization: `Basic YXV0aDpiaXRjb2luLWIyZGQwNzc=`,
+        //Authorization: `Basic YXV0aDpiaXRjb2luLWIyZGQwNzc=`,
         Accept: "application/json",
         "Content-Type": "application/json"
       },
@@ -25,6 +25,7 @@ export const fetchFromHttp = ({
       ...rest
     })
       .then(async res => {
+        debugger;
         if (res.status >= 200 && res.status < 300) {
           return res.json();
         } else {
@@ -36,6 +37,7 @@ export const fetchFromHttp = ({
         }
       })
       .catch(err => {
+        debugger;
         return Promise.reject(err.message || err);
       });
   if (timeOut) {

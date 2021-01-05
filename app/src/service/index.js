@@ -1,6 +1,6 @@
 import { fetchFromHttp } from "../utils";
 
-const submitEndpoint = "http://127.0.0.1:4001/txs";
+const submitEndpoint = "https://rpc-2.chainx.org";
 
 export async function getBalance(addr, network = "testnet") {
   const net = network === "testnet" ? "test3" : "main";
@@ -26,10 +26,11 @@ export async function getUtxos(addr, network = "testnet") {
 }
 
 export async function broadcastTx(tx, network = "testnet") {
-  const body = { raw: tx, network };
-
+  const net = network === "testnet" ? "test3" : "main";
+  const body = { tx: tx, network };
   return fetchFromHttp({
-    url: submitEndpoint,
+    //url: submitEndpoint,
+    url: `http://api.blockcypher.com/v1/btc/${net}/txs/push`,
     method: "POST",
     body
   });

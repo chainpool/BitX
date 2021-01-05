@@ -17,6 +17,7 @@ class AccountSend extends Mixin {
     addOpReturn: false,
     hex: "",
     hexErrMsg: "",
+    tx: "",
     fee: 0.00008, // 默认值为8000 Satoshi
     feeErrMsg: ""
   };
@@ -253,6 +254,7 @@ class AccountSend extends Mixin {
                   data: {
                     callback: async (encryptedKey, password) => {
                       const tx = this.constructTx(encryptedKey, password);
+                      console.log(tx);
                       if (tx && tx.message) {
                         throw Error(tx.message);
                       } else {

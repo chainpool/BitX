@@ -82,7 +82,7 @@ export default class SignModal extends Mixin {
                         if (res) {
                           this.setState({
                             status: true,
-                            hash: res
+                            hash: res.hash
                           });
                         }
                       } catch (err) {
