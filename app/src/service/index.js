@@ -30,7 +30,7 @@ export async function broadcastTx(tx, network = "testnet") {
   const body = { tx: tx, network };
   return fetchFromHttp({
     //url: submitEndpoint,
-    url: `http://api.blockcypher.com/v1/btc/${net}/txs/push`,
+    url: `https://api.blockcypher.com/v1/btc/${net}/txs/push`,
     method: "POST",
     body
   });
