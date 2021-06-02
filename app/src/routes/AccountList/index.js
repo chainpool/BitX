@@ -49,7 +49,8 @@ function AccountList(props) {
                 {setBlankSpace(item.balanceShow, "BTC")}
               </div>
             </div>
-            <div className={styles.address}>{item.address}</div>
+            {console.dir(item.address)}
+            <div className={styles.address}>{item.address.toString()}</div>
           </RouterGo>
         ))}
       </ul>

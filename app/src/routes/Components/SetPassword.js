@@ -5,7 +5,7 @@ import { PATH } from "../../constants";
 import { bitJS, Patterns } from "../../utils";
 import * as styles from "./SetPassword.module.scss";
 import { addAccount } from "../../store/actions";
-import bitcoin from "bitcoinjs-lib";
+import dogecoin from "bitcore-lib-doge";
 import passwordValidator from "password-validator";
 
 class SetPassword extends Mixin {
@@ -113,18 +113,7 @@ class SetPassword extends Mixin {
       confirmPassword,
       confirmPasswordErrMsg
     } = this.state;
-    const {
-      mnemonic,
-      privateKey,
-      addAccount,
-      history,
-      network: networkType
-    } = this.props;
-    const network =
-      networkType === "mainnet"
-        ? bitcoin.networks.bitcoin
-        : bitcoin.networks.testnet;
-
+    const { mnemonic, privateKey, addAccount, history, network } = this.props;
     return (
       <div className={styles.SetPassword}>
         <div className={styles.inputcontent}>
@@ -181,7 +170,7 @@ class SetPassword extends Mixin {
                     mnemonic,
                     wif: privateKey,
                     password: password,
-                    network: networkType
+                    network
                   },
                   network
                 );

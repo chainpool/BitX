@@ -1,81 +1,52 @@
 import bip39 from "bip39";
 import bip32 from "bip32";
 import bip38 from "bip38";
-import bitcoin from "bitcoinjs-lib";
+import dogecoin from "bitcore-lib-doge";
 import { compose } from "../components/Detail/bitcoin";
-
-function getNetworkKey(network) {
-  if (network === bitcoin.networks.bitcoin) {
-    return "mainnet";
-  } else if (network === bitcoin.networks.testnet) {
-    return "testnet";
-  } else {
-    return "";
-  }
-}
 
 export const bitX = {
   generateMnemonic: () => bip39.generateMnemonic(),
-  generateAccount: (
-    { name, mnemonic, password, wif },
-    network = bitcoin.networks.testnet
-  ) => {
+  generateAccount: ({ name, mnemonic, password, wif }, network) => {
     let account;
-    let path = "m/44'/1'/0'/0/0";
-    if (network === bitcoin.networks.bitcoin) {
-      path = "m/44'/0'/0'/0/0";
-    }
     const params = {
       N: 128, // specified by BIP38
       r: 8,
       p: 8
     };
     if (name && mnemonic && password) {
-      const seed = bip39.mnemonicToSeed(mnemonic);
-      const root = bip32.fromSeed(seed, network);
-      const child1 = root.derivePath(path);
-      const p2pkh = bitcoin.payments.p2pkh({
-        pubkey: child1.publicKey,
-        network
-      });
+      const value = Buffer.from(mnemonic);
+      const hash = dogecoin.crypto.Hash.sha256(value);
+      const bn = dogecoin.crypto.BN.fromBuffer(hash);
+
+      const keyPair = new dogecoin.PrivateKey(bn);
+
       const encryptedKey = bip38.encrypt(
-        child1.privateKey,
-        true,
+        Buffer.from(keyPair.toString(), "hex"),
+        false,
         password,
         null,
         params
       );
       account = {
         name,
-        address: p2pkh.address,
+        address: keyPair.toAddress().toString(),
         encryptedKey,
-        network: getNetworkKey(network)
+        network
       };
     } else if (name && wif && password) {
-      let keyPair;
-      if (/^(0x)?[\da-zA-Z]{64}$/.test(wif)) {
-        keyPair = bitcoin.ECPair.fromPrivateKey(Buffer.from(wif, "hex"), {
-          network
-        });
-      } else {
-        keyPair = bitcoin.ECPair.fromWIF(wif, network);
-      }
-      const { address } = bitcoin.payments.p2pkh({
-        pubkey: keyPair.publicKey,
-        network
-      });
+      let keyPair = dogecoin.PrivateKey.fromWIF(wif);
       const encryptedKey = bip38.encrypt(
-        keyPair.privateKey,
-        keyPair.compressed,
+        Buffer.from(keyPair.toString(), "hex"),
+        false,
         password,
         null,
         params
       );
       account = {
         name,
-        address,
+        address: keyPair.toAddress().toString(),
         encryptedKey,
-        network: getNetworkKey(network)
+        network
       };
     }
     return account;
@@ -87,12 +58,21 @@ export const bitX = {
       p: 8
     });
   },
-  decryptPair: (encryptedKey, password, network = bitcoin.networks.testnet) => {
+  getNetwork: network => {
+    if (network === "testnet") {
+      return dogecoin.Networks.testnet;
+    } else {
+      return dogecoin.Networks.mainnet;
+    }
+  },
+  decryptPair: (encryptedKey, password, network) => {
     const result = bitX.decrypt(encryptedKey, password);
-    return bitcoin.ECPair.fromPrivateKey(result.privateKey, {
-      compressed: result.compressed,
-      network
-    });
+    let keyPair = new dogecoin.PrivateKey(
+      result.privateKey.toString("hex"),
+      bitX.getNetwork(network)
+    );
+    console.log(keyPair.toWIF());
+    return keyPair;
   },
   sign: (
     utxos,
@@ -103,12 +83,8 @@ export const bitX = {
     opReturnHex,
     encryptedKey,
     password,
-    network = "mainnet"
+    network
   ) => {
-    network =
-      network === "mainnet"
-        ? bitcoin.networks.bitcoin
-        : bitcoin.networks.testnet;
     const ecpair = bitX.decryptPair(encryptedKey, password, network);
     return compose(
       utxos,
@@ -117,8 +93,7 @@ export const bitX = {
       amount,
       fee,
       opReturnHex,
-      ecpair,
-      network
+      ecpair
     );
   }
 };

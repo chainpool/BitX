@@ -1,5 +1,5 @@
 import BigNumber from "bignumber.js";
-import bitcoin from "bitcoinjs-lib";
+import dogecoin from "bitcore-lib-doge";
 
 export function enough(utxos, amount, fee) {
   const total = utxos.reduce((result, utxo) => result + utxo.amount, 0);
@@ -30,41 +30,35 @@ export function compose(
   targetAddress,
   amount,
   fee,
-  opReturnHex,
-  ecpair,
-  network = bitcoin.networks.testnet
+  opReturn,
+  keypair
 ) {
   const filteredUtxos = filterUnspentsByAmount(utxos, amount, fee);
 
-  const txb = new bitcoin.TransactionBuilder(network);
-  txb.setVersion(1);
-
-  let sum = 0;
+  const tx = new dogecoin.Transaction();
+  const input_txs = [];
+  // let total = 0;
   for (let utxo of filteredUtxos) {
-    txb.addInput(utxo.txid, utxo.vout);
-    sum += utxo.amount;
-  }
-
-  txb.addOutput(targetAddress, amount);
-  const change = sum - amount - fee;
-  if (change > 1000) {
-    txb.addOutput(changeAddress, change);
-  }
-
-  if (opReturnHex) {
-    const embed = bitcoin.payments.embed({
-      data: [Buffer.from(opReturnHex, "hex")]
+    // total += utxo.amount;
+    input_txs.push({
+      txId: utxo.txid,
+      outputIndex: utxo.vout,
+      satoshis: utxo.amount,
+      script: utxo.script
     });
-    txb.addOutput(embed.output, 0);
   }
 
-  filteredUtxos.forEach((utxo, index) => {
-    txb.sign(index, ecpair);
-  });
+  console.log(input_txs);
+  tx.from(input_txs);
+  window.Buffer = Buffer;
 
-  const tx = txb.build();
+  tx.addData(opReturn)
+    .to(targetAddress, amount)
+    .change(changeAddress)
+    .sign(keypair);
 
-  return tx.toHex();
+  console.log(tx.toJSON());
+  return tx.toString();
 }
 
 export default compose;

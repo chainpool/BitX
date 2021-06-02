@@ -1,5 +1,5 @@
 import bip39 from "bip39";
-import bitcoin from "bitcoinjs-lib";
+import dogecoin from "bitcore-lib-doge";
 import bip38 from "bip38";
 import WAValidator from "wallet-address-validator";
 
@@ -32,17 +32,11 @@ export const Patterns = {
     result = inputValue.length > maxLength ? `最多${maxLength}个字符` : result;
     return result;
   },
-  isBTCAddress: (value, errMsg = "地址格式错误") => {
-    return WAValidator.validate(value, "BTC", "test") ? "" : errMsg;
-  },
+  isBTCAddress: (value, errMsg = "地址格式错误") => {},
   isValidMnemonic: (value, errMsg = "助记词格式错误") => {
     return bip39.validateMnemonic(value) ? "" : errMsg;
   },
-  isValidPrivateKey: (
-    value,
-    network = bitcoin.networks.testnet,
-    errMsg = "私钥格式错误"
-  ) => {
+  isValidPrivateKey: (value, network, errMsg = "私钥格式错误") => {
     // 私钥
     if (/^[\da-zA-Z]{64}$/.test(value)) {
       return "";
@@ -50,7 +44,7 @@ export const Patterns = {
 
     // 检查WIF格式
     try {
-      bitcoin.ECPair.fromWIF(value, network);
+      dogecoin.PrivateKey.fromWIF(value);
       return "";
     } catch {
       return errMsg;

@@ -254,7 +254,6 @@ class AccountSend extends Mixin {
                   data: {
                     callback: async (encryptedKey, password) => {
                       const tx = this.constructTx(encryptedKey, password);
-                      console.log(tx);
                       if (tx && tx.message) {
                         throw Error(tx.message);
                       } else {
@@ -263,8 +262,10 @@ class AccountSend extends Mixin {
                           currentAccount.network
                         );
 
-                        if (res && res.tx) {
-                          return res.tx;
+                        if (res && res.result) {
+                          return res.result.txid;
+                        } else if (res && res.error) {
+                          throw new Error(res.error.message);
                         }
                       }
                     }

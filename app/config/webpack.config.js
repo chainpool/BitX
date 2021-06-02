@@ -113,6 +113,9 @@ module.exports = function(webpackEnv) {
   };
 
   return {
+    node: {
+      Buffer: true
+    },
     mode: isEnvProduction ? "production" : isEnvDevelopment && "development",
     // Stop compilation early in production
     bail: isEnvProduction,

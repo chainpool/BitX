@@ -4,7 +4,7 @@ import * as styles from "./ImportMnemonicOrSecret.module.scss";
 import { Patterns } from "../../utils";
 import { SetPassword } from "../Components";
 import { connect } from "react-redux";
-import bitcoin from "bitcoinjs-lib";
+import dogecoin from "bitcore-lib-doge";
 
 class ImportSecretKey extends Mixin {
   state = {
@@ -18,12 +18,7 @@ class ImportSecretKey extends Mixin {
       const { network } = this.props;
       const err =
         Patterns.check("required")(userInput) ||
-        Patterns.check("isValidPrivateKey")(
-          userInput,
-          network === "mainnet"
-            ? bitcoin.networks.bitcoin
-            : bitcoin.networks.testnet
-        );
+        Patterns.check("isValidPrivateKey")(userInput, network);
       this.setState({
         userInputErrMsg: err
       });
