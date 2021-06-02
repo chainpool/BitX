@@ -1,5 +1,6 @@
 import BigNumber from "bignumber.js";
 import dogecoin from "bitcore-lib-doge";
+import { hexToAscii } from "../../utils/hex";
 
 export function enough(utxos, amount, fee) {
   const total = utxos.reduce((result, utxo) => result + utxo.amount, 0);
@@ -52,12 +53,14 @@ export function compose(
   tx.from(input_txs);
   window.Buffer = Buffer;
 
-  tx.addData(opReturn)
+  tx.fee(fee)
+    .addData(opReturn)
     .to(targetAddress, amount)
     .change(changeAddress)
     .sign(keypair);
 
   console.log(tx.toJSON());
+  console.log(tx.toString());
   return tx.toString();
 }
 

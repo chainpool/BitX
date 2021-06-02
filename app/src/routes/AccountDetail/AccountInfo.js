@@ -10,7 +10,7 @@ export default function AccountInfo(props) {
     <div className={styles.AccountInfo}>
       <div className={styles.amount}>
         {currentAccount.balanceShow}
-        <span>BTC</span>
+        <span>DOGE</span>
       </div>
       <div className={styles.address}>
         <Clipboard>{currentAccount.address}</Clipboard>
@@ -19,9 +19,9 @@ export default function AccountInfo(props) {
         <RouterGo
           isOutSide
           go={{
-            pathname: `https://live.blockcypher.com/btc${
-              isTestNet ? "-testnet" : ""
-            }/address/${currentAccount.address}/`
+            pathname: `https://chain.so/address/${
+              isTestNet ? "DOGETEST" : "DOGE"
+            }/${currentAccount.address}/`
           }}
         >
           在浏览器中查看

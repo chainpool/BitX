@@ -7,6 +7,7 @@ import { formatNumber, Patterns, bitJS } from "../../utils";
 import { getAccountUtxos, setModal } from "../../store/actions";
 import { enough } from "../../components/Detail/bitcoin";
 import { broadcastTx } from "../../service";
+import { hexToAscii } from "../../utils/hex";
 
 class AccountSend extends Mixin {
   state = {
@@ -18,7 +19,7 @@ class AccountSend extends Mixin {
     hex: "",
     hexErrMsg: "",
     tx: "",
-    fee: 0.00008, // 默认值为8000 Satoshi
+    fee: 3, // 默认值为8000 Satoshi
     feeErrMsg: ""
   };
 
@@ -137,22 +138,6 @@ class AccountSend extends Mixin {
 
     const { currentAccount } = this.props;
 
-    const hexToAscii = str => {
-      if (!/^(0x)?[\da-fA-F]+$/.test(str)) {
-        return "";
-      }
-      const hexString = str.startsWith("0x") ? str.substring(2) : str;
-      if (hexString.length % 2 === 1) {
-        return "";
-      }
-
-      let strOut = "";
-      for (let x = 0; x < hexString.length; x += 2) {
-        strOut += String.fromCharCode(parseInt(hexString.substr(x, 2), 16));
-      }
-      return strOut;
-    };
-
     const ASCII = hexToAscii(hex);
     const { modal: { name } = {} } = this.props;
     return (
@@ -173,7 +158,7 @@ class AccountSend extends Mixin {
             errMsg={amountErrMsg}
             label="转账数量"
             value={amount}
-            suffix={"BTC"}
+            suffix={"DOGE"}
             onBlur={checkAll.checkAmount}
             onChange={value => {
               this.setState({
@@ -185,7 +170,7 @@ class AccountSend extends Mixin {
             errMsg={feeErrMsg}
             label="交易手续费"
             value={fee}
-            suffix={"BTC"}
+            suffix={"DOGE"}
             onBlur={checkAll.checkFee}
             onChange={value => {
               this.setState({
@@ -263,7 +248,7 @@ class AccountSend extends Mixin {
                         );
 
                         if (res && res.result) {
-                          return res.result.txid;
+                          return res.result;
                         } else if (res && res.error) {
                           throw new Error(res.error.message);
                         }

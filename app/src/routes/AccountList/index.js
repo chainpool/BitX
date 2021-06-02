@@ -46,7 +46,7 @@ function AccountList(props) {
                 ) : null}
               </div>
               <div className={styles.amount}>
-                {setBlankSpace(item.balanceShow, "BTC")}
+                {setBlankSpace(item.balanceShow, "DOGE")}
               </div>
             </div>
             {console.dir(item.address)}
