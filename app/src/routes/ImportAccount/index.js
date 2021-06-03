@@ -29,7 +29,21 @@ class ImportAccount extends Mixin {
       <div className={styles.ImportAccount}>
         {step === 1 && (
           <ul className={styles.selectmode}>
-            {["导入助记词", "导入私钥"].map((item, index) => (
+            {/* {["导入助记词", "导入私钥"].map((item, index) => (
+              <li
+                key={index}
+                className={activeIndex === index ? styles.active : null}
+                onClick={() => {
+                  this.setState({
+                    step: 1,
+                    activeIndex: index
+                  });
+                }}
+              >
+                {item}
+              </li>
+            ))} */}
+            {["导入私钥"].map((item, index) => (
               <li
                 key={index}
                 className={activeIndex === index ? styles.active : null}
