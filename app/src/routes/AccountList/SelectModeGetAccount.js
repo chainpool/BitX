@@ -25,7 +25,7 @@ function SelectModeGetAccount(props) {
         <img alt="" src={BitX} height={55} />
       </div>
       <div className={styles.routerbutton}>
-        <div>
+        {/* <div>
           <button
             onClick={() => {
               setIsCreate(true);
@@ -34,7 +34,7 @@ function SelectModeGetAccount(props) {
           >
             创建账户
           </button>
-        </div>
+        </div> */}
         <div>
           <button
             onClick={() => {
@@ -63,14 +63,14 @@ function SelectModeGetAccount(props) {
               </span>
             </header>
             <div>
-              <RouterGo
+              {/* <RouterGo
                 onClick={() => dispatch(setNetwork("mainnet"))}
                 go={{
                   pathname: isCreate ? PATH.createaccount : PATH.importaccount
                 }}
               >
                 主网
-              </RouterGo>
+              </RouterGo> */}
               <div className={styles.separator} />
               <RouterGo
                 onClick={() => dispatch(setNetwork("testnet"))}

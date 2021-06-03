@@ -19,9 +19,12 @@ export default function AccountInfo(props) {
         <RouterGo
           isOutSide
           go={{
-            pathname: `https://chain.so/address/${
-              isTestNet ? "DOGETEST" : "DOGE"
-            }/${currentAccount.address}/`
+            // pathname: `https://chain.so/address/${
+            //   isTestNet ? "DOGETEST" : "DOGE"
+            // }/${currentAccount.address}/`
+            pathname: `https://blockexplorer.one/doge/testnet/address/${
+              currentAccount.address
+            }/unconfirmed`
           }}
         >
           在浏览器中查看
