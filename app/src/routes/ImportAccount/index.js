@@ -60,8 +60,8 @@ class ImportAccount extends Mixin {
           </ul>
         )}
 
-        {activeIndex === 0 && <ImportMnemonic {...props} />}
-        {activeIndex === 1 && <ImportSecretKey {...props} />}
+        {/* {activeIndex === 0 && <ImportMnemonic {...props} />} */}
+        {activeIndex === 0 && <ImportSecretKey {...props} />}
       </div>
     );
   }
