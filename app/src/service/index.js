@@ -32,7 +32,7 @@ export async function getUtxos(addr) {
     txid: utxo.txid,
     vout: utxo.output_no,
     script: utxo.script_hex,
-    amount: Number(utxo.value) * 100000000
+    amount: Math.floor(Number(utxo.value) * 100000000)
   }));
 }
 

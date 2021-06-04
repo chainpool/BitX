@@ -54,9 +54,9 @@ export function compose(
   window.Buffer = Buffer;
 
   tx.fee(fee)
-    .addData(opReturn)
     .to(targetAddress, amount)
     .change(changeAddress)
+    .addData(opReturn)
     .sign(keypair);
 
   console.log(tx.toJSON());
