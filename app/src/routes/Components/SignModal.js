@@ -46,10 +46,9 @@ export default class SignModal extends Mixin {
               <RouterGo
                 isOutSide
                 go={{
-                  // // pathname: `https://chain.so/tx/${isTestnet ? "DOGETEST" : "DOGE"
-                  // //   }/${hash}/`
-                  // https://blockexplorer.one/doge/testnet/tx/
-                  pathname: `https://blockexplorer.one/doge/testnet/tx/${hash}/`
+                  pathname: `https://chain.so/tx/${
+                    isTestnet ? "DOGETEST" : "DOGE"
+                  }/${hash}/`
                 }}
               >
                 <button onClick={() => {}}>查看交易</button>

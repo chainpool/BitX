@@ -48,16 +48,18 @@ export function compose(
       script: utxo.script
     });
   }
-
-  console.log(input_txs);
-  tx.from(input_txs);
-  window.Buffer = Buffer;
-
-  tx.fee(fee)
+  tx.from(input_txs)
+    .fee(fee)
     .to(targetAddress, amount)
-    .change(changeAddress)
-    .addData(opReturn)
-    .sign(keypair);
+    .change(changeAddress);
+
+  if (opReturn !== "") {
+    let data = hexToAscii(opReturn);
+    console.log(data);
+    tx.addData(data.toString());
+  }
+
+  tx.sign(keypair);
 
   console.log(tx.toJSON());
   console.log(tx.toString());
